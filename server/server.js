@@ -10,6 +10,7 @@ const passport = require('./strategies/user.strategy');
 // Route Includes
 const userRouter = require('./routes/user.router');
 const budgetRouter = require('./routes/budget.router');
+
 const businessRouter = null;
 
 // Express Middleware
