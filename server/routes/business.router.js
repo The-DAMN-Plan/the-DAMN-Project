@@ -44,4 +44,27 @@ router.post('/', (req, res) => {
     })
 });
 
+// PUT: update a business
+router.put('/:id', (req,res)=>{
+    console.log('Updating business');
+    const queryText = `update "businesses" set "name"=$1, 
+                                                "occupation_type"=$2, 
+                                                "type_of_business"=$3, 
+                                                "number_of_employees"= $4, 
+                                                "year_business_started"=$5, 
+                                                "average_revenue"=$6 
+                                                where user_id = ${req.user.id} and id=${req.params.id}`;
+    pool.query(queryText,[req.body.name,
+                        req.body.occupation_type,
+                        req.body.type_of_business,
+                        req.body.number_of_employees,
+                        req.body.year_business_started,
+                        req.body.average_revenue])
+    .then(()=>{
+        res.sendStatus(201);
+    }).catch((error)=>{
+        console.error(error);
+        res.sendStatus(500);
+    });
+});
 module.exports = router;
