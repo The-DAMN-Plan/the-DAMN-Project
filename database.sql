@@ -95,3 +95,47 @@ CREATE TABLE "cashflow_months" (
 	"percent" decimal,
 	"year" int
 );
+
+
+--** Fake Data **--
+-- Insert into "user"
+INSERT INTO "user" ("username", "password", "rank", "phone", "first_name", "last_name", "email", "agree_to_emails") VALUES
+('johndoe', 'hashed_password', 1, 1234567890, 'John', 'Doe', 'john.doe@example.com', true),
+('janedoe', 'hashed_password', 1, 0987654321, 'Jane', 'Doe', 'jane.doe@example.com', false);
+
+-- Insert into "businesses"
+INSERT INTO "businesses" ("user_id", "name", "occupation_type", "type_of_business", "number_of_employees", "year_business_started", "average_revenue") VALUES
+(1, 'Doe Crafts', 'Arts & Crafts', 'Sole Proprietorship', 5, 2018, 75000),
+(2, 'Doe Tech Solutions', 'Information Technology', 'LLC', 10, 2015, 200000);
+
+-- Insert into "budgets"
+INSERT INTO "budgets" ("business_id", "name", "escrow_savings", "y1_cogs", "y2_cogs", "cash_balance") VALUES
+(1, 'Annual Budget 2023', 5000.00, 15000.00, 17000.00, 30000),
+(2, 'Annual Budget 2023', 12000.00, 45000.00, 47000.00, 80000);
+
+-- Insert into "status"
+INSERT INTO "status" ("budget_id", "step", "completed") VALUES
+(1, 'Initial Planning', true),
+(2, 'Initial Planning', true);
+
+-- Insert into "expenses"
+INSERT INTO "expenses" ("budget_id", "type", "expense_name", "expense_amount", "percent_change", "year", "frequency", "timing", "facilitator", "vendor", "cost_per_use", "assets_needed", "service") VALUES
+(1, 'business other', 'Office Supplies', 2000.00, 5.00, 2023, 1, 'Quarterly', 'OfficeMax', 'Staples', 200.00, 'Printer, Desk', 'Delivery'),
+(2, 'business hr', 'Employee Salaries', 30000.00, 4.00, 2023, 1, 'Monthly', 'HR Dept', 'N/A', NULL, NULL, 'Payroll Service');
+
+-- Insert into "future_plans"
+INSERT INTO "future_plans" ("budget_id", "name", "start_date", "end_date", "savings_needed") VALUES
+(1, 'Expansion Plan 2024', '2024-01-01', '2024-12-31', 10000.00),
+(2, 'New Product Launch', '2024-06-01', '2024-12-31', 20000.00);
+
+-- Insert into "revenue_streams"
+INSERT INTO "revenue_streams" ("budget_id", "revenue_stream", "description", "price", "unit", "time_used", "ideal_client", "rate_of_love", "purchasers", "year") VALUES
+(1, 'Custom Art Pieces', 'Handmade art pieces tailored to client specifications', 150.00, 'piece', 20, 'Art enthusiasts', 8, 50, '2023-01-01'),
+(2, 'IT Consultancy', 'Technical support and consulting services for businesses', 200.00, 'hour', 40, 'Small to medium-sized businesses', 9, 75, '2023-01-01');
+
+-- Insert into "cashflow_months"
+INSERT INTO "cashflow_months" ("budget_id", "month", "percent", "year") VALUES
+(1, 1, 8.00, 2023),
+(1, 2, 7.50, 2023),
+(2, 1, 10.00, 2023),
+(2, 2, 9.50, 2023);
