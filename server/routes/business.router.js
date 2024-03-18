@@ -6,9 +6,8 @@ const router = express.Router();
  * GET: get businesses for a particular user
  */
 router.get('/', (req, res) => {
-    console.log('get businesses');
-    //todo: update id to req.user.id
-    const queryText = 'select * from "businesses" where user_id=1';
+    console.log('Getting businesses...');
+    const queryText = `select * from "businesses" where user_id=${req.user.id}`;
     pool.query(queryText).then((result)=>{
         console.log(result.rows);
         res.send(result.rows);
@@ -22,6 +21,7 @@ router.get('/', (req, res) => {
  * POST: create business
  */
 router.post('/', (req, res) => {
+    console.log('Creating business...');
     const queryText = `INSERT INTO businesses ("user_id", 
                                                 "name", 
                                                 "occupation_type", 
@@ -29,8 +29,7 @@ router.post('/', (req, res) => {
                                                 "number_of_employees",  
                                                 "year_business_started", 
                                                 "average_revenue") VALUES ($1,$2,$3,$4,$5,$6,$7)`;
-    //todo: 1 should be replaced by req.user.body
-    pool.query(queryText, [ 1,
+    pool.query(queryText, [ req.user.id,
                             req.body.name, 
                             req.body.occupation_type, 
                             req.body.type_of_business, 
