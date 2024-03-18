@@ -39,6 +39,13 @@ CREATE TABLE "budgets" (
 	"cash_balance" int 
 );
 
+CREATE TABLE "status" (
+	"id" serial primary key,
+	"budget_id" int references budgets(id),
+	"step" varchar not null,
+    "completed" boolean not null default false
+);
+
 CREATE TYPE expense_type AS ENUM ('personal other', 'personal committed', 'personal decision', 'business marketing', 'business hr', 'business other', 'business expense');
 
 CREATE TABLE "expenses" (
