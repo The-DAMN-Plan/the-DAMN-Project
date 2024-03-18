@@ -1,5 +1,6 @@
 const express = require('express');
 const pool = require('../modules/pool');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const router = express.Router();
 
 
@@ -65,5 +66,6 @@ router.post('/', async (req, res) => {
 });
 
 // for delete consider a soft delete using a column on the db. nuking all the tables would be very time consuming.
+
 
 module.exports = router;
