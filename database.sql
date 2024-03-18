@@ -10,7 +10,7 @@ CREATE TABLE "user" (
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL ,
 	"rank" int NOT NULL DEFAULT '1',
-	"phone" int NOT NULL,
+	"phone" varchar(60) NOT NULL,
 	"first_name" varchar(255) NOT NULL,
 	"last_name" varchar(255) NOT NULL,
 	"email" varchar(255) NOT NULL,
