@@ -29,6 +29,11 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
+
+    if (user.id) {
+      dispatch({ type: 'FETCH_USER_BUDGETS', payload: user.id });
+    }
+
   }, [dispatch]);
 
   return (
