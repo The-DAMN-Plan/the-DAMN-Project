@@ -30,7 +30,6 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/budget', budgetRouter);
 app.use('/api/future_plans', futurePlansRouter)
-
 app.use('/api/business', businessRouter);
 
 // Listen Server & Port
