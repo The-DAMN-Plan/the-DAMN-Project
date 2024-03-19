@@ -1,38 +1,50 @@
-import { IconButton } from "@mui/material";
+import { Box, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from "react";
 
 
 export default function NavVertical(){
-
-    menuList = ['Inbox', 'Starred', 'Send email', 'Drafts'];
+    
+    const menuList = ['Inbox', 'Starred', 'Send email', 'Drafts'];
     return (
         <>
-            <IconButton>
-                <MenuIcon/>
-            </IconButton>
+            
             <NavDrawer menuList={menuList}/>
+                
         </>
     )
 }
 
+// takes in a list of items as props
+// lists the items in a drop down style
 const NavDrawer = ({menuList})=>{
     const [open, setOpen] = useState(false);
 
-    const toggleDrawer = (newOpen) => () => {
+    const toggleDrawer = (newOpen) => {
         setOpen(newOpen);
     };
     
-    <Box sx={{ width: 250 }} role="presentation" onClick={()=>toggleDrawer(false)}>
-        <List>
-        {menuList.map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>))}
-        </List>
-    </Box>
+    return(
+        <>
+            <IconButton onClick={()=>toggleDrawer(true)}>
+                <MenuIcon/>
+            </IconButton>
+            <Drawer open={open} onClose={()=>toggleDrawer(false)}>
+                <Box sx={{ width: 250 }} role="presentation" >
+                    <List>
+                    {menuList.map((text, index) => (
+                    <ListItem key={text} disablePadding>
+                        <ListItemButton>
+                        <ListItemText primary={text} />
+                        </ListItemButton>
+                    </ListItem>))}
+                    </List>
+                </Box>
+            </Drawer>
+            
+        </>
+    )
+   
       
 
 }

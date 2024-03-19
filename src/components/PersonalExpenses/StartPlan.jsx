@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import NavVertical from '../Nav/NavVertical';
 
 function StartPlan() {
     const history = useHistory();
@@ -31,7 +32,9 @@ function StartPlan() {
     };
 
     return (
+        
         <Container maxWidth="md">
+            <NavVertical/>
             <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
                 <Typography variant="h4" align="center" gutterBottom>
                     Start a DAMN Plan
