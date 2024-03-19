@@ -2,10 +2,13 @@ import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { Box, Container, Grid, Paper, Typography, Button } from '@mui/material';
 import {useSelector} from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function UserPage() {
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
+  // Will use with the business reducer
+  const business = null; 
+
   return (
     <div className="container">
       <h2>Welcome, {user.username}!</h2>
@@ -42,7 +45,9 @@ function UserPage() {
         </Grid>
         {/* Logout Button */}
         <Grid item xs={12}>
-          <LogOutButton className="btn" />
+          <Button variant="contained" color="primary">
+            Info
+          </Button>
         </Grid>
       </Grid>
     </Container>
