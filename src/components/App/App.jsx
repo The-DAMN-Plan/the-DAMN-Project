@@ -20,7 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import StartPlan from '../PersonalExpenses/StartPlan';
-import PBPage2 from '../PBPage2/PBpage2';
+import PBPage2 from '../PersonalExpenses/PBpage2';
 import PersonalSavings from '../PersonalExpenses/PersonalSavings';
 
 import './App.css';
@@ -69,8 +69,8 @@ function App() {
             <StartPlan />
           </Route>
           <Route
-            // shows Start Plan page, the first page of the form users will fill out. Currently not protectedv at all
-            // will refactor to protected route once form is complete - LJ
+          // Shows the secons page of personal budget. This page user will input their fixed bills like insurance payments.
+          // Still need to set up the server side posting and edit functionality.
             exact
             path="/plan2"
           >
