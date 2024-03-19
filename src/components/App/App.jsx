@@ -26,6 +26,7 @@ import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
 import { ThemeProvider } from '@mui/material/styles'; // Import the ThemeProvider component from Material-UI  
 import BreakEven from '../BreakEven/BreakEven';
+import OtherExpenses from '../PersonalExpenses/OtherExpenses';
 
 
 function App() {
@@ -74,6 +75,15 @@ function App() {
             path="/personalsavings"
           >
             <PersonalSavings />
+          </Route>
+          
+          <Route
+            // shows 4rd page plan sequence, the fourth page of the form users will fill out. Currently not protected at all
+            // will refactor to protected route once form is complete - LJ
+            exact
+            path="/otherexpenses"
+          >
+            <OtherExpenses />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
