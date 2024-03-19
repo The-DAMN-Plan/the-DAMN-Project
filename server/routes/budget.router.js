@@ -34,6 +34,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Get's all the budgets for a business
 router.get('/business/:businessId', async (req, res) => {
   const businessId = req.params.businessId;
   const query = `
