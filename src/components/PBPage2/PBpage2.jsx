@@ -3,16 +3,12 @@ import { useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 
 function StartPlan(props) {
-    const store = useSelector((store) => store);
-
     const [formValues, setFormValues] = useState({
-        rentOrMortgage: '',
-        electric: '',
-        heat: '',
-        water: '',
-        internet: '',
-        telephone: '',
-        childcare: '',
+        realEstateTaxes: 0,
+        carInsurance: 0,
+        houseInsurance: 0,
+        creditCard: 0,
+        loanPaymeant: 0
     });
 
     const handleInputChange = (event) => {
@@ -35,21 +31,19 @@ function StartPlan(props) {
                     Fundamental Living Expenses
                 </Typography>
                 <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
-                    Your singular goal in business is to "meet your customer's wants and needs at a profit" and pay yourself!
+                    Take some time to think about the monthy bill payments you have to pay.
                 </Typography>
 
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2} justifyContent="center">
                         <Grid item xs={12} md={6}>
-                            <TextField name="rentOrMortgage" label="Rent or Mortgage" fullWidth value={formValues.rentOrMortgage} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="electric" label="Electric" fullWidth value={formValues.electric} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="heat" label="Heat" fullWidth value={formValues.heat} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="water" label="Water" fullWidth value={formValues.water} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="realEstateTaxes" label="Real Estate Taxes" fullWidth value={formValues.realEstateTaxes} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="carInsurance" label="Car Insurance" fullWidth value={formValues.carInsurance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="houseInsurance" label="House Insurance" fullWidth value={formValues.houseInsurance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <TextField name="internet" label="Internet" fullWidth value={formValues.internet} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="telephone" label="Telephone" fullWidth value={formValues.telephone} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="childcare" label="Childcare" fullWidth value={formValues.childcare} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="creditCard" label="All Credit Card Payment" fullWidth value={formValues.creditCard} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="loanPaymeant" label="All Loan Payments" fullWidth value={formValues.loanPaymeant} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
                     <Box textAlign="center" marginTop={4}>

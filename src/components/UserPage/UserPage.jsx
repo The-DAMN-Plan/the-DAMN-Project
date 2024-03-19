@@ -24,7 +24,6 @@ function UserPage() {
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            {/* Will need a loop to loop over and display businesses */}
             <Paper style={{ maxHeight: '400px', overflowY: 'auto' }}>
               <Box p={3}>
                 <Typography variant="h5" gutterBottom>
