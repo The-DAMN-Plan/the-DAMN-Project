@@ -24,14 +24,20 @@ function UserPage() {
           <Grid item xs={6}>
             <Paper style={{ maxHeight: '400px', overflowY: 'auto' }}>
               <Box p={3}>
-                <Typography variant="h5" gutterBottom>
+                <Typography variant="h5" gutterBottom textAlign='center'>
                   Your Businesses
                 </Typography>
-                {business.map(item => (
-                  <Typography key={item.id} variant='body1'>
-                    {item.name}
+                {business.length === 0 ? (
+                  <Typography variant="body1">
+                    You have no businesses. Please add a business.
                   </Typography>
-                ))}
+                ) : (
+                  business.map(item => (
+                    <Typography key={item.id} variant='body1'>
+                      {item.name}
+                    </Typography>
+                  ))
+                )}
               </Box>
             </Paper>
           </Grid>
