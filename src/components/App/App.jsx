@@ -73,7 +73,7 @@ function App() {
             <StartPlan />
           </Route>
 
-          {/* For protected routes, the view could show one of several things on the same route.
+          {/* For protected routes, the view could show one of several things on the same route. */}
           <Route
           // Shows the secons page of personal budget. This page user will input their fixed bills like insurance payments.
           // Still need to set up the server side posting and edit functionality.
