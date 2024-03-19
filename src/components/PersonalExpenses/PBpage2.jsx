@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function PBPage2() {
+    const history = useHistory();
     const [formValues, setFormValues] = useState({
         realEstateTaxes: 0,
         carInsurance: 0,
@@ -46,7 +47,7 @@ function PBPage2() {
                         </Grid>
                     </Grid>
                     <Box textAlign="center" marginTop={4}>
-                        <Button type="submit" variant="contained" color="primary">
+                        <Button type="submit" variant="contained" color="primary" onClick={() => { history.push('/plan3')}}>
                             Next Page
                         </Button>
                     </Box>

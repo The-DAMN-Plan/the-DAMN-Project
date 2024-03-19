@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { Box, Container, Grid, Paper, Typography, Button } from '@mui/material';
 import {useDispatch, useSelector} from 'react-redux';
@@ -18,10 +18,10 @@ function UserPage() {
     dispatch({type: 'FETCH_BUSINESS'})
   }, [dispatch]);
 
-  const [age, setAge] = React.useState('');
+  const [selectedBusiness, setSelectedBusiness] = useState('');
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setSelectedBusiness(event.target.value);
   };
 
   console.log(business);
@@ -54,20 +54,21 @@ function UserPage() {
           <Grid item xs={6}>
             <Paper>
             <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={age}
-                  label="Age"
-                  onChange={handleChange}
-                >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-              </FormControl>
+            <FormControl fullWidth>
+              <InputLabel id="business-select-label">Select Business</InputLabel>
+              <Select
+                labelId="business-select-label"
+                id="business-select"
+                value={selectedBusiness}
+                onChange={handleChange}
+              >
+                {business.map(business => (
+                  <MenuItem key={business.id} value={business.name}>
+                    {business.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
               </Box>
               <Box p={3}>
                 {/* Need a reducer for budgets and loop over budgets associated with that business */}
@@ -75,7 +76,7 @@ function UserPage() {
                   Budgets
                 </Typography>
                 <Box display="flex" justifyContent="space-between" marginBottom="10px">
-                  <Button variant="contained" color="primary">
+                  <Button variant="contained" color="primary" onClick={() => { history.push('/startplan')}}>
                     Start a New Plan
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => { history.push('/info')}}>
