@@ -3,6 +3,10 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import { Box, Container, Grid, Paper, Typography, Button } from '@mui/material';
 import {useDispatch, useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 function UserPage() {
   const history = useHistory();
@@ -13,6 +17,12 @@ function UserPage() {
   useEffect(() => {
     dispatch({type: 'FETCH_BUSINESS'})
   }, [dispatch]);
+
+  const [age, setAge] = React.useState('');
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
 
   console.log(business);
 
@@ -43,7 +53,24 @@ function UserPage() {
           </Grid>
           <Grid item xs={6}>
             <Paper>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={age}
+                  label="Age"
+                  onChange={handleChange}
+                >
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+                </Select>
+              </FormControl>
+              </Box>
               <Box p={3}>
+                {/* Need a reducer for budgets and loop over budgets associated with that business */}
                 <Typography variant="h5" gutterBottom>
                   Budgets
                 </Typography>
