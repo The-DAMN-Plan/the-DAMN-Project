@@ -34,6 +34,23 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Get's all the budgets for a business
+router.get('/business/:businessId', async (req, res) => {
+  const businessId = req.params.businessId;
+  const query = `
+  SELECT * FROM "budgets" 
+  WHERE "business_id" = $1;
+  `;
+
+  pool.query(query, [businessId])
+  .then((result) => {
+    res.send(result.rows);
+  }).catch((error) => {
+    res.sendStatus(500);
+    console.log('Error getting budgets', error);
+  })
+});
+
 // update by id
 router.put('/:id', async (req, res) => {
   // put route code here

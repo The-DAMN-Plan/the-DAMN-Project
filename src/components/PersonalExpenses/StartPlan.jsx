@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
-function StartPlan(props) {
+function StartPlan() {
+    const history = useHistory();
     const store = useSelector((store) => store);
 
     const [formValues, setFormValues] = useState({
@@ -56,7 +58,7 @@ function StartPlan(props) {
                         </Grid>
                     </Grid>
                     <Box textAlign="center" marginTop={4}>
-                        <Button type="submit" variant="contained" color="primary">
+                        <Button type="submit" variant="contained" color="primary" onClick={() => { history.push('/plan2')}}>
                             Next Page
                         </Button>
                     </Box>

@@ -20,12 +20,15 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import StartPlan from '../PersonalExpenses/StartPlan';
+import PBPage2 from '../PersonalExpenses/PBpage2';
+import PersonalSavings from '../PersonalExpenses/PersonalSavings';
 
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles'; // Import the ThemeProvider component from Material-UI  
 import BreakEven from '../BreakEven/BreakEven';
+import OtherExpenses from '../PersonalExpenses/OtherExpenses';
 
 
 function App() {
@@ -45,6 +48,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
     <CssBaseline />
+
     <Router>
       <div>
         <Nav />
@@ -67,6 +71,33 @@ function App() {
             path="/startplan"
           >
             <StartPlan />
+          </Route>
+
+          {/* For protected routes, the view could show one of several things on the same route.
+          <Route
+          // Shows the secons page of personal budget. This page user will input their fixed bills like insurance payments.
+          // Still need to set up the server side posting and edit functionality.
+            exact
+            path="/plan2"
+          >
+            <PBPage2 />
+          </Route>
+          <Route
+            // shows 3rd page plan sequence, the third page of the form users will fill out. Currently not protected at all
+            // will refactor to protected route once form is complete - LJ
+            exact
+            path="/plan3"
+          >
+            <PersonalSavings />
+          </Route>
+          
+          <Route
+            // shows 4rd page plan sequence, the fourth page of the form users will fill out. Currently not protected at all
+            // will refactor to protected route once form is complete - LJ
+            exact
+            path="/otherexpenses"
+          >
+            <OtherExpenses />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
