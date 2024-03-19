@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import StartPlan from '../PersonalExpenses/StartPlan';
+import PersonalSavings from '../PersonalExpenses/PersonalSavings';
 
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
@@ -43,31 +44,40 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <div>
-          <Nav />
-          <Switch>
-            {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
-            <Redirect exact from="/" to="/home" />
+    <Router>
+      <div>
+        <Nav />
+        <Switch>
+          {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
+          <Redirect exact from="/" to="/home" />
 
-            {/* Visiting localhost:5173/about will show the about page. */}
-            <Route
-              // shows AboutPage at all times (logged in or not)
-              exact
-              path="/about"
-            >
-              <AboutPage />
-            </Route>
-            <Route
-              // shows Start Plan page, the first page of the form users will fill out. Currently not protectedv at all
-              // will refactor to protected route once form is complete - LJ
-              exact
-              path="/startplan"
-            >
-              <StartPlan />
-            </Route>
+          {/* Visiting localhost:5173/about will show the about page. */}
+          <Route
+            // shows AboutPage at all times (logged in or not)
+            exact
+            path="/about"
+          >
+            <AboutPage />
+          </Route>
+          <Route
+            // shows Start Plan page, the first page of the form users will fill out. Currently not protectedv at all
+            // will refactor to protected route once form is complete - LJ
+            exact
+            path="/startplan"
+          >
+            <StartPlan />
+          </Route>
+          <Route
+            // shows 3rd page plan sequence, the third page of the form users will fill out. Currently not protected at all
+            // will refactor to protected route once form is complete - LJ
+            exact
+            path="/personalsavings"
+          >
+            <PersonalSavings />
+          </Route>
 
-            {/* For protected routes, the view could show one of several things on the same route.
+          {/* For protected routes, the view could show one of several things on the same route.
+
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:5173/user */}
