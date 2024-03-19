@@ -139,3 +139,37 @@ INSERT INTO "cashflow_months" ("budget_id", "month", "percent", "year") VALUES
 (1, 2, 7.50, 2023),
 (2, 1, 10.00, 2023),
 (2, 2, 9.50, 2023);
+
+
+-- ALTER TABLE Statements to Manage Deletions of Budgets and Their Associated Data, as well as Deletions of Businesses and All Budgets Linked to Them
+
+ALTER TABLE "status" 
+DROP CONSTRAINT IF EXISTS status_budget_id_fkey, 
+ADD CONSTRAINT status_budget_id_fkey FOREIGN KEY ("budget_id") 
+REFERENCES budgets(id) ON DELETE CASCADE;
+
+ALTER TABLE "expenses" 
+DROP CONSTRAINT IF EXISTS expenses_budget_id_fkey, 
+ADD CONSTRAINT expenses_budget_id_fkey FOREIGN KEY ("budget_id") 
+REFERENCES budgets(id) ON DELETE CASCADE;
+
+ALTER TABLE "future_plans" 
+DROP CONSTRAINT IF EXISTS future_plans_budget_id_fkey, 
+ADD CONSTRAINT future_plans_budget_id_fkey FOREIGN KEY ("budget_id") 
+REFERENCES budgets(id) ON DELETE CASCADE;
+
+ALTER TABLE "revenue_streams" 
+DROP CONSTRAINT IF EXISTS revenue_streams_budget_id_fkey, 
+ADD CONSTRAINT revenue_streams_budget_id_fkey FOREIGN KEY ("budget_id") 
+REFERENCES budgets(id) ON DELETE CASCADE;
+
+ALTER TABLE "cashflow_months" 
+DROP CONSTRAINT IF EXISTS cashflow_months_budget_id_fkey, 
+ADD CONSTRAINT cashflow_months_budget_id_fkey FOREIGN KEY ("budget_id") 
+REFERENCES budgets(id) ON DELETE CASCADE;
+
+-- Removes all budgets associated with the specified business ID.
+ALTER TABLE "budgets" 
+DROP CONSTRAINT IF EXISTS budgets_business_id_fkey, 
+ADD CONSTRAINT budgets_business_id_fkey FOREIGN KEY ("business_id") 
+REFERENCES businesses(id) ON DELETE CASCADE;
