@@ -19,8 +19,6 @@ function UserPage() {
   return (
     <div className="container">
       <h2>Welcome, {user.username}!</h2>
-      <p>Your ID is: {user.id}</p>
-      {/* Will make reducers at a later time and style with seeded data */}
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           <Grid item xs={6}>

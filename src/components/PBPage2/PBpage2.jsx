@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 
-function StartPlan(props) {
+function PBPage2() {
     const [formValues, setFormValues] = useState({
         realEstateTaxes: 0,
         carInsurance: 0,
@@ -56,4 +56,4 @@ function StartPlan(props) {
     );
 }
 
-export default StartPlan;
+export default PBPage2;
