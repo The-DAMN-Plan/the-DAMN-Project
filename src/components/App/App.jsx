@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import StartPlan from '../PersonalExpenses/StartPlan';
+import PersonalSavings from '../PersonalExpenses/PersonalSavings';
 
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
@@ -64,6 +65,14 @@ function App() {
             path="/startplan"
           >
             <StartPlan />
+          </Route>
+          <Route
+            // shows 3rd page plan sequence, the third page of the form users will fill out. Currently not protected at all
+            // will refactor to protected route once form is complete - LJ
+            exact
+            path="/personalsavings"
+          >
+            <PersonalSavings />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
