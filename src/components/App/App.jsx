@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import StartPlan from '../PersonalExpenses/StartPlan';
+import PBPage2 from '../PBPage2/PBpage2';
 import PersonalSavings from '../PersonalExpenses/PersonalSavings';
 
 import './App.css';
@@ -68,10 +69,18 @@ function App() {
             <StartPlan />
           </Route>
           <Route
+            // shows Start Plan page, the first page of the form users will fill out. Currently not protectedv at all
+            // will refactor to protected route once form is complete - LJ
+            exact
+            path="/plan2"
+          >
+            <PBPage2 />
+          </Route>
+          <Route
             // shows 3rd page plan sequence, the third page of the form users will fill out. Currently not protected at all
             // will refactor to protected route once form is complete - LJ
             exact
-            path="/personalsavings"
+            path="/plan3"
           >
             <PersonalSavings />
           </Route>

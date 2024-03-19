@@ -76,7 +76,7 @@ function UserPage() {
                   Budgets
                 </Typography>
                 <Box display="flex" justifyContent="space-between" marginBottom="10px">
-                  <Button variant="contained" color="primary" onClick={() => { history.push('/st')}}>
+                  <Button variant="contained" color="primary" onClick={() => { history.push('/startplan')}}>
                     Start a New Plan
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => { history.push('/info')}}>
