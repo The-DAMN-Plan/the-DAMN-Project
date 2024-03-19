@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { Box, Container, Grid, Paper, Typography, Button } from '@mui/material';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function UserPage() {
   const history = useHistory();
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  // Will use with the business reducer
-  const business = null; 
+  const business = useSelector((store) => store.business);
+
+  useEffect(() => {
+    dispatch({type: 'FETCH_BUSINESS'})
+  }, [dispatch]);
+
+  console.log(business);
 
   return (
     <div className="container">
@@ -22,14 +28,13 @@ function UserPage() {
             <Paper style={{ maxHeight: '400px', overflowY: 'auto' }}>
               <Box p={3}>
                 <Typography variant="h5" gutterBottom>
-                  Business Users
+                  Your Businesses
                 </Typography>
-                <Typography variant="body1">
-                  Business 1
-                </Typography>
-                <Typography variant="body1">
-                  Business 2
-                </Typography>
+                {business.map(item => (
+                  <Typography key={item.id} variant='body1'>
+                    {item.name}
+                  </Typography>
+                ))}
               </Box>
             </Paper>
           </Grid>

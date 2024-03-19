@@ -17,3 +17,5 @@ function* fetchBusiness() {
 function* businessSaga() {
     yield takeLatest('FETCH_BUSINESS', fetchBusiness);
 }
+
+export default businessSaga;
