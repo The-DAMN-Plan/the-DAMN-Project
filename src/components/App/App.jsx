@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import StartPlan from '../PersonalExpenses/StartPlan';
 
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
@@ -55,6 +56,14 @@ function App() {
             path="/about"
           >
             <AboutPage />
+          </Route>
+          <Route
+            // shows Start Plan page, the first page of the form users will fill out. Currently not protectedv at all
+            // will refactor to protected route once form is complete - LJ
+            exact
+            path="/startplan"
+          >
+            <StartPlan />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
