@@ -21,6 +21,9 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
+import theme from '../../../src/muiTheme';  // Import the custom theme
+import { ThemeProvider } from '@mui/material/styles'; // Import the ThemeProvider component from Material-UI  
+
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +40,7 @@ function App() {
   }, [dispatch]);
 
   return (
+    <ThemeProvider theme={theme}>
     <Router>
       <div>
         <Nav />
@@ -123,6 +127,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    </ThemeProvider>  
   );
 }
 

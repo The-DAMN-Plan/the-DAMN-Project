@@ -10,10 +10,8 @@ const passport = require('./strategies/user.strategy');
 // Route Includes
 const userRouter = require('./routes/user.router');
 
-const futurePlansRouter = require('./routes/future.plans.router');
-
 const budgetRouter = require('./routes/budget.router');
-
+const futurePlansRouter = require('./routes/future.plans.router');
 const businessRouter = require('./routes/business.router');
 
 // Express Middleware
@@ -30,8 +28,8 @@ app.use(passport.session());
 
 // Routes
 app.use('/api/user', userRouter);
-app.use('/api/future_plans', futurePlansRouter)
 app.use('/api/budget', budgetRouter);
+app.use('/api/future_plans', futurePlansRouter)
 
 app.use('/api/business', businessRouter);
 
