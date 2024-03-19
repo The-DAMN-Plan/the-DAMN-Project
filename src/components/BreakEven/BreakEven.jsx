@@ -4,7 +4,8 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
+import Fade from '@mui/material/Fade';
 
 
 export default function BreakEven() {
@@ -20,7 +21,7 @@ export default function BreakEven() {
       <Typography
         textAlign="center"
         variant='subtitle1'>Required Sales Volume to Break-even</Typography>
-      <Box sx={{flexGrow:1}}>
+      <Box sx={{ flexGrow: 1 }}>
         <Grid container
           spacing={2}
           direction="column"
@@ -32,20 +33,38 @@ export default function BreakEven() {
           {/* {this is the center spot} */}
           <Grid container xs={12}>
             <Grid xs={12} sm={12} md={6} lg={6}>
-              <Paper sx={{ p: 3 }}>
-                <Typography noWrap textAlign="center" variant='h4'>Year One</Typography>
-                <Typography color='primary' textAlign="center" variant='h5'>$XX,XXX</Typography>
-              </Paper>
+              <Fade in={true}>
+                <Paper sx={{ p: 3 }}>
+                  <Typography noWrap textAlign="center" variant='h4'>Year One</Typography>
+                  <Typography color='primary' textAlign="center" variant='h5'>$XX,XXX</Typography>
+                </Paper>
+              </Fade>
             </Grid>
             <Grid xs={12} sm={12} md={6} lg={6}>
-              <Paper sx={{ p: 3 }}>
-                <Typography textAlign="center" variant='h4'>Year Two</Typography>
-                <Typography color='secondary' textAlign="center" variant='h5'>$XX,XXX</Typography>
-              </Paper>
+              <Fade in={true} style={{ transitionDelay: '100ms' }}>
+                <Paper sx={{ p: 3 }}>
+                  <Typography textAlign="center" variant='h4'>Year Two</Typography>
+                  <Typography color='secondary' textAlign="center" variant='h5'>$XX,XXX</Typography>
+                </Paper>
+              </Fade>
             </Grid>
           </Grid>
           {/* {end} */}
+        </Grid>
+        <Grid container
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
+          xs={12}>
+          <Grid textAlign="center" xs={1}>
+            <Button variant='outlined'>Back</Button>
+          </Grid>
+          <Grid xs={10}>
 
+          </Grid>
+          <Grid textAlign="center" xs={1}>
+            <Button variant='contained'>Next</Button>
+          </Grid>
         </Grid>
       </Box>
     </Container>
