@@ -4,7 +4,7 @@ import axios from 'axios';
 function* startPlan(action) {
     try {
         const response = yield axios.post(`/api/budget`, action.payload);
-
+        console.log('Start plan');
         yield put({
             type: 'SET_BUDGET',
             payload: response.data

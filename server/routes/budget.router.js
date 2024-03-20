@@ -75,7 +75,7 @@ router.post('/', async (req, res) => {
 
   try {
     const result = await pool.query(sql, [data.business_id, data.name, data.escrow_savings, data.y1_cogs, data.y2_cogs, data.cash_balance]);
-    res.send(result);
+    res.send(result.rows);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);

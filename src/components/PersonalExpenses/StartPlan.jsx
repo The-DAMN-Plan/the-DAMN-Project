@@ -7,6 +7,7 @@ function StartPlan() {
     const dispatch = useDispatch();
     const history = useHistory();
     const budget = useSelector((store) => store.budget);
+    console.log(budget);
     const budgetObj = budget[0];
 
     console.log(budgetObj);
