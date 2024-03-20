@@ -1,5 +1,7 @@
-import { Box, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { Box, Collapse, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useState } from "react";
 
 
@@ -13,6 +15,32 @@ export default function NavVertical(){
                 
         </>
     )
+}
+
+const CollapeMenu = (props)=>{
+    const [open, setOpen] = useState(false); 
+  
+    const handleClick = () => { 
+        setOpen(!open); 
+    }; 
+    return (
+        <>
+        {/* toggle hidden sub menu when clicked */}
+        <ListItemButton sx={{p:'10px'}} onClick={()=>handleClick()}>
+            {/* ListTextItem is passed as props */}
+            {props.children[0]} 
+            <ListItemIcon>
+                {open? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon/> }
+              </ListItemIcon>
+        </ListItemButton>
+        
+        {/* hidden sub menu */}
+        <Collapse in={open} timeout="auto" unmountOnExit>
+            {props.children[1]}
+        </Collapse>
+        </>
+    )
+
 }
 
 // takes in a list of items as props
@@ -30,14 +58,28 @@ const NavDrawer = ({menuList})=>{
                 <MenuIcon/>
             </IconButton>
             <Drawer open={open} onClose={()=>toggleDrawer(false)}>
+                
                 <Box sx={{ width: 250 }} role="presentation" >
+                    {/* <IconButton onClick={()=>toggleDrawer(false)}>
+                        <MenuIcon/>
+                    </IconButton> */}
                     <List>
                     {menuList.map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                        <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>))}
+                        
+                        <CollapeMenu key={text}>
+                            <ListItemText primary={text} />
+                            <List>
+                                {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                                <ListItem sx={{pl:'15px'}} key={text} disablePadding>
+                                    <ListItemButton>
+                                    <ListItemText primary={text} />
+                                    </ListItemButton>
+                                </ListItem>
+                                ))}
+                            </List>
+                        </CollapeMenu>
+                        ))}
+                        
                     </List>
                 </Box>
             </Drawer>
