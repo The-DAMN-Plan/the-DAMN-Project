@@ -9,8 +9,23 @@ function* startPlan(action) {
     }
 }
 
+function* fetchBudget(action) {
+    try{
+        const response = yield axios.get(`/api/budget/${action.payload}`)
+
+        yield put({
+            type: 'SET_BUDGET',
+            payload: response.data
+        });
+    } catch (error) {
+        console.log("Fetch budget error:", error);
+    }
+}
+
+
 function* budgetSaga() {
     yield takeLatest('START_PLAN', startPlan);
+    yield takeLatest('FETCH_BUDGET', fetchBudget);
 }
 
 export default budgetSaga;
