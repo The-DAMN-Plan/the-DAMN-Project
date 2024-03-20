@@ -10,5 +10,7 @@ function* addPersonalExpense(action) {
 }
 
 function* expenseSaga() {
-    yield takeLatest('ADD_PERSONAL_EXPENSE', addPersonalBusiness);
+    yield takeLatest('ADD_PERSONAL_EXPENSE', addPersonalExpense);
 }
+
+export default expenseSaga;
