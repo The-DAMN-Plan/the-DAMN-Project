@@ -17,12 +17,10 @@ export default function BusinessExpense(params) {
         travelLodging: '',
         clientTravelMeals: '',
         officeSupply: '',
-        cellPhones: '',
         internet: '',
         printPublish: '',
         softwareTech: '',
         legal: '',
-        cellPhones: '',
         coaching: '',
         miscellaneous: ''
     });
