@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
@@ -7,12 +7,9 @@ function StartPlan() {
     const dispatch = useDispatch();
     const history = useHistory();
     const budget = useSelector((store) => store.budget);
+    const budgetObj = budget[0];
 
-    console.log(budget);
-
-    useEffect(() => {
-        dispatch({type: 'FETCH_BUDGET'})
-      }, [dispatch]);
+    console.log(budgetObj);
 
     const [formValues, setFormValues] = useState({
         rentOrMortgage: '',
@@ -34,7 +31,7 @@ function StartPlan() {
 
     const handleSubmit = (fieldName) => {
         const formData = {
-            budget_id: budgetId,
+            budget_id: budgetObj.id,
             type: 'personal committed',
             expense_name: getExpenseName(fieldName), // Getting the expense name dynamically based on the field name
             expense_amount: formValues[fieldName],
