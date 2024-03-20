@@ -30,6 +30,9 @@ import { ThemeProvider } from '@mui/material/styles'; // Import the ThemeProvide
 import BreakEven from '../BreakEven/BreakEven';
 import OtherExpenses from '../PersonalExpenses/OtherExpenses';
 
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import FuturePlans from '../PersonalExpenses/FuturePlans';
 
 function App() {
   const dispatch = useDispatch();
@@ -46,129 +49,148 @@ function App() {
   }, [dispatch]);
 
   return (
-    <ThemeProvider theme={theme}>
-    <CssBaseline />
 
-    <Router>
-      <div>
-        <Nav />
-        <Switch>
-          {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
-          <Redirect exact from="/" to="/home" />
+    <LocalizationProvider dateAdapter={AdapterMoment} >
 
-          {/* Visiting localhost:5173/about will show the about page. */}
-          <Route
-            // shows AboutPage at all times (logged in or not)
-            exact
-            path="/about"
-          >
-            <AboutPage />
-          </Route>
-          {/* For protected routes, the view could show one of several things on the same route.
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+
+        <Router>
+          <div>
+            <Nav />
+            <Switch>
+              {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
+              <Redirect exact from="/" to="/home" />
+
+              {/* Visiting localhost:5173/about will show the about page. */}
+              <Route
+                // shows AboutPage at all times (logged in or not)
+                exact
+                path="/about"
+              >
+                <AboutPage />
+              </Route>
+              <Route
+                // shows Start Plan page, the first page of the form users will fill out. Currently not protectedv at all
+                // will refactor to protected route once form is complete - LJ
+                exact
+                path="/startplan"
+              >
+                <StartPlan />
+              </Route>
+
+              <Route
+                // Shows the secons page of personal budget. This page user will input their fixed bills like insurance payments.
+                // Still need to set up the server side posting and edit functionality.
+                exact
+                path="/plan2"
+              >
+                <PBPage2 />
+              </Route>
+              <Route
+                // shows 3rd page plan sequence, the third page of the form users will fill out. Currently not protected at all
+                // will refactor to protected route once form is complete - LJ
+                exact
+                path="/plan3"
+              >
+                <PersonalSavings />
+              </Route>
+
+              <Route
+                // shows 4rd page plan sequence, the fourth page of the form users will fill out. Currently not protected at all
+                // will refactor to protected route once form is complete - LJ
+                exact
+                path="/otherexpenses"
+              >
+                <OtherExpenses />
+              </Route>
+
+              <Route
+                // shows 4rd page plan sequence, the fourth page of the form users will fill out. Currently not protected at all
+                // will refactor to protected route once form is complete - LJ
+                exact
+                path="/futureplans"
+              >
+                <FuturePlans />
+              </Route>
+              {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:5173/user */}
-          <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path="/user"
-          >
-            <UserPage />
-          </ProtectedRoute>
+              <ProtectedRoute
+                // logged in shows UserPage else shows LoginPage
+                exact
+                path="/user"
+              >
+                <UserPage />
+              </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/info"
-          >
-            <InfoPage />
-          </ProtectedRoute>
+              <ProtectedRoute
+                // logged in shows InfoPage else shows LoginPage
+                exact
+                path="/info"
+              >
+                <InfoPage />
+              </ProtectedRoute>
 
-          <ProtectedRoute
-            exact
-            path="/startplan"
-          >
-            <StartPlan />
-          </ProtectedRoute>
+              <Route
+                exact
+                path="/login"
+              >
+                {user.id ?
+                  // If the user is already logged in, 
+                  // redirect to the /user page
+                  <Redirect to="/user" />
+                  :
+                  // Otherwise, show the login page
+                  <LoginPage />
+                }
+              </Route>
+              <Route
+                // shows AboutPage at all times (logged in or not)
+                exact
+                path="/budget/breakeven"
+              >
+                <BreakEven />
+              </Route>
+              <Route
+                exact
+                path="/registration"
+              >
+                {user.id ?
+                  // If the user is already logged in, 
+                  // redirect them to the /user page
+                  <Redirect to="/user" />
+                  :
+                  // Otherwise, show the registration page
+                  <RegisterPage />
+                }
+              </Route>
 
-          <ProtectedRoute
-            exact
-            path="/plan2"
-          >
-            <PBPage2 />
-          </ProtectedRoute>
+              <Route
+                exact
+                path="/home"
+              >
+                {user.id ?
+                  // If the user is already logged in, 
+                  // redirect them to the /user page
+                  <Redirect to="/user" />
+                  :
+                  // Otherwise, show the Landing page
+                  <LandingPage />
+                }
+              </Route>
 
-          <ProtectedRoute
-            exact
-            path="/plan3"
-          >
-            <PersonalSavings />
-          </ProtectedRoute>
-
-          <ProtectedRoute
-            exact
-            path="/plan4"
-          >
-            <OtherExpenses />
-          </ProtectedRoute>
-
-          <Route
-            exact
-            path="/login"
-          >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the login page
-              <LoginPage />
-            }
-          </Route>
-          <Route
-            // shows AboutPage at all times (logged in or not)
-            exact
-            path="/budget/breakeven"
-          >
-            <BreakEven />
-          </Route>
-          <Route
-            exact
-            path="/registration"
-          >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the registration page
-              <RegisterPage />
-            }
-          </Route>
-
-          <Route
-            exact
-            path="/home"
-          >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the Landing page
-              <LandingPage />
-            }
-          </Route>
-
-          {/* If none of the other routes matched, we will show a 404. */}
-          <Route>
-            <h1>404</h1>
-          </Route>
-        </Switch>
-        <Footer />
-      </div>
-    </Router>
-    </ThemeProvider>  
+              {/* If none of the other routes matched, we will show a 404. */}
+              <Route>
+                <h1>404</h1>
+              </Route>
+            </Switch>
+            <Footer />
+          </div>
+        </Router>
+      </ThemeProvider>
+    </LocalizationProvider>
   );
 }
 
