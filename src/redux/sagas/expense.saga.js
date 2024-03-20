@@ -10,8 +10,18 @@ function* addPersonalExpense(action) {
     }
 }
 
+function* addBusinessExpense(action){
+    try {
+        yield axios.post(`/api/budget/expense`, action.payload);
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
 function* expenseSaga() {
     yield takeLatest('ADD_PERSONAL_EXPENSE', addPersonalExpense);
+    yield takeLatest('ADD_BUSINESS_EXPENSE', addBusinessExpense);
 }
 
 export default expenseSaga;

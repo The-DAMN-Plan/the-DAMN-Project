@@ -33,6 +33,7 @@ import OtherExpenses from '../PersonalExpenses/OtherExpenses';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import FuturePlans from '../PersonalExpenses/FuturePlans';
+import BusinessExpense from '../BusinessExpense/BusinessExpense';
 
 function App() {
   const dispatch = useDispatch();
@@ -131,6 +132,13 @@ function App() {
                 path="/info"
               >
                 <InfoPage />
+              </ProtectedRoute>
+              <ProtectedRoute
+                // logged in shows InfoPage else shows LoginPage
+                exact
+                path="/businessexpense"
+              >
+                <BusinessExpense />
               </ProtectedRoute>
 
               <Route
