@@ -24,7 +24,21 @@ function UserPage() {
     setSelectedBusiness(event.target.value);
   };
 
-  console.log(business);
+  function startPlan() {
+  // Find the selected business object based on its name
+  const selectedBusinessObj = business.find(business => business.name === selectedBusiness);
+
+  // Check if a business is selected
+  if (selectedBusinessObj) {
+    const budgetData = {
+      business_id: selectedBusinessObj.id, // Get the business_id of the selected business
+      name: 'test'
+    }
+    dispatch({type: 'START_PLAN', payload: budgetData})
+  }  else {
+    console.error('No business selected for starting a plan.');
+  }
+}
 
   return (
     <div className="container">
@@ -76,7 +90,7 @@ function UserPage() {
                   Budgets
                 </Typography>
                 <Box display="flex" justifyContent="space-between" marginBottom="10px">
-                  <Button variant="contained" color="primary" onClick={() => { history.push('/startplan')}}>
+                  <Button variant="contained" color="primary" onClick={() => startPlan()}>
                     Start a New Plan
                   </Button>
                   <Button variant="contained" color="primary" onClick={() => { history.push('/info')}}>
