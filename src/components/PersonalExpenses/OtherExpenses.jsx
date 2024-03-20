@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function OtherExpenses() {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const budget = useSelector((store) => store.budget);
+    const budgetObj = budget[0];
     const [expenseName, setExpenseName] = useState('');
     const [amount, setAmount] = useState('');
     const [expenses, setExpenses] = useState([]);
+    const [userEntry, setUserEntry] = useState([]);
 
     const handleAddExpense = () => {
         if (!expenseName || !amount) return;
@@ -13,7 +20,22 @@ function OtherExpenses() {
         setExpenses([...expenses, { name: expenseName, amount: parseFloat(sanitizedAmount).toFixed(2) }]);
         setExpenseName('');
         setAmount('');
+
+        const formData = {
+            budget_id: budgetObj.id,
+            type: 'personal committed',
+            expense_name: expenseName,
+            expense_amount: sanitizedAmount 
+        };
     };
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: expenses });
+        history.push('/plan5');
+    };
+
 
 
     const handleDeleteExpense = (index) => {
@@ -57,10 +79,7 @@ function OtherExpenses() {
                 <Button variant="outlined" color="secondary">
                     Previous
                 </Button>
-                <Button type="submit" variant="contained" color="primary">
-                    Submit
-                </Button>
-                <Button variant="outlined" color="secondary">
+                <Button onClick={handleSubmit} variant="outlined" color="secondary">
                     Next
                 </Button>
             </Box>
