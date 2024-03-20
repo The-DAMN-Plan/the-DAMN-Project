@@ -33,7 +33,6 @@ function StartPlan({handleShowNav}) {
     return (
         
         <Container maxWidth="md">
-            <SideNav/>
             <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
                 <Typography variant="h4" align="center" gutterBottom>
                     Start a DAMN Plan

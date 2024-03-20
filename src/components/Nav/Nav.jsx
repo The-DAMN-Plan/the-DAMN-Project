@@ -14,6 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import SideNav from './SideNav';
 
 function Nav() {
   const user = useSelector((store) => store.user);
@@ -43,6 +44,7 @@ function Nav() {
     <AppBar position="static">
       < Container maxWidth="xl" >
         <Toolbar disableGutters>
+          <SideNav/>
           <Typography
             variant="h6"
             noWrap
