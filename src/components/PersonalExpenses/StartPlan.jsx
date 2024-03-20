@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import SideNav from '../Nav/SideNav';
 
-function StartPlan({handleShowNav}) {
+function StartPlan() {
+    const dispatch = useDispatch();
     const history = useHistory();
-    const store = useSelector((store) => store);
+    const budget = useSelector((store) => store.budget);
+
+    console.log(budget);
+
+    useEffect(() => {
+        dispatch({type: 'FETCH_BUDGET'})
+      }, [dispatch]);
+
     const [formValues, setFormValues] = useState({
         rentOrMortgage: '',
         electric: '',
@@ -25,9 +33,35 @@ function StartPlan({handleShowNav}) {
         });
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log('Form Values: ', formValues);
+    const handleSubmit = (fieldName) => {
+        const formData = {
+            budget_id: budgetId,
+            type: 'personal committed',
+            expense_name: getExpenseName(fieldName), // Getting the expense name dynamically based on the field name
+            expense_amount: formValues[fieldName],
+        };
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: formData });
+    };
+
+    const getExpenseName = (fieldName) => {
+        switch (fieldName) {
+            case 'rentOrMortgage':
+                return 'rent';
+            case 'electric':
+                return 'electric';
+            case 'heat':
+                return 'heat';
+            case 'water':
+                return 'water';
+            case 'internet':
+                return 'internet';
+            case 'telephone':
+                return 'telephone';
+            case 'childcare':
+                return 'childcare';
+            default:
+                return ''; 
+        }
     };
 
     return (
