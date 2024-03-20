@@ -21,22 +21,6 @@ function StartPlan() {
         childcare: '',
     });
 
-    // const handleInputChange = (event) => {
-    //     const { name, value } = event.target;
-    //     setFormValues({
-    //         ...formValues,
-    //         [name]: value,
-    //     });
-
-    //     const formData = {
-    //         budget_id: budgetObj.id,
-    //         type: 'personal committed',
-    //         expense_name: name, // Getting the expense name dynamically based on the field name
-    //         expense_amount: value,
-    //     };
-
-    //     setUserEntry([...userEntry, formData]);
-    // };
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;

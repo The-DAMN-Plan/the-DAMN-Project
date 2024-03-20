@@ -22,19 +22,34 @@ function PBPage2() {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
+    
+        // Find the index of the existing formData object with the same expense_name
+        const existingIndex = userEntry.findIndex(item => item.expense_name === name);
+    
+        // If the formData object exists, update its expense_amount
+        if (existingIndex !== -1) {
+            const updatedUserEntry = [...userEntry];
+            updatedUserEntry[existingIndex] = {
+                ...updatedUserEntry[existingIndex],
+                expense_amount: value
+            };
+            setUserEntry(updatedUserEntry);
+        } else {
+            // If the formData object doesn't exist, create a new one
+            const formData = {
+                budget_id: budgetObj.id,
+                type: 'personal committed',
+                expense_name: name,
+                expense_amount: value
+            };
+            setUserEntry([...userEntry, formData]);
+        }
+    
+        // Update the form values
         setFormValues({
             ...formValues,
             [name]: value,
         });
-
-        const formData = {
-            budget_id: budgetObj.id,
-            type: 'personal committed',
-            expense_name: name, 
-            expense_amount: value,
-        };
-
-        setUserEntry([...userEntry, formData]);
     };
     console.log(userEntry);
 
