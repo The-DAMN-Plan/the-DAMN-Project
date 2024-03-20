@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
@@ -6,7 +6,13 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 function StartPlan() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const store = useSelector((store) => store);
+    const budget = useSelector((store) => store.budget);
+
+    console.log(budget);
+
+    useEffect({
+
+    }, [dispatch])
 
     const [formValues, setFormValues] = useState({
         rentOrMortgage: '',
