@@ -1,42 +1,24 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-function OtherExpenses() {
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const budget = useSelector((store) => store.budget);
-    const budgetObj = budget[0];
+export default function FuturePlans() {
     const [expenseName, setExpenseName] = useState('');
     const [amount, setAmount] = useState('');
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
     const [expenses, setExpenses] = useState([]);
-    const [userEntry, setUserEntry] = useState([]);
 
     const handleAddExpense = () => {
         if (!expenseName || !amount) return;
         // Remove any non-numeric characters except for a decimal point and a minus sign
         const sanitizedAmount = amount.replace(/[^\d.-]/g, '');
-        setExpenses([...expenses, { name: expenseName, amount: parseFloat(sanitizedAmount).toFixed(2) }]);
+        setExpenses([...expenses, { name: expenseName, amount: parseFloat(sanitizedAmount).toFixed(2), startDate: startDate.format('MM/DD/YYYY'), endDate: endDate.format('MM/DD/YYYY'), monthsToSave: endDate.diff(startDate, 'months')}]);
         setExpenseName('');
+        setStartDate(null);
+        setEndDate(null);
         setAmount('');
-
-        const formData = {
-            budget_id: budgetObj.id,
-            type: 'personal committed',
-            expense_name: expenseName,
-            expense_amount: sanitizedAmount 
-        };
     };
-
-    const handleSubmit = (event) => {
-        event.preventDefault()
-
-        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: expenses });
-        history.push('/plan5');
-    };
-
-
 
     const handleDeleteExpense = (index) => {
         const newExpenses = expenses.filter((_, i) => i !== index);
@@ -46,20 +28,24 @@ function OtherExpenses() {
     return (
         <Container sx={{ paddingTop: '64px' }}> {/* Adjust this value based on the height of your nav bar */}
             <Typography variant="h4" gutterBottom>
-                Other Expenses
+                Future Plans
             </Typography>
             <Typography variant="body1" gutterBottom>
-                Enter any additional expenses you have here. You can add as many as you need.
-            </Typography>
-            <TextField label="Name of Expense" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
-            <TextField label="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
-            <Button onClick={handleAddExpense}>Submit</Button>
+                If you have any future plans that you’d like to account for. Now is the time to put as many of them into your budget as you’d like. These could be many things like trips, etc., etc...</Typography>
+            <TextField label="Name of Plan" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
+            <DatePicker value={startDate} onChange={(newValue) => setStartDate(newValue)} />
+            <DatePicker value={endDate} onChange={(newValue) => setEndDate(newValue)} />
+            <TextField label="Amount to Save" value={amount} onChange={(e) => setAmount(e.target.value)} />
+            <Button onClick={handleAddExpense}>Add Plan</Button>
 
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell>Name of Expense</TableCell>
-                        <TableCell>Amount</TableCell>
+                        <TableCell>Name of Plan</TableCell>
+                        <TableCell>Todays Date</TableCell>
+                        <TableCell>End Date</TableCell>
+                        <TableCell>Months to Save</TableCell>
+                        <TableCell>Total Amount</TableCell>
                         <TableCell>Delete</TableCell>
                     </TableRow>
                 </TableHead>
@@ -67,6 +53,9 @@ function OtherExpenses() {
                     {expenses.map((expense, index) => (
                         <TableRow key={index}>
                             <TableCell>{expense.name}</TableCell>
+                            <TableCell>{`${expense.startDate}`}</TableCell>
+                            <TableCell>{`${expense.endDate}`}</TableCell>
+                            <TableCell>{`${expense.monthsToSave}`}</TableCell>
                             <TableCell>{`$${expense.amount}`}</TableCell>
                             <TableCell>
                                 <Button onClick={() => handleDeleteExpense(index)}>Delete</Button>
@@ -79,7 +68,10 @@ function OtherExpenses() {
                 <Button variant="outlined" color="secondary">
                     Previous
                 </Button>
-                <Button onClick={handleSubmit} variant="outlined" color="secondary">
+                <Button type="submit" variant="contained" color="primary">
+                    Submit
+                </Button>
+                <Button variant="outlined" color="secondary">
                     Next
                 </Button>
             </Box>
@@ -87,5 +79,3 @@ function OtherExpenses() {
         </Container>
     );
 }
-
-export default OtherExpenses;
