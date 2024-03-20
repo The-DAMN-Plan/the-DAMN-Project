@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function PBPage2() {
+    const dispatch = useDispatch();
     const history = useHistory();
+    const budget = useSelector((store) => store.budget);
+    console.log('Budget store', budget);
+    const budgetObj = budget[0];
+    console.log('BUDGET ID', budgetObj);
+    const [userEntry, setUserEntry] = useState([])
+
     const [formValues, setFormValues] = useState({
-        realEstateTaxes: 0,
-        carInsurance: 0,
-        houseInsurance: 0,
-        creditCard: 0,
-        loanPayment: 0
+        realEstateTaxes: '',
+        carInsurance: '',
+        houseInsurance: '',
+        creditCard: '',
+        loanPayment: ''
     });
 
     const handleInputChange = (event) => {
@@ -18,11 +26,23 @@ function PBPage2() {
             ...formValues,
             [name]: value,
         });
+
+        const formData = {
+            budget_id: budgetObj.id,
+            type: 'personal committed',
+            expense_name: name, 
+            expense_amount: value,
+        };
+
+        setUserEntry([...userEntry, formData]);
     };
+    console.log(userEntry);
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log('Form Values: ', formValues);
+        event.preventDefault()
+
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
+        history.push('/plan3');
     };
 
     return (
@@ -37,13 +57,13 @@ function PBPage2() {
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2} justifyContent="center">
                         <Grid item xs={12} md={6}>
-                            <TextField name="realEstateTaxes" label="Real Estate Taxes" fullWidth value={formValues.realEstateTaxes} onChange={(event) => setFormValues({...formValues, realEstateTaxes: event.target.value})} sx={{ marginBottom: 2 }} />
-                            <TextField name="carInsurance" label="Car Insurance" fullWidth value={formValues.carInsurance} onChange={(event) => setFormValues({...formValues, carInsurance: event.target.value})} sx={{ marginBottom: 2 }} />
-                            <TextField name="houseInsurance" label="House Insurance" fullWidth value={formValues.houseInsurance} onChange={(event) => setFormValues({...formValues, houseInsurance: event.target.value})} sx={{ marginBottom: 2 }} />
+                            <TextField name="realEstateTaxes" label="Real Estate Taxes" fullWidth value={formValues.realEstateTaxes} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="carInsurance" label="Car Insurance" fullWidth value={formValues.carInsurance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="houseInsurance" label="House Insurance" fullWidth value={formValues.houseInsurance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <TextField name="creditCard" label="All Credit Card Payment" fullWidth value={formValues.creditCard} onChange={(event) => setFormValues({...formValues, creditCard: event.target.value})} sx={{ marginBottom: 2 }} />
-                            <TextField name="loanPayment" label="All Loan Payments" fullWidth value={formValues.loanPayment} onChange={(event) => setFormValues({...formValues, loanPaymeant: event.target.value})} sx={{ marginBottom: 2 }} />
+                            <TextField name="creditCard" label="All Credit Card Payment" fullWidth value={formValues.creditCard} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="loanPayment" label="All Loan Payments" fullWidth value={formValues.loanPayment} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
                     <Box textAlign="center" marginTop={4}>
