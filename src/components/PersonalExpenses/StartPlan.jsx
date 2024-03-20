@@ -9,6 +9,7 @@ function StartPlan() {
     const budget = useSelector((store) => store.budget);
     console.log(budget);
     const budgetObj = budget[0];
+    const [userEntry, setUserEntry] = useState([])
 
     console.log(budgetObj);
 
@@ -28,16 +29,33 @@ function StartPlan() {
             ...formValues,
             [name]: value,
         });
-    };
 
-    const handleSubmit = (fieldName) => {
         const formData = {
             budget_id: budgetObj.id,
             type: 'personal committed',
-            expense_name: getExpenseName(fieldName), // Getting the expense name dynamically based on the field name
-            expense_amount: formValues[fieldName],
+            expense_name: name, // Getting the expense name dynamically based on the field name
+            expense_amount: value,
         };
-        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: formData });
+
+        console.log('form data', formData);
+   
+        setUserEntry([...userEntry, formData]);
+    };
+
+    console.log('array', userEntry);
+    const handleSubmit = (event, fieldName) => {
+        event.preventDefault()
+        // const formData = {
+        //     budget_id: budgetObj.id,
+        //     type: 'personal committed',
+        //     expense_name: getExpenseName(fieldName), // Getting the expense name dynamically based on the field name
+        //     expense_amount: formValues[fieldName],
+        // };
+
+        console.log('user entry', userEntry);
+
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
+        history.push('/plan2');
     };
 
     const getExpenseName = (fieldName) => {
@@ -89,7 +107,7 @@ function StartPlan() {
                         </Grid>
                     </Grid>
                     <Box textAlign="center" marginTop={4}>
-                        <Button type="submit" variant="contained" color="primary" onClick={() => { history.push('/plan2')}}>
+                        <Button type="submit" variant="contained" color="primary">
                             Next Page
                         </Button>
                     </Box>

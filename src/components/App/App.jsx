@@ -64,34 +64,6 @@ function App() {
           >
             <AboutPage />
           </Route>
-
-          {/* For protected routes, the view could show one of several things on the same route.
-          <Route
-          // Shows the secons page of personal budget. This page user will input their fixed bills like insurance payments.
-          // Still need to set up the server side posting and edit functionality.
-            exact
-            path="/plan2"
-          >
-            <PBPage2 />
-          </Route>
-          <Route
-            // shows 3rd page plan sequence, the third page of the form users will fill out. Currently not protected at all
-            // will refactor to protected route once form is complete - LJ
-            exact
-            path="/plan3"
-          >
-            <PersonalSavings />
-          </Route>
-          
-          <Route
-            // shows 4rd page plan sequence, the fourth page of the form users will fill out. Currently not protected at all
-            // will refactor to protected route once form is complete - LJ
-            exact
-            path="/otherexpenses"
-          >
-            <OtherExpenses />
-          </Route>
-
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).

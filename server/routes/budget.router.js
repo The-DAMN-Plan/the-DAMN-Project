@@ -89,12 +89,14 @@ router.post('/expense', async (req, res) => {
   "frequency","timing","facilitator","vendor","cost_per_use","assets_needed","service")
   values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) returning *;`
   const data = req.body;
+  console.log(data);
   for (const expense of data) {
+    console.log(expense);
     try {
       const result = await pool.query(sql, [
         expense.budget_id, expense.type, expense.expense_name, expense.expense_amount, expense.percent_change, expense.year,
         expense.frequency, expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use, expense.assests_needed, expense.service]);
-      res.send(result);
+      // res.send(result);
     } catch (error) {
       console.log(error);
       res.sendStatus(500);
