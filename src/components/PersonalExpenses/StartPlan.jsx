@@ -10,9 +10,9 @@ function StartPlan() {
 
     console.log(budget);
 
-    useEffect({
-
-    }, [dispatch])
+    useEffect(() => {
+        dispatch({type: 'FETCH_BUDGET'})
+      }, [dispatch]);
 
     const [formValues, setFormValues] = useState({
         rentOrMortgage: '',
