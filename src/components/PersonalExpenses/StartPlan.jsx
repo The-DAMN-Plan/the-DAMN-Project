@@ -53,7 +53,7 @@ function StartPlan() {
             case 'childcare':
                 return 'childcare';
             default:
-                return ''; // Default case
+                return ''; 
         }
     };
 

@@ -7,6 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import StartPlan from '../PersonalExpenses/StartPlan';
 
 function UserPage() {
   const history = useHistory();
@@ -35,6 +36,7 @@ function UserPage() {
       name: 'test'
     }
     dispatch({type: 'START_PLAN', payload: budgetData})
+    history.push('/startplan');
   }  else {
     console.error('No business selected for starting a plan.');
   }

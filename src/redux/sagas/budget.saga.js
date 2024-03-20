@@ -8,3 +8,9 @@ function* startPlan(action) {
         console.log('Error adding personal expense', error);
     }
 }
+
+function* budgetSaga() {
+    yield takeLatest('START_PLAN', startPlan);
+}
+
+export default budgetSaga;
