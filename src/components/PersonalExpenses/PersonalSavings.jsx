@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 
-function PersonalSavings(props) {
+function PersonalSavings() {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const budget = useSelector((store) => store.budget);
+    console.log('Budget store', budget);
+    const budgetObj = budget[0];
+    console.log('BUDGET ID', budgetObj);
+    const [userEntry, setUserEntry] = useState([]);
+
     const [formValues, setFormValues] = useState({
         personalAllowance: '',
         emergencySavings: '',
@@ -11,15 +21,43 @@ function PersonalSavings(props) {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
+    
+        // Find the index of the existing formData object with the same expense_name
+        const existingIndex = userEntry.findIndex(item => item.expense_name === name);
+    
+        // If the formData object exists, update its expense_amount
+        if (existingIndex !== -1) {
+            const updatedUserEntry = [...userEntry];
+            updatedUserEntry[existingIndex] = {
+                ...updatedUserEntry[existingIndex],
+                expense_amount: value
+            };
+            setUserEntry(updatedUserEntry);
+        } else {
+            // If the formData object doesn't exist, create a new one
+            const formData = {
+                budget_id: budgetObj.id,
+                type: 'personal committed',
+                expense_name: name,
+                expense_amount: value
+            };
+            setUserEntry([...userEntry, formData]);
+        }
+    
+        // Update the form values
         setFormValues({
             ...formValues,
             [name]: value,
         });
     };
 
+    console.log(userEntry);
+
     const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log('Savings Form Values: ', formValues);
+        event.preventDefault()
+
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
+        history.push('/plan4');
     };
 
     return (

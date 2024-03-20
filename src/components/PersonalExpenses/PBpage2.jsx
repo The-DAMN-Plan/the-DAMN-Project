@@ -55,7 +55,7 @@ function PBPage2() {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-
+        console.log('submitting!!');
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
         history.push('/plan3');
     };
@@ -82,7 +82,7 @@ function PBPage2() {
                         </Grid>
                     </Grid>
                     <Box textAlign="center" marginTop={4}>
-                        <Button type="submit" variant="contained" color="primary" onClick={() => { history.push('/plan3')}}>
+                        <Button type="submit" variant="contained" color="primary">
                             Next Page
                         </Button>
                     </Box>
