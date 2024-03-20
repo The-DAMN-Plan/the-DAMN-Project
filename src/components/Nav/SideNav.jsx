@@ -38,7 +38,7 @@ function PersistentDrawerLeft() {
     const user = useSelector((store) => store.user);
     const [open, setOpen] = useState(false);
 
-    const drawerWidth = 350;
+    const drawerWidth = 280;
 
     const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
