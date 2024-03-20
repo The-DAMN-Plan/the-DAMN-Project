@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { Box, Button } from '@mui/material';
 import Fade from '@mui/material/Fade';
-import LinearProgress from '@mui/material/LinearProgress';
 
+import Grid from '@mui/material/Unstable_Grid2';
+import Box from '@mui/material/Box';
+import ProgressBar from '../ProgressBar/ProgressBar'
 
 
 export default function BreakEven() {
@@ -53,21 +53,7 @@ export default function BreakEven() {
           </Grid>
           {/* {end} */}
         </Grid>
-        <Grid container
-          direction="row"
-          alignItems="center"
-          justifyContent="center"
-          xs={12}>
-          <Grid textAlign="center" xs={1}>
-            <Button variant='outlined'>Back</Button>
-          </Grid>
-          <Grid textAlign='center' xs={10}>
-            <LinearProgress variant="determinate" value={50} />
-          </Grid>
-          <Grid textAlign="center" xs={1}>
-            <Button variant='contained'>Next</Button>
-          </Grid>
-        </Grid>
+        <ProgressBar next={'about'} back={'home'} value={75} />
       </Box>
     </Container>
   );
