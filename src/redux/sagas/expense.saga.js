@@ -3,6 +3,7 @@ import axios from 'axios';
 
 function* addPersonalExpense(action) {
     try {
+        console.log('Expense post', action.payload);
         yield axios.post(`/api/budget/expense`, action.payload);
     } catch(error) {
         console.log('Error adding personal expense', error);

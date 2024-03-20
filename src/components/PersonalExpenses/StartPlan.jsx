@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
@@ -7,12 +7,8 @@ function StartPlan() {
     const dispatch = useDispatch();
     const history = useHistory();
     const budget = useSelector((store) => store.budget);
-
-    console.log(budget);
-
-    useEffect(() => {
-        dispatch({type: 'FETCH_BUDGET'})
-      }, [dispatch]);
+    const budgetObj = budget[0];
+    const [userEntry, setUserEntry] = useState([])
 
     const [formValues, setFormValues] = useState({
         rentOrMortgage: '',
@@ -24,43 +20,46 @@ function StartPlan() {
         childcare: '',
     });
 
+
     const handleInputChange = (event) => {
         const { name, value } = event.target;
+    
+        // Find the index of the existing formData object with the same expense_name
+        const existingIndex = userEntry.findIndex(item => item.expense_name === name);
+    
+        // If the formData object exists, update its expense_amount
+        if (existingIndex !== -1) {
+            const updatedUserEntry = [...userEntry];
+            updatedUserEntry[existingIndex] = {
+                ...updatedUserEntry[existingIndex],
+                expense_amount: value
+            };
+            setUserEntry(updatedUserEntry);
+        } else {
+            // If the formData object doesn't exist, create a new one
+            const formData = {
+                budget_id: budgetObj.id,
+                type: 'personal committed',
+                expense_name: name,
+                expense_amount: value
+            };
+            setUserEntry([...userEntry, formData]);
+        }
+    
+        // Update the form values
         setFormValues({
             ...formValues,
             [name]: value,
         });
     };
 
-    const handleSubmit = (fieldName) => {
-        const formData = {
-            budget_id: budgetId,
-            type: 'personal committed',
-            expense_name: getExpenseName(fieldName), // Getting the expense name dynamically based on the field name
-            expense_amount: formValues[fieldName],
-        };
-        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: formData });
-    };
+    console.log(userEntry);
 
-    const getExpenseName = (fieldName) => {
-        switch (fieldName) {
-            case 'rentOrMortgage':
-                return 'rent';
-            case 'electric':
-                return 'electric';
-            case 'heat':
-                return 'heat';
-            case 'water':
-                return 'water';
-            case 'internet':
-                return 'internet';
-            case 'telephone':
-                return 'telephone';
-            case 'childcare':
-                return 'childcare';
-            default:
-                return ''; 
-        }
+    const handleSubmit = (event) => {
+        event.preventDefault()
+
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
+        history.push('/plan2');
     };
 
     return (
@@ -91,7 +90,7 @@ function StartPlan() {
                         </Grid>
                     </Grid>
                     <Box textAlign="center" marginTop={4}>
-                        <Button type="submit" variant="contained" color="primary" onClick={() => { history.push('/plan2')}}>
+                        <Button type="submit" variant="contained" color="primary">
                             Next Page
                         </Button>
                     </Box>
