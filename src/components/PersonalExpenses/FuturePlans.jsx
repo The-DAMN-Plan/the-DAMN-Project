@@ -26,6 +26,12 @@ export default function FuturePlans() {
         setExpenses(newExpenses);
     };
 
+    const handleSubmit = (event) => {
+        event.preventDefault()
+
+        dispatch({ type: 'ADD_FUTURE_PLAN', payload: expenses });
+    };
+
     return (
         <Container sx={{ paddingTop: '64px' }}> {/* Adjust this value based on the height of your nav bar */}
             <Typography variant="h4" gutterBottom>
