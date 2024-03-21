@@ -4,77 +4,153 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
 
-
-
-function Year1Income() {
-    const budget = useSelector((store) => store.budget);
-    const budgetObj = budget[0];
-
-    const [productName, setProductName] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
-    const [unit, setUnit] = useState('');
-    const [timeUsed, setTimeUsed] = useState('');
-    const [idealClient, setIdealClient] = useState('');
-    const [rateOfLove, setRateOfLove] = useState('');
-    const [purchasers, setPurchasers] = useState('');
-    const [revenueStreams, setRevenueStreams] = useState([]);
-
-  const handleAddRevenueStream = () => {
-    // Validate fields before adding to revenueStreams array
-    if (revenueStream && price && timeUsed) {
-      const newRevenueStream = {
-        revenueStream,
-        description,
-        price,
-        unit,
-        timeUsed,
-        idealClient
+    
+    function Year1Income() {
+      const budget = useSelector((store) => store.budget);
+      
+      const [revenueStream, setRevenueStream] = useState('');
+      const [description, setDescription] = useState('');
+      const [price, setPrice] = useState('');
+      const [unit, setUnit] = useState('');
+      const [timeUsed, setTimeUsed] = useState('');
+      const [idealClient, setIdealClient] = useState('');
+      const [rateOfLove, setRateOfLove] = useState('');
+      const [purchasers, setPurchasers] = useState('');
+      const [revenueStreams, setRevenueStreams] = useState([]);
+    
+      const handleAddRevenueStream = () => {
+        if (revenueStream && price && timeUsed) {
+          const newRevenueStream = {
+            revenueStream,
+            description,
+            price,
+            unit,
+            timeUsed,
+            idealClient,
+            rateOfLove,
+            purchasers
+          };
+          setRevenueStreams([...revenueStreams, newRevenueStream]);
+          // Reset fields after submission
+          setRevenueStream('');
+          setDescription('');
+          setPrice('');
+          setUnit('');
+          setTimeUsed('');
+          setIdealClient('');
+          setRateOfLove('');
+          setPurchasers('');
+        }
       };
-      setRevenueStreams([...revenueStreams, newRevenueStream]);
-      // Reset fields after submission
-      setProductName('');
-      setDescription('');
-      setPrice('');
-      setUnit('');
-      setTimeUsed('');
-      setIdealClient('');
-      setRateOfLove('');
-      setPurchasers('');
-    }
-  };
-  
-
-  return (
-    <Container sx={{ paddingTop: '64px' }}> {/* Adjust this value based on the height of your nav bar */}
-    <Typography variant="h1" gutterBottom>
-        Year 1 Businness income
-    </Typography>
-    <Typography variant="body1" gutterBottom>
-        Take some time to think about some services you'll offer in year one of your business.
-    </Typography>
-    <TextField label="Name of Product" value={productName} onChange={(e) => setProductName(e.target.value)} />
-    <TextField label="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-    <TextField label="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
-    <TextField label="Unit" value={unit} onChange={(e) => setUnit(e.target.value)} />
-    <TextField label="Time Used" value={timeUsed} onChange={(e) => setTimeUsed(e.target.value)} />
-    <TextField label="Ideal Client" value={idealClient} onChange={(e) => setIdealClient(e.target.value)} />
-    <TextField label="Rate of Love" value={rateOfLove} onChange={(e) => setRateOfLove(e.target.value)} />
-    <TextField label="Purchasers" value={purchasers} onChange={(e) => setPurchasers(e.target.value)} />
-    <Button onClick={handleAddExpense}>Submit</Button>
-
-    <Table>
-        <TableHead>
-            <TableRow>
-                <TableCell>Name of Expense</TableCell>
-                <TableCell>Amount</TableCell>
-                <TableCell>Delete</TableCell>
-            </TableRow>
-        </TableHead>
-        <TableBody>
-            {revenueStreams.map((stream, index) => (
-                <TableRow key={index}>
-                    <TableCell>{stream.productName}</TableCell>
+    
+      const handleDeleteProduct = (index) => {
+        const filteredStreams = revenueStreams.filter((_, i) => i !== index);
+        setRevenueStreams(filteredStreams);
+      };
+    
+      return (
+        <Container sx={{ paddingTop: '64px', paddingBottom: '64px' }}>
+          <Typography variant="h4" gutterBottom align="center">
+            Year 1 Business Income
+          </Typography>
+          <Paper elevation={3} sx={{ p: 4, mb: 4 }}>
+            <Typography variant="h6" gutterBottom>
+              Add New Revenue Stream
+            </Typography>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  fullWidth
+                  label="Name of Product"
+                  value={revenueStream}
+                  onChange={(e) => setRevenueStream(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  fullWidth
+                  label="Description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  fullWidth
+                  label="Price"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  fullWidth
+                  label="Unit"
+                  value={unit}
+                  onChange={(e) => setUnit(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  fullWidth
+                  label="Time Used"
+                  value={timeUsed}
+                  onChange={(e) => setTimeUsed(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  fullWidth
+                  label="Ideal Client"
+                  value={idealClient}
+                  onChange={(e) => setIdealClient(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  fullWidth
+                  label="Rate of Love"
+                  value={rateOfLove}
+                  onChange={(e) => setRateOfLove(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  fullWidth
+                  label="Purchasers"
+                  value={purchasers}
+                  onChange={(e) => setPurchasers(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Button variant="contained" color="primary" onClick={handleAddRevenueStream}>
+                  Submit
+                </Button>
+              </Grid>
+            </Grid>
+          </Paper>
+          <Paper elevation={3} sx={{ p: 4 }}>
+            <Typography variant="h6" gutterBottom>
+              Revenue Streams
+            </Typography>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Name of Service</TableCell>
+                  <TableCell>Description</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell>Unit</TableCell>
+                  <TableCell>Time Used</TableCell>
+                  <TableCell>Ideal Clients</TableCell>
+                  <TableCell>Love Rating</TableCell>
+                  <TableCell>Purchasers</TableCell>
+                  <TableCell>Action</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {revenueStreams.map((stream, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{stream.revenueStream}</TableCell>
                     <TableCell>{stream.description}</TableCell>
                     <TableCell>{stream.price}</TableCell>
                     <TableCell>{stream.unit}</TableCell>
@@ -83,15 +159,24 @@ function Year1Income() {
                     <TableCell>{stream.rateOfLove}</TableCell>
                     <TableCell>{stream.purchasers}</TableCell>
                     <TableCell>
-                        <Button onClick={() => handleDeleteExpense(index)}>Delete</Button>
-                    </TableCell>
-                </TableRow>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => handleDeleteProduct(index)}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
             ))}
-        </TableBody>
-    </Table>
-    <ProgressBar back={''} next={''} value={5}/>
-</Container>
-);
+          </TableBody>
+        </Table>
+      </Paper>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+        <ProgressBar back={''} next={''} value={5}/>
+      </Box>
+    </Container>
+  );
 }
 
 export default Year1Income;
