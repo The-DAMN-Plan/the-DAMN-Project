@@ -3,6 +3,7 @@ import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, T
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import Currency from '../Shared/Currency';
 
 function OtherExpenses() {
     const dispatch = useDispatch();
@@ -73,7 +74,9 @@ function OtherExpenses() {
                     {expenses.map((expense, index) => (
                         <TableRow key={index}>
                             <TableCell>{expense.name}</TableCell>
-                            <TableCell>{`$${expense.amount}`}</TableCell>
+                            <TableCell>
+                                <Currency  value={expense.amount} />
+                            </TableCell>
                             <TableCell>
                                 <Button onClick={() => handleDeleteExpense(index)}>Delete</Button>
                             </TableCell>

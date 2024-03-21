@@ -23,6 +23,7 @@ import StartPlan from '../PersonalExpenses/StartPlan';
 import PBPage2 from '../PersonalExpenses/PBpage2';
 import PersonalSavings from '../PersonalExpenses/PersonalSavings';
 import VariableExpenses from '../PersonalExpenses/VariableExpenses';
+import MarketingPage from '../BusinessExpenses/MarketingPage';
 
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
@@ -90,6 +91,9 @@ function App() {
                 <OtherExpenses />
               </Route>
 
+              <Route exact path="/marketing">
+                <MarketingPage />
+              </Route>
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
