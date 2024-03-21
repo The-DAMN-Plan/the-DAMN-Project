@@ -36,7 +36,6 @@ function OtherExpenses() {
         event.preventDefault()
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-        history.push('/plan5');
     };
 
 

@@ -34,6 +34,7 @@ import OtherExpenses from '../PersonalExpenses/OtherExpenses';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import FuturePlans from '../PersonalExpenses/FuturePlans';
+import CreateBusiness from '../CreateBusiness/CreateBusiness';
 
 function App() {
   const dispatch = useDispatch();
@@ -64,6 +65,10 @@ function App() {
               {/* Visiting localhost:5173/about will show the about page. */}
               <Route exact path="/about">
                 <AboutPage />
+              </Route>
+              
+              <Route exact path="/test">
+                <CreateBusiness />
               </Route>
 
               <Route exact path="/startplan">
