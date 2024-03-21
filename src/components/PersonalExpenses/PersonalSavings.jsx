@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 function PersonalSavings(props) {
     const [formValues, setFormValues] = useState({
@@ -72,17 +73,7 @@ function PersonalSavings(props) {
                             />
                         </Grid>
                     </Grid>
-                    <Box textAlign="center" marginTop={4} display="flex" justifyContent="space-between">
-                        <Button variant="outlined" color="secondary">
-                            Previous
-                        </Button>
-                        <Button type="submit" variant="contained" color="primary">
-                            Submit
-                        </Button>
-                        <Button variant="outlined" color="secondary">
-                            Next
-                        </Button>
-                    </Box>
+                    <ProgressBar back={'fundamentalexpenses'} next={'futureplans'} value={5}/>
                 </form>
             </Paper>
         </Container>

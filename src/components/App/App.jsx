@@ -50,10 +50,8 @@ function App() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterMoment} >
-
       <ThemeProvider theme={theme}>
         <CssBaseline />
-
         <Router>
           <div>
             <Nav />
@@ -62,80 +60,43 @@ function App() {
               <Redirect exact from="/" to="/home" />
 
               {/* Visiting localhost:5173/about will show the about page. */}
-              <Route
-                // shows AboutPage at all times (logged in or not)
-                exact
-                path="/about"
-              >
+              <Route exact path="/about">
                 <AboutPage />
               </Route>
-              <Route
-                // shows Start Plan page, the first page of the form users will fill out. Currently not protectedv at all
-                // will refactor to protected route once form is complete - LJ
-                exact
-                path="/startplan"
-              >
+
+              <Route exact path="/startplan">
                 <StartPlan />
               </Route>
 
-              <Route
-                // Shows the secons page of personal budget. This page user will input their fixed bills like insurance payments.
-                // Still need to set up the server side posting and edit functionality.
-                exact
-                path="/plan2"
-              >
+              <Route exact path="/fundamentalexpenses">
                 <PBPage2 />
               </Route>
-              <Route
-                // shows 3rd page plan sequence, the third page of the form users will fill out. Currently not protected at all
-                // will refactor to protected route once form is complete - LJ
-                exact
-                path="/plan3"
-              >
+
+              <Route exact path="/personalsavings">
                 <PersonalSavings />
               </Route>
+              
+              <Route exact path="/futureplans">
+                <FuturePlans />
+              </Route>
 
-              <Route
-                // shows 4rd page plan sequence, the fourth page of the form users will fill out. Currently not protected at all
-                // will refactor to protected route once form is complete - LJ
-                exact
-                path="/otherexpenses"
-              >
+              <Route exact path="/otherexpenses">
                 <OtherExpenses />
               </Route>
 
-              <Route
-                // shows 4rd page plan sequence, the fourth page of the form users will fill out. Currently not protected at all
-                // will refactor to protected route once form is complete - LJ
-                exact
-                path="/futureplans"
-              >
-                <FuturePlans />
-              </Route>
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:5173/user */}
-              <ProtectedRoute
-                // logged in shows UserPage else shows LoginPage
-                exact
-                path="/user"
-              >
+              <ProtectedRoute exact path="/user">
                 <UserPage />
               </ProtectedRoute>
 
-              <ProtectedRoute
-                // logged in shows InfoPage else shows LoginPage
-                exact
-                path="/info"
-              >
+              <ProtectedRoute exact path="/info">
                 <InfoPage />
               </ProtectedRoute>
 
-              <Route
-                exact
-                path="/login"
-              >
+              <Route exact path="/login">
                 {user.id ?
                   // If the user is already logged in, 
                   // redirect to the /user page
@@ -145,45 +106,22 @@ function App() {
                   <LoginPage />
                 }
               </Route>
-              <Route
-                // shows AboutPage at all times (logged in or not)
-                exact
-                path="/budget/breakeven"
-              >
+              <Route exact path="/budget/breakeven">
                 <BreakEven />
               </Route>
-              <Route
-                exact
-                path="/registration"
-              >
-                {user.id ?
-                  // If the user is already logged in, 
-                  // redirect them to the /user page
-                  <Redirect to="/user" />
-                  :
-                  // Otherwise, show the registration page
-                  <RegisterPage />
-                }
+
+              <Route exact path="/registration">
+                {user.id ? <Redirect to="/user" /> : <RegisterPage />}
               </Route>
 
-              <Route
-                exact
-                path="/home"
-              >
-                {user.id ?
-                  // If the user is already logged in, 
-                  // redirect them to the /user page
-                  <Redirect to="/user" />
-                  :
-                  // Otherwise, show the Landing page
-                  <LandingPage />
-                }
+              <Route exact path="/home">
+                {user.id ? <Redirect to="/user" /> : <LandingPage />}
               </Route>
 
-              {/* If none of the other routes matched, we will show a 404. */}
               <Route>
                 <h1>404</h1>
               </Route>
+
             </Switch>
             <Footer />
           </div>

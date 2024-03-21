@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 function OtherExpenses() {
     const [expenseName, setExpenseName] = useState('');
@@ -53,18 +54,7 @@ function OtherExpenses() {
                     ))}
                 </TableBody>
             </Table>
-            <Box textAlign="center" marginTop={4} display="flex" justifyContent="space-between">
-                <Button variant="outlined" color="secondary">
-                    Previous
-                </Button>
-                <Button type="submit" variant="contained" color="primary">
-                    Submit
-                </Button>
-                <Button variant="outlined" color="secondary">
-                    Next
-                </Button>
-            </Box>
-
+            <ProgressBar back={''} next={''} value={5}/>
         </Container>
     );
 }
