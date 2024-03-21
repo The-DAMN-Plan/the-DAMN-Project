@@ -64,6 +64,9 @@ function App() {
     setOpen(false);
   };
 
+  //a wrapper to shif body of the page to the right  depending on the width of side nav
+  // shift to right when nav opens
+  // shifts left when nav closes
   const Main = styled('main', { 
     shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
