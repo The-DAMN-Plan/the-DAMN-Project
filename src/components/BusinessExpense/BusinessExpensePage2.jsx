@@ -8,6 +8,7 @@ export default function BusinessExpense(params) {
     const history = useHistory();
     const budget = useSelector((store) => store.budget);
     const budgetObj = budget[0];
+    //default values for each input start at 0 incase user does not input anything 
     const [userEntry, setUserEntry] = useState([
         {
             budget_id: budgetObj.id,
