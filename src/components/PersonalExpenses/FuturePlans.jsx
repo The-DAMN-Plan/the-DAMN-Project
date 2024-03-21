@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 export default function FuturePlans() {
     const [expenseName, setExpenseName] = useState('');
@@ -64,18 +65,7 @@ export default function FuturePlans() {
                     ))}
                 </TableBody>
             </Table>
-            <Box textAlign="center" marginTop={4} display="flex" justifyContent="space-between">
-                <Button variant="outlined" color="secondary">
-                    Previous
-                </Button>
-                <Button type="submit" variant="contained" color="primary">
-                    Submit
-                </Button>
-                <Button variant="outlined" color="secondary">
-                    Next
-                </Button>
-            </Box>
-
+            <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={60} />
         </Container>
     );
 }

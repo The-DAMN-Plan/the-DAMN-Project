@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 function PBPage2() {
     const dispatch = useDispatch();
@@ -81,11 +82,7 @@ function PBPage2() {
                             <TextField name="loanPayment" label="All Loan Payments" fullWidth value={formValues.loanPayment} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
-                    <Box textAlign="center" marginTop={4}>
-                        <Button type="submit" variant="contained" color="primary">
-                            Next Page
-                        </Button>
-                    </Box>
+                    <ProgressBar back={''} next={'personalsavings'} value={5}/>
                 </form>
             </Paper>
         </Container>
