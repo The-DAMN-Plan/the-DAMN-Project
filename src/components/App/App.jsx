@@ -53,16 +53,19 @@ function App() {
   }, [dispatch]);
   
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const drawerWidth = 300;
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+  const toggleDrawer = ()=>{
+    setOpen(!open);
+  }
+  // const handleDrawerOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  // const handleDrawerClose = () => {
+  //   setOpen(false);
+  // };
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -99,8 +102,8 @@ function App() {
         <DrawerHeader />
         <Router>
           <div>
-            <Nav open={open} handleDrawerOpen={handleDrawerOpen} drawerWidth={drawerWidth} />
-            <SideNav open={open} handleDrawerClose={handleDrawerClose} drawerWidth={drawerWidth}/>
+            <Nav open={open} toggleDrawer={toggleDrawer} drawerWidth={drawerWidth} />
+            <SideNav open={open} toggleDrawer={toggleDrawer} drawerWidth={drawerWidth}/>
             <Switch>
               {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
               <Redirect exact from="/" to="/home" />

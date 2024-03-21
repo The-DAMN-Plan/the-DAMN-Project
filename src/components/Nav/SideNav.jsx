@@ -13,7 +13,7 @@ import LogOutButton from "../LogOutButton/LogOutButton";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
-export default function SideNav({open, handleDrawerClose,drawerWidth}) {
+export default function SideNav({open, toggleDrawer,drawerWidth}) {
     const theme = useTheme();
     const user = useSelector((store) => store.user);
     const DrawerHeader = styled('div')(({ theme }) => ({
@@ -39,10 +39,10 @@ export default function SideNav({open, handleDrawerClose,drawerWidth}) {
           variant="persistent"
           anchor="left"
           open={open}
-          onClose={handleDrawerClose}
+          onClose={toggleDrawer}
         >
           <DrawerHeader>
-            <IconButton onClick={()=>handleDrawerClose()}>
+            <IconButton onClick={toggleDrawer}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
           </DrawerHeader>

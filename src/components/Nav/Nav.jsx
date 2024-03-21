@@ -15,7 +15,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import MuiAppBar from '@mui/material/AppBar';
 
-function Nav({open, handleDrawerOpen, drawerWidth}) {
+function Nav({open, toggleDrawer, drawerWidth}) {
   const user = useSelector((store) => store.user);
   const location = useLocation();
   const history = useHistory();
@@ -57,14 +57,14 @@ function Nav({open, handleDrawerOpen, drawerWidth}) {
   }));
 
   return (
-    <AppBar position="fixed" open={open} handleDrawerOpen={handleDrawerOpen}>
+    <AppBar position="fixed" open={open} >
       < Container maxWidth="xl" >
         <Toolbar disableGutters>
           {/* {location.pathname == "/startplan" && <SideNav/>} */}
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={toggleDrawer}
             edge="start"
             sx={{ mr: 2, ...(open && { display: 'none' }) }}
           >
