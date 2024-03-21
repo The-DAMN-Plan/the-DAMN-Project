@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
 
 function StartPlan() {
@@ -70,6 +71,7 @@ function StartPlan() {
     };
 
     return (
+        
         <Container maxWidth="md">
             <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
                 <Typography variant="h4" align="center" gutterBottom>
