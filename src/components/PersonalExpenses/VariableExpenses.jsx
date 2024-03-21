@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 function VariableExpenses() {
     const dispatch = useDispatch();
@@ -24,10 +25,10 @@ function VariableExpenses() {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-    
+
         // Find the index of the existing formData object with the same expense_name
         const existingIndex = userEntry.findIndex(item => item.expense_name === name);
-    
+
         // If the formData object exists, update its expense_amount
         if (existingIndex !== -1) {
             const updatedUserEntry = [...userEntry];
@@ -46,7 +47,7 @@ function VariableExpenses() {
             };
             setUserEntry([...userEntry, formData]);
         }
-    
+
         // Update the form values
         setFormValues({
             ...formValues,
@@ -91,11 +92,7 @@ function VariableExpenses() {
                             <TextField name="homeMaintenance" label="Home Maintenance" fullWidth value={formValues.homeMaintenance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
-                    <Box textAlign="center" marginTop={4}>
-                        <Button type="submit" variant="contained" color="primary">
-                            Next Page
-                        </Button>
-                    </Box>
+                    <ProgressBar next={'futureplans'} back={'personalsavings'} value={20} />
                 </form>
             </Paper>
         </Container>

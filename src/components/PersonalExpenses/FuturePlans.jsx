@@ -65,7 +65,7 @@ export default function FuturePlans() {
                     ))}
                 </TableBody>
             </Table>
-            <ProgressBar next={'otherexpenses'} back={'personalsavings'} value={60} />
+            <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={60} />
         </Container>
     );
 }

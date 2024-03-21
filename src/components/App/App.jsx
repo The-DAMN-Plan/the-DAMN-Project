@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import StartPlan from '../PersonalExpenses/StartPlan';
 import PBPage2 from '../PersonalExpenses/PBpage2';
 import PersonalSavings from '../PersonalExpenses/PersonalSavings';
+import VariableExpenses from '../PersonalExpenses/VariableExpenses';
 
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
@@ -76,7 +77,11 @@ function App() {
               <Route exact path="/personalsavings">
                 <PersonalSavings />
               </Route>
-              
+
+              <Route exact path="/variableexpenses">
+                <VariableExpenses />
+              </Route>
+
               <Route exact path="/futureplans">
                 <FuturePlans />
               </Route>
