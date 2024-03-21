@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
@@ -97,7 +97,7 @@ function StartPlan() {
                             <TextField name="childcare" label="Childcare" fullWidth value={formValues.childcare} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
-                    <ProgressBar back={'startplan'} next={'fundamentalexpenses'} value={5}/>
+                    <ProgressBar back={'startplan'} next={'fundamentalexpenses'} value={5} submit={handleSubmit}/>
                 </form>
             </Paper>
         </Container>
