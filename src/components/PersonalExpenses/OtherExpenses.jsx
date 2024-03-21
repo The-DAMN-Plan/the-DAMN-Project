@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import ProgressBar from '../ProgressBar/ProgressBar';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function OtherExpenses() {
@@ -80,15 +81,7 @@ function OtherExpenses() {
                     ))}
                 </TableBody>
             </Table>
-            <Box textAlign="center" marginTop={4} display="flex" justifyContent="space-between">
-                <Button variant="outlined" color="secondary">
-                    Previous
-                </Button>
-                <Button onClick={handleSubmit} variant="outlined" color="secondary">
-                    Next
-                </Button>
-            </Box>
-
+            <ProgressBar back={''} next={''} value={5}/>
         </Container>
     );
 }

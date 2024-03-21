@@ -2,11 +2,19 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 function StartPlan() {
     const dispatch = useDispatch();
     const history = useHistory();
     const budget = useSelector((store) => store.budget);
+
+    console.log(budget);
+
+    useEffect(() => {
+        dispatch({ type: 'FETCH_BUDGET' })
+    }, [dispatch]);
+
     const budgetObj = budget[0];
     const [userEntry, setUserEntry] = useState([])
 
@@ -89,11 +97,7 @@ function StartPlan() {
                             <TextField name="childcare" label="Childcare" fullWidth value={formValues.childcare} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
-                    <Box textAlign="center" marginTop={4}>
-                        <Button type="submit" variant="contained" color="primary">
-                            Next Page
-                        </Button>
-                    </Box>
+                    <ProgressBar back={'startplan'} next={'fundamentalexpenses'} value={5}/>
                 </form>
             </Paper>
         </Container>
