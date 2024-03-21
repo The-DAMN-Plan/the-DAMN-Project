@@ -1,11 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
-import AppBar from '@mui/material/AppBar';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -16,7 +14,6 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import MuiAppBar from '@mui/material/AppBar';
-import SideNav from './SideNav';
 
 function Nav({open, handleDrawerOpen, drawerWidth}) {
   const user = useSelector((store) => store.user);
