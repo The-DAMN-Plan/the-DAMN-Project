@@ -64,6 +64,15 @@ function App() {
     setOpen(false);
   };
 
+  const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  }));
+
   //a wrapper to shif body of the page to the right  depending on the width of side nav
   // shift to right when nav opens
   // shifts left when nav closes
@@ -87,6 +96,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Main open={open}>
+        <DrawerHeader />
         <Router>
           <div>
             <Nav open={open} handleDrawerOpen={handleDrawerOpen} drawerWidth={drawerWidth} />
