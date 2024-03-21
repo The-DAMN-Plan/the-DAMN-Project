@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 function PersonalSavings() {
     const dispatch = useDispatch();
@@ -57,7 +58,6 @@ function PersonalSavings() {
         event.preventDefault()
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-        history.push('/plan4');
     };
 
     return (
@@ -110,17 +110,7 @@ function PersonalSavings() {
                             />
                         </Grid>
                     </Grid>
-                    <Box textAlign="center" marginTop={4} display="flex" justifyContent="space-between">
-                        <Button variant="outlined" color="secondary">
-                            Previous
-                        </Button>
-                        <Button type="submit" variant="contained" color="primary">
-                            Submit
-                        </Button>
-                        <Button variant="outlined" color="secondary">
-                            Next
-                        </Button>
-                    </Box>
+                    <ProgressBar back={'fundamentalexpenses'} next={'variableexpenses'} value={5}/>
                 </form>
             </Paper>
         </Container>
