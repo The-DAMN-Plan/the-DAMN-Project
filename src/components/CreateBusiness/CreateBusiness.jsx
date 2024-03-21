@@ -54,7 +54,7 @@ function CreateBusiness(props) {
   return (
     <Box sx={{ ...style, width: 500 }}>
       <Typography color={'primary'} textAlign='center' variant='h4' sx={{ mb: 1 }}>Create a Business</Typography>
-      <Grid component='form' direction='row' autoComplete="off" alignItems="center" justifyContent="center" container spacing={2} xs={12} onSubmit={(e) => createBusiness(e)} >
+      <Grid component='form' method='post' direction='row' autoComplete="off" alignItems="center" justifyContent="center" container spacing={2} xs={12} onSubmit={(e) => createBusiness(e)} >
 
         <Grid>
           <TextField
