@@ -11,13 +11,14 @@ function VariableExpenses() {
     const [userEntry, setUserEntry] = useState([])
 
     const [formValues, setFormValues] = useState({
-        rentOrMortgage: '',
-        electric: '',
-        heat: '',
-        water: '',
-        internet: '',
-        telephone: '',
-        childcare: '',
+        food: '',
+        clothing: '',
+        personalCare: '',
+        recreation: '',
+        gifts: '',
+        gas: '',
+        carRepairs: '',
+        homeMaintenance: ''
     });
 
 
@@ -39,7 +40,7 @@ function VariableExpenses() {
             // If the formData object doesn't exist, create a new one
             const formData = {
                 budget_id: budgetObj.id,
-                type: 'personal committed',
+                type: 'personal decision',
                 expense_name: name,
                 expense_amount: value
             };
@@ -78,15 +79,16 @@ function VariableExpenses() {
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2} justifyContent="center">
                         <Grid item xs={12} md={6}>
-                            <TextField name="rentOrMortgage" label="Rent or Mortgage" fullWidth value={formValues.rentOrMortgage} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="electric" label="Electric" fullWidth value={formValues.electric} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="heat" label="Heat" fullWidth value={formValues.heat} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="water" label="Water" fullWidth value={formValues.water} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="food" label="Food" fullWidth value={formValues.food} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="clothing" label="Clothing" fullWidth value={formValues.clothing} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="personalCare" label="Personal Care" fullWidth value={formValues.personalCare} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="recreation" label="Recreation" fullWidth value={formValues.recreation} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <TextField name="internet" label="Internet" fullWidth value={formValues.internet} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="telephone" label="Telephone" fullWidth value={formValues.telephone} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="childcare" label="Childcare" fullWidth value={formValues.childcare} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="gifts" label="Gifts" fullWidth value={formValues.gifts} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="gas" label="Gas" fullWidth value={formValues.gas} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="carRepairs" label="Car Repairs" fullWidth value={formValues.carRepairs} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="homeMaintenance" label="Home Maintenance" fullWidth value={formValues.homeMaintenance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
                     <Box textAlign="center" marginTop={4}>
