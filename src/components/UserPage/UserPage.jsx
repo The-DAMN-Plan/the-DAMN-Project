@@ -44,7 +44,6 @@ function UserPage() {
 
   return (
     <div className="container">
-      <h2>Welcome, {user.username}!</h2>
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           <Grid item xs={6}>
