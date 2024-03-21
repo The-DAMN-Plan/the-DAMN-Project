@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function OtherExpenses() {
@@ -24,16 +24,18 @@ function OtherExpenses() {
 
         const formData = {
             budget_id: budgetObj.id,
-            type: 'personal committed',
+            type: 'personal other',
             expense_name: expenseName,
             expense_amount: sanitizedAmount 
         };
+        setUserEntry([...userEntry, formData]);
     };
+    console.log(userEntry);
 
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: expenses });
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
         history.push('/plan5');
     };
 
@@ -42,6 +44,9 @@ function OtherExpenses() {
     const handleDeleteExpense = (index) => {
         const newExpenses = expenses.filter((_, i) => i !== index);
         setExpenses(newExpenses);
+
+        const newUserEntry = userEntry.filter((_, i) => i !== index);
+        setUserEntry(newUserEntry);
     };
 
     return (
