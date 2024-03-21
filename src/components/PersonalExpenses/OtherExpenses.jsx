@@ -38,8 +38,6 @@ function OtherExpenses() {
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
     };
 
-
-
     const handleDeleteExpense = (index) => {
         const newExpenses = expenses.filter((_, i) => i !== index);
         setExpenses(newExpenses);
