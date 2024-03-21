@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   HashRouter as Router,
   Redirect,
@@ -30,12 +30,13 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles'; // Import the ThemeProvider component from Material-UI  
 import BreakEven from '../BreakEven/BreakEven';
 import OtherExpenses from '../PersonalExpenses/OtherExpenses';
-
+import { styled, useTheme } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import FuturePlans from '../PersonalExpenses/FuturePlans';
 import BusinessExpensePage1 from '../BusinessExpense/BusinessExpensePage1';
 import BusinessExpensePage2 from '../BusinessExpense/BusinessExpensePage2';
+import SideNav from '../Nav/SideNav';
 
 function App() {
   const dispatch = useDispatch();
@@ -50,15 +51,43 @@ function App() {
     }
 
   }, [dispatch]);
+  
+
+  const [open, setOpen] = useState(false);
+  const drawerWidth = 300;
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  const Main = styled('main', { 
+    shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+      marginLeft: `-${drawerWidth}px`,
+      ...(open && {
+        transition: theme.transitions.create('margin', {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: drawerWidth/2,
+      }),
+    }),
+  );
 
   return (
 
     <LocalizationProvider dateAdapter={AdapterMoment} >
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <Main open={open}>
         <Router>
           <div>
-            <Nav />
+            <Nav open={open} handleDrawerOpen={handleDrawerOpen} drawerWidth={drawerWidth} />
+            <SideNav open={open} handleDrawerClose={handleDrawerClose} drawerWidth={drawerWidth}/>
             <Switch>
               {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
               <Redirect exact from="/" to="/home" />
@@ -149,6 +178,7 @@ function App() {
             <Footer />
           </div>
         </Router>
+        </Main>
       </ThemeProvider>
     </LocalizationProvider>
   );
