@@ -9,7 +9,6 @@ router.get('/', (req, res) => {
     console.log('Getting businesses...');
     const queryText = `select * from "businesses" where user_id=${req.user.id}`;
     pool.query(queryText).then((result)=>{
-        console.log(result.rows);
         res.send(result.rows);
     }).catch((error)=>{
         console.error(error);

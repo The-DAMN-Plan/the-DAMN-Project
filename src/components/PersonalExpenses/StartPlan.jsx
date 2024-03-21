@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
 
 function StartPlan() {
@@ -64,13 +65,13 @@ function StartPlan() {
     console.log(userEntry);
 
     const handleSubmit = (event) => {
-        event.preventDefault()
+        event.preventDefault();
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-        history.push('/plan2');
     };
 
     return (
+        
         <Container maxWidth="md">
             <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
                 <Typography variant="h4" align="center" gutterBottom>
@@ -97,7 +98,7 @@ function StartPlan() {
                             <TextField name="childcare" label="Childcare" fullWidth value={formValues.childcare} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
-                    <ProgressBar back={'startplan'} next={'fundamentalexpenses'} value={5}/>
+                    <ProgressBar back={'startplan'} next={'fundamentalexpenses'} value={5} submit={handleSubmit}/>
                 </form>
             </Paper>
         </Container>
