@@ -64,10 +64,9 @@ function StartPlan() {
     console.log(userEntry);
 
     const handleSubmit = (event) => {
-        event.preventDefault()
+        event.preventDefault();
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-        history.push('/plan2');
     };
 
     return (
@@ -97,7 +96,7 @@ function StartPlan() {
                             <TextField name="childcare" label="Childcare" fullWidth value={formValues.childcare} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
-                    <ProgressBar back={'startplan'} next={'fundamentalexpenses'} value={5}/>
+                    <ProgressBar back={'startplan'} next={'fundamentalexpenses'} value={5} submit={handleSubmit}/>
                 </form>
             </Paper>
         </Container>

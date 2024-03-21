@@ -56,9 +56,7 @@ function PBPage2() {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log('submitting!!');
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-        history.push('/plan3');
     };
 
     return (
