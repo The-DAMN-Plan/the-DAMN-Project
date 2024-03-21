@@ -2,24 +2,25 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import ProgressBar from '../ProgressBar/ProgressBar';
 
-function PBPage2() {
+function VariableExpenses() {
     const dispatch = useDispatch();
     const history = useHistory();
     const budget = useSelector((store) => store.budget);
-    console.log('Budget store', budget);
     const budgetObj = budget[0];
-    console.log('BUDGET ID', budgetObj);
     const [userEntry, setUserEntry] = useState([])
 
     const [formValues, setFormValues] = useState({
-        realEstateTaxes: '',
-        carInsurance: '',
-        houseInsurance: '',
-        creditCard: '',
-        loanPayment: ''
+        food: '',
+        clothing: '',
+        personalCare: '',
+        recreation: '',
+        gifts: '',
+        gas: '',
+        carRepairs: '',
+        homeMaintenance: ''
     });
+
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -39,7 +40,7 @@ function PBPage2() {
             // If the formData object doesn't exist, create a new one
             const formData = {
                 budget_id: budgetObj.id,
-                type: 'personal committed',
+                type: 'personal decision',
                 expense_name: name,
                 expense_amount: value
             };
@@ -52,41 +53,53 @@ function PBPage2() {
             [name]: value,
         });
     };
+
     console.log(userEntry);
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log('submitting!!');
+
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-        history.push('/plan3');
+        history.push('/plan2');
     };
 
     return (
         <Container maxWidth="md">
             <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
                 <Typography variant="h4" align="center" gutterBottom>
+                    Start a DAMN Plan
+                </Typography>
+                <Typography variant="h5" align="center" gutterBottom>
                     Fundamental Living Expenses
                 </Typography>
                 <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
-                    Take some time to think about the monthy bill payments you have to pay.
+                    Your singular goal in business is to "meet your customer's wants and needs at a profit" and pay yourself!
                 </Typography>
+
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2} justifyContent="center">
                         <Grid item xs={12} md={6}>
-                            <TextField name="realEstateTaxes" label="Real Estate Taxes" fullWidth value={formValues.realEstateTaxes} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="carInsurance" label="Car Insurance" fullWidth value={formValues.carInsurance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="houseInsurance" label="House Insurance" fullWidth value={formValues.houseInsurance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="food" label="Food" fullWidth value={formValues.food} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="clothing" label="Clothing" fullWidth value={formValues.clothing} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="personalCare" label="Personal Care" fullWidth value={formValues.personalCare} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="recreation" label="Recreation" fullWidth value={formValues.recreation} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <TextField name="creditCard" label="All Credit Card Payment" fullWidth value={formValues.creditCard} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="loanPayment" label="All Loan Payments" fullWidth value={formValues.loanPayment} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="gifts" label="Gifts" fullWidth value={formValues.gifts} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="gas" label="Gas" fullWidth value={formValues.gas} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="carRepairs" label="Car Repairs" fullWidth value={formValues.carRepairs} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="homeMaintenance" label="Home Maintenance" fullWidth value={formValues.homeMaintenance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
-                    <ProgressBar back={''} next={'personalsavings'} value={5}/>
+                    <Box textAlign="center" marginTop={4}>
+                        <Button type="submit" variant="contained" color="primary">
+                            Next Page
+                        </Button>
+                    </Box>
                 </form>
             </Paper>
         </Container>
     );
 }
 
-export default PBPage2;
+export default VariableExpenses;
