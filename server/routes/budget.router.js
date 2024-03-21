@@ -96,7 +96,7 @@ router.post('/expense', async (req, res) => {
       const result = await pool.query(sql, [
         expense.budget_id, expense.type, expense.expense_name, expense.expense_amount, expense.percent_change, expense.year,
         expense.frequency, expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use, expense.assests_needed, expense.service]);
-      // res.send(result);
+        res.send(result);
     } catch (error) {
       console.log(error);
       res.sendStatus(500);
@@ -135,6 +135,24 @@ router.delete('/expense/:id', async (req, res) => {
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
+  }
+});
+
+router.post('/revenuestream', async (req, res) => {
+  // POST route code here
+  const sql = `INSERT INTO "revenue_streams" ("budget_id", "revenue_stream", "description", "price",
+    "unit", "time_used", "ideal_client", "rate_of_love", "purchasers", "year") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;`;
+  const data = req.body;
+  for (const revenueStream of data) {
+    try {
+      const result = await pool.query(sql, [
+        revenueStream.budget_id, revenueStream.revenue_stream, revenueStream.description, revenueStream.price, revenueStream.unit, revenueStream.time_used,
+        revenueStream.ideal_client, revenueStream.rate_of_love, revenueStream.purchasers, revenueStream.year]);
+        res.send(result);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+    }
   }
 });
 
