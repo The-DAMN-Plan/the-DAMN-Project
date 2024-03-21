@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function OtherExpenses() {
@@ -34,7 +34,7 @@ function OtherExpenses() {
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: expenses });
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
         history.push('/plan5');
     };
 
