@@ -23,6 +23,7 @@ import StartPlan from '../PersonalExpenses/StartPlan';
 import PBPage2 from '../PersonalExpenses/PBpage2';
 import PersonalSavings from '../PersonalExpenses/PersonalSavings';
 import VariableExpenses from '../PersonalExpenses/VariableExpenses';
+import BEOverview from '../BEOverview/BEOverview';
 
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
@@ -35,6 +36,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import FuturePlans from '../PersonalExpenses/FuturePlans';
 import CreateBusiness from '../CreateBusiness/CreateBusiness';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -66,9 +68,9 @@ function App() {
               <Route exact path="/about">
                 <AboutPage />
               </Route>
-              
+
               <Route exact path="/test">
-                <CreateBusiness />
+                <BEOverview />
               </Route>
 
               <Route exact path="/startplan">
