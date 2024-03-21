@@ -23,11 +23,13 @@ function OtherExpenses() {
 
         const formData = {
             budget_id: budgetObj.id,
-            type: 'personal committed',
+            type: 'personal other',
             expense_name: expenseName,
             expense_amount: sanitizedAmount 
         };
+        setUserEntry([...userEntry, formData]);
     };
+    console.log(userEntry);
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -41,6 +43,9 @@ function OtherExpenses() {
     const handleDeleteExpense = (index) => {
         const newExpenses = expenses.filter((_, i) => i !== index);
         setExpenses(newExpenses);
+
+        const newUserEntry = userEntry.filter((_, i) => i !== index);
+        setUserEntry(newUserEntry);
     };
 
     return (
