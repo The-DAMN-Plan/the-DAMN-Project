@@ -15,30 +15,27 @@ import LogOutButton from "../LogOutButton/LogOutButton";
 import { useSelector } from "react-redux";
 
 
-export default function SideNav(){
+// function SideNav(){
     
     
 
-        const menuList = ['Personal Budget', 'Business Income', 'Business Expenses', '2 Year Cash Flow'];
-    const menu = {
-        personalBudget: ['Fudamental Living Expense', 'Regular Finacial Responsibilities', 'Other Expenses', 'Future Plans']
-    }
-    return (
-        <>
+//         const menuList = ['Personal Budget', 'Business Income', 'Business Expenses', '2 Year Cash Flow'];
+//     const menu = {
+//         personalBudget: ['Fudamental Living Expense', 'Regular Finacial Responsibilities', 'Other Expenses', 'Future Plans']
+//     }
+//     return (
+//         <>
             
-            {/* <NavDrawer menuList={menuList}/> */}
-            <PersistentDrawerLeft/>
+//             {/* <NavDrawer menuList={menuList}/> */}
+//             <PersistentDrawerLeft/>
                 
-        </>
-    )
-}
+//         </>
+//     )
+// }
 
-function PersistentDrawerLeft() {
+export default function SideNav({open, handleDrawerClose,drawerWidth}) {
     const theme = useTheme();
     const user = useSelector((store) => store.user);
-    const [open, setOpen] = useState(false);
-
-    const drawerWidth = 280;
 
     const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -48,24 +45,11 @@ function PersistentDrawerLeft() {
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
     }));
-
-
-    // const handleDrawerOpen = () => {
-    //   setOpen(true);
-    // };
-  
-    // const handleDrawerClose = () => {
-    //   setOpen(false);
-    // };
-
-    const toggleDrawer = () => {
-        setOpen(!open);
-    };
     
     return (
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <MenuIcon onClick={()=>toggleDrawer()}/>
+        {/* <MenuIcon onClick={()=>toggleDrawer()}/> */}
         <Drawer
           sx={{
             width: drawerWidth,
@@ -78,10 +62,10 @@ function PersistentDrawerLeft() {
           variant="persistent"
           anchor="left"
           open={open}
-          onClose={()=>toggleDrawer()}
+          onClose={handleDrawerClose}
         >
           <DrawerHeader>
-            <IconButton onClick={()=>toggleDrawer()}>
+            <IconButton onClick={()=>handleDrawerClose()}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
           </DrawerHeader>
