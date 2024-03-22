@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import { useDispatch } from 'react-redux';
 
 export default function FuturePlans() {
+    const dispatch = useDispatch();
     const [expenseName, setExpenseName] = useState('');
     const [amount, setAmount] = useState('');
     const [startDate, setStartDate] = useState(null);
@@ -38,7 +40,7 @@ export default function FuturePlans() {
                 Future Plans
             </Typography>
             <Typography variant="body1" gutterBottom>
-                If you have any future plans that you’d like to account for. Now is the time to put as many of them into your budget as you’d like. These could be many things like trips, etc., etc...</Typography>
+                If you have any future plans that you’d like to account for. Now is the time to put as many of them into your budget as you’d like. These could be many things like trips, etc.</Typography>
             <TextField label="Name of Plan" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
             <DatePicker value={startDate} onChange={(newValue) => setStartDate(newValue)} />
             <DatePicker value={endDate} onChange={(newValue) => setEndDate(newValue)} />
@@ -71,7 +73,7 @@ export default function FuturePlans() {
                     ))}
                 </TableBody>
             </Table>
-            <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={60} />
+            <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={25} submit={handleSubmit}/>
         </Container>
     );
 }

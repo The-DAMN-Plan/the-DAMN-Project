@@ -7,7 +7,6 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 
 function StartPlan() {
     const dispatch = useDispatch();
-    const history = useHistory();
     const budget = useSelector((store) => store.budget);
 
     console.log(budget);
@@ -82,6 +81,9 @@ function StartPlan() {
                 </Typography>
                 <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
                     Your singular goal in business is to "meet your customer's wants and needs at a profit" and pay yourself!
+                </Typography>
+                <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
+                    Take some time t
                 </Typography>
 
                 <form onSubmit={handleSubmit}>

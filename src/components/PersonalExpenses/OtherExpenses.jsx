@@ -76,7 +76,7 @@ function OtherExpenses() {
                     ))}
                 </TableBody>
             </Table>
-            <ProgressBar back={''} next={''} value={5}/>
+            <ProgressBar back={'futureplans'} next={'valuepay'} value={30} submit={handleSubmit}/>
         </Container>
     );
 }
