@@ -5,9 +5,9 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
 
+
 function OtherExpenses() {
     const dispatch = useDispatch();
-    const history = useHistory();
     const budget = useSelector((store) => store.budget);
     const budgetObj = budget[0];
     const [expenseName, setExpenseName] = useState('');
@@ -81,7 +81,7 @@ function OtherExpenses() {
                     ))}
                 </TableBody>
             </Table>
-            <ProgressBar back={''} next={''} value={5}/>
+            <ProgressBar back={'futureplans'} next={'valuepay'} value={30} submit={handleSubmit}/>
         </Container>
     );
 }

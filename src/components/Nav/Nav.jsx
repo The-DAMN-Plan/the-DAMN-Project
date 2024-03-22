@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
-import AppBar from '@mui/material/AppBar';
+import { styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -14,15 +13,29 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import MuiAppBar from '@mui/material/AppBar';
 import SideNav from './SideNav';
 
-function Nav() {
+function Nav({open, toggleDrawer, drawerWidth}) {
   const user = useSelector((store) => store.user);
-  const location = useLocation();
+  
   const history = useHistory();
+  const location = useLocation();
   console.log(location);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const listOfRoutes = [
+    '/startplan',
+    "/fundamentalexpenses",
+    "/personalsavings",
+    "/variableexpenses",
+    "/futureplans",
+    "/otherexpenses",
+    "/businessexpensepage1",
+    "/businessexpensepage2",
+    "/budget/breakeven"
+
+  ]
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -36,15 +49,42 @@ function Nav() {
     setAnchorElUser(null);
   };
 
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+  })(({ theme, open }) => ({
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+      width: listOfRoutes.includes(location.pathname) ? `calc(100% - ${drawerWidth}px)` : `calc(100%`,
+      marginLeft: `${0}px`,
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }),
+  }));
+
   return (
-    <AppBar position="static">
+    <AppBar position="fixed" open={open} >
       < Container maxWidth="xl" >
         <Toolbar disableGutters>
-          {location.pathname == "/startplan" && <SideNav/>}
+          {listOfRoutes.includes(location.pathname) && <> <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={toggleDrawer}
+            edge="start"
+            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+          >
+            <MenuIcon />
+          </IconButton>
+          
+          <SideNav open={open} toggleDrawer={toggleDrawer} drawerWidth={drawerWidth}/></> }
           <Typography
             variant="h6"
             noWrap
@@ -62,7 +102,7 @@ function Nav() {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
+            {/* <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -71,7 +111,7 @@ function Nav() {
               color="inherit"
             >
               <MenuIcon />
-            </IconButton>
+            </IconButton> */}
             {user.id && (
               <Menu
                 id="menu-appbar"
