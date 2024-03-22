@@ -5,7 +5,6 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function ProgressBar({ next, back, value }) {
-  console.log(submit);
   const history = useHistory();
 
   function handleBack() {

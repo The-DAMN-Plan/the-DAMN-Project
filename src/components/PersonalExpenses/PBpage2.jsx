@@ -76,7 +76,7 @@ function PBPage2() {
                             <TextField name="loanPayment" label="All Loan Payments" fullWidth value={formValues.loanPayment} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
-                    <ProgressBar back={'startplan'} next={'personalsavings'} value={10} submit={handleSubmit}/>
+                    <ProgressBar back={'startplan'} next={'personalsavings'} value={10}/>
                 </form>
             </Paper>
         </Container>
