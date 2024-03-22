@@ -1,5 +1,4 @@
 import { AppBar, Box, Collapse, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useState } from "react";
@@ -11,11 +10,13 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LogOutButton from "../LogOutButton/LogOutButton";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import { NavLink, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function SideNav({open, toggleDrawer,drawerWidth}) {
     const theme = useTheme();
     const user = useSelector((store) => store.user);
+    const location = useLocation();
+    console.log(location.pathname);
     const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -25,6 +26,7 @@ export default function SideNav({open, toggleDrawer,drawerWidth}) {
     }));
     
     return (
+        
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <Drawer

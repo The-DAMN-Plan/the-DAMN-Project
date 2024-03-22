@@ -37,12 +37,12 @@ import FuturePlans from '../PersonalExpenses/FuturePlans';
 import BusinessExpensePage1 from '../BusinessExpense/BusinessExpensePage1';
 import BusinessExpensePage2 from '../BusinessExpense/BusinessExpensePage2';
 import SideNav from '../Nav/SideNav';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 function App() {
   const dispatch = useDispatch();
-
   const user = useSelector(store => store.user);
-
+  
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
 
@@ -103,7 +103,6 @@ function App() {
         <Router>
           <div>
             <Nav open={open} toggleDrawer={toggleDrawer} drawerWidth={drawerWidth} />
-            <SideNav open={open} toggleDrawer={toggleDrawer} drawerWidth={drawerWidth}/>
             <Switch>
               {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
               <Redirect exact from="/" to="/home" />

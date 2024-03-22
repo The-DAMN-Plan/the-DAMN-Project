@@ -14,14 +14,19 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import MuiAppBar from '@mui/material/AppBar';
+import SideNav from './SideNav';
 
 function Nav({open, toggleDrawer, drawerWidth}) {
   const user = useSelector((store) => store.user);
-  const location = useLocation();
+  
   const history = useHistory();
+  const location = useLocation();
   console.log(location);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const listOfRoutes = [
+    '/startplan'
+  ]
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -48,7 +53,7 @@ function Nav({open, toggleDrawer, drawerWidth}) {
     }),
     ...(open && {
       width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: `${drawerWidth}px`,
+      marginLeft: `${0}px`,
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
@@ -60,8 +65,7 @@ function Nav({open, toggleDrawer, drawerWidth}) {
     <AppBar position="fixed" open={open} >
       < Container maxWidth="xl" >
         <Toolbar disableGutters>
-          {/* {location.pathname == "/startplan" && <SideNav/>} */}
-          <IconButton
+          {listOfRoutes.includes(location.pathname) && <> <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={toggleDrawer}
@@ -70,6 +74,8 @@ function Nav({open, toggleDrawer, drawerWidth}) {
           >
             <MenuIcon />
           </IconButton>
+          
+          <SideNav open={open} toggleDrawer={toggleDrawer} drawerWidth={drawerWidth}/></> }
           <Typography
             variant="h6"
             noWrap
@@ -87,7 +93,7 @@ function Nav({open, toggleDrawer, drawerWidth}) {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
+            {/* <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -96,7 +102,7 @@ function Nav({open, toggleDrawer, drawerWidth}) {
               color="inherit"
             >
               <MenuIcon />
-            </IconButton>
+            </IconButton> */}
             {user.id && (
               <Menu
                 id="menu-appbar"
