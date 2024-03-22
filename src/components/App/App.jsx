@@ -35,9 +35,9 @@ import OtherExpenses from '../PersonalExpenses/OtherExpenses';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import FuturePlans from '../PersonalExpenses/FuturePlans';
-import CreateBusiness from '../CreateBusiness/CreateBusiness';
 import BusinessExpensePage1 from '../BusinessExpense/BusinessExpensePage1';
 import BusinessExpensePage2 from '../BusinessExpense/BusinessExpensePage2';
+import ValuePay from '../ValuePay/ValuePay';
 
 
 function App() {
@@ -72,7 +72,7 @@ function App() {
               </Route>
 
               <Route exact path="/test">
-                <BEOverview />
+                <ValuePay />
               </Route>
 
               <Route exact path="/startplan">
