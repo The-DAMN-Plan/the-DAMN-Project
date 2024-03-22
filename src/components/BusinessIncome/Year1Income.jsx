@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
+import { InputLabel, Select, MenuItem } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
 
@@ -60,6 +61,7 @@ function Year1Income() {
 
         setUserEntry([...userEntry, formData]);
     };
+    console.log(userEntry);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -135,12 +137,20 @@ return (
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <TextField
-                  fullWidth
-                  label="Rate of Love"
-                  value={rateOfLove}
-                  onChange={(e) => setRateOfLove(e.target.value)}
-                />
+              <InputLabel id="rate-of-love-label">Rate of Love</InputLabel>
+              <Select
+                labelId="rate-of-love-label"
+                id="rate-of-love"
+                value={rateOfLove}
+                style={{ width: '100%' }} 
+                onChange={(e) => setRateOfLove(e.target.value)}
+              >
+                <MenuItem value={1}>1</MenuItem>
+                <MenuItem value={2}>2</MenuItem>
+                 <MenuItem value={3}>3</MenuItem>
+                <MenuItem value={4}>4</MenuItem>
+                <MenuItem value={5}>5</MenuItem>
+              </Select>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <TextField
