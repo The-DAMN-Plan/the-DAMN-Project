@@ -25,7 +25,15 @@ function Nav({open, toggleDrawer, drawerWidth}) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const listOfRoutes = [
-    '/startplan'
+    '/startplan',
+    "/fundamentalexpenses",
+    "/personalsavings",
+    "/variableexpenses",
+    "/futureplans",
+    "/otherexpenses",
+    "/businessexpensepage1",
+    "/businessexpensepage2"
+
   ]
 
   const handleOpenNavMenu = (event) => {
@@ -52,7 +60,7 @@ function Nav({open, toggleDrawer, drawerWidth}) {
       duration: theme.transitions.duration.leavingScreen,
     }),
     ...(open && {
-      width: `calc(100% - ${drawerWidth}px)`,
+      width: listOfRoutes.includes(location.pathname) ? `calc(100% - ${drawerWidth}px)` : `calc(100%`,
       marginLeft: `${0}px`,
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.easeOut,

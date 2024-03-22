@@ -135,6 +135,21 @@ function App() {
               <Route exact path="/otherexpenses">
                 <OtherExpenses />
               </Route>
+              <Route
+                // logged in shows business expense page 1 else shows LoginPage
+                exact
+                path="/businessexpensepage1"
+              >
+                <BusinessExpensePage1 />
+              </Route>
+
+              <Route
+                // logged in shows business expense page 2 else shows LoginPage
+                exact
+                path="/businessexpensepage2"
+              >
+                <BusinessExpensePage2/>
+              </Route>
 
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
@@ -147,22 +162,7 @@ function App() {
               <ProtectedRoute exact path="/info">
                 <InfoPage />
               </ProtectedRoute>
-              <ProtectedRoute
-                // logged in shows business expense page 1 else shows LoginPage
-                exact
-                path="/businessexpensepage1"
-              >
-                <BusinessExpensePage1 />
-              </ProtectedRoute>
-
-              <ProtectedRoute
-                // logged in shows business expense page 2 else shows LoginPage
-                exact
-                path="/businessexpensepage2"
-              >
-                <BusinessExpensePage2/>
-              </ProtectedRoute>
-
+              
               <Route exact path="/login">
                 {user.id ?
                   // If the user is already logged in, 
