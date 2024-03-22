@@ -4,8 +4,7 @@ import { Button } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
-export default function ProgressBar({ next, back, value, submit }) {
-  console.log(submit);
+export default function ProgressBar({ next, back, value }) {
   const history = useHistory();
 
   function handleBack() {
@@ -13,8 +12,6 @@ export default function ProgressBar({ next, back, value, submit }) {
   }
 
   function handleNext(event) {
-    event.preventDefault();
-    submit(event);
     history.push(`/${next}`);
   }
 

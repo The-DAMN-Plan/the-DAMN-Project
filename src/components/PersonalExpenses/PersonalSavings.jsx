@@ -106,7 +106,7 @@ function PersonalSavings() {
                             />
                         </Grid>
                     </Grid>
-                    <ProgressBar back={'fundamentalexpenses'} next={'variableexpenses'} value={15} submit={handleSubmit}/>
+                    <ProgressBar back={'fundamentalexpenses'} next={'variableexpenses'} value={15}/>
                 </form>
             </Paper>
         </Container>

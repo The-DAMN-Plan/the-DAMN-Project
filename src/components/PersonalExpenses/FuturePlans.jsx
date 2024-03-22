@@ -73,7 +73,7 @@ export default function FuturePlans() {
                     ))}
                 </TableBody>
             </Table>
-            <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={25} submit={handleSubmit}/>
+            <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={25}/>
         </Container>
     );
 }
