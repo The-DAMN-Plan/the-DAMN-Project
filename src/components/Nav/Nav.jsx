@@ -32,7 +32,8 @@ function Nav({open, toggleDrawer, drawerWidth}) {
     "/futureplans",
     "/otherexpenses",
     "/businessexpensepage1",
-    "/businessexpensepage2"
+    "/businessexpensepage2",
+    "/budget/breakeven"
 
   ]
 

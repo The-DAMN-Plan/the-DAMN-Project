@@ -57,7 +57,7 @@ function App() {
   
 
   const [open, setOpen] = useState(true);
-  const drawerWidth = 300;
+  const drawerWidth = 302;
 
   const toggleDrawer = ()=>{
     setOpen(!open);

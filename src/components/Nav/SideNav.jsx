@@ -108,6 +108,17 @@ export default function SideNav({open, toggleDrawer,drawerWidth}) {
                                 
                             </List>
                         </CollapeMenu>
+                        <CollapeMenu>
+                            <ListItemText primary={'Break Even'} />
+                            <List>
+                                <ListItem sx={{pl:'15px'}} disablePadding>
+                                    <ListItemButton component={NavLink} to="/budget/breakeven" sx={{"&.active": {background:'#5d5179', color:'white'}}}>
+                                    <ListItemText primary={'Break Even'} />
+                                    </ListItemButton>
+                                </ListItem>
+                                
+                            </List>
+                        </CollapeMenu>
                         
                     </List>
                 </Box>
