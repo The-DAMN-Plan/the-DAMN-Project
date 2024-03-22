@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function OtherExpenses() {
     const dispatch = useDispatch();
-    const history = useHistory();
     const budget = useSelector((store) => store.budget);
     const budgetObj = budget[0];
     const [expenseName, setExpenseName] = useState('');

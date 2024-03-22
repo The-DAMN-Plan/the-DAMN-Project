@@ -5,22 +5,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
 
     
-    function Year1Income() {
-      const budget = useSelector((store) => store.budget);
+function Year1Income() {
+    const dispatch = useDispatch();
+    const budget = useSelector((store) => store.budget);
+    const budgetObj = budget[0]
       
-      const [revenueStream, setRevenueStream] = useState('');
-      const [description, setDescription] = useState('');
-      const [price, setPrice] = useState('');
-      const [unit, setUnit] = useState('');
-      const [timeUsed, setTimeUsed] = useState('');
-      const [idealClient, setIdealClient] = useState('');
-      const [rateOfLove, setRateOfLove] = useState('');
-      const [purchasers, setPurchasers] = useState('');
-      const [revenueStreams, setRevenueStreams] = useState([]);
+    const [revenueStream, setRevenueStream] = useState('');
+    const [description, setDescription] = useState('');
+    const [price, setPrice] = useState('');
+    const [unit, setUnit] = useState('');
+    const [timeUsed, setTimeUsed] = useState('');
+    const [idealClient, setIdealClient] = useState('');
+    const [rateOfLove, setRateOfLove] = useState('');
+    const [purchasers, setPurchasers] = useState('');
+    const [revenueStreams, setRevenueStreams] = useState([]);
+    const [userEntry, setUserEntry] = useState([]);
     
-      const handleAddRevenueStream = () => {
-        if (revenueStream && price && timeUsed) {
-          const newRevenueStream = {
+    const handleAddRevenueStream = () => {
+        if (!revenueStream || !description || !price || !unit || !timeUsed || !idealClient || !rateOfLove || !purchasers) return;
+        
+        const newRevenueStream = {
             revenueStream,
             description,
             price,
@@ -29,26 +33,49 @@ import ProgressBar from '../ProgressBar/ProgressBar';
             idealClient,
             rateOfLove,
             purchasers
-          };
-          setRevenueStreams([...revenueStreams, newRevenueStream]);
-          // Reset fields after submission
-          setRevenueStream('');
-          setDescription('');
-          setPrice('');
-          setUnit('');
-          setTimeUsed('');
-          setIdealClient('');
-          setRateOfLove('');
-          setPurchasers('');
-        }
-      };
+        };
+
+        setRevenueStreams([...revenueStreams, newRevenueStream]);
+        setRevenueStream('');
+        setDescription('');
+        setPrice('');
+        setUnit('');
+        setTimeUsed('');
+        setIdealClient('');
+        setRateOfLove('');
+        setPurchasers('');
+
+        const formData = {
+            budget_id: budgetObj.id,
+            revenue_stream: revenueStream,
+            description: description,
+            price: price,
+            unit: unit,
+            time_used: timeUsed,
+            ideal_client: idealClient,
+            rate_of_love: rateOfLove,
+            purchasers: purchasers,
+            year: 1
+        };
+
+        setUserEntry([...userEntry, formData]);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        dispatch({ type: 'ADD_BUSINESS_INCOME', payload: userEntry });
+    };
     
-      const handleDeleteProduct = (index) => {
+    const handleDeleteProduct = (index) => {
         const filteredStreams = revenueStreams.filter((_, i) => i !== index);
         setRevenueStreams(filteredStreams);
-      };
+
+        const newUserEntry = userEntry.filter((_, i) => i !== index);
+        setUserEntry(newUserEntry);
+    };
     
-      return (
+return (
         <Container sx={{ paddingTop: '64px', paddingBottom: '64px' }}>
           <Typography variant="h4" gutterBottom align="center">
             Year 1 Business Income
@@ -78,6 +105,7 @@ import ProgressBar from '../ProgressBar/ProgressBar';
                 <TextField
                   fullWidth
                   label="Price"
+                  type='number'
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                 />
@@ -173,7 +201,7 @@ import ProgressBar from '../ProgressBar/ProgressBar';
         </Table>
       </Paper>
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-        <ProgressBar back={''} next={''} value={5}/>
+        <ProgressBar back={''} next={''} submit={handleSubmit} value={5}/>
       </Box>
     </Container>
   );
