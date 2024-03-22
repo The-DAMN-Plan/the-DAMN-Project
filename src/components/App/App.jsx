@@ -23,6 +23,7 @@ import StartPlan from '../PersonalExpenses/StartPlan';
 import PBPage2 from '../PersonalExpenses/PBpage2';
 import PersonalSavings from '../PersonalExpenses/PersonalSavings';
 import VariableExpenses from '../PersonalExpenses/VariableExpenses';
+import Year1Income from '../BusinessIncome/Year1Income';
 import BEOverview from '../BEOverview/BEOverview';
 
 import './App.css';
@@ -157,6 +158,11 @@ function App() {
               >
                 <BusinessExpensePage2/>
               </Route>
+
+              <Route exact path="/incomeyear1">
+                <Year1Income />
+              </Route>
+
 
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
