@@ -1,31 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow,
-    Typography, Grid, Box, FormControl, InputLabel, Select, MenuItem,
+    Typography, Grid, Box, FormControl, InputLabel, Select, MenuItem
 } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
 
-function MarketingBudget() {
+function Budget() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const [marketingBudget, setMarketingBudget] = useState([]);
-    const [newItem, setNewItem] = useState({
+    const budgetList = useSelector((store) => store.budget);
+
+    useEffect(() => {
+        dispatch({ type: 'FETCH_BUDGET' });
+    }, [dispatch]);
+
+    const [formValues, setFormValues] = useState({
         expense_name: '',
         service_provider: '',
-        payment_interval: '', // Added to align with "Payment Interval"
-        assets_needed: '', // Added to align with "Assets Needed"
+        payment_interval: '',
+        assets_needed: '',
         cost_per_use: '',
-        contractor_in_house: '', // Renamed to match "Contractor or In-House"
-        monthly_usage_count: '', // Added to align with "Monthly Usage Count"
+        contractor_in_house: '',
+        monthly_usage_count: '',
     });
 
-    const handleAddMarketingItem = () => {
-        if (!newItem.expense_name || !newItem.cost_per_use || !newItem.payment_interval || !newItem.assets_needed || !newItem.service_provider || !newItem.contractor_in_house || !newItem.monthly_usage_count) return;
-        setMarketingBudget([...marketingBudget, { ...newItem }]);
-        setNewItem({
+    const handleAddMarketingformValues = (event) => {
+        event.preventDefault();
+        if (!Object.values(formValues).every(value => value)) return;
+        // Assuming dispatch to save the formValues here
+        dispatch({ type: 'ADD_MARKETING_formValues', payload: formValues });
+        setFormValues({
             expense_name: '',
             service_provider: '',
             payment_interval: '',
@@ -33,29 +40,16 @@ function MarketingBudget() {
             cost_per_use: '',
             contractor_in_house: '',
             monthly_usage_count: '',
-        }); // Reset the newItem state
+        });
     };
 
-    const handleDeleteMarketingItem = (index) => {
-        const newMarketingBudget = marketingBudget.filter((_, i) => i !== index);
-        setMarketingBudget(newMarketingBudget);
-    };
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
 
-    const handleInputChange = (event, fieldName = null) => {
-        let name, value;
-
-        // Check if the event is from Select component or TextField
-        if (fieldName) {
-            // For Select, use the provided fieldName and the value from the event
-            name = fieldName;
-            value = event.target.value;
-        } else {
-            // For TextField, extract name and value directly from the event
-            name = event.target.name;
-            value = event.target.value;
-        }
-
-        setNewItem({ ...newItem, [name]: value });
+        setFormValues(prev => ({
+            ...prev,
+            [name]: value,
+        }));
     };
 
 
@@ -65,42 +59,42 @@ function MarketingBudget() {
             <Typography variant="h4" gutterBottom>Marketing Budget</Typography>
 
             {/* Grid container for input fields */}
-            <Grid container spacing={2} alignItems="center">
-                <Grid item xs={12} md={3}>
+            <Grid container spacing={2} alignformValuess="center">
+                <Grid formValues xs={12} md={3}>
                     <TextField
                         name="expense_name"
-                        label="Service/ Item"
-                        value={newItem.expense_name}
+                        label="Service/ formValues"
+                        value={formValues.expense_name}
                         onChange={(e) => handleInputChange('expense_name', e.target.value)}
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} md={3}>
+                <Grid formValues xs={12} md={3}>
                     <TextField
                         name="cost_per_use"
                         label="Cost Per Use"
-                        value={newItem.cost_per_use}
+                        value={formValues.cost_per_use}
                         onChange={(e) => handleInputChange('cost_per_use', e.target.value)}
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} md={3}>
+                <Grid formValues xs={12} md={3}>
                     <TextField
                         name="frequency"
                         label="Monthly Frequency"
-                        value={newItem.frequency}
+                        value={formValues.frequency}
                         onChange={(e) => handleInputChange('frequency', e.target.value)}
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} md={3}>
+                <Grid formValues xs={12} md={3}>
                     <FormControl fullWidth>
                         <InputLabel id="vendor-label">Select One</InputLabel>
                         <Select
                             labelId="vendor-label"
                             id="vendor"
                             name="vendor"
-                            value={newItem.vendor}
+                            value={formValues.vendor}
                             label="Select One"
                             onChange={(e) => handleInputChange(e, 'vendor')} // Pass 'vendor' explicitly
                         >
@@ -115,7 +109,7 @@ function MarketingBudget() {
                     <TextField
                         name="service_provider"
                         label="Service Provider"
-                        value={newItem.service_provider}
+                        value={formValues.service_provider}
                         onChange={(e) => handleInputChange('service_provider', e.target.value)}
                         fullWidth
                     />
@@ -126,7 +120,7 @@ function MarketingBudget() {
                     <TextField
                         name="payment_interval"
                         label="Payment Interval"
-                        value={newItem.payment_interval}
+                        value={formValues.payment_interval}
                         onChange={handleInputChange}
                         fullWidth
                     />
@@ -135,7 +129,7 @@ function MarketingBudget() {
                     <TextField
                         name="assets_needed"
                         label="Assets Needed"
-                        value={newItem.assets_needed}
+                        value={formValues.assets_needed}
                         onChange={handleInputChange}
                         fullWidth
                     />
@@ -144,13 +138,13 @@ function MarketingBudget() {
                     <TextField
                         name="monthly_usage_count"
                         label="Monthly Usage Count"
-                        value={newItem.monthly_usage_count}
+                        value={formValues.monthly_usage_count}
                         onChange={handleInputChange}
                         fullWidth
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button variant="contained" color="primary" onClick={handleAddMarketingItem}>Add Item</Button>
+                    <Button variant="contained" color="primary" onClick={handleAddMarketingformValues}>Add formValues</Button>
                 </Grid>
             </Grid>
 
@@ -158,7 +152,7 @@ function MarketingBudget() {
                 <TableHead>
                     {/* Table headers aligned with the input fields */}
                     <TableRow>
-                        <TableCell>Service/ Item</TableCell>
+                        <TableCell>Service/ formValues</TableCell>
                         <TableCell align="right">Service Provider</TableCell>
                         <TableCell align="right">Payment Interval</TableCell>
                         <TableCell align="right">Assets Needed</TableCell>
@@ -169,17 +163,17 @@ function MarketingBudget() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {marketingBudget.map((item, index) => (
+                    {budgetList.map((formValues, index) => (
                         <TableRow key={index}>
-                            <TableCell>{item.expense_name}</TableCell>
-                            <TableCell align="right">{item.service_provider}</TableCell>
-                            <TableCell align="right">{item.payment_interval}</TableCell>
-                            <TableCell align="right">{item.assets_needed}</TableCell>
-                            <TableCell align="right"><Currency value={item.cost_per_use} /></TableCell>
-                            <TableCell align="right">{item.contractor_in_house}</TableCell>
-                            <TableCell align="right">{item.monthly_usage_count}</TableCell>
+                            <TableCell>{formValues.expense_name}</TableCell>
+                            <TableCell align="right">{formValues.service_provider}</TableCell>
+                            <TableCell align="right">{formValues.payment_interval}</TableCell>
+                            <TableCell align="right">{formValues.assets_needed}</TableCell>
+                            <TableCell align="right"><Currency value={formValues.cost_per_use} /></TableCell>
+                            <TableCell align="right">{formValues.contractor_in_house}</TableCell>
+                            <TableCell align="right">{formValues.monthly_usage_count}</TableCell>
                             <TableCell align="center">
-                                <Button onClick={() => handleDeleteMarketingItem(index)} variant="contained" color="secondary">Delete</Button>
+                                <Button onClick={() => handleDeleteMarketingformValues(index)} variant="contained" color="secondary">Delete</Button>
                             </TableCell>
                         </TableRow>
                     ))}
@@ -193,4 +187,4 @@ function MarketingBudget() {
     );
 }
 
-export default MarketingBudget;
+export default Budget;
