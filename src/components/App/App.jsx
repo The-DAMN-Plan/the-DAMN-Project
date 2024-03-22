@@ -119,6 +119,10 @@ function App() {
                 <AboutPage />
               </Route>
 
+              <Route exact path="/plans">
+                <ActivePlans />
+              </Route>
+
               <Route exact path="/test">
                 <ActivePlans />
               </Route>
