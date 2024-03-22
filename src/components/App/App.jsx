@@ -36,9 +36,9 @@ import { styled, useTheme } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import FuturePlans from '../PersonalExpenses/FuturePlans';
-import CreateBusiness from '../CreateBusiness/CreateBusiness';
 import BusinessExpensePage1 from '../BusinessExpense/BusinessExpensePage1';
 import BusinessExpensePage2 from '../BusinessExpense/BusinessExpensePage2';
+import ValuePay from '../ValuePay/ValuePay';
 import SideNav from '../Nav/SideNav';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
@@ -117,7 +117,7 @@ function App() {
               </Route>
 
               <Route exact path="/test">
-                <BEOverview />
+                <ValuePay />
               </Route>
 
               <Route exact path="/startplan">
