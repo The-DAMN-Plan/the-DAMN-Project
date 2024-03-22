@@ -24,7 +24,7 @@ import PBPage2 from '../PersonalExpenses/PBpage2';
 import PersonalSavings from '../PersonalExpenses/PersonalSavings';
 import VariableExpenses from '../PersonalExpenses/VariableExpenses';
 import BEOverview from '../BEOverview/BEOverview';
-import MarketingPage from '../BusinessExpenses/MarketingPage';
+import MarketingPage from '../BusinessExpense/MarketingPage';
 
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
