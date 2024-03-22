@@ -86,9 +86,6 @@ router.get('/expenses', async (req, res) => {
   // Assuming you're filtering by a budgetId passed as a query parameter
   const { budgetId } = req.query;
 
-  // SQL query to select expenses. Modify it according to your database schema.
-  // This example assumes you have columns for id, budget_id, expense_name, and expense_amount
-  // in a table named 'expenses'.
   let sql = `SELECT * FROM expenses`;
   let params = [];
 
