@@ -54,28 +54,28 @@ export default function SideNav({open, toggleDrawer,drawerWidth}) {
                         <CollapeMenu>
                             <ListItemText primary={'Personal Budget'} />
                             <List>
-                                <ListItem sx={{pl:'15px'}} disablePadding>
-                                    <ListItemButton component={NavLink} to="/startplan" sx={{"&.active": {background:'yellow'}}}  >
+                                <ListItem >
+                                    <ListItemButton component={NavLink} to="/startplan" sx={{"&.active": {background:'#5d5179', color:'white'}}}  >
                                     <ListItemText primary={'Start a Plan'} />
                                     </ListItemButton>
                                 </ListItem>
-                                <ListItem sx={{pl:'15px'}} disablePadding>
-                                    <ListItemButton component={NavLink} to="/fundamentalexpenses" sx={{"&.active": {background:'yellow'}}}  >
+                                <ListItem sx={{pl:'15px'}}>
+                                    <ListItemButton component={NavLink} to="/fundamentalexpenses" sx={{"&.active": {background:'#5d5179', color:'white'}}}  >
                                     <ListItemText primary={'Fudamental Living Expense'} />
                                     </ListItemButton>
                                 </ListItem>
                                 <ListItem sx={{pl:'15px'}} disablePadding>
-                                    <ListItemButton component={NavLink} to="/personalsavings" sx={{"&.active": {background:'yellow'}}} >
+                                    <ListItemButton component={NavLink} to="/personalsavings" sx={{"&.active": {background:'#5d5179', color:'white'}}} >
                                     <ListItemText primary={'Regular Financial Responsibilities'} />
                                     </ListItemButton>
                                 </ListItem>
                                 <ListItem sx={{pl:'15px'}} disablePadding>
-                                    <ListItemButton component={NavLink} to="/futureplans" sx={{"&.active": {background:'yellow'}}}>
+                                    <ListItemButton component={NavLink} to="/futureplans" sx={{"&.active": {background:'#5d5179', color:'white'}}}>
                                     <ListItemText primary={'Future Plans'}  />
                                     </ListItemButton>
                                 </ListItem>
                                 <ListItem sx={{pl:'15px'}} disablePadding>
-                                    <ListItemButton component={NavLink} to="/otherexpenses" sx={{"&.active": {background:'yellow'}}}>
+                                    <ListItemButton component={NavLink} to="/otherexpenses" sx={{"&.active": {background:'#5d5179', color:'white'}}}>
                                     <ListItemText primary={'Other Expenses'}  />
                                     </ListItemButton>
                                 </ListItem>
@@ -96,12 +96,12 @@ export default function SideNav({open, toggleDrawer,drawerWidth}) {
                             <ListItemText primary={'Business Expense'} />
                             <List>
                                 <ListItem sx={{pl:'15px'}} disablePadding>
-                                    <ListItemButton component={NavLink} to="/businessexpensepage1" sx={{"&.active": {background:'yellow'}}}>
+                                    <ListItemButton component={NavLink} to="/businessexpensepage1" sx={{"&.active": {background:'#5d5179', color:'white'}}}>
                                     <ListItemText primary={'Businsess Expense Page 1'} />
                                     </ListItemButton>
                                 </ListItem>
                                 <ListItem sx={{pl:'15px'}} disablePadding>
-                                    <ListItemButton component={NavLink} to="/businessexpensepage2" sx={{"&.active": {background:'yellow'}}}>
+                                    <ListItemButton component={NavLink} to="/businessexpensepage2" sx={{"&.active": {background:'#5d5179', color:'white'}}}>
                                     <ListItemText primary={'Businsess Expense Page 2'} />
                                     </ListItemButton>
                                 </ListItem>
