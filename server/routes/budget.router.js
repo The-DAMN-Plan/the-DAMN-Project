@@ -82,6 +82,31 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.get('/expenses', async (req, res) => {
+  // Assuming you're filtering by a budgetId passed as a query parameter
+  const { budgetId } = req.query;
+
+  // SQL query to select expenses. Modify it according to your database schema.
+  // This example assumes you have columns for id, budget_id, expense_name, and expense_amount
+  // in a table named 'expenses'.
+  let sql = `SELECT * FROM expenses`;
+  let params = [];
+
+  // If a budgetId is provided, filter the expenses by that budgetId
+  if (budgetId) {
+    sql += ` WHERE budget_id = $1`;
+    params.push(budgetId);
+  }
+
+  try {
+    const result = await pool.query(sql, params); 
+    res.json(result.rows); // Send back the array of expense objects
+  } catch (error) {
+    console.error('Error fetching expenses:', error);
+    res.status(500).send('Server error while fetching expenses');
+  }
+});
+
 // creates all expenses given to it
 router.post('/expense', async (req, res) => {
   // POST route code here
