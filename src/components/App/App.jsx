@@ -82,13 +82,13 @@ function App() {
   const Main = styled('main', { 
     shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
-      marginLeft: `-${drawerWidth}px`,
+      marginLeft: `-${drawerWidth/4}px`,
       ...(open && {
         transition: theme.transitions.create('margin', {
           easing: theme.transitions.easing.easeOut,
           duration: theme.transitions.duration.enteringScreen,
         }),
-        marginLeft: drawerWidth/2,
+        marginLeft: drawerWidth,
       }),
     }),
   );

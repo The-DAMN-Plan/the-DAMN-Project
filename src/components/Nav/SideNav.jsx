@@ -31,8 +31,8 @@ export default function SideNav({open, toggleDrawer,drawerWidth}) {
         <CssBaseline />
         <Drawer
           sx={{
-            width: drawerWidth,
-            flexShrink: 0,
+            width: drawerWidth/3,
+            flexShrink: 1,
             '& .MuiDrawer-paper': {
               width: drawerWidth,
               boxSizing: 'border-box',
