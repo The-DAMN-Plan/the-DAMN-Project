@@ -23,6 +23,7 @@ import StartPlan from '../PersonalExpenses/StartPlan';
 import PBPage2 from '../PersonalExpenses/PBpage2';
 import PersonalSavings from '../PersonalExpenses/PersonalSavings';
 import VariableExpenses from '../PersonalExpenses/VariableExpenses';
+import BEOverview from '../BEOverview/BEOverview';
 import MarketingPage from '../BusinessExpenses/MarketingPage';
 
 import './App.css';
@@ -35,6 +36,10 @@ import OtherExpenses from '../PersonalExpenses/OtherExpenses';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import FuturePlans from '../PersonalExpenses/FuturePlans';
+import CreateBusiness from '../CreateBusiness/CreateBusiness';
+import BusinessExpensePage1 from '../BusinessExpense/BusinessExpensePage1';
+import BusinessExpensePage2 from '../BusinessExpense/BusinessExpensePage2';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -65,6 +70,10 @@ function App() {
               {/* Visiting localhost:5173/about will show the about page. */}
               <Route exact path="/about">
                 <AboutPage />
+              </Route>
+
+              <Route exact path="/test">
+                <BEOverview />
               </Route>
 
               <Route exact path="/startplan">
@@ -104,6 +113,21 @@ function App() {
 
               <ProtectedRoute exact path="/info">
                 <InfoPage />
+              </ProtectedRoute>
+              <ProtectedRoute
+                // logged in shows business expense page 1 else shows LoginPage
+                exact
+                path="/businessexpensepage1"
+              >
+                <BusinessExpensePage1 />
+              </ProtectedRoute>
+
+              <ProtectedRoute
+                // logged in shows business expense page 2 else shows LoginPage
+                exact
+                path="/businessexpensepage2"
+              >
+                <BusinessExpensePage2/>
               </ProtectedRoute>
 
               <Route exact path="/login">

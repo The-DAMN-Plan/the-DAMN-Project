@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,11 +14,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import SideNav from './SideNav';
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  const location = useLocation();
   const history = useHistory();
-
+  console.log(location);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -39,10 +41,10 @@ function Nav() {
   const handleClose = () => setOpen(false);
 
   return (
-
     <AppBar position="static">
       < Container maxWidth="xl" >
         <Toolbar disableGutters>
+          {location.pathname == "/startplan" && <SideNav/>}
           <Typography
             variant="h6"
             noWrap

@@ -61,7 +61,6 @@ function VariableExpenses() {
         event.preventDefault()
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-        history.push('/plan2');
     };
 
     return (

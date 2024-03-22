@@ -37,10 +37,7 @@ function OtherExpenses() {
         event.preventDefault()
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-        history.push('/plan5');
     };
-
-
 
     const handleDeleteExpense = (index) => {
         const newExpenses = expenses.filter((_, i) => i !== index);
