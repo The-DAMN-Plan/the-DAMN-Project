@@ -61,8 +61,7 @@ function Nav({open, toggleDrawer, drawerWidth}) {
       duration: theme.transitions.duration.leavingScreen,
     }),
     ...(open && {
-      width: listOfRoutes.includes(location.pathname) ? `calc(100% - ${drawerWidth}px)` : `calc(100%`,
-      marginLeft: `${0}px`,
+      width: listOfRoutes.includes(location.pathname) ? `calc(108% - ${drawerWidth}px)` : `calc(100%`,
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
@@ -85,7 +84,7 @@ function Nav({open, toggleDrawer, drawerWidth}) {
           </IconButton>
           
           <SideNav open={open} toggleDrawer={toggleDrawer} drawerWidth={drawerWidth}/></> }
-          <Typography
+          {!open &&<Typography
             variant="h6"
             noWrap
             component="a"
@@ -99,7 +98,9 @@ function Nav({open, toggleDrawer, drawerWidth}) {
             }}
           >
             The DAMN Plan
-          </Typography>
+          </Typography>}
+          
+          
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             {/* <IconButton
@@ -152,7 +153,7 @@ function Nav({open, toggleDrawer, drawerWidth}) {
               </Menu>
             )}
           </Box>
-          <Typography
+          {/* {!open && <Typography
             variant="h5"
             noWrap
             component="a"
@@ -167,7 +168,7 @@ function Nav({open, toggleDrawer, drawerWidth}) {
             }}
           >
             The DAMN Plan
-          </Typography>
+          </Typography>} */}
           {user.id && (
 
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>

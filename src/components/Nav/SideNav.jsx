@@ -44,12 +44,27 @@ export default function SideNav({open, toggleDrawer,drawerWidth}) {
           onClose={toggleDrawer}
         >
           <DrawerHeader>
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="#/"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontWeight: 900,
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            The DAMN Plan
+          </Typography>
             <IconButton onClick={toggleDrawer}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
           </DrawerHeader>
           <Divider />
-          <Box sx={{ width: 340 }} role="presentation" >
+          <Box sx={{ width: 330 }} role="presentation" >
                     <List>
                         <CollapeMenu>
                             <ListItemText primary={'Personal Budget'} />
