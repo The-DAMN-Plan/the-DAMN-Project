@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import ProgressBar from '../ProgressBar/ProgressBar';
 
 function PBPage2() {
     const dispatch = useDispatch();
-    const history = useHistory();
     const budget = useSelector((store) => store.budget);
-    console.log('Budget store', budget);
     const budgetObj = budget[0];
-    console.log('BUDGET ID', budgetObj);
     const [userEntry, setUserEntry] = useState([])
 
     const [formValues, setFormValues] = useState({
@@ -80,7 +76,7 @@ function PBPage2() {
                             <TextField name="loanPayment" label="All Loan Payments" fullWidth value={formValues.loanPayment} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
-                    <ProgressBar back={''} next={'personalsavings'} value={5}/>
+                    <ProgressBar back={'startplan'} next={'personalsavings'} value={10} submit={handleSubmit}/>
                 </form>
             </Paper>
         </Container>
