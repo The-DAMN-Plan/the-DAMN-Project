@@ -3,6 +3,7 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import MuiAppBar from '@mui/material/AppBar';
 import { styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,7 +14,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import MuiAppBar from '@mui/material/AppBar';
 import SideNav from './SideNav';
 
 function Nav({open, toggleDrawer, drawerWidth}) {
@@ -53,6 +53,22 @@ function Nav({open, toggleDrawer, drawerWidth}) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  // const AppBar = styled(MuiAppBar, {
+  //   shouldForwardProp: (prop) => prop !== 'open',
+  // })(({ theme, open }) => ({
+  //   transition: theme.transitions.create(['margin', 'width'], {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.leavingScreen,
+  //   }),
+  //   ...(open && {
+  //     width: listOfRoutes.includes(location.pathname) ? `calc(108% - ${drawerWidth}px)` : `calc(100%`,
+  //     transition: theme.transitions.create(['margin', 'width'], {
+  //       easing: theme.transitions.easing.easeOut,
+  //       duration: theme.transitions.duration.enteringScreen,
+  //     }),
+  //   }),
+  // }));
+
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
   })(({ theme, open }) => ({
@@ -62,6 +78,7 @@ function Nav({open, toggleDrawer, drawerWidth}) {
     }),
     ...(open && {
       width: listOfRoutes.includes(location.pathname) ? `calc(108% - ${drawerWidth}px)` : `calc(100%`,
+      marginLeft: `${drawerWidth}px`,
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,

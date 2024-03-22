@@ -56,7 +56,7 @@ function App() {
   }, [dispatch]);
   
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const drawerWidth = 300;
 
   const toggleDrawer = ()=>{
@@ -82,19 +82,25 @@ function App() {
   //a wrapper to shif body of the page to the right  depending on the width of side nav
   // shift to right when nav opens
   // shifts left when nav closes
-  const Main = styled('main', { 
-    shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-      marginLeft: `-${drawerWidth/4}px`,
-      ...(open && {
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: drawerWidth,
-      }),
+ 
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
     }),
-  );
+    marginLeft: `-${drawerWidth/4}px`,
+    ...(open && {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: drawerWidth,
+    }),
+  }),
+);
 
   return (
 
