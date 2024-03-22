@@ -33,7 +33,8 @@ function Nav({open, toggleDrawer, drawerWidth}) {
     "/otherexpenses",
     "/businessexpensepage1",
     "/businessexpensepage2",
-    "/budget/breakeven"
+    "/budget/breakeven",
+    "/OtherBusinessExpenses"
 
   ]
 

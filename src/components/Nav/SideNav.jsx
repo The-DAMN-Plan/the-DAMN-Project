@@ -105,6 +105,11 @@ export default function SideNav({open, toggleDrawer,drawerWidth}) {
                                     <ListItemText primary={'Businsess Expense Page 2'} />
                                     </ListItemButton>
                                 </ListItem>
+                                <ListItem sx={{pl:'15px'}} disablePadding>
+                                    <ListItemButton component={NavLink} to="/OtherBusinessExpenses" sx={{"&.active": {background:'#5d5179', color:'white'}}}>
+                                    <ListItemText primary={'Other Businsess Expenses'} />
+                                    </ListItemButton>
+                                </ListItem>
                                 
                             </List>
                         </CollapeMenu>

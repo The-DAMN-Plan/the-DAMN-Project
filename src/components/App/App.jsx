@@ -40,6 +40,7 @@ import BusinessExpensePage1 from '../BusinessExpense/BusinessExpensePage1';
 import BusinessExpensePage2 from '../BusinessExpense/BusinessExpensePage2';
 import SideNav from '../Nav/SideNav';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import OtherBusinessExpenses from '../BusinessExpense/OtherBusinessExpenses';
 
 
 function App() {
@@ -157,6 +158,14 @@ function App() {
               >
                 <BusinessExpensePage2/>
               </Route>
+              <Route
+                // logged in shows other business expense else shows LoginPage
+                exact
+                path="/Otherbusinessexpenses"
+              >
+                <OtherBusinessExpenses/>
+              </Route>
+              
 
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
