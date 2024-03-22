@@ -8,6 +8,7 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 function StartPlan() {
     const dispatch = useDispatch();
     const budget = useSelector((store) => store.budget);
+    const [submit, setSubmit] = useState(false);
 
     console.log(budget);
 
@@ -98,9 +99,12 @@ function StartPlan() {
                             <TextField name="internet" label="Internet" fullWidth value={formValues.internet} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="telephone" label="Telephone" fullWidth value={formValues.telephone} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="childcare" label="Childcare" fullWidth value={formValues.childcare} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <Button type='submit'>
+                                Submit
+                            </Button>
                         </Grid>
                     </Grid>
-                    <ProgressBar back={'startplan'} next={'fundamentalexpenses'} value={5} submit={handleSubmit}/>
+                    {/* <ProgressBar back={'startplan'} next={'fundamentalexpenses'} value={5} /> */}
                 </form>
             </Paper>
         </Container>
