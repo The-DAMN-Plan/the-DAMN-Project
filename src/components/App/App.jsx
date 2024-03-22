@@ -24,6 +24,7 @@ import PBPage2 from '../PersonalExpenses/PBpage2';
 import PersonalSavings from '../PersonalExpenses/PersonalSavings';
 import VariableExpenses from '../PersonalExpenses/VariableExpenses';
 import Year1Income from '../BusinessIncome/Year1Income';
+import Year2Income from '../BusinessIncome/Year2Income';
 import BEOverview from '../BEOverview/BEOverview';
 
 import './App.css';
