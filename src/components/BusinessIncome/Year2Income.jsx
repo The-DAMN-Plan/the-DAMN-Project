@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
 
     
-function Year1Income() {
+function Year2Income() {
     const dispatch = useDispatch();
     const budget = useSelector((store) => store.budget);
     const budgetObj = budget[0]
-    
+      
     const [revenueStream, setRevenueStream] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -56,8 +56,13 @@ function Year1Income() {
             ideal_client: idealClient,
             rate_of_love: rateOfLove,
             purchasers: purchasers,
-            year: 1
+            year: 2 // Change the year to two
         };
+
+
+
+
+
 
         setUserEntry([...userEntry, formData]);
     };
@@ -80,7 +85,7 @@ function Year1Income() {
 return (
         <Container sx={{ paddingTop: '64px', paddingBottom: '64px' }}>
           <Typography variant="h4" gutterBottom align="center">
-            Year 1 Business Income
+            Year 2 Business Income
           </Typography>
           <Paper elevation={3} sx={{ p: 4, mb: 4 }}>
             <Typography variant="h6" gutterBottom>
@@ -218,4 +223,4 @@ return (
   );
 }
 
-export default Year1Income;
+export default Year2Income;
