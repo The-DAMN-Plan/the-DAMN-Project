@@ -41,6 +41,7 @@ import BusinessExpensePage2 from '../BusinessExpense/BusinessExpensePage2';
 import ValuePay from '../ValuePay/ValuePay';
 import SideNav from '../Nav/SideNav';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import ActivePlans from '../ActivePlans/ActivePlans';
 
 
 function App() {
@@ -117,7 +118,7 @@ function App() {
               </Route>
 
               <Route exact path="/test">
-                <ValuePay />
+                <ActivePlans />
               </Route>
 
               <Route exact path="/startplan">
