@@ -23,6 +23,7 @@ import StartPlan from '../PersonalExpenses/StartPlan';
 import PBPage2 from '../PersonalExpenses/PBpage2';
 import PersonalSavings from '../PersonalExpenses/PersonalSavings';
 import VariableExpenses from '../PersonalExpenses/VariableExpenses';
+import BEOverview from '../BEOverview/BEOverview';
 
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
@@ -34,10 +35,12 @@ import { styled, useTheme } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import FuturePlans from '../PersonalExpenses/FuturePlans';
+import CreateBusiness from '../CreateBusiness/CreateBusiness';
 import BusinessExpensePage1 from '../BusinessExpense/BusinessExpensePage1';
 import BusinessExpensePage2 from '../BusinessExpense/BusinessExpensePage2';
 import SideNav from '../Nav/SideNav';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -110,6 +113,10 @@ function App() {
               {/* Visiting localhost:5173/about will show the about page. */}
               <Route exact path="/about">
                 <AboutPage />
+              </Route>
+
+              <Route exact path="/test">
+                <BEOverview />
               </Route>
 
               <Route exact path="/startplan">
