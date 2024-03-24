@@ -27,11 +27,10 @@ function Budget() {
         monthly_usage_count: '',
     });
 
-    const handleAddMarketingformValues = (event) => {
+    const handleAddMarketingValues = (event) => {
         event.preventDefault();
         if (!Object.values(formValues).every(value => value)) return;
-        // Assuming dispatch to save the formValues here
-        dispatch({ type: 'ADD_MARKETING_formValues', payload: formValues });
+        dispatch({ type: 'ADD_BUSINESS_EXPENSE', payload: formValues });
         setFormValues({
             expense_name: '',
             service_provider: '',
@@ -44,7 +43,9 @@ function Budget() {
     };
 
     const handleInputChange = (event) => {
-        const { name, value } = event.target;
+        const target = event.target;
+        const name = target.name;
+        const value = target.value;
 
         setFormValues(prev => ({
             ...prev,
@@ -52,12 +53,9 @@ function Budget() {
         }));
     };
 
-
-
     return (
         <Container sx={{ paddingTop: '64px' }}>
             <Typography variant="h4" gutterBottom>Marketing Budget</Typography>
-
             {/* Grid container for input fields */}
             <Grid container spacing={2} alignformValuess="center">
                 <Grid formValues xs={12} md={3}>
@@ -143,8 +141,12 @@ function Budget() {
                         fullWidth
                     />
                 </Grid>
+                <Grid item xs={12} md={3}>
+                    {/* Similar structure for other inputs */}
+                </Grid>
+                {/* Other Grid items */}
                 <Grid item xs={12}>
-                    <Button variant="contained" color="primary" onClick={handleAddMarketingformValues}>Add formValues</Button>
+                    <Button variant="contained" color="primary" onClick={handleAddMarketingValues}>Add Values</Button>
                 </Grid>
             </Grid>
 
@@ -165,7 +167,7 @@ function Budget() {
                 <TableBody>
                     {budgetList.map((formValues, index) => (
                         <TableRow key={index}>
-                            <TableCell>{formValues.expense_name}</TableCell>
+<TableCell>{formValues.expense_name}</TableCell>
                             <TableCell align="right">{formValues.service_provider}</TableCell>
                             <TableCell align="right">{formValues.payment_interval}</TableCell>
                             <TableCell align="right">{formValues.assets_needed}</TableCell>
