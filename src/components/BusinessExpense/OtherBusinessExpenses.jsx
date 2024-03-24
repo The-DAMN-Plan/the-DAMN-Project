@@ -11,14 +11,34 @@ export default function OtherBusinessExpenses() {
     const budgetObj = budget[0];
     const [expenseName, setExpenseName] = useState('');
     const [amount, setAmount] = useState('');
-    const [expenses, setExpenses] = useState([]);
+    // const [expenses, setExpenses] = useState([]);
     const [userEntry, setUserEntry] = useState([]);
 
-    const handleAddExpense = () => {
+    // const handleAddExpense = () => {
+    //     if (!expenseName || !amount) return;
+    //     // Remove any non-numeric characters except for a decimal point and a minus sign
+    //     const sanitizedAmount = amount.replace(/[^\d.-]/g, '');
+    //     setExpenses([...expenses, { name: expenseName, amount: parseFloat(sanitizedAmount).toFixed(2) }]);
+    //     setExpenseName('');
+    //     setAmount('');
+
+    //     const formData = {
+    //         budget_id: budgetObj.id,
+    //         type: 'business other',
+    //         expense_name: expenseName,
+    //         expense_amount: sanitizedAmount 
+    //     };
+    //     setUserEntry([...userEntry, formData]);
+    // };
+    console.log(userEntry);
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        
         if (!expenseName || !amount) return;
         // Remove any non-numeric characters except for a decimal point and a minus sign
         const sanitizedAmount = amount.replace(/[^\d.-]/g, '');
-        setExpenses([...expenses, { name: expenseName, amount: parseFloat(sanitizedAmount).toFixed(2) }]);
+        setExpenses([{ name: expenseName, amount: parseFloat(sanitizedAmount).toFixed(2) }]);
         setExpenseName('');
         setAmount('');
 
@@ -29,11 +49,6 @@ export default function OtherBusinessExpenses() {
             expense_amount: sanitizedAmount 
         };
         setUserEntry([...userEntry, formData]);
-    };
-    console.log(userEntry);
-
-    const handleSubmit = (event) => {
-        event.preventDefault()
 
         dispatch({ type: 'ADD_BUSINESS_EXPENSE', payload: userEntry });
     };
@@ -56,7 +71,7 @@ export default function OtherBusinessExpenses() {
             </Typography>
             <TextField label="Name of Expense" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
             <TextField label="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
-            <Button onClick={handleAddExpense}>Submit</Button>
+            <Button onClick={(event)=>handleSubmit(event)}>Submit</Button>
 
             <Table>
                 <TableHead>

@@ -50,7 +50,7 @@ function UserPage() {
 
   return (
     <Container maxWidth="lg">
-      <Typography variant='h3'>Welcome, {user.username}!</Typography>
+      {/* <Typography variant='h3'>Welcome, {user.username}!</Typography> */}
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <Paper style={{ maxHeight: '400px', overflowY: 'auto' }}>
