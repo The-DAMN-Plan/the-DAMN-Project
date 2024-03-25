@@ -9,7 +9,8 @@ function VariableExpenses() {
     const budget = useSelector((store) => store.budget);
     const budgetId = useParams();
     const finalBudget = useSelector((store) => store.finalBudget);
-    const expense = useSelector((store) => store.expense);
+    const expense = useSelector((store) => store.expense)
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const [userEntry, setUserEntry] = useState([])
     const [formValues, setFormValues] = useState({
         food: '',
@@ -126,6 +127,15 @@ function VariableExpenses() {
                             <TextField name="gas" label="Gas" fullWidth value={formValues.gas} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="carRepairs" label="Car Repairs" fullWidth value={formValues.carRepairs} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="homeMaintenance" label="Home Maintenance" fullWidth value={formValues.homeMaintenance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            {formSubmitted ? (
+                            <Button type='button' onClick={handleEdit}>
+                                Edit
+                            </Button>
+                        ) : (
+                            <Button type='submit'>
+                                Submit
+                            </Button>
+                        )}
                         </Grid>
                     </Grid>
                     <ProgressBar next={'futureplans'} back={'personalsavings'} value={24} budgetId={budgetId}/>

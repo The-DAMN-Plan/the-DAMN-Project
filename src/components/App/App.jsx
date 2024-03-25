@@ -146,11 +146,11 @@ function App() {
                 <VariableExpenses />
               </Route>
 
-              <Route exact path="/futureplans">
+              <Route exact path="/futureplans/:budgetId">
                 <FuturePlans />
               </Route>
 
-              <Route exact path="/otherexpenses">
+              <Route exact path="/otherexpenses/:budgetId">
                 <OtherExpenses />
               </Route>
 

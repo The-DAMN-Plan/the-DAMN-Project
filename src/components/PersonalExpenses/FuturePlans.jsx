@@ -3,9 +3,12 @@ import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, T
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function FuturePlans() {
     const dispatch = useDispatch();
+    const budgetId = useParams();
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const [expenseName, setExpenseName] = useState('');
     const [amount, setAmount] = useState('');
     const [startDate, setStartDate] = useState(null);
@@ -73,7 +76,16 @@ export default function FuturePlans() {
                     ))}
                 </TableBody>
             </Table>
-            <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={30}/>
+            {formSubmitted ? (
+                            <Button type='button' onClick={handleEdit}>
+                                Edit
+                            </Button>
+                        ) : (
+                            <Button type='submit'>
+                                Submit
+                            </Button>
+                        )}
+            <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={30} budgetId={budgetId}/>
         </Container>
     );
 }
