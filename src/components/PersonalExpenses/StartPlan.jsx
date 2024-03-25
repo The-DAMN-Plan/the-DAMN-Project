@@ -8,21 +8,18 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 function StartPlan() {
     const dispatch = useDispatch();
     const budgetId = useParams();
-    const budget = useSelector((store) => store.budget);
+    const finalBudget = useSelector((store) => store.finalBudget);
     const expense = useSelector((store) => store.expense);
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     console.log('URL', budgetId);
-
-    console.log(budget);
+    console.log('Big budget object', finalBudget);
     console.log(expense);
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_BUDGET' })
-        dispatch({type: 'FETCH_EXPENSES', payload: budgetId.budgetId})
+        dispatch({type: 'BUDGET_PLAN', payload: budgetId.budgetId})
     }, [dispatch]);
 
-    const budgetObj = budget[0];
     const [userEntry, setUserEntry] = useState([])
 
     const [formValues, setFormValues] = useState({
@@ -53,7 +50,7 @@ function StartPlan() {
         } else {
             // If the formData object doesn't exist, create a new one
             const formData = {
-                budget_id: budgetObj.id,
+                budget_id: Number(budgetId.budgetId),
                 type: 'personal committed',
                 expense_name: name,
                 expense_amount: value
