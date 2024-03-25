@@ -8,11 +8,12 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 function StartPlan() {
     const dispatch = useDispatch();
     const budget = useSelector((store) => store.budget);
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     console.log(budget);
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_BUDGET' })
+        dispatch({ type: 'FETCH_BUSINESS' })
     }, [dispatch]);
 
     const budgetObj = budget[0];
@@ -67,12 +68,16 @@ function StartPlan() {
         event.preventDefault();
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
+        // dispatch({type: 'UPDATE_STATUS', payload: ''}) // Will need to be set up later to post the completed step to the status table
+        setFormSubmitted(true);
     };
 
+    const handleEdit = (event) => {
+        console.log('Edit MAMA');
+    }
     return (
         
-        <Container maxWidth="md">
-            <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
+        <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
                 <Typography variant="h4" align="center" gutterBottom>
                     Start a DAMN Plan
                 </Typography>
@@ -83,7 +88,7 @@ function StartPlan() {
                     Your singular goal in business is to "meet your customer's wants and needs at a profit" and pay yourself!
                 </Typography>
                 <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
-                    Take some time t
+                    Take some time to think about monthly living expenses. This will help figure out how much your value is.
                 </Typography>
 
                 <form onSubmit={handleSubmit}>
@@ -98,11 +103,19 @@ function StartPlan() {
                             <TextField name="internet" label="Internet" fullWidth value={formValues.internet} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="telephone" label="Telephone" fullWidth value={formValues.telephone} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="childcare" label="Childcare" fullWidth value={formValues.childcare} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            {formSubmitted ? (
+                                <Button type='button' onClick={handleEdit}>
+                                    Edit
+                                </Button>
+                            ) : (
+                                <Button type='submit' onClick={handleSubmit}>
+                                    Submit
+                                </Button>
+                            )}
                         </Grid>
                     </Grid>
-                    <ProgressBar back={'startplan'} next={'fundamentalexpenses'} value={5} submit={handleSubmit}/>
+                    <ProgressBar back={'startplan'} next={'fundamentalexpenses'} value={5} />
                 </form>
-            </Paper>
         </Container>
     );
 }

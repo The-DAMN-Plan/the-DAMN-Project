@@ -19,6 +19,15 @@ function* addBusinessExpense(action){
 
 }
 
+function* fetchExpenses(action){
+    try {
+        const response = yield axios.get(`/api/budget/expense/${action.payload}`);
+        yield put({ type: 'EXPENSES_FETCH_SUCCESS', payload: response.data });
+    } catch (error) {
+        console.log('Fetch Expenses Error', error);
+    }
+}
+
 function* expenseSaga() {
     yield takeLatest('ADD_PERSONAL_EXPENSE', addPersonalExpense);
     yield takeLatest('ADD_BUSINESS_EXPENSE', addBusinessExpense);
