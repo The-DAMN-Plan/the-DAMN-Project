@@ -38,12 +38,6 @@ export default function SideNav({drawerWidth}) {
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <Drawer
-        PaperProps={{
-            sx: {
-              backgroundColor: "#f9dec9",
-              color: "white",
-            }
-          }}
           sx={{
             
             width: open? drawerWidth :  0,

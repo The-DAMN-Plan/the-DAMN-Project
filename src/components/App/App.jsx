@@ -175,7 +175,7 @@ function App() {
               </Route>
 
             </Switch>
-            <Footer />
+            
           </div>
         </Router>
       </ThemeProvider>

@@ -71,7 +71,7 @@ function Nav({drawerWidth}) {
         {/* <Box sx>
 
         </Box> */}
-        <Toolbar disableGutters sx={{display: 'flex', alignItems: 'right', justifyContent:'space-between'}}>
+        <Toolbar disableGutters sx={{display: 'flex', alignItems: 'right', justifyContent:'left'}}>
                 {/* {listOfRoutes.includes(location.pathname) && <> 
               <Box sx={{backgroundColor: 'blue'}}> 
               <IconButton
@@ -178,10 +178,28 @@ function Nav({drawerWidth}) {
                 
 
               </Box>
+              {!open &&<Box>
+                <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="#/"
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontWeight: 900,
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              The DAMN Plan
+            </Typography>
+            </Box>}
+            
 
               
 
-              {!open &&<Box>
+              <Box>
               {user.id && (
                 <Box sx={{display:'flex', backgroundColor:'#fff', alignItems:'center', justifyContent:'center'}}>
                 
@@ -215,7 +233,6 @@ function Nav({drawerWidth}) {
                 </Box>
               )}
               </Box>
-            }
 
           
           
@@ -252,7 +269,6 @@ function Nav({drawerWidth}) {
             )} */}
           {/* </Container> */}
           
-          {!open &&
             <Box sx={{ flexGrow: 0 }}>
               {user.id ? <LogOutButton /> : ''}
               <Menu
@@ -267,7 +283,6 @@ function Nav({drawerWidth}) {
 
               </Menu>
             </Box>
-          }
         </Toolbar>
       </Container >
     </AppBar >

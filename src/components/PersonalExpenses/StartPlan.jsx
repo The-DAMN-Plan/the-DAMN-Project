@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 
 function StartPlan() {
     const dispatch = useDispatch();
@@ -104,6 +105,8 @@ function StartPlan() {
                     <ProgressBar back={'startplan'} next={'fundamentalexpenses'} value={5} submit={handleSubmit}/>
                 </form>
             </Paper>
+            <Footer />
+            
         </Container>
         </Main>
     );

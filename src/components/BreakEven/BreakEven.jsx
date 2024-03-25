@@ -8,14 +8,18 @@ import Fade from '@mui/material/Fade';
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
 import ProgressBar from '../ProgressBar/ProgressBar'
+import Main from '../Main/Main';
 
 
 export default function BreakEven() {
 
   const store = useSelector((store) => store);
+  const open = useSelector(store=>store.sideNav);
 
   return (
-    <Container>
+    
+    <Main open={open}>
+      <Container>
       <Typography
         textAlign="center"
         variant='h2'
@@ -56,6 +60,7 @@ export default function BreakEven() {
         <ProgressBar next={'about'} back={'home'} value={75} />
       </Box>
     </Container>
+    </Main>
   );
 }
 

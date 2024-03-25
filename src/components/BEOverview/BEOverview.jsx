@@ -11,9 +11,13 @@ export default function BEOverview(props) {
 
   const [checked, setChecked] = useState(false);
 
+  const open = useSelector(store=>store.sideNav);
+
 
   return (
-    <Container>
+    
+    <Main open={open}>
+      <Container>
       <Typography textAlign={'center'} color={'primary'} variant='h2'>Overview</Typography>
       <Typography textAlign={'center'} variant='subtitle1'>Here we calculate our projected revenue and compare those to our Variable Expenses (COGS) and come up with a gross profit.</Typography>
       <Grid container
@@ -125,5 +129,7 @@ export default function BEOverview(props) {
         />
       </Grid>
     </Container >
+    <Footer/>
+    </Main>
   );
 }

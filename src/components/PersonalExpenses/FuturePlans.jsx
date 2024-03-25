@@ -4,6 +4,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import Main from '../Main/Main';
 import { useSelector } from 'react-redux';
+import Footer from '../Footer/Footer';
 
 export default function FuturePlans() {
     const [expenseName, setExpenseName] = useState('');
@@ -76,7 +77,9 @@ export default function FuturePlans() {
                     </TableBody>
                 </Table>
                 <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={60} />
+                <Footer/>
             </Container>
+
 
         </Main>
         

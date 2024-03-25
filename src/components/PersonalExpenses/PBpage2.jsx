@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 
 function PBPage2() {
     const dispatch = useDispatch();
     const history = useHistory();
     const budget = useSelector((store) => store.budget);
+    const open = useSelector(store=>store.sideNav);
     console.log('Budget store', budget);
     const budgetObj = budget[0];
     console.log('BUDGET ID', budgetObj);
@@ -60,7 +63,9 @@ function PBPage2() {
     };
 
     return (
-        <Container maxWidth="md">
+        
+       <Main open={open}>
+             <Container maxWidth="md">
             <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
                 <Typography variant="h4" align="center" gutterBottom>
                     Fundamental Living Expenses
@@ -84,6 +89,8 @@ function PBPage2() {
                 </form>
             </Paper>
         </Container>
+        <Footer/>
+       </Main>
     );
 }
 
