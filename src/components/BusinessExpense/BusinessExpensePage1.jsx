@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 export default function BusinessExpense(params) {
     const dispatch = useDispatch();
@@ -130,12 +131,8 @@ export default function BusinessExpense(params) {
                             <TextField name="clientTravelMeals" label="Client/Travel Meals"  fullWidth value={formValues.clientTravelMeals} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
-                    <Box textAlign="center" marginTop={4}>
-                        <Button type="submit" variant="contained" color="primary">
-                            Next Page
-                        </Button>
-                    </Box>
                 </form>
+                <ProgressBar value={60}/>
             </Paper>
         </Container>
     )

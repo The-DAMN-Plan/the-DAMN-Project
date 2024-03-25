@@ -170,9 +170,7 @@ function MarketingBudgetYear1() {
                 </TableBody>
             </Table>
 
-            <Box sx={{ pt: 4 }}>
-                <ProgressBar next={'/marketing_year_2'} back={'/businessexpensepage2'} value={72} />
-            </Box>
+            <ProgressBar next={'/marketing_year_2'} back={'/businessexpensepage2'} value={72} />
         </Container>
     );
 }

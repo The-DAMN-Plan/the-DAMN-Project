@@ -45,6 +45,8 @@ import SideNav from '../Nav/SideNav';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import ActivePlans from '../ActivePlans/ActivePlans';
 import HumanResourcesPage1 from '../BusinessExpense/HumanResourcesPage1';
+import HumanResourcesPage2 from '../BusinessExpense/HumanResourcesPage2';
+import OtherBusinessExp from '../BusinessExpense/OtherBusinessExp';
 
 
 function App() {
@@ -156,6 +158,14 @@ function App() {
                 <Year1Income />
               </Route>
 
+              <Route exact path="/incomeyear2">
+                <Year2Income />
+              </Route>
+
+              <Route exact path="/overview">
+                <BEOverview />
+              </Route>
+
               <Route exact path="/businessexpensepage1">
                 <BusinessExpensePage1 />
               </Route>
@@ -165,18 +175,32 @@ function App() {
               </Route>
 
               <Route exact path="/marketingy1">
-                <MarketingPage />
-              </Route>
-
-
-              <Route exact path="/marketing_year_1">
                 <MarketingPageYear1 />
+              </Route>
+              {/* this one below needs to have a progbar value of 78 */}
+              <Route exact path="/marketingy2">
+                <MarketingPage />
               </Route>
 
               <Route exact path="/hrpagey1">
                 <HumanResourcesPage1 />
               </Route>
 
+              <Route exact path="/hrpagey2">
+                <HumanResourcesPage2 />
+              </Route>
+
+              <Route exact path="/otherbusiness">
+                <OtherBusinessExp />
+              </Route>
+
+              <Route exact path="/breakeven">
+                <BreakEven />
+              </Route>
+
+              <Route exact path="/cashflow">
+                <AboutPage />
+              </Route>
 
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
