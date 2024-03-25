@@ -24,6 +24,7 @@ router.get('/:id', async (req, res) => {
             (SELECT coalesce(jsonb_agg(item), '[]'::jsonb) FROM (
             SELECT "cashflow_months".* FROM "cashflow_months" WHERE "cashflow_months"."budget_id"="budgets"."id") item) as "cashflow_months" from budgets where budgets.id = $1;`
   const budget_id = Number(req.params.id);
+  console.log('Budget id big get', budget_id);
 
   try {
     const result = await pool.query(sql, [budget_id]);
@@ -82,26 +83,18 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/expenses', async (req, res) => {
-  // Assuming you're filtering by a budgetId passed as a query parameter
-  const { budgetId } = req.query;
+router.get('/expenses/:budgetId', async (req, res) => {
+  const budgetId = req.params.budgetId;
+  const sql = `SELECT * FROM "expenses"
+  WHERE "budget_id" = $1`
 
-  let sql = `SELECT * FROM expenses`;
-  let params = [];
-
-  // If a budgetId is provided, filter the expenses by that budgetId
-  if (budgetId) {
-    sql += ` WHERE budget_id = $1`;
-    params.push(budgetId);
-  }
-
-  try {
-    const result = await pool.query(sql, params); 
-    res.json(result.rows); // Send back the array of expense objects
-  } catch (error) {
-    console.error('Error fetching expenses:', error);
-    res.status(500).send('Server error while fetching expenses');
-  }
+  pool.query(sql, [budgetId])
+  .then((result) => {
+    res.send(result.rows);
+  }).catch((error) => {
+    res.sendStatus(500);
+    console.log('Error getting expenses', error);
+  })
 });
 
 // creates all expenses given to it
@@ -113,7 +106,7 @@ router.post('/expense', async (req, res) => {
   const data = req.body;
   const results = []; // Array to collect all the results
   let errorOccurred = false;
-
+  console.log("Post");
   for (const expense of data) {
     try {
       const result = await pool.query(sql, [

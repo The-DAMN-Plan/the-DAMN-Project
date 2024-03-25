@@ -5,21 +5,23 @@ function* addPersonalExpense(action) {
     try {
         console.log('Expense post', action.payload);
         yield axios.post(`/api/budget/expense`, action.payload);
-    } catch(error) {
+        put({ type: 'FETCH_BUSINESS' })
+    } catch (error) {
         console.log('Error adding personal expense', error);
     }
 }
 
-function* addBusinessExpense(action){
+function* addBusinessExpense(action) {
     try {
         yield axios.post(`/api/budget/expense`, action.payload);
+        put({ type: 'FETCH_BUSINESS' })
     } catch (error) {
         console.log(error);
     }
 
 }
 
-function* fetchExpenses(action){
+function* fetchExpenses(action) {
     try {
         const response = yield axios.get(`/api/budget/expense/${action.payload}`);
         yield put({ type: 'EXPENSES_FETCH_SUCCESS', payload: response.data });
@@ -29,8 +31,8 @@ function* fetchExpenses(action){
 }
 
 function* expenseSaga() {
+    yield takeLatest('FETCH_EXPENSES', fetchExpenses);
     yield takeLatest('ADD_PERSONAL_EXPENSE', addPersonalExpense);
-    yield takeLatest('ADD_BUSINESS_EXPENSE', addBusinessExpense);
 }
 
 export default expenseSaga;
