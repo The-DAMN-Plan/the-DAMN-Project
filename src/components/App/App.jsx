@@ -136,40 +136,40 @@ function App() {
                 <PBPage2 />
               </Route>
 
-              <Route exact path="/personalsavings">
+              <Route exact path="/personalsavings/:budgetId">
                 <PersonalSavings />
               </Route>
 
-              <Route exact path="/variableexpenses">
+              <Route exact path="/variableexpenses/:budgetId">
                 <VariableExpenses />
               </Route>
 
-              <Route exact path="/futureplans">
+              <Route exact path="/futureplans/:budgetId">
                 <FuturePlans />
               </Route>
 
-              <Route exact path="/otherexpenses">
+              <Route exact path="/otherexpenses/:budgetId">
                 <OtherExpenses />
               </Route>
 
-              <Route exact path="/incomeyear1">
+              <Route exact path="/incomeyear1/:budgetId">
                 <Year1Income />
               </Route>
 
-              <Route exact path="/businessexpensepage1">
+              <Route exact path="/businessexpensepage1/:budgetId">
                 <BusinessExpensePage1 />
               </Route>
 
-              <Route exact path="/businessexpensepage2">
+              <Route exact path="/businessexpensepage2/:budgetId">
                 <BusinessExpensePage2/>
               </Route>
 
 
-              <Route exact path="/marketing_year_1">
+              <Route exact path="/marketing_year_1/:budgetId">
                 <MarketingPageYear1 />
               </Route>
 
-              <Route exact path="/hrpagey1">
+              <Route exact path="/hrpagey1/:budgetId">
                 <HumanResourcesPage1 />
               </Route>
 
