@@ -12,13 +12,38 @@ function StartPlan() {
     const expense = useSelector((store) => store.expense);
     const [formSubmitted, setFormSubmitted] = useState(false);
 
+    console.log('Expense reducer', expense);
     console.log('URL', budgetId);
     console.log('Big budget object', finalBudget);
-    console.log(expense);
+    const expenses = finalBudget.expenses;
+
 
     useEffect(() => {
-        dispatch({type: 'BUDGET_PLAN', payload: budgetId.budgetId})
-    }, [dispatch]);
+        dispatch({type: 'BUDGET_PLAN', payload: budgetId.budgetId});
+    
+        // Check if there are expenses for the budget
+        if (expenses) {
+            // Filter expenses based on the expense name and populate form values
+            expenses.forEach(expense => {
+                switch (expense.expense_name) {
+                    case 'rentOrMortgage':
+                    case 'electric':
+                    case 'heat':
+                    case 'water':
+                    case 'internet':
+                    case 'telephone':
+                    case 'childcare':
+                        setFormValues(prevValues => ({
+                            ...prevValues,
+                            [expense.expense_name]: expense.expense_amount
+                        }));
+                        break;
+                    default:
+                        break;
+                }
+            });
+        }
+    }, [dispatch, budgetId, expenses]);
 
     const [userEntry, setUserEntry] = useState([])
 

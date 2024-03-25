@@ -23,7 +23,7 @@ function* fetchBudget(action) {
         })
         yield put({
             type: 'SET_EXPENSE',
-            payload: response.data.expenses
+            payload: response.data[0].expenses
         })
     } catch(err) {
         console.log('Error getting working budget', err);

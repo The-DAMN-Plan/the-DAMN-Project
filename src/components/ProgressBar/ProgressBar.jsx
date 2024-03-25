@@ -11,7 +11,7 @@ export default function ProgressBar({ next, back, value, budgetId }) {
 
 
   function handleBack() {
-    history.push(`/${back}/${budgetId}`);
+    history.push(`/${back}/${budgetId.budgetId}`);
   }
 
   function handleNext(event) {
