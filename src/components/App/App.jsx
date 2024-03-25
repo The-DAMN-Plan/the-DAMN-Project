@@ -164,9 +164,6 @@ function App() {
                 <BusinessExpensePage2/>
               </Route>
 
-              <Route exact path="/marketingy1">
-                <MarketingPage />
-              </Route>
 
 
               <Route exact path="/marketing_year_1">
