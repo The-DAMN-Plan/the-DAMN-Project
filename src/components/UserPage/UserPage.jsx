@@ -13,7 +13,10 @@ function UserPage() {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const budget = useSelector((store) => store.budget);
+  const budgetObj = budget[0];
   const business = useSelector((store) => store.business);
+  console.log(budget);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_BUSINESS' })
@@ -42,7 +45,7 @@ function UserPage() {
         name: 'test'
       }
       dispatch({ type: 'START_PLAN', payload: budgetData })
-      history.push('/startplan');
+      history.push(`/startplan/${budgetObj.id}`);
     } else {
       console.error('No business selected for starting a plan.');
     }

@@ -1,22 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
 
 function StartPlan() {
     const dispatch = useDispatch();
-    const budget = useSelector((store) => store.budget);
+    const budgetId = useParams();
+    const finalBudget = useSelector((store) => store.finalBudget);
+    const expense = useSelector((store) => store.expense);
     const [formSubmitted, setFormSubmitted] = useState(false);
 
-    console.log(budget);
+    console.log('Expense reducer', expense);
+    console.log('URL', budgetId);
+    console.log('Big budget object', finalBudget);
+    const expenses = finalBudget.expenses;
+
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_BUDGET' })
-    }, [dispatch]);
+        dispatch({type: 'BUDGET_PLAN', payload: budgetId.budgetId});
+    
+        // Check if there are expenses for the budget
+        if (expenses) {
+            // Filter expenses based on the expense name and populate form values
+            expenses.forEach(expense => {
+                switch (expense.expense_name) {
+                    case 'rentOrMortgage':
+                    case 'electric':
+                    case 'heat':
+                    case 'water':
+                    case 'internet':
+                    case 'telephone':
+                    case 'childcare':
+                        setFormValues(prevValues => ({
+                            ...prevValues,
+                            [expense.expense_name]: expense.expense_amount
+                        }));
+                        break;
+                    default:
+                        break;
+                }
+            });
+        }
+    }, [dispatch, budgetId, expenses]);
 
-    const budgetObj = budget[0];
+
     const [userEntry, setUserEntry] = useState([])
 
     const [formValues, setFormValues] = useState({
@@ -47,7 +76,7 @@ function StartPlan() {
         } else {
             // If the formData object doesn't exist, create a new one
             const formData = {
-                budget_id: budgetObj.id,
+                budget_id: Number(budgetId.budgetId),
                 type: 'personal committed',
                 expense_name: name,
                 expense_amount: value
@@ -114,7 +143,7 @@ function StartPlan() {
                             )}
                         </Grid>
                     </Grid>
-                    <ProgressBar back={'startplan'} next={'fundamentalexpenses'} value={5} />
+                    <ProgressBar back={`startplan}`} next={`fundamentalexpenses`} value={5} budgetId={budgetId}/>
                 </form>
         </Container>
     );
