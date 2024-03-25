@@ -33,8 +33,8 @@ export default function HumanResourcesPage1() {
         setExpenseAmount(0);
         setFrequency(0);
     };
-    
-    function handleDelete(){
+
+    function handleDelete() {
 
     }
 
@@ -117,10 +117,7 @@ export default function HumanResourcesPage1() {
                     ))}
                 </TableBody>
             </Table>
-
-            <Box sx={{ pt: 4 }}>
-                <ProgressBar activeStep={5} />
-            </Box>
+            <ProgressBar value={84} />
         </Container>
     );
 }

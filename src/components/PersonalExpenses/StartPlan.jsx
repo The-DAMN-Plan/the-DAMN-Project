@@ -114,7 +114,7 @@ function StartPlan() {
                             )}
                         </Grid>
                     </Grid>
-                    <ProgressBar back={'startplan'} next={'fundamentalexpenses'} value={5} />
+                    <ProgressBar back={'startplan'} next={'fundamentalexpenses'} value={6} />
                 </form>
         </Container>
     );

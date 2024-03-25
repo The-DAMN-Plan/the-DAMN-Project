@@ -181,7 +181,7 @@ function Budget() {
             </Table>
 
             <Box sx={{ pt: 4 }}>
-                <ProgressBar activeStep={5} />
+                <ProgressBar activeStep={72} />
             </Box>
         </Container>
     );

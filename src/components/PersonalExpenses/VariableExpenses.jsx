@@ -88,7 +88,7 @@ function VariableExpenses() {
                             <TextField name="homeMaintenance" label="Home Maintenance" fullWidth value={formValues.homeMaintenance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
-                    <ProgressBar next={'futureplans'} back={'personalsavings'} value={20}/>
+                    <ProgressBar next={'futureplans'} back={'personalsavings'} value={24}/>
                 </form>
             </Paper>
         </Container>
