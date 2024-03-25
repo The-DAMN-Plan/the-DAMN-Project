@@ -31,20 +31,17 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles'; // Import the ThemeProvider component from Material-UI  
 import BreakEven from '../BreakEven/BreakEven';
 import OtherExpenses from '../PersonalExpenses/OtherExpenses';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import FuturePlans from '../PersonalExpenses/FuturePlans';
-import CreateBusiness from '../CreateBusiness/CreateBusiness';
 import BusinessExpensePage1 from '../BusinessExpense/BusinessExpensePage1';
 import BusinessExpensePage2 from '../BusinessExpense/BusinessExpensePage2';
-import SideNav from '../Nav/SideNav';
-import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
-
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(store => store.user);
+  // const open = useSelector(store => store.sideNav);
   
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
@@ -56,8 +53,8 @@ function App() {
   }, [dispatch]);
   
 
-  const [open, setOpen] = useState(false);
-  const drawerWidth = 300;
+  // const [open, setOpen] = useState(false);
+  const drawerWidth = 350;
 
   const toggleDrawer = ()=>{
     setOpen(!open);
@@ -79,39 +76,15 @@ function App() {
     justifyContent: 'flex-end',
   }));
 
-  //a wrapper to shif body of the page to the right  depending on the width of side nav
-  // shift to right when nav opens
-  // shifts left when nav closes
- 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth/4}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: drawerWidth,
-    }),
-  }),
-);
-
   return (
 
     <LocalizationProvider dateAdapter={AdapterMoment} >
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Main open={open}>
         <DrawerHeader />
         <Router>
           <div>
-            <Nav open={open} toggleDrawer={toggleDrawer} drawerWidth={drawerWidth} />
+            <Nav drawerWidth={drawerWidth} />
             <Switch>
               {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
               <Redirect exact from="/" to="/home" />
@@ -124,7 +97,6 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
               <Route exact path="/test">
                 <BEOverview />
               </Route>
-
               <Route exact path="/startplan">
                 <StartPlan />
               </Route>
@@ -206,7 +178,6 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
             <Footer />
           </div>
         </Router>
-        </Main>
       </ThemeProvider>
     </LocalizationProvider>
   );

@@ -4,11 +4,13 @@ import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import Main from '../Main/Main';
 
 function StartPlan() {
     const dispatch = useDispatch();
     const history = useHistory();
     const budget = useSelector((store) => store.budget);
+    const open = useSelector(store=>store.sideNav);
 
     console.log(budget);
 
@@ -71,6 +73,7 @@ function StartPlan() {
     };
 
     return (
+        <Main open={open}>
         
         <Container maxWidth="md">
             <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
@@ -102,6 +105,7 @@ function StartPlan() {
                 </form>
             </Paper>
         </Container>
+        </Main>
     );
 }
 
