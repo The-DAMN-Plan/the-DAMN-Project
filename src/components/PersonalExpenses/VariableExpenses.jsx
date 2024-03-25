@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
-import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function VariableExpenses() {
     const dispatch = useDispatch();
@@ -89,7 +90,7 @@ function VariableExpenses() {
                             <TextField name="homeMaintenance" label="Home Maintenance" fullWidth value={formValues.homeMaintenance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
-                    <ProgressBar next={'futureplans'} back={'personalsavings'} value={24}/>
+                    <ProgressBar next={'futureplans'} back={'personalsavings'} value={24} budgetId={budgetId}/>
                 </form>
             </Paper>
         </Container>
