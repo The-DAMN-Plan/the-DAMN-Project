@@ -128,11 +128,11 @@ function App() {
                 <HumanResourcesPage1 />
               </Route>
 
-              <Route exact path="/startplan">
+              <Route exact path="/startplan/:budgetId">
                 <StartPlan />
               </Route>
 
-              <Route exact path="/fundamentalexpenses">
+              <Route exact path="/fundamentalexpenses/:budgetId">
                 <PBPage2 />
               </Route>
 
