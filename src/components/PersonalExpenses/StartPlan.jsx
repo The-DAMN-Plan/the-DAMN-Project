@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
-import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { Typography, TextField, Button, Container, Grid } from '@mui/material';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
 
@@ -11,43 +11,6 @@ function StartPlan() {
     const finalBudget = useSelector((store) => store.finalBudget);
     const expense = useSelector((store) => store.expense);
     const [formSubmitted, setFormSubmitted] = useState(false);
-
-    console.log('Expense reducer', expense);
-    console.log('URL', budgetId);
-    console.log('Big budget object', finalBudget);
-    const expenses = finalBudget.expenses;
-
-
-    useEffect(() => {
-        dispatch({type: 'BUDGET_PLAN', payload: budgetId.budgetId});
-    
-        // Check if there are expenses for the budget
-        if (expenses) {
-            // Filter expenses based on the expense name and populate form values
-            expenses.forEach(expense => {
-                switch (expense.expense_name) {
-                    case 'rentOrMortgage':
-                    case 'electric':
-                    case 'heat':
-                    case 'water':
-                    case 'internet':
-                    case 'telephone':
-                    case 'childcare':
-                        setFormValues(prevValues => ({
-                            ...prevValues,
-                            [expense.expense_name]: expense.expense_amount
-                        }));
-                        break;
-                    default:
-                        break;
-                }
-            });
-        }
-    }, [dispatch, budgetId, expenses]);
-
-
-    const [userEntry, setUserEntry] = useState([])
-
     const [formValues, setFormValues] = useState({
         rentOrMortgage: '',
         electric: '',
@@ -58,13 +21,50 @@ function StartPlan() {
         childcare: '',
     });
 
+    console.log(formValues);
+
+    console.log('Expense reducer', expense);
+    console.log('URL', budgetId);
+    console.log('Big budget object', finalBudget);
+
+    useEffect(() => {
+        dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
+    }, [dispatch, budgetId]);
+
+    useEffect(() => {
+        handleExpense();
+    }, [expense]); // Call handleExpense whenever expense changes
+
+    const handleExpense = () => {
+        const newFormValues = {
+            rentOrMortgage: getExpenseAmount('rentOrMortgage'),
+            electric: getExpenseAmount('electric'),
+            heat: getExpenseAmount('heat'),
+            water: getExpenseAmount('water'),
+            internet: getExpenseAmount('internet'),
+            telephone: getExpenseAmount('telephone'),
+            childcare: getExpenseAmount('childcare'),
+        };
+        setFormValues(newFormValues);
+    };
+
+    const getExpenseAmount = (expenseName) => {
+        const expenseItem = expense.find(item => item.expense_name === expenseName);
+        return expenseItem ? expenseItem.expense_amount : '';
+    };
+
+
+
+    const [userEntry, setUserEntry] = useState([])
+
+
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-    
+
         // Find the index of the existing formData object with the same expense_name
         const existingIndex = userEntry.findIndex(item => item.expense_name === name);
-    
+
         // If the formData object exists, update its expense_amount
         if (existingIndex !== -1) {
             const updatedUserEntry = [...userEntry];
@@ -83,7 +83,7 @@ function StartPlan() {
             };
             setUserEntry([...userEntry, formData]);
         }
-    
+
         // Update the form values
         setFormValues({
             ...formValues,
@@ -105,45 +105,80 @@ function StartPlan() {
         console.log('Edit MAMA');
     }
     return (
-        
-        <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Start a DAMN Plan
-                </Typography>
-                <Typography variant="h5" align="center" gutterBottom>
-                    Fundamental Living Expenses
-                </Typography>
-                <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
-                    Your singular goal in business is to "meet your customer's wants and needs at a profit" and pay yourself!
-                </Typography>
-                <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
-                    Take some time to think about monthly living expenses. This will help figure out how much your value is.
-                </Typography>
 
-                <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2} justifyContent="center">
-                        <Grid item xs={12} md={6}>
-                            <TextField name="rentOrMortgage" label="Rent or Mortgage" fullWidth value={formValues.rentOrMortgage} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="electric" label="Electric" fullWidth value={formValues.electric} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="heat" label="Heat" fullWidth value={formValues.heat} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="water" label="Water" fullWidth value={formValues.water} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <TextField name="internet" label="Internet" fullWidth value={formValues.internet} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="telephone" label="Telephone" fullWidth value={formValues.telephone} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="childcare" label="Childcare" fullWidth value={formValues.childcare} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            {formSubmitted ? (
-                                <Button type='button' onClick={handleEdit}>
-                                    Edit
-                                </Button>
-                            ) : (
-                                <Button type='submit' onClick={handleSubmit}>
-                                    Submit
-                                </Button>
-                            )}
-                        </Grid>
+        <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
+            <Typography variant="h4" align="center" gutterBottom>
+                Start a DAMN Plan
+            </Typography>
+            <Typography variant="h5" align="center" gutterBottom>
+                Fundamental Living Expenses
+            </Typography>
+            <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
+                Your singular goal in business is to "meet your customer's wants and needs at a profit" and pay yourself!
+            </Typography>
+            <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
+                Take some time to think about monthly living expenses. This will help figure out how much your value is.
+            </Typography>
+
+            <form onSubmit={handleSubmit}>
+                <Grid container spacing={2} justifyContent="center">
+                    <Grid item xs={12} md={6}>
+                        <TextField name="rentOrMortgage"
+                            label="Rent or Mortgage"
+                            fullWidth
+                            value={formValues.rentOrMortgage}
+                            onChange={handleInputChange}
+                            sx={{ marginBottom: 2 }} />
+                        <TextField name="electric"
+                            label="Electric"
+                            fullWidth
+                            value={formValues.electric}
+                            onChange={handleInputChange}
+                            sx={{ marginBottom: 2 }} />
+                        <TextField name="heat"
+                            label="Heat"
+                            fullWidth
+                            value={formValues.heat}
+                            onChange={handleInputChange}
+                            sx={{ marginBottom: 2 }} />
+                        <TextField name="water"
+                            label="Water"
+                            fullWidth
+                            value={formValues.water}
+                            onChange={handleInputChange}
+                            sx={{ marginBottom: 2 }} />
                     </Grid>
-                    <ProgressBar back={`startplan}`} next={`fundamentalexpenses`} value={5} budgetId={budgetId}/>
+                    <Grid item xs={12} md={6}>
+                        <TextField name="internet"
+                            label="Internet"
+                            fullWidth
+                            value={formValues.internet}
+                            onChange={handleInputChange}
+                            sx={{ marginBottom: 2 }} />
+                        <TextField name="telephone"
+                            label="Telephone"
+                            fullWidth
+                            value={formValues.telephone}
+                            onChange={handleInputChange}
+                            sx={{ marginBottom: 2 }} />
+                        <TextField name="childcare"
+                            label="Childcare"
+                            fullWidth
+                            value={formValues.childcare}
+                            onChange={handleInputChange}
+                            sx={{ marginBottom: 2 }} />
+                        {formSubmitted ? (
+                            <Button type='button' onClick={handleEdit}>
+                                Edit
+                            </Button>
+                        ) : (
+                            <Button type='submit'>
+                                Submit
+                            </Button>
+                        )}
+                    </Grid>
+                </Grid>
+                    <ProgressBar back={`startplan}`} next={`fundamentalexpenses`} value={6} budgetId={budgetId}/>
                 </form>
         </Container>
     );

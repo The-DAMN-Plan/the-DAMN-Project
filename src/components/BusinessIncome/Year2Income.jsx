@@ -217,7 +217,7 @@ return (
         </Table>
       </Paper>
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-        <ProgressBar back={''} next={''} submit={handleSubmit} value={5}/>
+        <ProgressBar back={''} next={''} submit={handleSubmit} value={48}/>
       </Box>
     </Container>
   );

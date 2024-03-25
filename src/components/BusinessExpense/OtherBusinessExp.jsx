@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
-export default function BusinessExpense(params) {
+export default function OtherBusinessExp(params) {
     const dispatch = useDispatch();
     const history = useHistory();
     const budget = useSelector((store) => store.budget);
@@ -120,7 +120,7 @@ export default function BusinessExpense(params) {
                         </Grid>
                     </Grid>
                 </form>
-                <ProgressBar value={66}/>
+                <ProgressBar value={95}/>
 
             </Paper>
         </Container>

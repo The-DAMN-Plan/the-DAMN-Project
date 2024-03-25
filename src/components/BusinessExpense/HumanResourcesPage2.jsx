@@ -115,9 +115,7 @@ export default function HumanResourcesPage2() {
                 </TableBody>
             </Table>
 
-            <Box sx={{ pt: 4 }}>
-                <ProgressBar activeStep={5} />
-            </Box>
+            <ProgressBar value={90} />
         </Container>
     );
 }
