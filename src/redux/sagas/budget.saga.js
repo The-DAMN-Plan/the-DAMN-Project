@@ -8,6 +8,11 @@ function* startPlan(action) {
         yield put({
             type: 'SET_BUDGET',
             payload: response.data
+        });
+
+        yield put ({
+            type: 'SET_STATUS',
+            payload: response.data[0].status
         })
     } catch(error) {
         console.log('Error adding personal expense', error);
