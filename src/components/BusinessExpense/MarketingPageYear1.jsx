@@ -173,7 +173,7 @@ function MarketingBudgetYear1() {
                 </TableBody>
             </Table>
 
-            <ProgressBar next={'/marketingy2'} back={'/businessexpensepage2'} value={72} budgetId={budgetId} />
+            <ProgressBar next={'marketingy2'} back={'businessexpensepage2'} value={72} budgetId={budgetId} />
         </Container>
     );
 }
