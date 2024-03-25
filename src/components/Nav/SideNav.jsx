@@ -75,7 +75,7 @@ export default function SideNav({drawerWidth}) {
                 {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                 </IconButton>
           </DrawerHeader>
-          <Divider />
+          {/* <Divider />
           
           {user.id && (
             <Box sx={{ p: 3 , alignItems:'center', justifyContent:'left'}}>
@@ -107,7 +107,7 @@ export default function SideNav({drawerWidth}) {
                 </Button>
                 </Box>
 
-              )}
+              )} */}
           <Divider />
           <Box sx={{ width: 380}} role="presentation" >
                     <List>
