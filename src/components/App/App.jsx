@@ -121,7 +121,7 @@ function App() {
                 <ValuePay />
               </Route>
 
-              <Route exact path="/startplan">
+              <Route exact path="/startplan:budgetId">
                 <StartPlan />
               </Route>
 

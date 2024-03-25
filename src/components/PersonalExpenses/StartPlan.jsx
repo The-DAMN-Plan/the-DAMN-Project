@@ -8,13 +8,15 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 function StartPlan() {
     const dispatch = useDispatch();
     const budget = useSelector((store) => store.budget);
+    const expense = useSelector((store) => store.expense);
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     console.log(budget);
+    // console.log(expense);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_BUDGET' })
-        dispatch({type: 'FETCH_EXPENSES', payload: budgetObj.id})
+        // dispatch({type: 'FETCH_EXPENSES', payload: budgetObj.id})
     }, [dispatch]);
 
     const budgetObj = budget[0];
