@@ -26,7 +26,7 @@ import VariableExpenses from '../PersonalExpenses/VariableExpenses';
 import Year1Income from '../BusinessIncome/Year1Income';
 import Year2Income from '../BusinessIncome/Year2Income';
 import BEOverview from '../BEOverview/BEOverview';
-import MarketingPage from '../BusinessExpense/MarketingPage';
+import MarketingPageYear1 from '../BusinessExpense/MarketingPageYear1';
 
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
@@ -130,11 +130,11 @@ function App() {
                 <HumanResourcesPage1 />
               </Route>
 
-              <Route exact path="/startplan">
+              <Route exact path="/startplan/:budgetId">
                 <StartPlan />
               </Route>
 
-              <Route exact path="/fundamentalexpenses">
+              <Route exact path="/fundamentalexpenses/:budgetId">
                 <PBPage2 />
               </Route>
 
@@ -175,7 +175,7 @@ function App() {
               </Route>
 
               <Route exact path="/marketingy1">
-                <MarketingPage />
+                <MarketingPageYear1 />
               </Route>
               {/* this one below needs to have a progbar value of 78 */}
               <Route exact path="/marketingy2">

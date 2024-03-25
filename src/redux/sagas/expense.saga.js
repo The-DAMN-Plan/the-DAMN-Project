@@ -31,8 +31,8 @@ function* fetchExpenses(action) {
 }
 
 function* expenseSaga() {
+    yield takeLatest('FETCH_EXPENSES', fetchExpenses);
     yield takeLatest('ADD_PERSONAL_EXPENSE', addPersonalExpense);
-    yield takeLatest('ADD_BUSINESS_EXPENSE', addBusinessExpense);
 }
 
 export default expenseSaga;
