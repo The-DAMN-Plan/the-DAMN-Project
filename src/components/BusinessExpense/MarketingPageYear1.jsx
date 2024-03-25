@@ -3,24 +3,21 @@ import {
     TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow,
     Typography, Box, FormControl, InputLabel, Select, MenuItem
 } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2'; // Importing the unstable Grid for flexibility
+import Grid from '@mui/material/Unstable_Grid2';
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function MarketingBudgetYear1() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const  budgetId  = useParams(); // Capture the budgetId from URL params
     const budgetList = useSelector((store) => store.budget);
-    const budgetId = useParams();
 
-    const [marketingValues, setMarketingValues] = useState([]); // This state holds the added marketing entries
-    
     useEffect(() => {
-        dispatch({ type: 'FETCH_BUDGET' });
-    }, [dispatch]);
+        dispatch({ type: 'FETCH_BUDGET', payload: budgetId });
+    }, [dispatch, budgetId]);
 
     const [formValues, setFormValues] = useState({
         expense_name: '',
@@ -35,11 +32,10 @@ function MarketingBudgetYear1() {
     const handleAddMarketingValues = (event) => {
         event.preventDefault();
         if (!Object.values(formValues).every(value => value)) return;
-
-        // Add the formValues to the marketingValues state
-        setMarketingValues([...marketingValues, { ...formValues, id: marketingValues.length }]);
-
-        // Reset formValues after adding
+        dispatch({ 
+            type: 'EXPENSES_FETCH_SUCCESS', 
+            payload: { ...formValues, budget_id: budgetId }
+        });
         setFormValues({
             expense_name: '',
             service_provider: '',
@@ -156,7 +152,7 @@ function MarketingBudgetYear1() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {marketingValues.map((value, index) => (
+                    {value.map((value, index) => (
                         <TableRow key={index}>
                             <TableCell>{value.expense_name}</TableCell>
                             <TableCell align="right">{value.service_provider}</TableCell>
