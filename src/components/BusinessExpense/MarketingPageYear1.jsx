@@ -63,7 +63,7 @@ function MarketingBudgetYear1() {
 
     return (
         <Container sx={{ paddingTop: '64px' }}>
-            <Typography variant="h4" gutterBottom>Marketing Budget</Typography>
+            <Typography variant="h4" gutterBottom >Marketing Budget</Typography>
             <Grid container spacing={2} alignItems="center">
                 <Grid item xs={12} md={3}>
                     <TextField
@@ -92,16 +92,8 @@ function MarketingBudgetYear1() {
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} md={3}>
-                    <TextField
-                        name="payment_interval"
-                        label="Payment Interval"
-                        value={formValues.payment_interval}
-                        onChange={handleInputChange('payment_interval')}
-                        fullWidth
-                    />
-                </Grid>
-                <Grid item xs={12} md={3}>
+
+                <Grid item xs={12} md={6}>
                     <TextField
                         name="assets_needed"
                         label="Assets Needed"
@@ -119,7 +111,7 @@ function MarketingBudgetYear1() {
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12} md={6}>
                     <FormControl fullWidth>
                         <InputLabel id="vendor-label">Contractor or In-House</InputLabel>
                         <Select
@@ -132,6 +124,15 @@ function MarketingBudgetYear1() {
                             <MenuItem value="In-House">In-House</MenuItem>
                         </Select>
                     </FormControl>
+                </Grid>
+                <Grid item xs={12} md={3}>
+                    <TextField
+                        name="payment_interval"
+                        label="Payment Interval"
+                        value={formValues.payment_interval}
+                        onChange={handleInputChange('payment_interval')}
+                        fullWidth
+                    />
                 </Grid>
                 <Grid item xs={12}>
                     <Button variant="contained" color="primary" onClick={handleAddMarketingValues}>Add Values</Button>
@@ -170,7 +171,7 @@ function MarketingBudgetYear1() {
             </Table>
 
             <Box sx={{ pt: 4 }}>
-                <ProgressBar next={'/marketing_year_2'} back={'/businessexpenses2'} value={75} />
+                <ProgressBar next={'/marketing_year_2'} back={'/businessexpensepage2'} value={72} />
             </Box>
         </Container>
     );
