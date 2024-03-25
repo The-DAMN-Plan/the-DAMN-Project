@@ -13,7 +13,7 @@ function StartPlan() {
     console.log(budget);
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_BUDGET' })
+        dispatch({ type: 'FETCH_BUSINESS' })
     }, [dispatch]);
 
     const budgetObj = budget[0];
