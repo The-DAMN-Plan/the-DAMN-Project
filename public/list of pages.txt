@@ -4,6 +4,7 @@ personalsavings
 variableexpenses
 futureplans
 otherexpenses
+valuepay
 incomeyear1
 incomeyear2
 overview
@@ -13,6 +14,6 @@ marketingy1
 marketingy2
 hrpagey1
 hrpagey2
-otherbusinessexpenses
+otherbusiness
 breakeven
 cashflow

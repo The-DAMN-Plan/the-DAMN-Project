@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function PersonalSavings() {
     const dispatch = useDispatch();
     const budget = useSelector((store) => store.budget);
     const budgetObj = budget[0];
+    const budgetId = useParams();
     const [userEntry, setUserEntry] = useState([]);
 
     const [formValues, setFormValues] = useState({
@@ -106,7 +108,7 @@ function PersonalSavings() {
                             />
                         </Grid>
                     </Grid>
-                    <ProgressBar back={'fundamentalexpenses'} next={'variableexpenses'} value={18}/>
+                    <ProgressBar back={'fundamentalexpenses'} next={'variableexpenses'} value={18} budgetId={budgetId}/>
                 </form>
             </Paper>
         </Container>

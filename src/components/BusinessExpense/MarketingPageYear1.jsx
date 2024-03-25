@@ -8,13 +8,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function MarketingBudgetYear1() {
     const dispatch = useDispatch();
     const history = useHistory();
     const budgetList = useSelector((store) => store.budget);
-    const [marketingValues, setMarketingValues] = useState([]); // This state holds the added marketing entries
+    const budgetId = useParams();
 
+    const [marketingValues, setMarketingValues] = useState([]); // This state holds the added marketing entries
+    
     useEffect(() => {
         dispatch({ type: 'FETCH_BUDGET' });
     }, [dispatch]);
@@ -170,7 +173,7 @@ function MarketingBudgetYear1() {
                 </TableBody>
             </Table>
 
-            <ProgressBar next={'/marketing_year_2'} back={'/businessexpensepage2'} value={72} />
+            <ProgressBar next={'/marketingy2'} back={'/businessexpensepage2'} value={72} budgetId={budgetId} />
         </Container>
     );
 }

@@ -8,11 +8,13 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
 import Grid from '@mui/material/Unstable_Grid2';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function HumanResourcesPage1() {
     const dispatch = useDispatch();
     const history = useHistory();
     const expenses = useSelector((store) => store.expense);
+    const budgetId = useParams();
 
     useEffect(() => {
         dispatch({ type: 'FETCH_BUDGET' });
@@ -101,7 +103,7 @@ export default function HumanResourcesPage1() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {budget.map((formValues, index) => (
+                    {expenses?.map((formValues, index) => (
                         <TableRow key={index}>
                             <TableCell>{formValues.expense_name}</TableCell>
                             <TableCell align="right">{formValues.expense_name}</TableCell>
@@ -117,7 +119,7 @@ export default function HumanResourcesPage1() {
                     ))}
                 </TableBody>
             </Table>
-            <ProgressBar value={84} />
+            <ProgressBar back={'marketingy2'} next={'hrpagey2'} value={84} budgetId={budgetId} />
         </Container>
     );
 }
