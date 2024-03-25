@@ -126,7 +126,7 @@ function App() {
                 <ActivePlans />
               </Route>
 
-              <Route exact path="/test">
+              <Route exact path="/test/:budgetId">
                 <HumanResourcesPage1 />
               </Route>
 
@@ -158,32 +158,27 @@ function App() {
                 <Year1Income />
               </Route>
 
-              <Route exact path="/incomeyear2">
+              <Route exact path="/incomeyear2/:budgetId">
                 <Year2Income />
               </Route>
 
-              <Route exact path="/overview">
-                <BEOverview />
-              </Route>
-
-              <Route exact path="/incomeyear2">
-                <Year2Income />
-              </Route>
-
-              <Route exact path="/overview">
+              <Route exact path="/overview/:budgetId">
                 <BEOverview />
               </Route>
 
               <Route exact path="/businessexpensepage1/:budgetId">
-                <BusinessExpensePage1 />
+                <BusinessExpensePage1/>
               </Route>
 
               <Route exact path="/businessexpensepage2/:budgetId">
                 <BusinessExpensePage2/>
               </Route>
 
-
-              <Route exact path="/marketing_year_1/:budgetId">
+              <Route exact path="/marketingy1/:budgetId">
+                <MarketingPageYear1 />
+              </Route>
+              {/* this one below needs to have a progbar value of 78 */}
+              <Route exact path="/marketingy2/:budgetId">
                 <MarketingPageYear1 />
               </Route>
 
@@ -191,20 +186,24 @@ function App() {
                 <HumanResourcesPage1 />
               </Route>
 
-              <Route exact path="/hrpagey2">
+              <Route exact path="/hrpagey2/:budgetId">
                 <HumanResourcesPage2 />
               </Route>
 
-              <Route exact path="/otherbusiness">
+              <Route exact path="/otherbusiness/:budgetId">
                 <OtherBusinessExp />
               </Route>
 
-              <Route exact path="/breakeven">
+              <Route exact path="/breakeven/:budgetId">
                 <BreakEven />
               </Route>
 
-              <Route exact path="/cashflow">
+              <Route exact path="/cashflow/:budgetId">
                 <AboutPage />
+              </Route>
+
+              <Route exact path="/valuepay/:budgetId">
+                <ValuePay />
               </Route>
 
               {/* For protected routes, the view could show one of several things on the same route.
@@ -229,7 +228,7 @@ function App() {
                   <LoginPage />
                 }
               </Route>
-              <Route exact path="/budget/breakeven">
+              <Route exact path="/breakeven/:budgetId">
                 <BreakEven />
               </Route>
 

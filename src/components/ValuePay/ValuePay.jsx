@@ -1,12 +1,18 @@
-import { Container, Typography, Paper, TextField, InputAdornment } from '@mui/material';
+import { Container, Typography, Paper, TextField, InputAdornment, Button } from '@mui/material';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Grid from '@mui/material/Unstable_Grid2';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import ProgressBar from '../ProgressBar/ProgressBar';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 
 export default function ValuePay(props) {
   const [percent, setPercent] = useState(0);
   const [dollarAmount, setDollarAmount] = useState(0);
+  const history = useHistory();
+  const budgetId = useParams();
+
 
   return (
     <Container>
@@ -50,6 +56,7 @@ export default function ValuePay(props) {
           </Paper>
         </Grid>
       </Grid>
+      <ProgressBar back={'otherexpenses'} next={'incomeyear1'} value={40} budgetId={budgetId} />
     </Container>
   );
 }

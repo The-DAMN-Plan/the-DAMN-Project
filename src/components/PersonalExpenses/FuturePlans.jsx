@@ -3,6 +3,7 @@ import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, T
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function FuturePlans() {
     const dispatch = useDispatch();
@@ -11,6 +12,7 @@ export default function FuturePlans() {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [expenses, setExpenses] = useState([]);
+    const budgetId = useParams();
 
     const handleAddExpense = () => {
         if (!expenseName || !amount) return;
@@ -73,7 +75,7 @@ export default function FuturePlans() {
                     ))}
                 </TableBody>
             </Table>
-            <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={30}/>
+            <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={30} budgetId={budgetId}/>
         </Container>
     );
 }

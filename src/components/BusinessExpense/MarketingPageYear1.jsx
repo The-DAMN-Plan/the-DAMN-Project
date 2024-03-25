@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function MarketingBudgetYear1() {
     const dispatch = useDispatch();
@@ -169,9 +170,7 @@ function MarketingBudgetYear1() {
                 </TableBody>
             </Table>
 
-            <Box sx={{ pt: 4 }}>
-                <ProgressBar next={'/marketing_year_2'} back={'/businessexpensepage2'} value={72} budgetId={budgetId}/>
-            </Box>
+            <ProgressBar next={'/marketingy2'} back={'/businessexpensepage2'} value={72} budgetId={budgetId} />
         </Container>
     );
 }

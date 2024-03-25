@@ -159,7 +159,6 @@ function PBpage2() {
                 </Grid>
                     <ProgressBar back={'startplan'} next={'personalsavings'} value={12} budgetId={budgetId}/>
                 </form>
-            </Paper>
         </Container>
     );
 }
