@@ -14,6 +14,7 @@ function StartPlan() {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_BUDGET' })
+        dispatch({type: 'FETCH_EXPENSES', payload: budgetObj.id})
     }, [dispatch]);
 
     const budgetObj = budget[0];
