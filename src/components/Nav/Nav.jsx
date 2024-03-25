@@ -2,7 +2,7 @@ import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useLocation, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import MuiAppBar from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -20,22 +20,22 @@ import { Grid } from '@mui/material';
 function Nav({ drawerWidth }) {
   const user = useSelector((store) => store.user);
   const open = useSelector((store)=> store.sideNav);
-
+  let { budgetId } = useParams();
+  
   const history = useHistory();
   const location = useLocation();
   console.log(location);
+  console.log(budgetId);
+  console.log(history);
 
   // list of routes where side bar is available for the user
   const listOfRoutes = [
-    '/startplan',
-    "/fundamentalexpenses",
-    "/personalsavings",
-    "/variableexpenses",
-    "/futureplans",
-    "/otherexpenses",
-    "/businessexpensepage1",
-    "/businessexpensepage2",
-    "/budget/breakeven"
+    `/user`,
+    `/info`,
+    `/about`,
+    `/home`,
+    `/login`,
+    `/registration`
 
   ]
   
@@ -66,11 +66,8 @@ function Nav({ drawerWidth }) {
   // width: listOfRoutes.includes(location.pathname) ? `calc(108% - ${drawerWidth}px)` : `calc(100%)`,
 
   return (
-    <AppBar position="fixed" open={open} >
+    <AppBar position="fixed" >
       < Container  maxWidth='xl' >
-        {/* <Box sx>
-
-        </Box> */}
         <Toolbar disableGutters sx={{display: 'flex', alignItems: 'right', justifyContent:'left'}}>
                 {/* {listOfRoutes.includes(location.pathname) && <> 
               <Box sx={{backgroundColor: 'blue'}}> 
@@ -162,8 +159,8 @@ function Nav({ drawerWidth }) {
 
               )} */}
 
-              <Box display='flex'>
-                {listOfRoutes.includes(location.pathname) && <> 
+              {!listOfRoutes.includes(location.pathname) &&<Box>
+               <> 
                     <IconButton
                       color="inherit"
                       aria-label="open drawer"
@@ -173,12 +170,9 @@ function Nav({ drawerWidth }) {
                       <MenuIcon />
                     </IconButton>
                     <SideNav drawerWidth={drawerWidth}/>
-                </> }
-
-                
-
-              </Box>
-              {!open &&<Box>
+                </>
+              </Box>}
+              <Box>
                 <Typography
               variant="h6"
               noWrap
@@ -194,7 +188,7 @@ function Nav({ drawerWidth }) {
             >
               The DAMN Plan
             </Typography>
-            </Box>}
+            </Box>
             
 
               
