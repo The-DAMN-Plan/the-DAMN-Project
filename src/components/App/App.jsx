@@ -138,7 +138,7 @@ function App() {
                 <PBPage2 />
               </Route>
 
-              <Route exact path="/personalsavings">
+              <Route exact path="/personalsavings/:budgetId">
                 <PersonalSavings />
               </Route>
 
@@ -178,9 +178,9 @@ function App() {
                 <MarketingPageYear1 />
               </Route>
               {/* this one below needs to have a progbar value of 78 */}
-              <Route exact path="/marketingy2">
+              {/* <Route exact path="/marketingy2">
                 <MarketingPage />
-              </Route>
+              </Route> */}
 
               <Route exact path="/hrpagey1">
                 <HumanResourcesPage1 />

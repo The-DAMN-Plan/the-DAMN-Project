@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   business, // Gets the businesses for the logged in user
   budget,
-  status
+  status,
   expense,
   finalBudget
 });
