@@ -26,7 +26,7 @@ import VariableExpenses from '../PersonalExpenses/VariableExpenses';
 import Year1Income from '../BusinessIncome/Year1Income';
 import Year2Income from '../BusinessIncome/Year2Income';
 import BEOverview from '../BEOverview/BEOverview';
-import MarketingPage from '../BusinessExpense/MarketingPage';
+import MarketingPageYear1 from '../BusinessExpense/MarketingPageYear1';
 
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
@@ -171,8 +171,8 @@ function App() {
               </Route>
 
 
-              <Route exact path="/marketing">
-                <MarketingPage />
+              <Route exact path="/marketing_year_1">
+                <MarketingPageYear1 />
               </Route>
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
