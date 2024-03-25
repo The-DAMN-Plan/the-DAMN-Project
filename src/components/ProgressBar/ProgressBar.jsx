@@ -21,13 +21,13 @@ export default function ProgressBar({ next, back, value }) {
       alignItems="center"
       justifyContent="center"
       xs={12}>
-      <Grid textAlign="center" xs={1}>
+      <Grid textAlign="center" xs={3} sm={2}>
         <Button onClick={handleBack} variant='outlined'>Back</Button>
       </Grid>
-      <Grid textAlign='center' xs={10}>
+      <Grid textAlign='center' xs={6} sm={8}>
         <LinearProgress variant="determinate" value={value} />
       </Grid>
-      <Grid textAlign="center" xs={1}>
+      <Grid textAlign="center" xs={3} sm={2}>
         <Button onClick={handleNext} variant='contained'>Next</Button>
       </Grid>
     </Grid>

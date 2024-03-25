@@ -9,10 +9,10 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
 import Grid from '@mui/material/Unstable_Grid2';
 
-export default function HumanResourcesPage() {
+export default function HumanResourcesPage1() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const budget = useSelector((store) => store.budget);
+    const expenses = useSelector((store) => store.expense);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_BUDGET' });
@@ -26,21 +26,24 @@ export default function HumanResourcesPage() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        dispatch({ type: 'ADD_EXPENSE', payload: { expense_name: expenseName, service, frequency, expense_amount: expenseAmount } });
+        dispatch({ type: 'ADD_BUSINESS_EXPENSE', payload: { expense_name: expenseName, service, frequency, expense_amount: expenseAmount } });
 
         setExpenseName('');
         setService('');
         setExpenseAmount(0);
         setFrequency(0);
     };
+    
+    function handleDelete(){
 
+    }
 
 
 
     return (
         <Container sx={{ paddingTop: '64px' }}>
-            <Typography variant="h4" gutterBottom>Human Resource Budget</Typography>
-            <Typography variant="subtitle1" gutterBottom>Human Resource Budget</Typography>
+            <Typography variant="h4" color={'primary'} gutterBottom>Human Resource Budget Year 1</Typography>
+            <Typography variant="subtitle1" gutterBottom>Make determined-decisions about which essential tasks and skills must be outsourced. Analyze the cost / benefit of outsourcing vs. either doing it all yourself or hiring staff. Make determined-decisions about which essential tasks and skills must be outsourced. Analyze the cost / benefit of outsourcing vs. either doing it all yourself or hiring staff. After vetting qualified contractors, enter their business name and service they will provide. </Typography>
             {/* Grid container for input fields */}
             <Grid container spacing={2} alignformValuess="center">
                 <Grid formValues xs={12} md={3}>

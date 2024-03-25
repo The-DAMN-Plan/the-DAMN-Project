@@ -44,7 +44,7 @@ import ValuePay from '../ValuePay/ValuePay';
 import SideNav from '../Nav/SideNav';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import ActivePlans from '../ActivePlans/ActivePlans';
-import HumanResourcesPage from '../BusinessExpense/HumanResourcesPage';
+import HumanResourcesPage1 from '../BusinessExpense/HumanResourcesPage1';
 
 
 function App() {
@@ -125,7 +125,7 @@ function App() {
               </Route>
 
               <Route exact path="/test">
-                <HumanResourcesPage />
+                <HumanResourcesPage1 />
               </Route>
 
               <Route exact path="/startplan">
@@ -151,30 +151,27 @@ function App() {
               <Route exact path="/otherexpenses">
                 <OtherExpenses />
               </Route>
-              <Route
-                // logged in shows business expense page 1 else shows LoginPage
-                exact
-                path="/businessexpensepage1"
-              >
-                <BusinessExpensePage1 />
-              </Route>
-
-              <Route
-                // logged in shows business expense page 2 else shows LoginPage
-                exact
-                path="/businessexpensepage2"
-              >
-                <BusinessExpensePage2/>
-              </Route>
 
               <Route exact path="/incomeyear1">
                 <Year1Income />
               </Route>
 
+              <Route exact path="/businessexpensepage1">
+                <BusinessExpensePage1 />
+              </Route>
 
-              <Route exact path="/marketing">
+              <Route exact path="/businessexpensepage2">
+                <BusinessExpensePage2/>
+              </Route>
+
+              <Route exact path="/marketingy1">
                 <MarketingPage />
               </Route>
+
+              <Route exact path="/hrpagey1">
+                <HumanResourcesPage1 />
+              </Route>
+
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
