@@ -142,7 +142,7 @@ function App() {
                 <PersonalSavings />
               </Route>
 
-              <Route exact path="/variableexpenses">
+              <Route exact path="/variableexpenses/:budgetId">
                 <VariableExpenses />
               </Route>
 
