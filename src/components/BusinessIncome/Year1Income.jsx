@@ -148,7 +148,7 @@ return (
               >
                 <MenuItem value={1}>1</MenuItem>
                 <MenuItem value={2}>2</MenuItem>
-                 <MenuItem value={3}>3</MenuItem>
+                <MenuItem value={3}>3</MenuItem>
                 <MenuItem value={4}>4</MenuItem>
                 <MenuItem value={5}>5</MenuItem>
               </Select>
@@ -212,7 +212,7 @@ return (
         </Table>
       </Paper>
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-        <ProgressBar back={''} next={''} submit={handleSubmit} value={5}/>
+        <ProgressBar back={''} next={''} submit={handleSubmit} value={42}/>
       </Box>
     </Container>
   );

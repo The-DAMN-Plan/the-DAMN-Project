@@ -26,7 +26,7 @@ import VariableExpenses from '../PersonalExpenses/VariableExpenses';
 import Year1Income from '../BusinessIncome/Year1Income';
 import Year2Income from '../BusinessIncome/Year2Income';
 import BEOverview from '../BEOverview/BEOverview';
-import MarketingPage from '../BusinessExpense/MarketingPage';
+import MarketingPageYear1 from '../BusinessExpense/MarketingPageYear1';
 
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
@@ -44,7 +44,9 @@ import ValuePay from '../ValuePay/ValuePay';
 import SideNav from '../Nav/SideNav';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import ActivePlans from '../ActivePlans/ActivePlans';
-import HumanResourcesPage from '../BusinessExpense/HumanResourcesPage';
+import HumanResourcesPage1 from '../BusinessExpense/HumanResourcesPage1';
+import HumanResourcesPage2 from '../BusinessExpense/HumanResourcesPage2';
+import OtherBusinessExp from '../BusinessExpense/OtherBusinessExp';
 
 
 function App() {
@@ -125,7 +127,7 @@ function App() {
               </Route>
 
               <Route exact path="/test">
-                <HumanResourcesPage />
+                <HumanResourcesPage1 />
               </Route>
 
               <Route exact path="/startplan/:budgetId">
@@ -151,30 +153,55 @@ function App() {
               <Route exact path="/otherexpenses">
                 <OtherExpenses />
               </Route>
-              <Route
-                // logged in shows business expense page 1 else shows LoginPage
-                exact
-                path="/businessexpensepage1"
-              >
-                <BusinessExpensePage1 />
-              </Route>
-
-              <Route
-                // logged in shows business expense page 2 else shows LoginPage
-                exact
-                path="/businessexpensepage2"
-              >
-                <BusinessExpensePage2/>
-              </Route>
 
               <Route exact path="/incomeyear1">
                 <Year1Income />
               </Route>
 
+              <Route exact path="/incomeyear2">
+                <Year2Income />
+              </Route>
 
-              <Route exact path="/marketing">
+              <Route exact path="/overview">
+                <BEOverview />
+              </Route>
+
+              <Route exact path="/businessexpensepage1">
+                <BusinessExpensePage1 />
+              </Route>
+
+              <Route exact path="/businessexpensepage2">
+                <BusinessExpensePage2/>
+              </Route>
+
+              <Route exact path="/marketingy1">
+                <MarketingPageYear1 />
+              </Route>
+              {/* this one below needs to have a progbar value of 78 */}
+              <Route exact path="/marketingy2">
                 <MarketingPage />
               </Route>
+
+              <Route exact path="/hrpagey1">
+                <HumanResourcesPage1 />
+              </Route>
+
+              <Route exact path="/hrpagey2">
+                <HumanResourcesPage2 />
+              </Route>
+
+              <Route exact path="/otherbusiness">
+                <OtherBusinessExp />
+              </Route>
+
+              <Route exact path="/breakeven">
+                <BreakEven />
+              </Route>
+
+              <Route exact path="/cashflow">
+                <AboutPage />
+              </Route>
+
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Container, Typography, Box, Paper, TextField, InputAdornment, Switch, InputLabel } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 export default function BEOverview(props) {
   const [percentYearOne, setPercentYearOne] = useState(0);
@@ -124,6 +125,7 @@ export default function BEOverview(props) {
           inputProps={{ 'aria-label': 'controlled' }}
         />
       </Grid>
+      <ProgressBar value={54}/>
     </Container >
   );
 }

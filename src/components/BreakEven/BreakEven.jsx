@@ -53,7 +53,7 @@ export default function BreakEven() {
           </Grid>
           {/* {end} */}
         </Grid>
-        <ProgressBar next={'about'} back={'home'} value={75} />
+        <ProgressBar next={'about'} back={'home'} value={98} />
       </Box>
     </Container>
   );

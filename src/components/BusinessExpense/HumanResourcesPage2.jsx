@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
 import Grid from '@mui/material/Unstable_Grid2';
 
-export default function HumanResourcesPage() {
+export default function HumanResourcesPage2() {
     const dispatch = useDispatch();
     const history = useHistory();
     const budget = useSelector((store) => store.budget);
@@ -39,8 +39,8 @@ export default function HumanResourcesPage() {
 
     return (
         <Container sx={{ paddingTop: '64px' }}>
-            <Typography variant="h4" gutterBottom>Human Resource Budget</Typography>
-            <Typography variant="subtitle1" gutterBottom>Human Resource Budget</Typography>
+            <Typography variant="h4" color={'primary'} gutterBottom>Human Resource Budget Year 2</Typography>
+            <Typography variant="subtitle1" gutterBottom>Make determined-decisions about which essential tasks and skills must be outsourced. Analyze the cost / benefit of outsourcing vs. either doing it all yourself or hiring staff. Make determined-decisions about which essential tasks and skills must be outsourced. Analyze the cost / benefit of outsourcing vs. either doing it all yourself or hiring staff. After vetting qualified contractors, enter their business name and service they will provide. </Typography>
             {/* Grid container for input fields */}
             <Grid container spacing={2} alignformValuess="center">
                 <Grid formValues xs={12} md={3}>
@@ -115,9 +115,7 @@ export default function HumanResourcesPage() {
                 </TableBody>
             </Table>
 
-            <Box sx={{ pt: 4 }}>
-                <ProgressBar activeStep={5} />
-            </Box>
+            <ProgressBar value={90} />
         </Container>
     );
 }
