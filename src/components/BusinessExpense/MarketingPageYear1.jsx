@@ -3,7 +3,7 @@ import {
     TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow,
     Typography, Box, FormControl, InputLabel, Select, MenuItem
 } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Unstable_Grid2'; // Importing the unstable Grid for flexibility
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
@@ -13,7 +13,7 @@ function MarketingBudgetYear1() {
     const dispatch = useDispatch();
     const history = useHistory();
     const budgetList = useSelector((store) => store.budget);
-    const budgetObj = budgetList[0]; // Assuming budgetList is an array and you need the first item
+    const [marketingValues, setMarketingValues] = useState([]); // This state holds the added marketing entries
 
     useEffect(() => {
         dispatch({ type: 'FETCH_BUDGET' });
@@ -32,8 +32,11 @@ function MarketingBudgetYear1() {
     const handleAddMarketingValues = (event) => {
         event.preventDefault();
         if (!Object.values(formValues).every(value => value)) return;
-        // Assuming dispatch to save the formValues here
-        dispatch({ type: 'ADD_BUSINESS_EXPENSE', payload: { ...formValues, budget_id: budgetObj?.id } });
+
+        // Add the formValues to the marketingValues state
+        setMarketingValues([...marketingValues, { ...formValues, id: marketingValues.length }]);
+
+        // Reset formValues after adding
         setFormValues({
             expense_name: '',
             service_provider: '',
@@ -51,6 +54,11 @@ function MarketingBudgetYear1() {
             ...prev,
             [name]: value,
         }));
+    };
+
+    // Function to handle deleting a marketing value entry
+    const handleDeleteMarketingValue = (index) => {
+        setMarketingValues(marketingValues.filter((_, i) => i !== index));
     };
 
     return (
