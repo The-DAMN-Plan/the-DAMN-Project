@@ -24,6 +24,7 @@ router.get('/:id', async (req, res) => {
             (SELECT coalesce(jsonb_agg(item), '[]'::jsonb) FROM (
             SELECT "cashflow_months".* FROM "cashflow_months" WHERE "cashflow_months"."budget_id"="budgets"."id") item) as "cashflow_months" from budgets where budgets.id = $1;`
   const budget_id = Number(req.params.id);
+  console.log('Budget id big get', budget_id);
 
   try {
     const result = await pool.query(sql, [budget_id]);
@@ -44,7 +45,7 @@ router.get('/business/:businessId', async (req, res) => {
 
   pool.query(query, [businessId])
   .then((result) => {
-    res.send(result.rows);
+    // res.send(result.rows);
   }).catch((error) => {
     res.sendStatus(500);
     console.log('Error getting budgets', error);
@@ -82,6 +83,20 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.get('/expenses/:budgetId', async (req, res) => {
+  const budgetId = req.params.budgetId;
+  const sql = `SELECT * FROM "expenses"
+  WHERE "budget_id" = $1`
+
+  pool.query(sql, [budgetId])
+  .then((result) => {
+    res.send(result.rows);
+  }).catch((error) => {
+    res.sendStatus(500);
+    console.log('Error getting expenses', error);
+  })
+});
+
 // creates all expenses given to it
 router.post('/expense', async (req, res) => {
   // POST route code here
@@ -89,18 +104,27 @@ router.post('/expense', async (req, res) => {
   "frequency","timing","facilitator","vendor","cost_per_use","assets_needed","service")
   values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) returning *;`
   const data = req.body;
-  console.log(data);
+  const results = []; // Array to collect all the results
+  let errorOccurred = false;
+  console.log("Post");
   for (const expense of data) {
-    console.log(expense);
     try {
       const result = await pool.query(sql, [
         expense.budget_id, expense.type, expense.expense_name, expense.expense_amount, expense.percent_change, expense.year,
-        expense.frequency, expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use, expense.assests_needed, expense.service]);
-      // res.send(result);
+        expense.frequency, expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use, expense.assets_needed, expense.service // Fixed typo assests_needed -> assets_needed
+      ]);
+      results.push(result.rows[0]); // Assuming you want to collect the inserted rows
     } catch (error) {
       console.log(error);
-      res.sendStatus(500);
+      errorOccurred = true;
+      break; // Break the loop on error
     }
+  }
+
+  if (errorOccurred) {
+    res.status(500).send('An error occurred while inserting expenses');
+  } else {
+    res.send(results); // Send all the results back to the client
   }
 });
 
@@ -135,6 +159,24 @@ router.delete('/expense/:id', async (req, res) => {
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
+  }
+});
+
+router.post('/revenuestream', async (req, res) => {
+  // POST route code here
+  const sql = `INSERT INTO "revenue_streams" ("budget_id", "revenue_stream", "description", "price",
+    "unit", "time_used", "ideal_client", "rate_of_love", "purchasers", "year") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;`;
+  const data = req.body;
+  for (const revenueStream of data) {
+    try {
+      const result = await pool.query(sql, [
+        revenueStream.budget_id, revenueStream.revenue_stream, revenueStream.description, revenueStream.price, revenueStream.unit, revenueStream.time_used,
+        revenueStream.ideal_client, revenueStream.rate_of_love, revenueStream.purchasers, revenueStream.year]);
+        res.send(result);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+    }
   }
 });
 

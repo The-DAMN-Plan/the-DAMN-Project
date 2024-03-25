@@ -4,6 +4,8 @@ import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
+import ProgressBar from '../ProgressBar/ProgressBar';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function BusinessExpense(params) {
     const dispatch = useDispatch();
@@ -11,6 +13,8 @@ export default function BusinessExpense(params) {
     const budget = useSelector((store) => store.budget);
     const open = useSelector(store=>store.sideNav);
     const budgetObj = budget[0];
+    const budgetId = useParams();
+
     //default values for each input start at 0 incase user does not input anything 
     const [userEntry, setUserEntry] = useState([
         {
@@ -135,12 +139,8 @@ export default function BusinessExpense(params) {
                             <TextField name="clientTravelMeals" label="Client/Travel Meals"  fullWidth value={formValues.clientTravelMeals} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
-                    <Box textAlign="center" marginTop={4}>
-                        <Button type="submit" variant="contained" color="primary">
-                            Next Page
-                        </Button>
-                    </Box>
                 </form>
+                <ProgressBar back={'overview'} next={'businessexpensepage2'} value={60} budgetId={budgetId}/>
             </Paper>
         </Container>
         <Footer/>

@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
+import Currency from '../Shared/Currency';
+
 
 function OtherExpenses() {
     const dispatch = useDispatch();
-    const history = useHistory();
     const budget = useSelector((store) => store.budget);
     const open = useSelector(store=>store.sideNav);
     const budgetObj = budget[0];
+    const budgetId = useParams();
+
     const [expenseName, setExpenseName] = useState('');
     const [amount, setAmount] = useState('');
     const [expenses, setExpenses] = useState([]);
@@ -74,7 +77,9 @@ function OtherExpenses() {
                     {expenses.map((expense, index) => (
                         <TableRow key={index}>
                             <TableCell>{expense.name}</TableCell>
-                            <TableCell>{`$${expense.amount}`}</TableCell>
+                            <TableCell>
+                                <Currency  value={expense.amount} />
+                            </TableCell>
                             <TableCell>
                                 <Button onClick={() => handleDeleteExpense(index)}>Delete</Button>
                             </TableCell>
@@ -82,7 +87,7 @@ function OtherExpenses() {
                     ))}
                 </TableBody>
             </Table>
-            <ProgressBar back={''} next={''} value={5}/>
+            <ProgressBar back={'futureplans'} next={'valuepay'} value={36} budgetId={budgetId}/>
         </Container>
         <Footer/>
         </Main>

@@ -5,14 +5,18 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 import Main from '../Main/Main';
 import { useSelector } from 'react-redux';
 import Footer from '../Footer/Footer';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function FuturePlans() {
+    const dispatch = useDispatch();
     const [expenseName, setExpenseName] = useState('');
     const [amount, setAmount] = useState('');
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [expenses, setExpenses] = useState([]);
     const open = useSelector(s=>s.sideNav);
+    const budgetId = useParams();
 
     const handleAddExpense = () => {
         if (!expenseName || !amount) return;
@@ -43,7 +47,7 @@ export default function FuturePlans() {
                     Future Plans
                 </Typography>
                 <Typography variant="body1" gutterBottom>
-                    If you have any future plans that you’d like to account for. Now is the time to put as many of them into your budget as you’d like. These could be many things like trips, etc., etc...</Typography>
+                    If you have any future plans that you’d like to account for. Now is the time to put as many of them into your budget as you’d like. These could be many things like trips, etc.</Typography>
                 <TextField label="Name of Plan" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
                 <DatePicker value={startDate} onChange={(newValue) => setStartDate(newValue)} />
                 <DatePicker value={endDate} onChange={(newValue) => setEndDate(newValue)} />
@@ -76,7 +80,7 @@ export default function FuturePlans() {
                         ))}
                     </TableBody>
                 </Table>
-                <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={60} />
+                <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={30} budgetId={budgetId}/>
                 <Footer/>
             </Container>
 

@@ -13,7 +13,10 @@ function UserPage() {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const budget = useSelector((store) => store.budget);
+  const budgetObj = budget[0];
   const business = useSelector((store) => store.business);
+  console.log(budget);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_BUSINESS' })
@@ -42,7 +45,7 @@ function UserPage() {
         name: 'test'
       }
       dispatch({ type: 'START_PLAN', payload: budgetData })
-      history.push('/startplan');
+      history.push(`/startplan/${budgetObj.id}`);
     } else {
       console.error('No business selected for starting a plan.');
     }
@@ -50,8 +53,7 @@ function UserPage() {
 
   return (
     <Container maxWidth="lg">
-      <Typography variant='h3'>Welcome, {user.username}!</Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} sx={{mt:4}}>
         <Grid item xs={6}>
           <Paper style={{ maxHeight: '400px', overflowY: 'auto' }}>
             <Box p={3}>

@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function VariableExpenses() {
     const dispatch = useDispatch();
     const history = useHistory();
     const budget = useSelector((store) => store.budget);
+    const budgetId = useParams();
     const budgetObj = budget[0];
     const [userEntry, setUserEntry] = useState([])
 
@@ -66,14 +68,11 @@ function VariableExpenses() {
     return (
         <Container maxWidth="md">
             <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Start a DAMN Plan
-                </Typography>
-                <Typography variant="h5" align="center" gutterBottom>
-                    Fundamental Living Expenses
+                <Typography variant="h3" align="center" gutterBottom>
+                    Variable Living Expenses
                 </Typography>
                 <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
-                    Your singular goal in business is to "meet your customer's wants and needs at a profit" and pay yourself!
+                    On this page take some time to think about your monthly expenses that change and try to come up with an average of what you pay.
                 </Typography>
 
                 <form onSubmit={handleSubmit}>
@@ -91,7 +90,7 @@ function VariableExpenses() {
                             <TextField name="homeMaintenance" label="Home Maintenance" fullWidth value={formValues.homeMaintenance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                     </Grid>
-                    <ProgressBar next={'futureplans'} back={'personalsavings'} value={20} />
+                    <ProgressBar next={'futureplans'} back={'personalsavings'} value={24} budgetId={budgetId}/>
                 </form>
             </Paper>
         </Container>

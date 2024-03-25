@@ -4,7 +4,7 @@ import './Nav.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import MuiAppBar from '@mui/material/AppBar';
-import { styled} from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -17,10 +17,10 @@ import MenuItem from '@mui/material/MenuItem';
 import SideNav from './SideNav';
 import { Grid } from '@mui/material';
 
-function Nav({drawerWidth}) {
+function Nav({ drawerWidth }) {
   const user = useSelector((store) => store.user);
   const open = useSelector((store)=> store.sideNav);
-  
+
   const history = useHistory();
   const location = useLocation();
   console.log(location);
@@ -255,7 +255,7 @@ function Nav({drawerWidth}) {
 
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                New Budget
+                Plans
               </Button>
               <Button
                 onClick={() => {

@@ -7,7 +7,10 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
     console.log('Getting businesses...');
-    const queryText = `select * from "businesses" where user_id=${req.user.id}`;
+    const queryText = `select *,
+    (SELECT coalesce(jsonb_agg(item), '[]'::jsonb) FROM (
+        SELECT "budgets".* FROM "budgets" WHERE "budgets"."business_id"="businesses"."id") item) as "budgets"
+         from "businesses" where user_id=${req.user.id}`;
     pool.query(queryText).then((result)=>{
         res.send(result.rows);
     }).catch((error)=>{

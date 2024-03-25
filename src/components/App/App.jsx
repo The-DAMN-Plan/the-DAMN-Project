@@ -23,7 +23,10 @@ import StartPlan from '../PersonalExpenses/StartPlan';
 import PBPage2 from '../PersonalExpenses/PBpage2';
 import PersonalSavings from '../PersonalExpenses/PersonalSavings';
 import VariableExpenses from '../PersonalExpenses/VariableExpenses';
+import Year1Income from '../BusinessIncome/Year1Income';
+import Year2Income from '../BusinessIncome/Year2Income';
 import BEOverview from '../BEOverview/BEOverview';
+import MarketingPageYear1 from '../BusinessExpense/MarketingPageYear1';
 
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
@@ -37,6 +40,14 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import FuturePlans from '../PersonalExpenses/FuturePlans';
 import BusinessExpensePage1 from '../BusinessExpense/BusinessExpensePage1';
 import BusinessExpensePage2 from '../BusinessExpense/BusinessExpensePage2';
+import ValuePay from '../ValuePay/ValuePay';
+import SideNav from '../Nav/SideNav';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import ActivePlans from '../ActivePlans/ActivePlans';
+import HumanResourcesPage1 from '../BusinessExpense/HumanResourcesPage1';
+import HumanResourcesPage2 from '../BusinessExpense/HumanResourcesPage2';
+import OtherBusinessExp from '../BusinessExpense/OtherBusinessExp';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -94,46 +105,88 @@ function App() {
                 <AboutPage />
               </Route>
 
-              <Route exact path="/test">
-                <BEOverview />
+              <Route exact path="/plans">
+                <ActivePlans />
               </Route>
+
+              <Route exact path="/test/:budgetId">
+                <HumanResourcesPage1 />
+              </Route>
+
               <Route exact path="/startplan">
                 <StartPlan />
               </Route>
 
-              <Route exact path="/fundamentalexpenses">
+              <Route exact path="/fundamentalexpenses/:budgetId">
                 <PBPage2 />
               </Route>
 
-              <Route exact path="/personalsavings">
+              <Route exact path="/personalsavings/:budgetId">
                 <PersonalSavings />
               </Route>
 
-              <Route exact path="/variableexpenses">
+              <Route exact path="/variableexpenses/:budgetId">
                 <VariableExpenses />
               </Route>
 
-              <Route exact path="/futureplans">
+              <Route exact path="/futureplans/:budgetId">
                 <FuturePlans />
               </Route>
 
-              <Route exact path="/otherexpenses">
+              <Route exact path="/otherexpenses/:budgetId">
                 <OtherExpenses />
               </Route>
-              <Route
-                // logged in shows business expense page 1 else shows LoginPage
-                exact
-                path="/businessexpensepage1"
-              >
-                <BusinessExpensePage1 />
+
+              <Route exact path="/incomeyear1/:budgetId">
+                <Year1Income />
               </Route>
 
-              <Route
-                // logged in shows business expense page 2 else shows LoginPage
-                exact
-                path="/businessexpensepage2"
-              >
+              <Route exact path="/incomeyear2/:budgetId">
+                <Year2Income />
+              </Route>
+
+              <Route exact path="/overview/:budgetId">
+                <BEOverview />
+              </Route>
+
+              <Route exact path="/businessexpensepage1/:budgetId">
+                <BusinessExpensePage1/>
+              </Route>
+
+              <Route exact path="/businessexpensepage2/:budgetId">
                 <BusinessExpensePage2/>
+              </Route>
+
+              <Route exact path="/marketingy1/:budgetId">
+                <MarketingPageYear1 />
+              </Route>
+              {/* this one below needs to have a progbar value of 78 */}
+              <Route exact path="/marketingy2/:budgetId">
+                <MarketingPageYear1 />
+              </Route>
+
+              <Route exact path="/hrpagey1/:budgetId">
+                <HumanResourcesPage1 />
+              </Route>
+
+              <Route exact path="/hrpagey2/:budgetId">
+                <HumanResourcesPage2 />
+              </Route>
+
+              <Route exact path="/otherbusiness/:budgetId">
+                <OtherBusinessExp />
+              </Route>
+
+              <Route exact path="/breakeven/:budgetId">
+                <BreakEven />
+              </Route>
+
+              <Route exact path="/cashflow/:budgetId">
+                <AboutPage />
+              </Route>
+
+              <Route exact path="/valuepay/:budgetId">
+                <ValuePay />
               </Route>
 
               {/* For protected routes, the view could show one of several things on the same route.
@@ -158,7 +211,7 @@ function App() {
                   <LoginPage />
                 }
               </Route>
-              <Route exact path="/budget/breakeven">
+              <Route exact path="/breakeven/:budgetId">
                 <BreakEven />
               </Route>
 

@@ -1,4 +1,6 @@
 import { createTheme } from '@mui/material/styles';
+import "@fontsource/open-sans" // Defaults to weight 400.
+
 
 const theme = createTheme({
     palette: {
@@ -10,6 +12,16 @@ const theme = createTheme({
         },
         third: {
             main: 'rgb(255, 253, 90)', // Third color
+        },
+    },
+    typography: {
+        fontFamily: 'Open Sans',
+    },
+    overrides: {
+        MuiCssBaseline: {
+            '@global': {
+                '@font-face': 'Open Sans',
+            },
         },
     },
 });
