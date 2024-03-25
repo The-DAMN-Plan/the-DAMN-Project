@@ -125,7 +125,7 @@ function App() {
                 <StartPlan />
               </Route>
 
-              <Route exact path="/fundamentalexpenses">
+              <Route exact path="/fundamentalexpenses/:budgetId">
                 <PBPage2 />
               </Route>
 

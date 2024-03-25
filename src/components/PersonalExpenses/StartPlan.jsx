@@ -15,11 +15,11 @@ function StartPlan() {
     console.log('URL', budgetId);
 
     console.log(budget);
-    // console.log(expense);
+    console.log(expense);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_BUDGET' })
-        // dispatch({type: 'FETCH_EXPENSES', payload: budgetObj.id})
+        dispatch({type: 'FETCH_EXPENSES', payload: budgetId.budgetId})
     }, [dispatch]);
 
     const budgetObj = budget[0];
@@ -120,7 +120,7 @@ function StartPlan() {
                             )}
                         </Grid>
                     </Grid>
-                    <ProgressBar back={'startplan'} next={'fundamentalexpenses'} value={5} />
+                    <ProgressBar back={`startplan}`} next={`fundamentalexpenses`} value={5} budgetId={budgetId}/>
                 </form>
         </Container>
     );

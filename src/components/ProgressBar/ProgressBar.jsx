@@ -4,15 +4,18 @@ import { Button } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
-export default function ProgressBar({ next, back, value }) {
+export default function ProgressBar({ next, back, value, budgetId }) {
   const history = useHistory();
 
+  console.log(budgetId.budgetId);
+
+
   function handleBack() {
-    history.push(`/${back}`);
+    history.push(`/${back}/${budgetId}`);
   }
 
   function handleNext(event) {
-    history.push(`/${next}`);
+    history.push(`/${next}/${budgetId.budgetId}`);
   }
 
   return (
@@ -31,7 +34,6 @@ export default function ProgressBar({ next, back, value }) {
         <Button onClick={handleNext} variant='contained'>Next</Button>
       </Grid>
     </Grid>
-
   );
 }
 
