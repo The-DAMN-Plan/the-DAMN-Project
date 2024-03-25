@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
 
 function StartPlan() {
     const dispatch = useDispatch();
+    const budgetId = useParams();
     const budget = useSelector((store) => store.budget);
     const expense = useSelector((store) => store.expense);
     const [formSubmitted, setFormSubmitted] = useState(false);
+
+    console.log('URL', budgetId);
 
     console.log(budget);
     // console.log(expense);

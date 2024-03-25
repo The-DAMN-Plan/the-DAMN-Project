@@ -45,7 +45,7 @@ function UserPage() {
         name: 'test'
       }
       dispatch({ type: 'START_PLAN', payload: budgetData })
-      history.push(`/startplan:${budgetObj.id}`);
+      history.push(`/startplan/${budgetObj.id}`);
     } else {
       console.error('No business selected for starting a plan.');
     }
