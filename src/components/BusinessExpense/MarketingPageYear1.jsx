@@ -3,21 +3,21 @@ import {
     TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow,
     Typography, Box, FormControl, InputLabel, Select, MenuItem
 } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2'; // Importing the unstable Grid for flexibility
+import Grid from '@mui/material/Unstable_Grid2'; // Assuming you're still using the unstable Grid
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
 
 function MarketingBudgetYear1() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const { budgetId } = useParams(); // Capture the budgetId from URL params
     const budgetList = useSelector((store) => store.budget);
-    const [marketingValues, setMarketingValues] = useState([]); // This state holds the added marketing entries
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_BUDGET' });
-    }, [dispatch]);
+        dispatch({ type: 'FETCH_BUDGET', payload: budgetId }); // Use budgetId here if needed
+    }, [dispatch, budgetId]);
 
     const [formValues, setFormValues] = useState({
         expense_name: '',
@@ -32,11 +32,11 @@ function MarketingBudgetYear1() {
     const handleAddMarketingValues = (event) => {
         event.preventDefault();
         if (!Object.values(formValues).every(value => value)) return;
-
-        // Add the formValues to the marketingValues state
-        setMarketingValues([...marketingValues, { ...formValues, id: marketingValues.length }]);
-
-        // Reset formValues after adding
+        // Assuming dispatch to save the formValues here
+        dispatch({ 
+            type: 'ADD_BUSINESS_EXPENSE', 
+            payload: { ...formValues, budget_id: budgetId } // Use budgetId to associate the expense with the specific budget
+        });
         setFormValues({
             expense_name: '',
             service_provider: '',
@@ -171,7 +171,7 @@ function MarketingBudgetYear1() {
             </Table>
 
             <Box sx={{ pt: 4 }}>
-                <ProgressBar next={'/marketing_year_2'} back={'/businessexpensepage2'} value={72} />
+                <ProgressBar next={'/marketing_year_2/${budgetId}'} back={'/businessexpensepage2/${budgetId}'} value={72} budgetId={budgetId}/>
             </Box>
         </Container>
     );
