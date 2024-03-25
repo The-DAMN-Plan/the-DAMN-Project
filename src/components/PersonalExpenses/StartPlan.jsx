@@ -53,11 +53,7 @@ function StartPlan() {
         return expenseItem ? expenseItem.expense_amount : '';
     };
 
-
-
     const [userEntry, setUserEntry] = useState([])
-
-
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;

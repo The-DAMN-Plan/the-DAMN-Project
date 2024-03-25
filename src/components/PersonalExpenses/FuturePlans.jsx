@@ -2,24 +2,38 @@ import React, { useState } from 'react';
 import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function FuturePlans() {
     const dispatch = useDispatch();
     const budgetId = useParams();
+    const futurePlans = useSelector((store) => store.futurePlans);
+    console.log(futurePlans);
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [expenseName, setExpenseName] = useState('');
     const [amount, setAmount] = useState('');
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [expenses, setExpenses] = useState([]);
+    const [userEntry, setUserEntry] = useState([]);
 
     const handleAddExpense = () => {
         if (!expenseName || !amount) return;
         // Remove any non-numeric characters except for a decimal point and a minus sign
         const sanitizedAmount = amount.replace(/[^\d.-]/g, '');
         setExpenses([...expenses, { name: expenseName, amount: parseFloat(sanitizedAmount).toFixed(2), startDate: startDate.format('MM/DD/YYYY'), endDate: endDate.format('MM/DD/YYYY'), monthsToSave: endDate.diff(startDate, 'months')}]);
+
+        let newStart = startDate.format('MM/DD/YYYY');
+        let newEnd = endDate.format('MM/DD/YYYY');
+        let newAmmount = parseFloat(sanitizedAmount).toFixed(2);
+        const tableData = {
+            budget_id: budgetId.budgetId,
+            name: expenseName,
+            start_date: newStart,
+            end_date: newEnd,
+            savings_needed: newAmmount
+        };
         setExpenseName('');
         setStartDate(null);
         setEndDate(null);
@@ -30,6 +44,7 @@ export default function FuturePlans() {
         const newExpenses = expenses.filter((_, i) => i !== index);
         setExpenses(newExpenses);
     };
+    
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -76,15 +91,17 @@ export default function FuturePlans() {
                     ))}
                 </TableBody>
             </Table>
+            <Box>
             {formSubmitted ? (
                             <Button type='button' onClick={handleEdit}>
                                 Edit
                             </Button>
                         ) : (
-                            <Button type='submit'>
+                            <Button type='button' onClick={() => handleSubmit(event)}>
                                 Submit
                             </Button>
                         )}
+            </Box>
             <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={30} budgetId={budgetId}/>
         </Container>
     );
