@@ -3,7 +3,7 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
-import { styled} from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -16,9 +16,9 @@ import MenuItem from '@mui/material/MenuItem';
 import MuiAppBar from '@mui/material/AppBar';
 import SideNav from './SideNav';
 
-function Nav({open, toggleDrawer, drawerWidth}) {
+function Nav({ open, toggleDrawer, drawerWidth }) {
   const user = useSelector((store) => store.user);
-  
+
   const history = useHistory();
   const location = useLocation();
   console.log(location);
@@ -83,8 +83,8 @@ function Nav({open, toggleDrawer, drawerWidth}) {
           >
             <MenuIcon />
           </IconButton>
-          
-          <SideNav open={open} toggleDrawer={toggleDrawer} drawerWidth={drawerWidth}/></> }
+
+            <SideNav open={open} toggleDrawer={toggleDrawer} drawerWidth={drawerWidth} /></>}
           <Typography
             variant="h6"
             noWrap
@@ -93,7 +93,7 @@ function Nav({open, toggleDrawer, drawerWidth}) {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontWeight: 900,
+              fontWeight: 'bold',
               color: 'inherit',
               textDecoration: 'none',
             }}
@@ -139,9 +139,9 @@ function Nav({open, toggleDrawer, drawerWidth}) {
                 </MenuItem>
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography onClick={() => {
-                    handleOpen();
+                    history.push('/plans');
                     handleCloseNavMenu();
-                  }} textAlign="center">New Budget</Typography>
+                  }} textAlign="center">Plans</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography onClick={() => {
@@ -161,7 +161,7 @@ function Nav({open, toggleDrawer, drawerWidth}) {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontWeight: 900,
+              fontWeight: 'bold',
               color: 'inherit',
               textDecoration: 'none',
             }}
@@ -182,14 +182,14 @@ function Nav({open, toggleDrawer, drawerWidth}) {
               </Button>
               <Button
                 onClick={() => {
-                  history.push('/budget');
+                  history.push('/plans');
 
                   handleCloseNavMenu();
                 }}
 
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                New Budget
+                Plans
               </Button>
               <Button
                 onClick={() => {
