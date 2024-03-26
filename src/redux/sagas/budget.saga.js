@@ -36,6 +36,10 @@ function* fetchBudget(action) {
             type: 'SET_FUTURE_PLAN',
             payload: response.data[0].future_plans
         })
+        yield put({
+            type: 'SET_INCOME',
+            payload: response.data[0].revenue_streams
+        })
     } catch(err) {
         console.log('Error getting working budget', err);
     }
