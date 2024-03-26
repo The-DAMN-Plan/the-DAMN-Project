@@ -30,6 +30,14 @@ function* fetchExpenses(action) {
     }
 }
 
+function* deleteExpense(action) {
+    try{
+
+    } catch (error) {
+        console.log('Error deleting expense', error);
+    }
+}
+
 function* expenseSaga() {
     yield takeLatest('FETCH_EXPENSES', fetchExpenses);
     yield takeLatest('ADD_PERSONAL_EXPENSE', addPersonalExpense);
