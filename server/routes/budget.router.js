@@ -151,7 +151,7 @@ router.put('/expense', async (req, res) => {
 router.delete('/expense/:id', async (req, res) => {
   // delete route code here
   const expense_id = Number(req.params.id);
-  const sql = `delete * from expenses where id = $1;`
+  const sql = `DELETE FROM expenses WHERE id = $1;`
 
   try {
     await pool.query(sql, [expense_id]);

@@ -53,7 +53,8 @@ function OtherExpenses() {
     };
 
     const handleDeleteFromDB = (expenseId) => {
-
+        const budgetObjId = budgetId.budgetId;
+        dispatch({ type: 'DELETE_EXPENSE', payload: { expenseId, budgetObjId } });
     };
     
     const filteredExpenses = expense.filter(item => item.type === 'personal other');
