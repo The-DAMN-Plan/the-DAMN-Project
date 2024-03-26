@@ -10,12 +10,10 @@ function* startPlan(action) {
             type: 'SET_BUDGET',
             payload: response.data
         });
-
-        yield put ({
-            type: 'SET_STATUS',
-            payload: response.data[0].status
-        })
-    } catch(error) {
+        console.log('Budget id:', response.data[0].id)
+        const response2 = yield axios.post(`/api/budget/createstatus`, { budget_id: response.data[0].id });
+        
+    } catch (error) {
         console.log('Error adding personal expense', error);
     }
 }
@@ -36,7 +34,11 @@ function* fetchBudget(action) {
             type: 'SET_FUTURE_PLAN',
             payload: response.data[0].future_plans
         })
-    } catch(err) {
+        yield put({
+            type: 'SET_STATUS',
+            payload: response.data[0].status
+        })
+    } catch (err) {
         console.log('Error getting working budget', err);
     }
 }
