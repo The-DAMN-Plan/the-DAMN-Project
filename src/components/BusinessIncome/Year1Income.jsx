@@ -9,8 +9,6 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
     
 function Year1Income() {
     const dispatch = useDispatch();
-    const budget = useSelector((store) => store.budget);
-    const budgetObj = budget[0]
     const budgetId = useParams();
 
     const [revenueStream, setRevenueStream] = useState('');
@@ -21,6 +19,7 @@ function Year1Income() {
     const [idealClient, setIdealClient] = useState('');
     const [rateOfLove, setRateOfLove] = useState('');
     const [purchasers, setPurchasers] = useState('');
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const [revenueStreams, setRevenueStreams] = useState([]);
     const [userEntry, setUserEntry] = useState([]);
     
@@ -49,7 +48,7 @@ function Year1Income() {
         setPurchasers('');
 
         const formData = {
-            budget_id: budgetObj.id,
+            budget_id: budgetId.budgetId,
             revenue_stream: revenueStream,
             description: description,
             price: price,
@@ -212,6 +211,17 @@ return (
             ))}
           </TableBody>
         </Table>
+        <Box>
+            {formSubmitted ? (
+                            <Button type='button' onClick={handleEdit}>
+                                Update
+                            </Button>
+                        ) : (
+                            <Button type='button' onClick={() => handleSubmit(event)}>
+                                Save
+                            </Button>
+                        )}
+            </Box>
       </Paper>
         <ProgressBar back={'valuepay'} next={'incomeyear2'} submit={handleSubmit} value={42} budgetId={budgetId}/>
     </Container>
