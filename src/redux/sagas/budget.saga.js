@@ -11,10 +11,10 @@ function* startPlan(action) {
             payload: response.data
         });
 
-        // yield put ({
-        //     type: 'SET_STATUS',
-        //     payload: response.data[0].status
-        // })
+        yield put ({
+            type: 'SET_STATUS',
+            payload: response.data[0].status
+        })
     } catch(error) {
         console.log('Error adding personal expense', error);
     }
