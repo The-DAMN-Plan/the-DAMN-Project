@@ -113,7 +113,7 @@ function App() {
                 <HumanResourcesPage1 />
               </Route>
 
-              <Route exact path="/startplan">
+              <Route exact path="/startplan/:budgetId">
                 <StartPlan />
               </Route>
 
