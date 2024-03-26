@@ -53,7 +53,7 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector(store => store.user);
   // const open = useSelector(store => store.sideNav);
-  
+
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
 
@@ -62,12 +62,12 @@ function App() {
     }
 
   }, [dispatch]);
-  
+
 
   // const [open, setOpen] = useState(false);
   const drawerWidth = 350;
 
-  const toggleDrawer = ()=>{
+  const toggleDrawer = () => {
     setOpen(!open);
   }
   // const handleDrawerOpen = () => {
@@ -95,7 +95,9 @@ function App() {
         <DrawerHeader />
         <Router>
           <div>
-            <Nav drawerWidth={drawerWidth} />
+            {user.id ?
+              <Nav drawerWidth={drawerWidth} /> : ''
+            }
             <Switch>
               {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
               <Redirect exact from="/" to="/home" />
@@ -150,11 +152,11 @@ function App() {
               </Route>
 
               <Route exact path="/businessexpensepage1/:budgetId">
-                <BusinessExpensePage1/>
+                <BusinessExpensePage1 />
               </Route>
 
               <Route exact path="/businessexpensepage2/:budgetId">
-                <BusinessExpensePage2/>
+                <BusinessExpensePage2 />
               </Route>
 
               <Route exact path="/marketingy1/:budgetId">
@@ -205,7 +207,7 @@ function App() {
               <ProtectedRoute exact path="/info">
                 <InfoPage />
               </ProtectedRoute>
-              
+
               <Route exact path="/login">
                 {user.id ?
                   // If the user is already logged in, 
@@ -233,7 +235,7 @@ function App() {
               </Route>
 
             </Switch>
-            
+
           </div>
         </Router>
       </ThemeProvider>
