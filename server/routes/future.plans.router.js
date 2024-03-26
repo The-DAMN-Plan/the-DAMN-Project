@@ -26,7 +26,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 /**
  * DELETE route to delete future plans
  */
-router.delete(':id', rejectUnauthenticated, (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
     const futurePlanId = req.params.id;
     const queryText = `
         DELETE FROM future_plans WHERE id = $1;

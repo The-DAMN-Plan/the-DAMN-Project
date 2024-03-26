@@ -5,6 +5,7 @@ function* startPlan(action) {
     try {
         const response = yield axios.post(`/api/budget`, action.payload);
         console.log('Start plan');
+        console.log(response.data);
         yield put({
             type: 'SET_BUDGET',
             payload: response.data

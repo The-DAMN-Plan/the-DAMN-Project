@@ -51,6 +51,11 @@ function OtherExpenses() {
         const newUserEntry = userEntry.filter((_, i) => i !== index);
         setUserEntry(newUserEntry);
     };
+
+    const handleDeleteFromDB = (expenseId) => {
+        const budgetObjId = budgetId.budgetId;
+        dispatch({ type: 'DELETE_EXPENSE', payload: { expenseId, budgetObjId } });
+    };
     
     const filteredExpenses = expense.filter(item => item.type === 'personal other');
     console.log('personal other', filteredExpenses);
@@ -89,14 +94,14 @@ function OtherExpenses() {
                             </TableCell>
                         </TableRow>
                     ))}
-                    {filteredExpenses?.map((expense, index) => (
-                        <TableRow key={index}>
+                    {filteredExpenses?.map((expense) => (
+                        <TableRow key={expense.id}>
                             <TableCell>{expense.expense_name}</TableCell>
                             <TableCell>
                                 <Currency  value={Number(expense.expense_amount)} />
                             </TableCell>
                             <TableCell>
-                                <Button onClick={() => handleDeleteExpense(index)}>Delete</Button>
+                                <Button onClick={() => handleDeleteFromDB(expense.id)}>Delete</Button>
                             </TableCell>
                         </TableRow>
                     ))}

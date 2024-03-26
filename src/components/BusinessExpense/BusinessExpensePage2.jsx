@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 export default function BusinessExpense(params) {
     const dispatch = useDispatch();

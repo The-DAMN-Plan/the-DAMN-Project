@@ -61,6 +61,11 @@ function FuturePlans() {
         const newUserEntry = userEntry.filter((_, i) => i !== index);
         setUserEntry(newUserEntry);
     };
+
+    const handleDeleteFromDB = (futurePlanId) => {
+        const budgetObjId = budgetId.budgetId;
+        dispatch({ type: 'DELETE_FUTURE_PLAN', payload: { futurePlanId, budgetObjId } });
+    };
     
 console.log('user entry',userEntry);
     const handleSubmit = (event) => {
@@ -115,7 +120,7 @@ console.log('user entry',userEntry);
                             <TableCell>{`${moment(plan.end_date).diff(moment(plan.start_date), 'months')}`}</TableCell>
                             <TableCell>{`$${plan.savings_needed}`}</TableCell>
                             <TableCell>
-                                <Button onClick={() => handleDeleteExpense(index)}>Delete</Button>
+                                <Button onClick={() => handleDeleteFromDB(plan.id)}>Delete</Button>
                             </TableCell>
                         </TableRow>
                     ))}

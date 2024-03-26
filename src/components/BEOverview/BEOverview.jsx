@@ -4,6 +4,8 @@ import { Container, Typography, Box, Paper, TextField, InputAdornment, Switch, I
 import Grid from '@mui/material/Unstable_Grid2';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 
 export default function BEOverview(props) {
   const [percentYearOne, setPercentYearOne] = useState(0);
