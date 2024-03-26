@@ -98,7 +98,7 @@ console.log('user entry',userEntry);
                             </TableCell>
                         </TableRow>
                     ))}
-                    {futurePlans.map((plan, index) => (
+                    {futurePlans?.map((plan, index) => (
                         <TableRow key={plan.id}>
                             <TableCell>{plan.name}</TableCell>
                             <TableCell>{`${plan.start_date}`}</TableCell>
