@@ -11,7 +11,7 @@ import moment from 'moment';
 
 
 
-export default function FuturePlans() {
+function FuturePlans() {
     const dispatch = useDispatch();
     const budgetId = useParams();
     const futurePlans = useSelector((store) => store.futurePlans);
@@ -29,7 +29,6 @@ export default function FuturePlans() {
     }, [dispatch, budgetId]);
 
     const open = useSelector(s=>s.sideNav);
-    const budgetId = useParams();
 
 
     const handleAddExpense = () => {
@@ -94,7 +93,20 @@ console.log('user entry',userEntry);
                             <TableCell>Total Amount</TableCell>
                             <TableCell>Delete</TableCell>
                         </TableRow>
-                    ))}
+                    </TableHead>
+                        <TableBody>
+                        {expenses.map((expense, index) => (
+                            <TableRow key={index}>
+                                <TableCell>{expense.name}</TableCell>
+                                <TableCell>{`${expense.startDate}`}</TableCell>
+                                <TableCell>{`${expense.endDate}`}</TableCell>
+                                <TableCell>{`${expense.monthsToSave}`}</TableCell>
+                                <TableCell>{`$${expense.amount}`}</TableCell>
+                                <TableCell>
+                                    <Button onClick={() => handleDeleteExpense(index)}>Delete</Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
                     {futurePlans?.map((plan, index) => (
                         <TableRow key={plan.id}>
                             <TableCell>{plan.name}</TableCell>
@@ -122,5 +134,8 @@ console.log('user entry',userEntry);
             </Box>
             <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={30} budgetId={budgetId}/>
         </Container>
-    );
+        </Main>
+    )
 }
+
+export default FuturePlans;
