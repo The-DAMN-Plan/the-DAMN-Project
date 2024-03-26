@@ -86,7 +86,7 @@ function Year1Income() {
 
     const deleteProductFromDB = (incomeId) => {
       const budgetObjId = budgetId.budgetId;
-      dispatch({ type: 'DELETE_FUTURE_PLAN', payload: { incomeId, budgetObjId } });
+      dispatch({ type: 'DELETE_INCOME', payload: { incomeId, budgetObjId } });
   };
 
     const filteredIncomes = income.filter(item => item.year === 1);
