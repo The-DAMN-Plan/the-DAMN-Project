@@ -23,7 +23,10 @@ import StartPlan from '../PersonalExpenses/StartPlan';
 import PBPage2 from '../PersonalExpenses/PBpage2';
 import PersonalSavings from '../PersonalExpenses/PersonalSavings';
 import VariableExpenses from '../PersonalExpenses/VariableExpenses';
+import Year1Income from '../BusinessIncome/Year1Income';
+import Year2Income from '../BusinessIncome/Year2Income';
 import BEOverview from '../BEOverview/BEOverview';
+import MarketingPageYear1 from '../BusinessExpense/MarketingPageYear1';
 
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
@@ -31,21 +34,26 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles'; // Import the ThemeProvider component from Material-UI  
 import BreakEven from '../BreakEven/BreakEven';
 import OtherExpenses from '../PersonalExpenses/OtherExpenses';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import FuturePlans from '../PersonalExpenses/FuturePlans';
-import CreateBusiness from '../CreateBusiness/CreateBusiness';
 import BusinessExpensePage1 from '../BusinessExpense/BusinessExpensePage1';
 import BusinessExpensePage2 from '../BusinessExpense/BusinessExpensePage2';
+import ValuePay from '../ValuePay/ValuePay';
 import SideNav from '../Nav/SideNav';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import OtherBusinessExpenses from '../BusinessExpense/OtherBusinessExpenses';
+import ActivePlans from '../ActivePlans/ActivePlans';
+import HumanResourcesPage1 from '../BusinessExpense/HumanResourcesPage1';
+import HumanResourcesPage2 from '../BusinessExpense/HumanResourcesPage2';
+import OtherBusinessExp from '../BusinessExpense/OtherBusinessExp';
 
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(store => store.user);
+  // const open = useSelector(store => store.sideNav);
   
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
@@ -57,8 +65,8 @@ function App() {
   }, [dispatch]);
   
 
-  const [open, setOpen] = useState(true);
-  const drawerWidth = 300;
+  // const [open, setOpen] = useState(false);
+  const drawerWidth = 350;
 
   const toggleDrawer = ()=>{
     setOpen(!open);
@@ -80,33 +88,15 @@ function App() {
     justifyContent: 'flex-end',
   }));
 
-  //a wrapper to shif body of the page to the right  depending on the width of side nav
-  // shift to right when nav opens
-  // shifts left when nav closes
-  const Main = styled('main', { 
-    shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-      marginLeft: `-${drawerWidth/4}px`,
-      ...(open && {
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: drawerWidth,
-      }),
-    }),
-  );
-
   return (
 
     <LocalizationProvider dateAdapter={AdapterMoment} >
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Main open={open}>
         <DrawerHeader />
         <Router>
           <div>
-            <Nav open={open} toggleDrawer={toggleDrawer} drawerWidth={drawerWidth} />
+            <Nav drawerWidth={drawerWidth} />
             <Switch>
               {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
               <Redirect exact from="/" to="/home" />
@@ -116,56 +106,94 @@ function App() {
                 <AboutPage />
               </Route>
 
-              <Route exact path="/test">
-                <BEOverview />
+              <Route exact path="/plans">
+                <ActivePlans />
               </Route>
 
-              <Route exact path="/startplan">
+              <Route exact path="/test/:budgetId">
+                <HumanResourcesPage1 />
+              </Route>
+
+              <Route exact path="/startplan/:budgetId">
                 <StartPlan />
               </Route>
 
-              <Route exact path="/fundamentalexpenses">
+              <Route exact path="/fundamentalexpenses/:budgetId">
                 <PBPage2 />
               </Route>
 
-              <Route exact path="/personalsavings">
+              <Route exact path="/personalsavings/:budgetId">
                 <PersonalSavings />
               </Route>
 
-              <Route exact path="/variableexpenses">
+              <Route exact path="/variableexpenses/:budgetId">
                 <VariableExpenses />
               </Route>
 
-              <Route exact path="/futureplans">
+              <Route exact path="/futureplans/:budgetId">
                 <FuturePlans />
               </Route>
 
-              <Route exact path="/otherexpenses">
+              <Route exact path="/otherexpenses/:budgetId">
                 <OtherExpenses />
               </Route>
-              <Route
-                // logged in shows business expense page 1 else shows LoginPage
-                exact
-                path="/businessexpensepage1"
-              >
-                <BusinessExpensePage1 />
+
+              <Route exact path="/incomeyear1/:budgetId">
+                <Year1Income />
               </Route>
 
-              <Route
-                // logged in shows business expense page 2 else shows LoginPage
-                exact
-                path="/businessexpensepage2"
-              >
+              <Route exact path="/incomeyear2/:budgetId">
+                <Year2Income />
+              </Route>
+
+              <Route exact path="/overview/:budgetId">
+                <BEOverview />
+              </Route>
+
+              <Route exact path="/businessexpensepage1/:budgetId">
+                <BusinessExpensePage1/>
+              </Route>
+
+              <Route exact path="/businessexpensepage2/:budgetId">
                 <BusinessExpensePage2/>
               </Route>
-              <Route
-                // logged in shows other business expense else shows LoginPage
-                exact
-                path="/Otherbusinessexpenses"
-              >
-                <OtherBusinessExpenses/>
+
+              <Route exact path="/marketingy1/:budgetId">
+                <MarketingPageYear1 />
               </Route>
-              
+              {/* this one below needs to have a progbar value of 78 */}
+
+              {/* <Route exact path="/marketingy2">
+                <MarketingPage />
+              </Route> */}
+
+              <Route exact path="/marketingy2/:budgetId">
+                <MarketingPageYear1 />
+              </Route>
+
+              <Route exact path="/hrpagey1/:budgetId">
+                <HumanResourcesPage1 />
+              </Route>
+
+              <Route exact path="/hrpagey2/:budgetId">
+                <HumanResourcesPage2 />
+              </Route>
+
+              <Route exact path="/otherbusiness/:budgetId">
+                <OtherBusinessExp />
+              </Route>
+
+              <Route exact path="/breakeven/:budgetId">
+                <BreakEven />
+              </Route>
+
+              <Route exact path="/cashflow/:budgetId">
+                <AboutPage />
+              </Route>
+
+              <Route exact path="/valuepay/:budgetId">
+                <ValuePay />
+              </Route>
 
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
@@ -189,7 +217,7 @@ function App() {
                   <LoginPage />
                 }
               </Route>
-              <Route exact path="/budget/breakeven">
+              <Route exact path="/breakeven/:budgetId">
                 <BreakEven />
               </Route>
 
@@ -206,10 +234,9 @@ function App() {
               </Route>
 
             </Switch>
-            <Footer />
+            
           </div>
         </Router>
-        </Main>
       </ThemeProvider>
     </LocalizationProvider>
   );

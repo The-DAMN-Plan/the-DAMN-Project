@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Container, Typography, Box, Paper, TextField, InputAdornment, Switch, InputLabel } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
+import ProgressBar from '../ProgressBar/ProgressBar';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function BEOverview(props) {
   const [percentYearOne, setPercentYearOne] = useState(0);
@@ -10,10 +12,15 @@ export default function BEOverview(props) {
   const [flatYearTwo, setflatYearTwo] = useState(0);
 
   const [checked, setChecked] = useState(false);
+  const budgetId = useParams();
+
+  const open = useSelector(store=>store.sideNav);
 
 
   return (
-    <Container>
+    
+    <Main open={open}>
+      <Container>
       <Typography textAlign={'center'} color={'primary'} variant='h2'>Overview</Typography>
       <Typography textAlign={'center'} variant='subtitle1'>Here we calculate our projected revenue and compare those to our Variable Expenses (COGS) and come up with a gross profit.</Typography>
       <Grid container
@@ -124,6 +131,9 @@ export default function BEOverview(props) {
           inputProps={{ 'aria-label': 'controlled' }}
         />
       </Grid>
+      <ProgressBar back={'incomeyear2'} next={'businessexpensepage1'} value={54} budgetId={budgetId}/>
     </Container >
+    <Footer/>
+    </Main>
   );
 }

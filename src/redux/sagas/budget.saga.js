@@ -8,9 +8,35 @@ function* startPlan(action) {
         yield put({
             type: 'SET_BUDGET',
             payload: response.data
+        });
+
+        yield put ({
+            type: 'SET_STATUS',
+            payload: response.data[0].status
         })
     } catch(error) {
         console.log('Error adding personal expense', error);
+    }
+}
+
+function* fetchBudget(action) {
+    try {
+        const response = yield axios.get(`/api/budget/${action.payload}`)
+        console.log(response.data);
+        yield put({
+            type: 'SET_FINAL_BUDGET',
+            payload: response.data
+        })
+        yield put({
+            type: 'SET_EXPENSE',
+            payload: response.data[0].expenses
+        })
+        yield put({
+            type: 'SET_FUTURE_PLAN',
+            payload: response.data[0].future_plans
+        })
+    } catch(err) {
+        console.log('Error getting working budget', err);
     }
 }
 
@@ -18,6 +44,7 @@ function* startPlan(action) {
 
 function* budgetSaga() {
     yield takeLatest('START_PLAN', startPlan);
+    yield takeLatest('BUDGET_PLAN', fetchBudget);
 }
 
 export default budgetSaga;
