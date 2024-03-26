@@ -8,17 +8,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function MarketingBudgetYear1() {
     const dispatch = useDispatch();
-    const history = useHistory();
     const  budgetId  = useParams(); // Capture the budgetId from URL params
+    const finalBudget = useSelector((store) => store.finalBudget);
+    const expense = useSelector((store) => store.expense);
+    const [marketingValues, setMarketingValues] = useState([]);
+    const history = useHistory();
     const budgetList = useSelector((store) => store.budget);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_BUDGET', payload: budgetId });
     }, [dispatch, budgetId]);
+
+    console.log("Large Budget object to populate expense ruducer", finalBudget);
+    console.log("Expense reducer", expense);
+
+    useEffect(() => {
+        handleAddMarketingValues();
+    }, [expense]); // Call handleAddMarketingValues whenever expense changes                
 
     const [formValues, setFormValues] = useState({
         expense_name: '',
@@ -33,10 +42,13 @@ function MarketingBudgetYear1() {
     const handleAddMarketingValues = (event) => {
         event.preventDefault();
         if (!Object.values(formValues).every(value => value)) return;
+
+        setMarketingValues(prev => [...prev, {...formValues, budget_id: budgetId }]);
         dispatch({ 
             type: 'EXPENSES_FETCH_SUCCESS', 
             payload: { ...formValues, budget_id: budgetId }
         });
+
         setFormValues({
             expense_name: '',
             service_provider: '',
@@ -60,6 +72,11 @@ function MarketingBudgetYear1() {
     const handleDeleteMarketingValue = (index) => {
         setMarketingValues(marketingValues.filter((_, i) => i !== index));
     };
+
+    // const getExpenseAmount = (expenseName) => {
+    //     const expenseItem = expense.find(item => item.type === type: 'business marketing');
+    //     return expenseItem ? expenseItem.expense_amount : '';
+    // };
 
     return (
         <Container sx={{ paddingTop: '64px' }}>
@@ -153,7 +170,7 @@ function MarketingBudgetYear1() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {value.map((value, index) => (
+                    {marketingValues.map((value, index) => (
                         <TableRow key={index}>
                             <TableCell>{value.expense_name}</TableCell>
                             <TableCell align="right">{value.service_provider}</TableCell>
@@ -170,7 +187,7 @@ function MarketingBudgetYear1() {
                 </TableBody>
             </Table>
 
-            <ProgressBar next={'/marketingy2'} back={'/businessexpensepage2'} value={72} budgetId={budgetId} />
+            <ProgressBar next={'marketingy2'} back={'otherexpenses'} value={72} budgetId={budgetId} />
         </Container>
     );
 }
