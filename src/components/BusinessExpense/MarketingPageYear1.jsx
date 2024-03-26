@@ -1,82 +1,57 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow,
     Typography, Box, FormControl, InputLabel, Select, MenuItem
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useDispatch, useSelector } from 'react-redux';
-import ProgressBar from '../ProgressBar/ProgressBar';
-import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 function MarketingBudgetYear1() {
     const dispatch = useDispatch();
-    const  budgetId  = useParams(); // Capture the budgetId from URL params
-    const finalBudget = useSelector((store) => store.finalBudget);
-    const expense = useSelector((store) => store.expense);
+    const { budgetId } = useParams();
+    const [expenseName, setExpenseName] = useState('');
+    const [serviceProvider, setServiceProvider] = useState('');
+    const [paymentInterval, setPaymentInterval] = useState('');
+    const [assetsNeeded, setAssetsNeeded] = useState('');
+    const [costPerUse, setCostPerUse] = useState('');
+    const [vendor, setVendor] = useState(''); // Use "vendor" to store either "Contractor" or "In-House"
+    const [monthlyUsageCount, setMonthlyUsageCount] = useState('');
     const [marketingValues, setMarketingValues] = useState([]);
-    const history = useHistory();
-    const budgetList = useSelector((store) => store.budget);
 
-    useEffect(() => {
-        dispatch({ type: 'FETCH_BUDGET', payload: budgetId });
-    }, [dispatch, budgetId]);
+    const handleAddMarketingValue = () => {
+        if (!expenseName || !costPerUse) return; // Basic validation
 
-    console.log("Large Budget object to populate expense ruducer", finalBudget);
-    console.log("Expense reducer", expense);
+        const newExpense = {
+            expenseName,
+            serviceProvider,
+            paymentInterval,
+            assetsNeeded,
+            costPerUse,
+            vendor, // Use "vendor" here
+            monthlyUsageCount,
+            budgetId
+        };
 
-    useEffect(() => {
-        handleAddMarketingValues();
-    }, [expense]); // Call handleAddMarketingValues whenever expense changes                
+        setMarketingValues(prevValues => [...prevValues, newExpense]);
 
-    const [formValues, setFormValues] = useState({
-        expense_name: '',
-        service_provider: '',
-        payment_interval: '',
-        assets_needed: '',
-        cost_per_use: '',
-        contractor_in_house: '',
-        monthly_usage_count: '',
-    });
-
-    const handleAddMarketingValues = (event) => {
-        event.preventDefault();
-        if (!Object.values(formValues).every(value => value)) return;
-
-        setMarketingValues(prev => [...prev, {...formValues, budget_id: budgetId }]);
-        dispatch({ 
-            type: 'EXPENSES_FETCH_SUCCESS', 
-            payload: { ...formValues, budget_id: budgetId }
-        });
-
-        setFormValues({
-            expense_name: '',
-            service_provider: '',
-            payment_interval: '',
-            assets_needed: '',
-            cost_per_use: '',
-            contractor_in_house: '',
-            monthly_usage_count: '',
-        });
+        // Reset form fields
+        setExpenseName('');
+        setServiceProvider('');
+        setPaymentInterval('');
+        setAssetsNeeded('');
+        setCostPerUse('');
+        setVendor(''); // Reset "vendor"
+        setMonthlyUsageCount('');
     };
 
-    const handleInputChange = (name) => (event) => {
-        const value = event.target.value;
-        setFormValues(prev => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-
-    // Function to handle deleting a marketing value entry
     const handleDeleteMarketingValue = (index) => {
-        setMarketingValues(marketingValues.filter((_, i) => i !== index));
+        const updatedValues = marketingValues.filter((_, i) => i !== index);
+        setMarketingValues(updatedValues);
     };
 
-    // const getExpenseAmount = (expenseName) => {
-    //     const expenseItem = expense.find(item => item.type === type: 'business marketing');
-    //     return expenseItem ? expenseItem.expense_amount : '';
-    // };
 
     return (
         <Container sx={{ paddingTop: '64px' }}>
@@ -128,14 +103,13 @@ function MarketingBudgetYear1() {
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={3}>
                     <FormControl fullWidth>
-                        <InputLabel id="vendor-label">Contractor or In-House</InputLabel>
+                        <InputLabel id="vendor-label">Vendor</InputLabel>
                         <Select
                             labelId="vendor-label"
-                            id="vendor-select"
-                            value={formValues.contractor_in_house}
-                            onChange={handleInputChange('contractor_in_house')} // This now works correctly
+                            value={vendor}
+                            onChange={(e) => setVendor(e.target.value)} // Set "vendor" based on selection
                         >
                             <MenuItem value="Contractor">Contractor</MenuItem>
                             <MenuItem value="In-House">In-House</MenuItem>
