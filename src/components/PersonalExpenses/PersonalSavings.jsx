@@ -6,7 +6,7 @@ import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+
 
 function PersonalSavings() {
     const dispatch = useDispatch();
