@@ -35,6 +35,10 @@ function* fetchBudget(action) {
             payload: response.data[0].future_plans
         })
         yield put({
+            type: 'SET_INCOME',
+            payload: response.data[0].revenue_streams
+        })
+        yield put({
             type: 'SET_STATUS',
             payload: response.data[0].status
         })

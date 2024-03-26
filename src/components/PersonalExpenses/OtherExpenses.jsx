@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
@@ -19,6 +19,10 @@ function OtherExpenses() {
     const [amount, setAmount] = useState('');
     const [expenses, setExpenses] = useState([]);
     const [userEntry, setUserEntry] = useState([]);
+
+    useEffect(() => {
+        dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
+    }, [dispatch, budgetId]);
 
     const handleAddExpense = () => {
         if (!expenseName || !amount) return;

@@ -54,6 +54,7 @@ function FuturePlans() {
         setAmount('');
     };
 
+    // Deletes an future plan from the ta ble before it's added to the DB
     const handleDeleteExpense = (index) => {
         const newExpenses = expenses.filter((_, i) => i !== index);
         setExpenses(newExpenses);
@@ -62,6 +63,7 @@ function FuturePlans() {
         setUserEntry(newUserEntry);
     };
 
+    // Deletes a future plan that's already been added to the DB
     const handleDeleteFromDB = (futurePlanId) => {
         const budgetObjId = budgetId.budgetId;
         dispatch({ type: 'DELETE_FUTURE_PLAN', payload: { futurePlanId, budgetObjId } });
