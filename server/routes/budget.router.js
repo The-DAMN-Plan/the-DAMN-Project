@@ -44,12 +44,12 @@ router.get('/business/:businessId', async (req, res) => {
   `;
 
   pool.query(query, [businessId])
-  .then((result) => {
-    // res.send(result.rows);
-  }).catch((error) => {
-    res.sendStatus(500);
-    console.log('Error getting budgets', error);
-  })
+    .then((result) => {
+      // res.send(result.rows);
+    }).catch((error) => {
+      res.sendStatus(500);
+      console.log('Error getting budgets', error);
+    })
 });
 
 // update by id
@@ -62,6 +62,68 @@ router.put('/:id', async (req, res) => {
   try {
     const result = await pool.query(sql, [data.name, data.escrow_savings, data.y1_cogs, data.y2_cogs, data.cash_balance, budget_id]);
     res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+router.post('/createstatus', async (req, res) => {
+  // POST route code here
+  const stepArray = [
+    'startplan',
+    'fundamentalexpenses',
+    'personalsavings',
+    'variableexpenses',
+    'futureplans',
+    'otherexpenses',
+    'valuepay',
+    'incomeyear1',
+    'incomeyear2',
+    'overview',
+    'businessexpensepage1',
+    'businessexpensepage2',
+    'marketingy1',
+    'marketingy2',
+    'hrpagey1',
+    'hrpagey2',
+    'otherbusiness',
+    'breakeven',
+    'cashflow']
+
+  const sql = `insert into "status" ("budget_id","step")
+  values($1,$2) returning *;`
+  const budget_id = req.body.budget_id;
+
+  try {
+    for (const step of stepArray) {
+      await pool.query(sql, [budget_id, step]);
+    }
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+router.put('/status', async (req, res) => {
+  // POST route code here
+  const sql = `update "status" set "completed"=$1 where "budget_id"=$2 AND "step"=$3 returning *;`
+  const data = req.body;
+
+  // TO USE THIS PUT - your action.payload should be an object that looks like this:
+  // {completed:true, budget_id: Number(budgetId), step:'valuepay'}
+  // note the types below: 
+  // completed = boolean 
+  // budget = int
+  // step = string
+  // refer to the step array above for the specific names of each step or look at the status object that is created as a
+  // variable on the front end after the budget_plan is called in the sagas (inspect and look in the console)
+
+  try {
+    await pool.query(sql, [data.completed, data.budget_id, data.step]);
+    res.sendStatus(200);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
@@ -89,12 +151,12 @@ router.get('/expenses/:budgetId', async (req, res) => {
   WHERE "budget_id" = $1`
 
   pool.query(sql, [budgetId])
-  .then((result) => {
-    res.send(result.rows);
-  }).catch((error) => {
-    res.sendStatus(500);
-    console.log('Error getting expenses', error);
-  })
+    .then((result) => {
+      res.send(result.rows);
+    }).catch((error) => {
+      res.sendStatus(500);
+      console.log('Error getting expenses', error);
+    })
 });
 
 // creates all expenses given to it
@@ -113,7 +175,7 @@ router.post('/expense', async (req, res) => {
         expense.budget_id, expense.type, expense.expense_name, expense.expense_amount, expense.percent_change, expense.year,
         expense.frequency, expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use, expense.assets_needed, expense.service // Fixed typo assests_needed -> assets_needed
       ]);
-      results.push(result.rows[0]); 
+      results.push(result.rows[0]);
     } catch (error) {
       console.log(error);
       errorOccurred = true;
@@ -151,7 +213,7 @@ router.put('/expense', async (req, res) => {
 router.delete('/expense/:id', async (req, res) => {
   // delete route code here
   const expense_id = Number(req.params.id);
-  const sql = `delete * from expenses where id = $1;`
+  const sql = `DELETE FROM expenses WHERE id = $1;`
 
   try {
     await pool.query(sql, [expense_id]);
@@ -172,11 +234,25 @@ router.post('/revenuestream', async (req, res) => {
       const result = await pool.query(sql, [
         revenueStream.budget_id, revenueStream.revenue_stream, revenueStream.description, revenueStream.price, revenueStream.unit, revenueStream.time_used,
         revenueStream.ideal_client, revenueStream.rate_of_love, revenueStream.purchasers, revenueStream.year]);
-        res.send(result);
+      res.send(result);
     } catch (error) {
       console.log(error);
       res.sendStatus(500);
     }
+  }
+});
+
+router.delete('/revenuestream/:id', async (req, res) => {
+  // delete route code here
+  const revenue_id = Number(req.params.id);
+  const sql = `DELETE FROM "revenue_streams" WHERE id = $1;`
+
+  try {
+    await pool.query(sql, [revenue_id]);
+    res.send(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
   }
 });
 
