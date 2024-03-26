@@ -62,9 +62,10 @@ function FuturePlans() {
         setUserEntry(newUserEntry);
     };
 
-    const handleDeleteFromDB = (id) => {
-        dispatch({type: 'DELETE_FUTURE_PLAN', payload: id});
-    }
+    const handleDeleteFromDB = (futurePlanId) => {
+        const budgetObjId = budgetId.budgetId;
+        dispatch({ type: 'DELETE_FUTURE_PLAN', payload: { futurePlanId, budgetObjId } });
+    };
     
 console.log('user entry',userEntry);
     const handleSubmit = (event) => {
