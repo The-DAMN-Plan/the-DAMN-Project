@@ -94,10 +94,33 @@ router.post('/createstatus', async (req, res) => {
   const sql = `insert into "status" ("budget_id","step")
   values($1,$2) returning *;`
   const budget_id = req.body.budget_id;
-  
+
   try {
-    for (const step of stepArray){
+    for (const step of stepArray) {
       await pool.query(sql, [budget_id, step]);
+    }
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+router.put('/status', async (req, res) => {
+  // POST route code here
+  const sql = `update "status" set "completed"=$1 where "budget_id"=$2 AND "step"=$3 returning *;`
+  const data = req.body;
+
+  // TO USE THIS PUT - your action.payload should be an object that looks like this:
+  // {completed:true, budget_id: Number(budgetId), step:'valuepay'}
+  // refer to the step array above for the specific names of each step or look at the status object that is created as a
+  // variable on the front end after the budget_plan is called in the sagas
+
+  try {
+
+    for (const step of stepArray) {
+      await pool.query(sql, [data.completed, data.budget_id, data.step]);
     }
 
     res.sendStatus(200);
