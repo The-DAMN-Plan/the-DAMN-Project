@@ -114,8 +114,12 @@ router.put('/status', async (req, res) => {
 
   // TO USE THIS PUT - your action.payload should be an object that looks like this:
   // {completed:true, budget_id: Number(budgetId), step:'valuepay'}
+  // note the types below: 
+  // completed = boolean 
+  // budget = int
+  // step = string
   // refer to the step array above for the specific names of each step or look at the status object that is created as a
-  // variable on the front end after the budget_plan is called in the sagas
+  // variable on the front end after the budget_plan is called in the sagas (inspect and look in the console)
 
   try {
     await pool.query(sql, [data.completed, data.budget_id, data.step]);
