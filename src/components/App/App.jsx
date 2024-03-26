@@ -34,7 +34,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles'; // Import the ThemeProvider component from Material-UI  
 import BreakEven from '../BreakEven/BreakEven';
 import OtherExpenses from '../PersonalExpenses/OtherExpenses';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import FuturePlans from '../PersonalExpenses/FuturePlans';
@@ -52,6 +52,7 @@ import OtherBusinessExp from '../BusinessExpense/OtherBusinessExp';
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(store => store.user);
+  // const open = useSelector(store => store.sideNav);
   
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
@@ -63,8 +64,8 @@ function App() {
   }, [dispatch]);
   
 
-  const [open, setOpen] = useState(true);
-  const drawerWidth = 302;
+  // const [open, setOpen] = useState(false);
+  const drawerWidth = 350;
 
   const toggleDrawer = ()=>{
     setOpen(!open);
@@ -86,33 +87,15 @@ function App() {
     justifyContent: 'flex-end',
   }));
 
-  //a wrapper to shif body of the page to the right  depending on the width of side nav
-  // shift to right when nav opens
-  // shifts left when nav closes
-  const Main = styled('main', { 
-    shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-      marginLeft: `-${drawerWidth/4}px`,
-      ...(open && {
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: drawerWidth,
-      }),
-    }),
-  );
-
   return (
 
     <LocalizationProvider dateAdapter={AdapterMoment} >
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Main open={open}>
         <DrawerHeader />
         <Router>
           <div>
-            <Nav open={open} toggleDrawer={toggleDrawer} drawerWidth={drawerWidth} />
+            <Nav drawerWidth={drawerWidth} />
             <Switch>
               {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
               <Redirect exact from="/" to="/home" />
@@ -126,11 +109,11 @@ function App() {
                 <ActivePlans />
               </Route>
 
-              <Route exact path="/test">
+              <Route exact path="/test/:budgetId">
                 <HumanResourcesPage1 />
               </Route>
 
-              <Route exact path="/startplan/:budgetId">
+              <Route exact path="/startplan">
                 <StartPlan />
               </Route>
 
@@ -154,52 +137,61 @@ function App() {
                 <OtherExpenses />
               </Route>
 
-              <Route exact path="/incomeyear1">
+              <Route exact path="/incomeyear1/:budgetId">
                 <Year1Income />
               </Route>
 
-              <Route exact path="/incomeyear2">
+              <Route exact path="/incomeyear2/:budgetId">
                 <Year2Income />
               </Route>
 
-              <Route exact path="/overview">
+              <Route exact path="/overview/:budgetId">
                 <BEOverview />
               </Route>
 
-              <Route exact path="/businessexpensepage1">
-                <BusinessExpensePage1 />
+              <Route exact path="/businessexpensepage1/:budgetId">
+                <BusinessExpensePage1/>
               </Route>
 
-              <Route exact path="/businessexpensepage2">
+              <Route exact path="/businessexpensepage2/:budgetId">
                 <BusinessExpensePage2/>
               </Route>
 
-              <Route exact path="/marketingy1">
+              <Route exact path="/marketingy1/:budgetId">
                 <MarketingPageYear1 />
               </Route>
               {/* this one below needs to have a progbar value of 78 */}
+
               {/* <Route exact path="/marketingy2">
                 <MarketingPage />
               </Route> */}
 
-              <Route exact path="/hrpagey1">
+              <Route exact path="/marketingy2/:budgetId">
+                <MarketingPageYear1 />
+              </Route>
+
+              <Route exact path="/hrpagey1/:budgetId">
                 <HumanResourcesPage1 />
               </Route>
 
-              <Route exact path="/hrpagey2">
+              <Route exact path="/hrpagey2/:budgetId">
                 <HumanResourcesPage2 />
               </Route>
 
-              <Route exact path="/otherbusiness">
+              <Route exact path="/otherbusiness/:budgetId">
                 <OtherBusinessExp />
               </Route>
 
-              <Route exact path="/breakeven">
+              <Route exact path="/breakeven/:budgetId">
                 <BreakEven />
               </Route>
 
-              <Route exact path="/cashflow">
+              <Route exact path="/cashflow/:budgetId">
                 <AboutPage />
+              </Route>
+
+              <Route exact path="/valuepay/:budgetId">
+                <ValuePay />
               </Route>
 
               {/* For protected routes, the view could show one of several things on the same route.
@@ -224,7 +216,7 @@ function App() {
                   <LoginPage />
                 }
               </Route>
-              <Route exact path="/budget/breakeven">
+              <Route exact path="/breakeven/:budgetId">
                 <BreakEven />
               </Route>
 
@@ -241,10 +233,9 @@ function App() {
               </Route>
 
             </Switch>
-            <Footer />
+            
           </div>
         </Router>
-        </Main>
       </ThemeProvider>
     </LocalizationProvider>
   );

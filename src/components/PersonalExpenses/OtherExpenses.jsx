@@ -3,6 +3,8 @@ import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, T
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 import Currency from '../Shared/Currency';
 
 
@@ -12,6 +14,7 @@ function OtherExpenses() {
     const expense = useSelector((store) => store.expense);
     console.log('Expense array', expense);
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const open = useSelector(store=>store.sideNav);
     const [expenseName, setExpenseName] = useState('');
     const [amount, setAmount] = useState('');
     const [expenses, setExpenses] = useState([]);
@@ -54,7 +57,8 @@ function OtherExpenses() {
     
 
     return (
-        <Container sx={{ paddingTop: '64px' }}> {/* Adjust this value based on the height of your nav bar */}
+        <Main open={open}>
+            <Container sx={{ paddingTop: '64px' }}> {/* Adjust this value based on the height of your nav bar */}
             <Typography variant="h4" gutterBottom>
                 Other Expenses
             </Typography>
@@ -111,6 +115,8 @@ function OtherExpenses() {
             </Box>
             <ProgressBar back={'futureplans'} next={'valuepay'} value={36} budgetId={budgetId}/>
         </Container>
+        <Footer/>
+        </Main>
     );
 }
 

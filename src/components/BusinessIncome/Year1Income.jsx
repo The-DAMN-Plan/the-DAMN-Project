@@ -4,13 +4,15 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { InputLabel, Select, MenuItem, InputAdornment } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
     
 function Year1Income() {
     const dispatch = useDispatch();
     const budget = useSelector((store) => store.budget);
     const budgetObj = budget[0]
-    
+    const budgetId = useParams();
+
     const [revenueStream, setRevenueStream] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -211,9 +213,7 @@ return (
           </TableBody>
         </Table>
       </Paper>
-      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-        <ProgressBar back={''} next={''} submit={handleSubmit} value={42}/>
-      </Box>
+        <ProgressBar back={'valuepay'} next={'incomeyear2'} submit={handleSubmit} value={42} budgetId={budgetId}/>
     </Container>
   );
 }

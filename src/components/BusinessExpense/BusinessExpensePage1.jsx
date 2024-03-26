@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function BusinessExpense(params) {
     const dispatch = useDispatch();
     const history = useHistory();
     const budget = useSelector((store) => store.budget);
+    const open = useSelector(store=>store.sideNav);
     const budgetObj = budget[0];
+    const budgetId = useParams();
+
     //default values for each input start at 0 incase user does not input anything 
     const [userEntry, setUserEntry] = useState([
         {
@@ -107,7 +113,9 @@ export default function BusinessExpense(params) {
         history.push('businessexpensepage2');
     };
     return(
-        <Container maxWidth="md">
+        
+        <Main open={open}>
+            <Container maxWidth="md">
             <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
                 <Typography variant="h4" align="center" gutterBottom>
                     Business Expense 
@@ -132,9 +140,11 @@ export default function BusinessExpense(params) {
                         </Grid>
                     </Grid>
                 </form>
-                <ProgressBar value={60}/>
+                <ProgressBar back={'overview'} next={'businessexpensepage2'} value={60} budgetId={budgetId}/>
             </Paper>
         </Container>
+        <Footer/>
+        </Main>
     )
     
 }
