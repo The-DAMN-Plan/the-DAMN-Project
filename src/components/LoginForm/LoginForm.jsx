@@ -32,70 +32,69 @@ function LoginForm() {
   }; // end login
 
   return (
-    <Grid container>
+    <Grid container sx={{ height: '80vh' }} >
       <Grid xs={2} >
 
       </Grid>
       <Grid component='form' direction='column' autoComplete="off" alignItems="center" justifyContent="center" container spacing={2} xs={8} onSubmit={login} >
-        <Paper sx={{p: 3, m:3}}>
-          <Grid textAlign='center'>
-            <Typography variant='h5' sx={{mb:1}}>Login</Typography>
-            {errors.loginMessage && (
-              <Typography variant='h6' className="alert" role="alert">
-                {errors.loginMessage}
-              </Typography>
-            )}
-          </Grid>
+        <Grid textAlign='center'>
+          <Typography variant='h2' color={'primary'} sx={{ mb: 1 }}>Login</Typography>
+          {errors.loginMessage && (
+            <Typography variant='h6' className="alert" role="alert">
+              {errors.loginMessage}
+            </Typography>
+          )}
+        </Grid>
 
-          <Grid>
-            <TextField
-              fullWidth label='Username' variant="outlined"
-              type="text"
-              name="username"
-              sx={{ my: 0.5 }}
-              required
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-            />
-          </Grid>
-          <Grid>
-            <TextField
-              fullWidth label='Password'
-              variant="outlined"
-              type="password"
-              name="password"
-              sx={{ my: 0.5 }}
-              required
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </Grid>
-          <Grid>
-            <Button fullWidth variant='contained'
-              className="btn"
-              type="submit"
-              name="submit"
-              value="Log In"
-              sx={{ my: 0.5 }}
-            >
-              Log In
-            </Button>
+        <Grid>
+          <TextField
+            fullWidth label='Username' variant="outlined"
+            type="text"
+            name="username"
+            sx={{ my: 0.5, width:'50vh' }}
+            required
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
 
-            <Button fullWidth
-              variant='outlined'
-              color='secondary'
-              type="button"
-              className="btn btn_asLink"
-              sx={{ my: 0.5 }}
-              onClick={() => {
-                history.push('/registration');
-              }}
-            >
-              Register
-            </Button>
-          </Grid>
+          />
+        </Grid>
+        <Grid>
+          <TextField
+            fullWidth label='Password'
+            variant="outlined"
+            type="password"
+            name="password"
+            sx={{ my: 0.5, width:'50vh' }}
+            required
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </Grid>
+        <Grid width={'50vh'}>
+          <Button fullWidth variant='contained'
+            className="btn"
+            type="submit"
+            name="submit"
+            value="Log In"
+            sx={{ my: 0.5  }}
+          >
+            Log In
+          </Button>
 
-        </Paper>
+          <Button fullWidth
+            variant='outlined'
+            color='secondary'
+            type="button"
+            className="btn btn_asLink"
+            sx={{ my: 0.5 }}
+            onClick={() => {
+              history.push('/registration');
+            }}
+          >
+            Register
+          </Button>
+        </Grid>
+
       </Grid>
       <Grid xs={2} >
 
