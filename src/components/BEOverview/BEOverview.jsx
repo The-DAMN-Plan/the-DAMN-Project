@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Container, Typography, Box, Paper, TextField, InputAdornment, Switch, InputLabel } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function BEOverview(props) {
   const [percentYearOne, setPercentYearOne] = useState(0);
@@ -11,6 +12,7 @@ export default function BEOverview(props) {
   const [flatYearTwo, setflatYearTwo] = useState(0);
 
   const [checked, setChecked] = useState(false);
+  const budgetId = useParams();
 
 
   return (
@@ -125,7 +127,7 @@ export default function BEOverview(props) {
           inputProps={{ 'aria-label': 'controlled' }}
         />
       </Grid>
-      <ProgressBar value={54}/>
+      <ProgressBar back={'incomeyear2'} next={'businessexpensepage1'} value={54} budgetId={budgetId}/>
     </Container >
   );
 }

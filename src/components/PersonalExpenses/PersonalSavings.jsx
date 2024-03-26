@@ -4,6 +4,7 @@ import { Typography, TextField, Button, Container, Grid } from '@mui/material';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function PersonalSavings() {
     const dispatch = useDispatch();
@@ -11,6 +12,7 @@ function PersonalSavings() {
     const finalBudget = useSelector((store) => store.finalBudget);
     const expense = useSelector((store) => store.expense);
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [userEntry, setUserEntry] = useState([]);
     const [formValues, setFormValues] = useState({
         personalAllowance: '',
         emergencySavings: '',
@@ -149,7 +151,7 @@ function PersonalSavings() {
                         )}
                     </Grid>
                 </Grid>
-                    <ProgressBar back={'fundamentalexpenses'} next={'variableexpenses'} value={12} budgetId={budgetId}/>
+                    <ProgressBar back={'fundamentalexpenses'} next={'variableexpenses'} value={18} budgetId={budgetId}/>
                 </form>
         </Container>
     );

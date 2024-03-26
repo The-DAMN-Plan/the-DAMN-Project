@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import moment from 'moment';
 
+
+
 export default function FuturePlans() {
     const dispatch = useDispatch();
     const budgetId = useParams();
@@ -17,11 +19,13 @@ export default function FuturePlans() {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [expenses, setExpenses] = useState([]);
+
     const [userEntry, setUserEntry] = useState([]);
 
     useEffect(() => {
         dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
     }, [dispatch, budgetId]);
+
 
     const handleAddExpense = () => {
         if (!expenseName || !amount) return;
