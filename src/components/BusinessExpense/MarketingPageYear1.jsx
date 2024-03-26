@@ -1,63 +1,70 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow,
-    Typography, Box, FormControl, InputLabel, Select, MenuItem
+    Typography, Box, FormControl, InputLabel, Select, MenuItem, Grid
 } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
-import { useDispatch, useSelector } from 'react-redux';
-import ProgressBar from '../ProgressBar/ProgressBar';
-import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
+// import Grid from '@mui/material/Unstable_Grid2';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
+import ProgressBar from '../ProgressBar/ProgressBar';
+
 
 function MarketingBudgetYear1() {
     const dispatch = useDispatch();
-    const history = useHistory();
-    const  budgetId  = useParams(); // Capture the budgetId from URL params
-    const budgetList = useSelector((store) => store.budget);
+    const { budgetId } = useParams();
+    const [expenseName, setExpenseName] = useState('');
+    const [serviceProvider, setServiceProvider] = useState('');
+    const [paymentInterval, setPaymentInterval] = useState('');
+    const [assetsNeeded, setAssetsNeeded] = useState('');
+    const [costPerUse, setCostPerUse] = useState('');
+    const [vendor, setVendor] = useState('');
+    const [monthlyUsageCount, setMonthlyUsageCount] = useState('');
+    const [marketingValues, setMarketingValues] = useState([]);
 
-    useEffect(() => {
-        dispatch({ type: 'FETCH_BUDGET', payload: budgetId });
-    }, [dispatch, budgetId]);
-
-    const [formValues, setFormValues] = useState({
-        expense_name: '',
-        service_provider: '',
-        payment_interval: '',
-        assets_needed: '',
-        cost_per_use: '',
-        contractor_in_house: '',
-        monthly_usage_count: '',
-    });
-
-    const handleAddMarketingValues = (event) => {
-        event.preventDefault();
-        if (!Object.values(formValues).every(value => value)) return;
-        dispatch({ 
-            type: 'EXPENSES_FETCH_SUCCESS', 
-            payload: { ...formValues, budget_id: budgetId }
-        });
-        setFormValues({
-            expense_name: '',
-            service_provider: '',
-            payment_interval: '',
-            assets_needed: '',
-            cost_per_use: '',
-            contractor_in_house: '',
-            monthly_usage_count: '',
-        });
+    const handleAddMarketingValue = () => {
+        if (!expenseName || !costPerUse || !vendor) return; // Validate input
+        const newExpense = {
+            expenseName,
+            serviceProvider,
+            paymentInterval,
+            assetsNeeded,
+            costPerUse: parseFloat(costPerUse).toFixed(2), // Ensure costPerUse is properly formatted
+            vendor,
+            monthlyUsageCount,
+            budgetId
+        };
+        setMarketingValues(prevValues => [...prevValues, newExpense]);
+        resetForm();
     };
 
-    const handleInputChange = (name) => (event) => {
-        const value = event.target.value;
-        setFormValues(prev => ({
-            ...prev,
-            [name]: value,
-        }));
+    const resetForm = () => {
+        // Reset form fields after adding a new marketing value
+        setExpenseName('');
+        setServiceProvider('');
+        setPaymentInterval('');
+        setAssetsNeeded('');
+        setCostPerUse('');
+        setVendor('');
+        setMonthlyUsageCount('');
     };
 
-    // Function to handle deleting a marketing value entry
     const handleDeleteMarketingValue = (index) => {
-        setMarketingValues(marketingValues.filter((_, i) => i !== index));
+        // Remove a marketing value from the list
+        const updatedValues = marketingValues.filter((_, i) => i !== index);
+        setMarketingValues(updatedValues);
+    };
+
+    const handleSubmitAll = () => {
+        // Submit all marketing values
+        const payload = marketingValues.map(item => ({
+            ...item,
+            type: 'business marketing', // Specify the type for the backend
+        }));
+        dispatch({ type: 'ADD_BUSINESS_EXPENSE', payload: payload });
+
+        // Optionally, reset marketingValues after submission
+        setMarketingValues([]);
     };
 
     return (
@@ -66,58 +73,56 @@ function MarketingBudgetYear1() {
             <Grid container spacing={2} alignItems="center">
                 <Grid item xs={12} md={3}>
                     <TextField
-                        name="expense_name"
+                        name="expenseName"
                         label="Service/ Item"
-                        value={formValues.expense_name}
-                        onChange={handleInputChange('expense_name')}
+                        value={expenseName}
+                        onChange={(e) => setExpenseName(e.target.value)}
                         fullWidth
                     />
                 </Grid>
                 <Grid item xs={12} md={3}>
                     <TextField
-                        name="service_provider"
+                        name="serviceProvider"
                         label="Service Provider"
-                        value={formValues.service_provider}
-                        onChange={handleInputChange('service_provider')}
+                        value={serviceProvider}
+                        onChange={(e) => setServiceProvider(e.target.value)}
                         fullWidth
                     />
                 </Grid>
                 <Grid item xs={12} md={3}>
                     <TextField
-                        name="cost_per_use"
+                        name="costPerUse"
                         label="Cost Per Use"
-                        value={formValues.cost_per_use}
-                        onChange={handleInputChange('cost_per_use')}
+                        value={costPerUse}
+                        onChange={(e) => setCostPerUse(e.target.value)}
                         fullWidth
                     />
                 </Grid>
-
                 <Grid item xs={12} md={6}>
                     <TextField
-                        name="assets_needed"
+                        name="assetsNeeded"
                         label="Assets Needed"
-                        value={formValues.assets_needed}
-                        onChange={handleInputChange('assets_needed')}
+                        value={assetsNeeded}
+                        onChange={(e) => setAssetsNeeded(e.target.value)}
                         fullWidth
                     />
                 </Grid>
                 <Grid item xs={12} md={3}>
                     <TextField
-                        name="monthly_usage_count"
+                        name="monthlyUsageCount"
                         label="Monthly Usage Count"
-                        value={formValues.monthly_usage_count}
-                        onChange={handleInputChange('monthly_usage_count')}
+                        value={monthlyUsageCount}
+                        onChange={(e) => setMonthlyUsageCount(e.target.value)}
                         fullWidth
                     />
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <FormControl fullWidth>
-                        <InputLabel id="vendor-label">Contractor or In-House</InputLabel>
+                        <InputLabel id="vendor-label">Vendor</InputLabel>
                         <Select
                             labelId="vendor-label"
-                            id="vendor-select"
-                            value={formValues.contractor_in_house}
-                            onChange={handleInputChange('contractor_in_house')} // This now works correctly
+                            value={vendor}
+                            onChange={(e) => setVendor(e.target.value)}
                         >
                             <MenuItem value="Contractor">Contractor</MenuItem>
                             <MenuItem value="In-House">In-House</MenuItem>
@@ -126,15 +131,15 @@ function MarketingBudgetYear1() {
                 </Grid>
                 <Grid item xs={12} md={3}>
                     <TextField
-                        name="payment_interval"
+                        name="paymentInterval"
                         label="Payment Interval"
-                        value={formValues.payment_interval}
-                        onChange={handleInputChange('payment_interval')}
+                        value={paymentInterval}
+                        onChange={(e) => setPaymentInterval(e.target.value)}
                         fullWidth
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button variant="contained" color="primary" onClick={handleAddMarketingValues}>Add Values</Button>
+                    <Button variant="contained" color="primary" onClick={handleAddMarketingValue}>Add Marketing Value</Button>
                 </Grid>
             </Grid>
 
@@ -148,19 +153,29 @@ function MarketingBudgetYear1() {
                         <TableCell align="right">Cost Per Use</TableCell>
                         <TableCell align="right">Contractor or In-House</TableCell>
                         <TableCell align="right">Monthly Usage Count</TableCell>
+                        <TableCell align="right">Monthly Expense</TableCell> {/* New Column */}
+                        <TableCell align="right">Yearly Expense</TableCell> {/* New Column */}
                         <TableCell align="center">Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {value.map((value, index) => (
+                    {marketingValues.map((value, index) => (
                         <TableRow key={index}>
-                            <TableCell>{value.expense_name}</TableCell>
-                            <TableCell align="right">{value.service_provider}</TableCell>
-                            <TableCell align="right">{value.payment_interval}</TableCell>
-                            <TableCell align="right">{value.assets_needed}</TableCell>
-                            <TableCell align="right"><Currency value={value.cost_per_use} /></TableCell>
-                            <TableCell align="right">{value.contractor_in_house}</TableCell>
-                            <TableCell align="right">{value.monthly_usage_count}</TableCell>
+                            <TableCell>{value.expenseName}</TableCell>
+                            <TableCell align="right">{value.serviceProvider}</TableCell>
+                            <TableCell align="right">{value.paymentInterval}</TableCell>
+                            <TableCell align="right">{value.assetsNeeded}</TableCell>
+                            <TableCell align="right"><Currency value={value.costPerUse} /></TableCell>
+                            <TableCell align="right">{value.vendor}</TableCell>
+                            <TableCell align="right">{value.monthlyUsageCount}</TableCell>
+                            <TableCell align="right">
+                                {/* Calculate Monthly Expense */}
+                                <Currency value={value.monthlyUsageCount * value.costPerUse} />
+                            </TableCell>
+                            <TableCell align="right">
+                                {/* Calculate Yearly Expense */}
+                                <Currency value={value.monthlyUsageCount * value.costPerUse * 12} />
+                            </TableCell>
                             <TableCell align="center">
                                 <Button onClick={() => handleDeleteMarketingValue(index)} variant="contained" color="secondary">Delete</Button>
                             </TableCell>
@@ -169,7 +184,8 @@ function MarketingBudgetYear1() {
                 </TableBody>
             </Table>
 
-            <ProgressBar next={'/marketingy2'} back={'/businessexpensepage2'} value={72} budgetId={budgetId} />
+
+            <ProgressBar next={'marketingy2'} back={'otherexpenses'} value={72} budgetId={budgetId} />
         </Container>
     );
 }
