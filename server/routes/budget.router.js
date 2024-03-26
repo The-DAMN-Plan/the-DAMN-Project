@@ -118,11 +118,7 @@ router.put('/status', async (req, res) => {
   // variable on the front end after the budget_plan is called in the sagas
 
   try {
-
-    for (const step of stepArray) {
-      await pool.query(sql, [data.completed, data.budget_id, data.step]);
-    }
-
+    await pool.query(sql, [data.completed, data.budget_id, data.step]);
     res.sendStatus(200);
   } catch (error) {
     console.log(error);
