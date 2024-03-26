@@ -4,7 +4,7 @@ import axios from 'axios';
 function* addFuturePlan(action) {
     try {
         console.log('Adding Future Plan', action.payload);
-        yield axios.post(`/api/budget/expense`, action.payload);
+        yield axios.post(`/api/future_plans`, action.payload);
     } catch(error) {
         console.log('Error adding future plan', error);
     }

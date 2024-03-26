@@ -161,6 +161,11 @@ function App() {
                 <MarketingPageYear1 />
               </Route>
               {/* this one below needs to have a progbar value of 78 */}
+
+              {/* <Route exact path="/marketingy2">
+                <MarketingPage />
+              </Route> */}
+
               <Route exact path="/marketingy2/:budgetId">
                 <MarketingPageYear1 />
               </Route>

@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+
+import { Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function VariableExpenses() {
     const dispatch = useDispatch();
-    const history = useHistory();
     const budget = useSelector((store) => store.budget);
     const budgetId = useParams();
-    const budgetObj = budget[0];
+    const finalBudget = useSelector((store) => store.finalBudget);
+    const expense = useSelector((store) => store.expense)
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const [userEntry, setUserEntry] = useState([])
-
     const [formValues, setFormValues] = useState({
         food: '',
         clothing: '',
@@ -23,6 +23,40 @@ function VariableExpenses() {
         carRepairs: '',
         homeMaintenance: ''
     });
+
+
+    console.log(formValues);
+
+    console.log('Expense reducer', expense);
+    console.log('URL', budgetId);
+    console.log('Big budget object', finalBudget);
+
+    useEffect(() => {
+        dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
+    }, [dispatch, budgetId]);
+
+    useEffect(() => {
+        handleExpense();
+    }, [expense]); // Call handleExpense whenever expense changes
+
+    const handleExpense = () => {
+        const newFormValues = {
+            food: getExpenseAmount('food'),
+            clothing: getExpenseAmount('clothing'),
+            personalCare: getExpenseAmount('personalCare'),
+            recreation: getExpenseAmount('recreation'),
+            gifts: getExpenseAmount('gifts'),
+            gas: getExpenseAmount('gas'),
+            carRepairs: getExpenseAmount('carRepairs'),
+            homeMaintenance: getExpenseAmount('homeMaintenance')
+        };
+        setFormValues(newFormValues);
+    };
+
+    const getExpenseAmount = (expenseName) => {
+        const expenseItem = expense.find(item => item.expense_name === expenseName);
+        return expenseItem ? expenseItem.expense_amount : '';
+    };
 
 
     const handleInputChange = (event) => {
@@ -42,7 +76,7 @@ function VariableExpenses() {
         } else {
             // If the formData object doesn't exist, create a new one
             const formData = {
-                budget_id: budgetObj.id,
+                budget_id: Number(budgetId.budgetId),
                 type: 'personal decision',
                 expense_name: name,
                 expense_amount: value
@@ -60,10 +94,16 @@ function VariableExpenses() {
     console.log(userEntry);
 
     const handleSubmit = (event) => {
-        event.preventDefault()
+        event.preventDefault();
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
+        // dispatch({type: 'UPDATE_STATUS', payload: ''}) // Will need to be set up later to post the completed step to the status table
+        setFormSubmitted(true);
     };
+
+    const handleEdit = (event) => {
+        console.log('Edit MAMA');
+    }
 
     return (
         <Container maxWidth="md">
@@ -88,6 +128,15 @@ function VariableExpenses() {
                             <TextField name="gas" label="Gas" fullWidth value={formValues.gas} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="carRepairs" label="Car Repairs" fullWidth value={formValues.carRepairs} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="homeMaintenance" label="Home Maintenance" fullWidth value={formValues.homeMaintenance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            {formSubmitted ? (
+                            <Button type='button' onClick={handleEdit}>
+                                Edit
+                            </Button>
+                        ) : (
+                            <Button type='submit'>
+                                Submit
+                            </Button>
+                        )}
                         </Grid>
                     </Grid>
                     <ProgressBar next={'futureplans'} back={'personalsavings'} value={24} budgetId={budgetId}/>
