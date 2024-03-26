@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import Footer from '../Footer/Footer';
+import Main from '../Main/Main';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function PersonalSavings() {
     const dispatch = useDispatch();
     const budget = useSelector((store) => store.budget);
+    const open = useSelector(store=>store.sideNav);
     const budgetObj = budget[0];
     const budgetId = useParams();
     const [userEntry, setUserEntry] = useState([]);
@@ -59,7 +62,8 @@ function PersonalSavings() {
     };
 
     return (
-        <Container maxWidth="md">
+        <Main open={open}>
+            <Container maxWidth="md">
             <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
                 <Typography variant="h4" align="center" gutterBottom>
                     Personal Savings
@@ -112,6 +116,8 @@ function PersonalSavings() {
                 </form>
             </Paper>
         </Container>
+        <Footer/>
+        </Main>
     );
 }
 

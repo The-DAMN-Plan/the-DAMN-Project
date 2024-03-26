@@ -3,6 +3,7 @@ import errors from './errors.reducer';
 import user from './user.reducer';
 import business from './business.reducer';
 import budget from './budget.reducer';
+import sideNav from './sideNav.reducer';
 import status from './status.reducer';
 import expense from './expense.ruducer';
 import finalBudget from './finalBudget.reducer';
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   business, // Gets the businesses for the logged in user
   budget,
+  sideNav,
   status,
   expense,
   finalBudget
