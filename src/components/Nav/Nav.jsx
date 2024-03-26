@@ -66,98 +66,9 @@ function Nav({ drawerWidth }) {
   // width: listOfRoutes.includes(location.pathname) ? `calc(108% - ${drawerWidth}px)` : `calc(100%)`,
 
   return (
-    <AppBar position="fixed" >
+    <AppBar position="fixed" open={open} >
       < Container  maxWidth='xl' >
         <Toolbar disableGutters sx={{display: 'flex', alignItems: 'right', justifyContent:'left'}}>
-                {/* {listOfRoutes.includes(location.pathname) && <> 
-              <Box sx={{backgroundColor: 'blue'}}> 
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={()=>toggleDrawer()}
-                sx={{ ...(open && { display: 'none' }) }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <SideNav drawerWidth={drawerWidth}/>
-              </Box>
-              </> } */}
-
-              {/* {!open &&
-              <Box>
-                <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="#/"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontWeight: 900,
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              The DAMN Plan
-            </Typography>
-              </Box>
-              } */}
-              {/* {!open &&
-              <Box>
-                <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="#/"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontWeight: 900,
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              The DAMN Plan
-            </Typography>
-              </Box>
-              } */}
-
-
-            {/* {user.id && (
-            <Box sx={{flexGrow: 0.5, backgroundColor: 'white' , display: {sm:'none', md: 'flex' }, alignItems:'center', justifyContent:'center'}}>
-                  <Button
-                  onClick={() => {
-                    history.push('/home');
-                  }}>
-                  Home
-                </Button>
-
-                  
-                  <Button
-                  onClick={() => {
-                    history.push('/budget');
-                  }}
-
-    
-                >
-                  New Budget
-                </Button>
-                
-                  
-                  <Button
-                  onClick={() => {
-                    history.push('/about');
-                  }}
-                >
-                  About
-                </Button>
-                </Box>
-            
-            
-                
-                
-
-              )} */}
 
               {!listOfRoutes.includes(location.pathname) &&<Box>
                <> 
@@ -227,41 +138,6 @@ function Nav({ drawerWidth }) {
                 </Box>
               )}
               </Box>
-
-          
-          
-          {/* <Container sx={{ backgroundColor: 'red', display: 'flex', alignItems: 'center', justifyContent:'center'}}> */}
-          {/* {user.id && (
-
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Button
-                onClick={() => {
-                  history.push('/home');
-                }}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                Home
-              </Button>
-              <Button
-                onClick={() => {
-                  history.push('/budget');
-                }}
-
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                Plans
-              </Button>
-              <Button
-                onClick={() => {
-                  history.push('/about');
-                }}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                About
-              </Button>
-            </Box>
-            )} */}
-          {/* </Container> */}
           
             <Box sx={{ flexGrow: 0 }}>
               {user.id ? <LogOutButton /> : ''}
