@@ -66,7 +66,7 @@ function Nav({ drawerWidth }) {
   // width: listOfRoutes.includes(location.pathname) ? `calc(108% - ${drawerWidth}px)` : `calc(100%)`,
 
   return (
-    <AppBar position="fixed" >
+    <AppBar position="fixed" open={open} >
       < Container  maxWidth='xl' >
         <Toolbar disableGutters sx={{display: 'flex', alignItems: 'right', justifyContent:'left'}}>
                 {/* {listOfRoutes.includes(location.pathname) && <> 
