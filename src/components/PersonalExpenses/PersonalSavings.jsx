@@ -57,12 +57,6 @@ function PersonalSavings() {
         return expenseItem ? expenseItem.expense_amount : '';
     };
 
-
-
-    const [userEntry, setUserEntry] = useState([])
-
-
-
     const handleInputChange = (event) => {
         const { name, value } = event.target;
 
@@ -109,61 +103,59 @@ function PersonalSavings() {
         console.log('Edit MAMA');
     }
     return (
-      <Main open={open}>
-        <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
-            <Typography variant="h5" align="center" gutterBottom>
-                Personal Savings
-            </Typography>
-            <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
-                Take some time to think about the money you want to save for like retirement, spending money, etc.
-            </Typography>
+        <Main open={open}>
+            <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
+                <Typography variant="h5" align="center" gutterBottom>
+                    Personal Savings
+                </Typography>
+                <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
+                    Take some time to think about the money you want to save for like retirement, spending money, etc.
+                </Typography>
 
-            <form onSubmit={handleSubmit}>
-                <Grid container spacing={2} justifyContent="center">
-                    <Grid item xs={12} md={6}>
-                        <TextField name="personalAllowance"
-                            label="Personal Allowance"
-                            fullWidth
-                            value={formValues.personalAllowance}
-                            onChange={handleInputChange}
-                            sx={{ marginBottom: 2 }} />
-                        <TextField name="emergencySavings"
-                            label="Emergency Savings"
-                            fullWidth
-                            value={formValues.emergencySavings}
-                            onChange={handleInputChange}
-                            sx={{ marginBottom: 2 }} />
+                <form onSubmit={handleSubmit}>
+                    <Grid container spacing={2} justifyContent="center">
+                        <Grid item xs={12} md={6}>
+                            <TextField name="personalAllowance"
+                                label="Personal Allowance"
+                                fullWidth
+                                value={formValues.personalAllowance}
+                                onChange={handleInputChange}
+                                sx={{ marginBottom: 2 }} />
+                            <TextField name="emergencySavings"
+                                label="Emergency Savings"
+                                fullWidth
+                                value={formValues.emergencySavings}
+                                onChange={handleInputChange}
+                                sx={{ marginBottom: 2 }} />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField name="retirement"
+                                label="Retirement"
+                                fullWidth
+                                value={formValues.retirement}
+                                onChange={handleInputChange}
+                                sx={{ marginBottom: 2 }} />
+                            <TextField name="investments"
+                                label="Investments"
+                                fullWidth
+                                value={formValues.investments}
+                                onChange={handleInputChange}
+                                sx={{ marginBottom: 2 }} />
+                            {formSubmitted ? (
+                                <Button type='button' onClick={handleEdit}>
+                                    Edit
+                                </Button>
+                            ) : (
+                                <Button type='submit'>
+                                    Submit
+                                </Button>
+                            )}
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12} md={6}>
-                        <TextField name="retirement"
-                            label="Retirement"
-                            fullWidth
-                            value={formValues.retirement}
-                            onChange={handleInputChange}
-                            sx={{ marginBottom: 2 }} />
-                        <TextField name="investments"
-                            label="Investments"
-                            fullWidth
-                            value={formValues.investments}
-                            onChange={handleInputChange}
-                            sx={{ marginBottom: 2 }} />
-                        {formSubmitted ? (
-                            <Button type='button' onClick={handleEdit}>
-                                Edit
-                            </Button>
-                        ) : (
-                            <Button type='submit'>
-                                Submit
-                            </Button>
-                        )}
-                <Footer/>
-            </Main>
-                    </Grid>
-                </Grid>
-                    <ProgressBar back={'fundamentalexpenses'} next={'variableexpenses'} value={18} budgetId={budgetId}/>
                 </form>
-        </Container>
-        <Footer/>
+                <ProgressBar back={'fundamentalexpenses'} next={'variableexpenses'} value={18} budgetId={budgetId}/>
+            </Container>
+            <Footer/>
         </Main>
     );
 }
