@@ -180,6 +180,20 @@ router.post('/revenuestream', async (req, res) => {
   }
 });
 
+router.delete('/revenuestream/:id', async (req, res) => {
+  // delete route code here
+  const revenue_id = Number(req.params.id);
+  const sql = `DELETE FROM "revenue_streams" WHERE id = $1;`
+
+  try {
+    await pool.query(sql, [revenue_id]);
+    res.send(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 
 // for delete consider a soft delete using a column on the db. nuking all the tables would be very time consuming.
 

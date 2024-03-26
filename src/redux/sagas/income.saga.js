@@ -10,6 +10,17 @@ function* addRevenueStream(action) {
     }
 }
 
+function* deleteRevenueStream(action) {
+    try {
+        console.log('Deleting income', action.payload);
+        const { incomeId, budgetObjId } = action.payload; // Destructure futurePlanId and budgetId from payload
+        yield axios.delete(`/api/budget/expense/${expenseId}`);
+        yield put({ type: 'BUDGET_PLAN', payload: budgetObjId }); // Pass budgetId as payload
+    } catch (error) {
+        console.log('Error deleting income', error);
+    }
+}
+
 function* incomeSaga() {
     yield takeLatest('ADD_BUSINESS_INCOME', addRevenueStream);
 }
