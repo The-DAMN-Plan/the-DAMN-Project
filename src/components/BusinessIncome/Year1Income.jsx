@@ -84,6 +84,11 @@ function Year1Income() {
         setUserEntry(newUserEntry);
     };
 
+    const deleteProductFromDB = (incomeId) => {
+      const budgetObjId = budgetId.budgetId;
+      dispatch({ type: 'DELETE_FUTURE_PLAN', payload: { incomeId, budgetObjId } });
+  };
+
     const filteredIncomes = income.filter(item => item.year === 1);
     console.log('Year 1', filteredIncomes);
     
@@ -232,7 +237,7 @@ return (
                   <Button
                     variant="outlined"
                     color="error"
-                    onClick={() => handleDeleteProduct(index)}
+                    onClick={() => deleteProductFromDB(income1.id)}
                   >
                     Delete
                   </Button>
