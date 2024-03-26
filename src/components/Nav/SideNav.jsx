@@ -1,4 +1,4 @@
-import { AppBar, Box, Collapse, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import { AppBar, Box, Button, Collapse, Container, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useState } from "react";
@@ -9,13 +9,21 @@ import Divider from '@mui/material/Divider';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LogOutButton from "../LogOutButton/LogOutButton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
-export default function SideNav({open, toggleDrawer,drawerWidth}) {
+export default function SideNav({drawerWidth}) {
     const theme = useTheme();
     const user = useSelector((store) => store.user);
+    const open = useSelector((store => store.sideNav));
     const location = useLocation();
+    const dispatch = useDispatch();
+    function toggleDrawer() {
+        dispatch({
+            type: 'TOGGLE_SIDE_NAV'
+        })
+        
+    }
     console.log(location.pathname);
     const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -31,50 +39,102 @@ export default function SideNav({open, toggleDrawer,drawerWidth}) {
         <CssBaseline />
         <Drawer
           sx={{
-            width: drawerWidth/3,
+            
+            width: open? drawerWidth :  0,
             flexShrink: 1,
             '& .MuiDrawer-paper': {
-              width: drawerWidth,
+              width: open? drawerWidth :  0,
               boxSizing: 'border-box',
             },
           }}
           variant="persistent"
           anchor="left"
           open={open}
-          onClose={toggleDrawer}
+          onClose={()=>toggleDrawer()}
         >
           <DrawerHeader>
-            <IconButton onClick={toggleDrawer}>
-              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-            </IconButton>
+            
+            <Container sx={{display: 'flex', alignItems: 'center', justifyContent:'center'}}>
+                <Typography
+                    variant="h6"
+                    noWrap
+                    component="a"
+                    href="#/"
+                    sx={{
+                    mr: 2,
+                    display: { xs: 'none', md: 'flex' },
+                    fontWeight: 900,
+                    color: 'inherit',
+                    textDecoration: 'none',
+                    }}
+                >
+                    The DAMN Plan
+                </Typography>
+            </Container>
+                <IconButton onClick={()=>toggleDrawer()}>
+                {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                </IconButton>
           </DrawerHeader>
+          {/* <Divider />
+          
+          {user.id && (
+            <Box sx={{ p: 3 , alignItems:'center', justifyContent:'left'}}>
+                  <Button
+                  onClick={() => {
+                    history.push('/home');
+                  }}>
+                  Home
+                </Button>
+
+                  
+                  <Button
+                  onClick={() => {
+                    history.push('/budget');
+                  }}
+
+    
+                >
+                  New Budget
+                </Button>
+                
+                  
+                  <Button
+                  onClick={() => {
+                    history.push('/info');
+                  }}
+                >
+                  Info
+                </Button>
+                </Box>
+
+              )} */}
           <Divider />
-          <Box sx={{ width: 340 }} role="presentation" >
+          <Box sx={{ width: 380}} role="presentation" >
                     <List>
                         <CollapeMenu>
-                            <ListItemText primary={'Personal Budget'} />
+                            <ListItemText sx={{pl:1}} primary={'Personal Budget'} />
                             <List>
-                                <ListItem >
+                                <ListItem sx={{pl:2}} disablePadding>
                                     <ListItemButton component={NavLink} to="/startplan" sx={{"&.active": {background:'#5d5179', color:'white'}}}  >
                                     <ListItemText primary={'Start a Plan'} />
                                     </ListItemButton>
                                 </ListItem>
-                                <ListItem sx={{pl:'15px'}}>
+                                <ListItem sx={{pl:2}} disablePadding>
                                     <ListItemButton component={NavLink} to="/fundamentalexpenses" sx={{"&.active": {background:'#5d5179', color:'white'}}}  >
                                     <ListItemText primary={'Fudamental Living Expense'} />
                                     </ListItemButton>
                                 </ListItem>
-                                <ListItem sx={{pl:'15px'}} disablePadding>
+                                <ListItem sx={{pl:2}} disablePadding>
                                     <ListItemButton component={NavLink} to="/personalsavings" sx={{"&.active": {background:'#5d5179', color:'white'}}} >
                                     <ListItemText primary={'Regular Financial Responsibilities'} />
                                     </ListItemButton>
                                 </ListItem>
-                                <ListItem sx={{pl:'15px'}} disablePadding>
+                                <ListItem sx={{pl:2}} disablePadding>
                                     <ListItemButton component={NavLink} to="/futureplans" sx={{"&.active": {background:'#5d5179', color:'white'}}}>
                                     <ListItemText primary={'Future Plans'}  />
                                     </ListItemButton>
                                 </ListItem>
-                                <ListItem sx={{pl:'15px'}} disablePadding>
+                                <ListItem sx={{pl:2}} disablePadding>
                                     <ListItemButton component={NavLink} to="/otherexpenses" sx={{"&.active": {background:'#5d5179', color:'white'}}}>
                                     <ListItemText primary={'Other Expenses'}  />
                                     </ListItemButton>
@@ -82,9 +142,9 @@ export default function SideNav({open, toggleDrawer,drawerWidth}) {
                             </List>
                         </CollapeMenu>
                         <CollapeMenu>
-                            <ListItemText primary={'Business Income'} />
+                            <ListItemText sx={{pl:1}} primary={'Business Income'} />
                             <List>
-                                <ListItem sx={{pl:'15px'}} disablePadding>
+                                <ListItem sx={{pl:2}} disablePadding>
                                     <ListItemButton>
                                     <ListItemText primary={'Contractor'} />
                                     </ListItemButton>
@@ -93,14 +153,14 @@ export default function SideNav({open, toggleDrawer,drawerWidth}) {
                             </List>
                         </CollapeMenu>
                         <CollapeMenu>
-                            <ListItemText primary={'Business Expense'} />
+                            <ListItemText sx={{pl:1}} primary={'Business Expense'} />
                             <List>
-                                <ListItem sx={{pl:'15px'}} disablePadding>
+                                <ListItem sx={{pl:2}} disablePadding>
                                     <ListItemButton component={NavLink} to="/businessexpensepage1" sx={{"&.active": {background:'#5d5179', color:'white'}}}>
                                     <ListItemText primary={'Businsess Expense Page 1'} />
                                     </ListItemButton>
                                 </ListItem>
-                                <ListItem sx={{pl:'15px'}} disablePadding>
+                                <ListItem sx={{pl:2}} disablePadding>
                                     <ListItemButton component={NavLink} to="/businessexpensepage2" sx={{"&.active": {background:'#5d5179', color:'white'}}}>
                                     <ListItemText primary={'Businsess Expense Page 2'} />
                                     </ListItemButton>
@@ -109,9 +169,9 @@ export default function SideNav({open, toggleDrawer,drawerWidth}) {
                             </List>
                         </CollapeMenu>
                         <CollapeMenu>
-                            <ListItemText primary={'Break Even'} />
+                            <ListItemText sx={{pl:1}} primary={'Break Even'} />
                             <List>
-                                <ListItem sx={{pl:'15px'}} disablePadding>
+                                <ListItem sx={{pl:2}} disablePadding>
                                     <ListItemButton component={NavLink} to="/budget/breakeven" sx={{"&.active": {background:'#5d5179', color:'white'}}}>
                                     <ListItemText primary={'Break Even'} />
                                     </ListItemButton>
@@ -123,8 +183,9 @@ export default function SideNav({open, toggleDrawer,drawerWidth}) {
                     </List>
                 </Box>
           <Divider />
-          
+
           {user.id ? <LogOutButton /> : ''}
+
         </Drawer>
       </Box>
     );
@@ -139,7 +200,7 @@ const CollapeMenu = (props)=>{
     return (
         <>
         {/* toggle hidden sub menu when clicked */}
-        <ListItemButton sx={{p:'10px'}} onClick={()=>handleClick()}>
+        <ListItemButton sx={{p:1}} onClick={()=>handleClick()}>
             {/* ListTextItem is passed as props */}
             {props.children[0]} 
             <ListItemIcon>

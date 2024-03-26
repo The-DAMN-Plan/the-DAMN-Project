@@ -4,10 +4,17 @@ import { Typography, TextField, Button, Container, Grid } from '@mui/material';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import Footer from '../Footer/Footer';
+import Main from '../Main/Main';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function PersonalSavings() {
     const dispatch = useDispatch();
+
+    
+    const open = useSelector(store=>store.sideNav);
+
+
     const budgetId = useParams();
     const finalBudget = useSelector((store) => store.finalBudget);
     const expense = useSelector((store) => store.expense);
@@ -102,7 +109,7 @@ function PersonalSavings() {
         console.log('Edit MAMA');
     }
     return (
-
+      <Main open={open}>
         <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
             <Typography variant="h5" align="center" gutterBottom>
                 Personal Savings
@@ -149,11 +156,15 @@ function PersonalSavings() {
                                 Submit
                             </Button>
                         )}
+                <Footer/>
+            </Main>
                     </Grid>
                 </Grid>
                     <ProgressBar back={'fundamentalexpenses'} next={'variableexpenses'} value={18} budgetId={budgetId}/>
                 </form>
         </Container>
+        <Footer/>
+        </Main>
     );
 }
 

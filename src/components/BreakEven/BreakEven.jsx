@@ -8,16 +8,20 @@ import Fade from '@mui/material/Fade';
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
 import ProgressBar from '../ProgressBar/ProgressBar'
+import Main from '../Main/Main';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 
 export default function BreakEven() {
 
   const store = useSelector((store) => store);
+  const open = useSelector(store=>store.sideNav);
   const budgetId = useParams();
 
   return (
-    <Container>
+    
+    <Main open={open}>
+      <Container>
       <Typography
         textAlign="center"
         variant='h2'
@@ -58,6 +62,7 @@ export default function BreakEven() {
         <ProgressBar next={'hrpagey1'} back={'hrpagey2'} value={98} budgetId={budgetId} />
       </Box>
     </Container>
+    </Main>
   );
 }
 

@@ -4,11 +4,14 @@ import { Typography, TextField, Button, Container, Grid } from '@mui/material';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 
 function StartPlan() {
     const dispatch = useDispatch();
     const budgetId = useParams();
     const finalBudget = useSelector((store) => store.finalBudget);
+    const open = useSelector(store=>store.sideNav);
     const expense = useSelector((store) => store.expense);
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [formValues, setFormValues] = useState({
@@ -101,6 +104,7 @@ function StartPlan() {
         console.log('Edit MAMA');
     }
     return (
+        <Main open={open}>
 
         <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
             <Typography variant="h4" align="center" gutterBottom>
@@ -177,7 +181,10 @@ function StartPlan() {
 
                 <ProgressBar back={`startplan`} next={`fundamentalexpenses`} value={6} budgetId={budgetId} />
             </form>
+            <Footer />
+            
         </Container>
+        </Main>
     );
 }
 
