@@ -11,16 +11,6 @@ function* addPersonalExpense(action) {
     }
 }
 
-function* addBusinessExpense(action) {
-    try {
-        yield axios.post(`/api/budget/expense`, action.payload);
-        put({ type: 'FETCH_BUSINESS' })
-    } catch (error) {
-        console.log(error);
-    }
-
-}
-
 function* fetchExpenses(action) {
     try {
         const response = yield axios.get(`/api/budget/expense/${action.payload}`);

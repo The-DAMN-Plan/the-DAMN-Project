@@ -5,49 +5,49 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 export default function BusinessExpense(params) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const budget = useSelector((store) => store.budget);
     const open = useSelector(store=>store.sideNav);
-    const budgetObj = budget[0];
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const budgetId = useParams();
 
     //default values for each input start at 0 incase user does not input anything 
     const [userEntry, setUserEntry] = useState([
         {
-            budget_id: budgetObj.id,
+            budget_id: budgetId.budgetId,
             expense_amount: "0",
             expense_name: "cellPhones",
             type: "business expense"
         },
         {
-            budget_id: budgetObj.id,
+            budget_id: budgetId.budgetId,
             expense_amount: "0",
             expense_name: "internet",
             type: "business expense"
         },
         {
-            budget_id: budgetObj.id,
+            budget_id: budgetId.budgetId,
             expense_amount: "0",
             expense_name: "printPublish",
             type: "business expense"
         },
         {
-            budget_id: budgetObj.id,
+            budget_id: budgetId.budgetId,
             expense_amount: "0",
             expense_name: "softwareTech",
             type: "business expense"
         },
         {
-            budget_id: budgetObj.id,
+            budget_id: budgetId.budgetId,
             expense_amount: "0",
             expense_name: "officeSupply",
             type: "business expense"
         },
         {
-            budget_id: budgetObj.id,
+            budget_id: budgetId.budgetId,
             expense_amount: "0",
             expense_name: "miscellaneous",
             type: "business expense"
@@ -80,7 +80,7 @@ export default function BusinessExpense(params) {
         } else {
             // If the formData object doesn't exist, create a new one
             const formData = {
-                budget_id: budgetObj.id,
+                budget_id: budgetId.budgetId,
                 type: 'business expense',
                 expense_name: name,
                 expense_amount: value
@@ -99,7 +99,7 @@ export default function BusinessExpense(params) {
     const handleSubmit = (event) => {
         event.preventDefault()
         console.log(userEntry);
-        dispatch({ type: 'ADD_BUSINESS_EXPENSE', payload: userEntry });
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
     };
     return(
         <Main open={open}>
@@ -125,8 +125,18 @@ export default function BusinessExpense(params) {
                             <TextField name="officeSupply" label="Office Supplies" fullWidth value={formValues.officeSupply} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="miscellaneous" label="Miscellaneous"  fullWidth value={formValues.miscellaneous} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
+                        {formSubmitted ? (
+                            <Button type='button'>
+                                Update
+                            </Button>
+                        ) : (
+                            <Button type='submit'>
+                                Save
+                            </Button>
+                        )}
                     </Grid>
                 </form>
+                
                 <ProgressBar back={'businessexpensepage1'} next={'marketingy1'} value={66} budgetId={budgetId}/>
 
             </Paper>

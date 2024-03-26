@@ -10,51 +10,50 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 export default function BusinessExpense(params) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const budget = useSelector((store) => store.budget);
     const open = useSelector(store=>store.sideNav);
-    const budgetObj = budget[0];
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const budgetId = useParams();
 
     //default values for each input start at 0 incase user does not input anything 
     const [userEntry, setUserEntry] = useState([
         {
-            budget_id: budgetObj.id,
+            budget_id: budgetId.budgetId,
             expense_amount: "0",
             expense_name: "accountingSupport",
             type: "business expense"
         },
         {
-            budget_id: budgetObj.id,
+            budget_id: budgetId.budgetId,
             expense_amount: "0",
             expense_name: "insuranceGeneral",
             type: "business expense"
         },
         {
-            budget_id: budgetObj.id,
+            budget_id: budgetId.budgetId,
             expense_amount: "0",
             expense_name: "insuranceHealthLifeDisability",
             type: "business expense"
         },
         {
-            budget_id: budgetObj.id,
+            budget_id: budgetId.budgetId,
             expense_amount: "0",
             expense_name: "legal",
             type: "business expense"
         },
         {
-            budget_id: budgetObj.id,
+            budget_id: budgetId.budgetId,
             expense_amount: "0",
             expense_name: "coaching",
             type: "business expense"
         },
         {
-            budget_id: budgetObj.id,
+            budget_id: budgetId.budgetId,
             expense_amount: "0",
             expense_name: "travelLodging",
             type: "business expense"
         },
         {
-            budget_id: budgetObj.id,
+            budget_id: budgetId.budgetId,
             expense_amount: "0",
             expense_name: "clientTravelMeals",
             type: "business expense"
@@ -89,7 +88,7 @@ export default function BusinessExpense(params) {
         } else {
             // If the formData object doesn't exist, create a new one
             const formData = {
-                budget_id: budgetObj.id,
+                budget_id: budgetId.budgetId,
                 type: 'business expense',
                 expense_name: name,
                 expense_amount: value
@@ -107,10 +106,9 @@ export default function BusinessExpense(params) {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log(userEntry);
+        console.log('user input',userEntry);
         
-        dispatch({ type: 'ADD_BUSINESS_EXPENSE', payload: userEntry });
-        history.push('businessexpensepage2');
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
     };
     return(
         
@@ -130,7 +128,7 @@ export default function BusinessExpense(params) {
                         <Grid item xs={12} md={6}>
                             <TextField name="accountingSupport" label="Accounting Support" fullWidth value={formValues.accountingSupport} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="insuranceGeneral" label="Insurance General"  fullWidth value={formValues.insuranceGeneral} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name='insuranceHealthLifeDisability' label="Insurance - Health, Life & Disability" defaultValue={0}  fullWidth value={formValues.insuranceHealthLifeDisability} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name='insuranceHealthLifeDisability' label="Insurance - Health, Life & Disability" fullWidth value={formValues.insuranceHealthLifeDisability} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="legal" label="Legal or Other Professional Support"  fullWidth value={formValues.legal} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -138,8 +136,19 @@ export default function BusinessExpense(params) {
                             <TextField name="travelLodging" label="Travel/Lodging" fullWidth value={formValues.travelLodging} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="clientTravelMeals" label="Client/Travel Meals"  fullWidth value={formValues.clientTravelMeals} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
+                        {formSubmitted ? (
+                            <Button type='button'>
+                                Update
+                            </Button>
+                        ) : (
+                            <Button type='submit'>
+                                Save
+                            </Button>
+                        )}
                     </Grid>
+                    
                 </form>
+                
                 <ProgressBar back={'overview'} next={'businessexpensepage2'} value={60} budgetId={budgetId}/>
             </Paper>
         </Container>
