@@ -34,7 +34,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles'; // Import the ThemeProvider component from Material-UI  
 import BreakEven from '../BreakEven/BreakEven';
 import OtherExpenses from '../PersonalExpenses/OtherExpenses';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import FuturePlans from '../PersonalExpenses/FuturePlans';
@@ -52,6 +52,7 @@ import OtherBusinessExp from '../BusinessExpense/OtherBusinessExp';
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(store => store.user);
+  // const open = useSelector(store => store.sideNav);
   
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
@@ -63,8 +64,8 @@ function App() {
   }, [dispatch]);
   
 
-  const [open, setOpen] = useState(true);
-  const drawerWidth = 302;
+  // const [open, setOpen] = useState(false);
+  const drawerWidth = 350;
 
   const toggleDrawer = ()=>{
     setOpen(!open);
@@ -86,33 +87,15 @@ function App() {
     justifyContent: 'flex-end',
   }));
 
-  //a wrapper to shif body of the page to the right  depending on the width of side nav
-  // shift to right when nav opens
-  // shifts left when nav closes
-  const Main = styled('main', { 
-    shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-      marginLeft: `-${drawerWidth/4}px`,
-      ...(open && {
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: drawerWidth,
-      }),
-    }),
-  );
-
   return (
 
     <LocalizationProvider dateAdapter={AdapterMoment} >
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Main open={open}>
         <DrawerHeader />
         <Router>
           <div>
-            <Nav open={open} toggleDrawer={toggleDrawer} drawerWidth={drawerWidth} />
+            <Nav drawerWidth={drawerWidth} />
             <Switch>
               {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
               <Redirect exact from="/" to="/home" />
@@ -130,7 +113,7 @@ function App() {
                 <HumanResourcesPage1 />
               </Route>
 
-              <Route exact path="/startplan/:budgetId">
+              <Route exact path="/startplan">
                 <StartPlan />
               </Route>
 
@@ -178,6 +161,11 @@ function App() {
                 <MarketingPageYear1 />
               </Route>
               {/* this one below needs to have a progbar value of 78 */}
+
+              {/* <Route exact path="/marketingy2">
+                <MarketingPage />
+              </Route> */}
+
               <Route exact path="/marketingy2/:budgetId">
                 <MarketingPageYear1 />
               </Route>
@@ -245,10 +233,9 @@ function App() {
               </Route>
 
             </Switch>
-            <Footer />
+            
           </div>
         </Router>
-        </Main>
       </ThemeProvider>
     </LocalizationProvider>
   );

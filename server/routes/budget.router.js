@@ -113,7 +113,7 @@ router.post('/expense', async (req, res) => {
         expense.budget_id, expense.type, expense.expense_name, expense.expense_amount, expense.percent_change, expense.year,
         expense.frequency, expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use, expense.assets_needed, expense.service // Fixed typo assests_needed -> assets_needed
       ]);
-      results.push(result.rows[0]); // Assuming you want to collect the inserted rows
+      results.push(result.rows[0]); 
     } catch (error) {
       console.log(error);
       errorOccurred = true;
@@ -179,6 +179,7 @@ router.post('/revenuestream', async (req, res) => {
     }
   }
 });
+
 
 // for delete consider a soft delete using a column on the db. nuking all the tables would be very time consuming.
 

@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import Footer from '../Footer/Footer';
+import Main from '../Main/Main';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function BusinessExpense(params) {
     const dispatch = useDispatch();
     const history = useHistory();
     const budget = useSelector((store) => store.budget);
+    const open = useSelector(store=>store.sideNav);
     const budgetObj = budget[0];
     const budgetId = useParams();
 
@@ -99,7 +102,8 @@ export default function BusinessExpense(params) {
         dispatch({ type: 'ADD_BUSINESS_EXPENSE', payload: userEntry });
     };
     return(
-        <Container maxWidth="md">
+        <Main open={open}>
+            <Container maxWidth="md">
             <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
                 <Typography variant="h4" align="center" gutterBottom>
                     Business Expense
@@ -127,6 +131,9 @@ export default function BusinessExpense(params) {
 
             </Paper>
         </Container>
+        <Footer/>
+        </Main>
+        
     )
     
 }

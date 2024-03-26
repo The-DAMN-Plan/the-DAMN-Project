@@ -1,8 +1,9 @@
 import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
-import { useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation, useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import MuiAppBar from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,45 +14,38 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import MuiAppBar from '@mui/material/AppBar';
 import SideNav from './SideNav';
+import { Grid } from '@mui/material';
 
-function Nav({ open, toggleDrawer, drawerWidth }) {
+function Nav({ drawerWidth }) {
   const user = useSelector((store) => store.user);
-
+  const open = useSelector((store)=> store.sideNav);
+  let { budgetId } = useParams();
+  
   const history = useHistory();
   const location = useLocation();
   console.log(location);
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  console.log(budgetId);
+  console.log(history);
+
+  // list of routes where side bar is available for the user
   const listOfRoutes = [
-    '/startplan',
-    "/fundamentalexpenses",
-    "/personalsavings",
-    "/variableexpenses",
-    "/futureplans",
-    "/otherexpenses",
-    "/businessexpensepage1",
-    "/businessexpensepage2",
-    "/budget/breakeven"
+    `/user`,
+    `/info`,
+    `/about`,
+    `/home`,
+    `/login`,
+    `/registration`
 
   ]
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
-  // const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  
+  const dispatch = useDispatch();
+    function toggleDrawer() {
+        dispatch({
+            type: 'TOGGLE_SIDE_NAV'
+        })
+        
+    }
 
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -61,7 +55,7 @@ function Nav({ open, toggleDrawer, drawerWidth }) {
       duration: theme.transitions.duration.leavingScreen,
     }),
     ...(open && {
-      width: listOfRoutes.includes(location.pathname) ? `calc(100% - ${drawerWidth}px)` : `calc(100%`,
+      width: listOfRoutes.includes(location.pathname) ? `calc(100%-${drawerWidth}px)` : `calc(100%)`,
       marginLeft: `${0}px`,
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.easeOut,
@@ -69,112 +63,180 @@ function Nav({ open, toggleDrawer, drawerWidth }) {
       }),
     }),
   }));
+  // width: listOfRoutes.includes(location.pathname) ? `calc(108% - ${drawerWidth}px)` : `calc(100%)`,
 
   return (
-    <AppBar position="fixed" open={open} >
-      < Container maxWidth="xl" >
-        <Toolbar disableGutters>
-          {listOfRoutes.includes(location.pathname) && <> <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={toggleDrawer}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-
-            <SideNav open={open} toggleDrawer={toggleDrawer} drawerWidth={drawerWidth} /></>}
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontWeight: 'bold',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            The DAMN Plan
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            {/* <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton> */}
-            {user.id && (
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' },
-                }}
+    <AppBar position="fixed" >
+      < Container  maxWidth='xl' >
+        <Toolbar disableGutters sx={{display: 'flex', alignItems: 'right', justifyContent:'left'}}>
+                {/* {listOfRoutes.includes(location.pathname) && <> 
+              <Box sx={{backgroundColor: 'blue'}}> 
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={()=>toggleDrawer()}
+                sx={{ ...(open && { display: 'none' }) }}
               >
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography onClick={() => {
-                    history.push('/dashboard');
-                    handleCloseNavMenu();
-                  }} textAlign="center">Home</Typography>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography onClick={() => {
-                    history.push('/plans');
-                    handleCloseNavMenu();
-                  }} textAlign="center">Plans</Typography>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography onClick={() => {
-                    history.push('/multiplayer');
-                    handleCloseNavMenu();
-                  }} textAlign="center">About</Typography>
-                </MenuItem>
-              </Menu>
-            )}
-          </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#/"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontWeight: 'bold',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            The DAMN Plan
-          </Typography>
-          {user.id && (
+                <MenuIcon />
+              </IconButton>
+              <SideNav drawerWidth={drawerWidth}/>
+              </Box>
+              </> } */}
+
+              {/* {!open &&
+              <Box>
+                <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="#/"
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontWeight: 900,
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              The DAMN Plan
+            </Typography>
+              </Box>
+              } */}
+              {/* {!open &&
+              <Box>
+                <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="#/"
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontWeight: 900,
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              The DAMN Plan
+            </Typography>
+              </Box>
+              } */}
+
+
+            {/* {user.id && (
+            <Box sx={{flexGrow: 0.5, backgroundColor: 'white' , display: {sm:'none', md: 'flex' }, alignItems:'center', justifyContent:'center'}}>
+                  <Button
+                  onClick={() => {
+                    history.push('/home');
+                  }}>
+                  Home
+                </Button>
+
+                  
+                  <Button
+                  onClick={() => {
+                    history.push('/budget');
+                  }}
+
+    
+                >
+                  New Budget
+                </Button>
+                
+                  
+                  <Button
+                  onClick={() => {
+                    history.push('/about');
+                  }}
+                >
+                  About
+                </Button>
+                </Box>
+            
+            
+                
+                
+
+              )} */}
+
+              {!listOfRoutes.includes(location.pathname) &&<Box>
+               <> 
+                    <IconButton
+                      color="inherit"
+                      aria-label="open drawer"
+                      onClick={()=>toggleDrawer()}
+                      sx={{ ...(open && { display: 'none' }) }}
+                    >
+                      <MenuIcon />
+                    </IconButton>
+                    <SideNav drawerWidth={drawerWidth}/>
+                </>
+              </Box>}
+              <Box>
+                <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="#/"
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontWeight: 900,
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              The DAMN Plan
+            </Typography>
+            </Box>
+            
+
+              
+
+              <Box>
+              {user.id && (
+                <Box sx={{display:'flex', backgroundColor:'#fff', alignItems:'center', justifyContent:'center'}}>
+                
+                    <Button 
+                    onClick={() => {
+                      history.push('/home');
+                    }}>
+                    Home
+                  </Button>
+
+                    
+                    <Button
+                    onClick={() => {
+                      history.push('/budget');
+                    }}
+
+      
+                  >
+                    New Budget
+                  </Button>
+                  
+                    
+                    <Button
+                    onClick={() => {
+                      history.push('/info');
+                    }}
+                  >
+                    info
+                  </Button>
+                    
+                </Box>
+              )}
+              </Box>
+
+          
+          
+          {/* <Container sx={{ backgroundColor: 'red', display: 'flex', alignItems: 'center', justifyContent:'center'}}> */}
+          {/* {user.id && (
 
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Button
                 onClick={() => {
                   history.push('/home');
-                  handleCloseNavMenu();
                 }}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
@@ -182,9 +244,7 @@ function Nav({ open, toggleDrawer, drawerWidth }) {
               </Button>
               <Button
                 onClick={() => {
-                  history.push('/plans');
-
-                  handleCloseNavMenu();
+                  history.push('/budget');
                 }}
 
                 sx={{ my: 2, color: 'white', display: 'block' }}
@@ -194,43 +254,29 @@ function Nav({ open, toggleDrawer, drawerWidth }) {
               <Button
                 onClick={() => {
                   history.push('/about');
-                  handleCloseNavMenu();
                 }}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 About
               </Button>
             </Box>
-          )}
+            )} */}
+          {/* </Container> */}
+          
+            <Box sx={{ flexGrow: 0 }}>
+              {user.id ? <LogOutButton /> : ''}
+              <Menu
+                id="menu-appbar"
+              >
 
-          <Box sx={{ flexGrow: 0 }}>
-            {user.id ? <LogOutButton /> : ''}
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
+                <MenuItem onClick={() => {
+                  history.push('/login');
+                }}>
+                  <Typography textAlign="center">Log Out</Typography>
+                </MenuItem>
 
-              <MenuItem onClick={() => {
-                history.push('/login');
-                handleCloseUserMenu();
-              }}>
-                <Typography textAlign="center">Log Out</Typography>
-              </MenuItem>
-
-            </Menu>
-          </Box>
+              </Menu>
+            </Box>
         </Toolbar>
       </Container >
     </AppBar >
