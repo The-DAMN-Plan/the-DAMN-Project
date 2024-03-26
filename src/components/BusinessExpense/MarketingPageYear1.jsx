@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow,
     Typography, Box, FormControl, InputLabel, Select, MenuItem, Grid
 } from '@mui/material';
 // import Grid from '@mui/material/Unstable_Grid2';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
 import ProgressBar from '../ProgressBar/ProgressBar';
 
 
+
 function MarketingBudgetYear1() {
     const dispatch = useDispatch();
-    const { budgetId } = useParams();
+    const  budgetId  = useParams();
     const [expenseName, setExpenseName] = useState('');
     const [serviceProvider, setServiceProvider] = useState('');
     const [paymentInterval, setPaymentInterval] = useState('');
@@ -21,18 +22,31 @@ function MarketingBudgetYear1() {
     const [vendor, setVendor] = useState('');
     const [monthlyUsageCount, setMonthlyUsageCount] = useState('');
     const [marketingValues, setMarketingValues] = useState([]);
+    const expense = useSelector((store) => store.expense);
+    const filteredExpenses = expense.filter(item => item.type === 'business marketing');
+        console.log('business marketing', filteredExpenses);
+
+
+    useEffect(() => {
+        dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
+    }, [dispatch, budgetId]);
 
     const handleAddMarketingValue = () => {
         if (!expenseName || !costPerUse || !vendor) return; // Validate input
+        const budgetIdObj = budgetId.budgetId;
+        const expenseNumber = Number(costPerUse * monthlyUsageCount * 12).toFixed(2);
+        const newCostPerUse = Number(parseFloat(costPerUse).toFixed(2));
+        
         const newExpense = {
-            expenseName,
-            serviceProvider,
-            paymentInterval,
-            assetsNeeded,
-            costPerUse: parseFloat(costPerUse).toFixed(2), // Ensure costPerUse is properly formatted
-            vendor,
-            monthlyUsageCount,
-            budgetId
+            expense_name: expenseName,
+            facilitator: serviceProvider,
+            timing: paymentInterval,
+            assets_needed: assetsNeeded,
+            cost_per_use: newCostPerUse,
+            vendor: vendor,
+            frequency: monthlyUsageCount,
+            budget_id: budgetIdObj,
+            expense_amount: expenseNumber
         };
         setMarketingValues(prevValues => [...prevValues, newExpense]);
         resetForm();
@@ -61,7 +75,8 @@ function MarketingBudgetYear1() {
             ...item,
             type: 'business marketing', // Specify the type for the backend
         }));
-        dispatch({ type: 'ADD_BUSINESS_EXPENSE', payload: payload });
+        console.log("What are we sending:", payload);
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: payload });
 
         // Optionally, reset marketingValues after submission
         setMarketingValues([]);
@@ -142,6 +157,9 @@ function MarketingBudgetYear1() {
                     <Button variant="contained" color="primary" onClick={handleAddMarketingValue}>Add Marketing Value</Button>
                 </Grid>
             </Grid>
+            <Grid>
+                <button onClick={handleSubmitAll}>Save</button>
+            </Grid>
 
             <Table>
                 <TableHead>
@@ -161,20 +179,20 @@ function MarketingBudgetYear1() {
                 <TableBody>
                     {marketingValues.map((value, index) => (
                         <TableRow key={index}>
-                            <TableCell>{value.expenseName}</TableCell>
-                            <TableCell align="right">{value.serviceProvider}</TableCell>
-                            <TableCell align="right">{value.paymentInterval}</TableCell>
-                            <TableCell align="right">{value.assetsNeeded}</TableCell>
-                            <TableCell align="right"><Currency value={value.costPerUse} /></TableCell>
+                            <TableCell>{value.expense_name}</TableCell>
+                            <TableCell align="right">{value.facilitator}</TableCell>
+                            <TableCell align="right">{value.timing}</TableCell>
+                            <TableCell align="right">{value.assets_needed}</TableCell>
+                            <TableCell align="right"><Currency value={value.cost_per_use} /></TableCell>
                             <TableCell align="right">{value.vendor}</TableCell>
-                            <TableCell align="right">{value.monthlyUsageCount}</TableCell>
+                            <TableCell align="right">{value.frequency}</TableCell>
                             <TableCell align="right">
                                 {/* Calculate Monthly Expense */}
-                                <Currency value={value.monthlyUsageCount * value.costPerUse} />
+                                <Currency value={value.frequency * value.cost_per_use} />
                             </TableCell>
                             <TableCell align="right">
                                 {/* Calculate Yearly Expense */}
-                                <Currency value={value.monthlyUsageCount * value.costPerUse * 12} />
+                                <Currency value={value.frequency * value.cost_per_use * 12} />
                             </TableCell>
                             <TableCell align="center">
                                 <Button onClick={() => handleDeleteMarketingValue(index)} variant="contained" color="secondary">Delete</Button>
