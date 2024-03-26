@@ -59,7 +59,7 @@ export default function BreakEven() {
           </Grid>
           {/* {end} */}
         </Grid>
-        <ProgressBar next={'hrpagey1'} back={'hrpagey2'} value={98} budgetId={budgetId} />
+        <ProgressBar next={'cashflow'} back={'otherbusiness'} value={98} budgetId={budgetId} />
       </Box>
     </Container>
     </Main>
