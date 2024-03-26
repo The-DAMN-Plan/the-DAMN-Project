@@ -10,11 +10,11 @@ import Currency from '../Shared/Currency';
 
 function OtherExpenses() {
     const dispatch = useDispatch();
-    const budget = useSelector((store) => store.budget);
-    const open = useSelector(store=>store.sideNav);
-    const budgetObj = budget[0];
     const budgetId = useParams();
-
+    const expense = useSelector((store) => store.expense);
+    console.log('Expense array', expense);
+    const [formSubmitted, setFormSubmitted] = useState(false);
+    const open = useSelector(store=>store.sideNav);
     const [expenseName, setExpenseName] = useState('');
     const [amount, setAmount] = useState('');
     const [expenses, setExpenses] = useState([]);
@@ -29,7 +29,7 @@ function OtherExpenses() {
         setAmount('');
 
         const formData = {
-            budget_id: budgetObj.id,
+            budget_id: budgetId.budgetId,
             type: 'personal other',
             expense_name: expenseName,
             expense_amount: sanitizedAmount 
@@ -51,6 +51,10 @@ function OtherExpenses() {
         const newUserEntry = userEntry.filter((_, i) => i !== index);
         setUserEntry(newUserEntry);
     };
+    
+    const filteredExpenses = expense.filter(item => item.type === 'personal other');
+    console.log('personal other', filteredExpenses);
+    
 
     return (
         <Main open={open}>
@@ -85,8 +89,30 @@ function OtherExpenses() {
                             </TableCell>
                         </TableRow>
                     ))}
+                    {filteredExpenses?.map((expense, index) => (
+                        <TableRow key={index}>
+                            <TableCell>{expense.expense_name}</TableCell>
+                            <TableCell>
+                                <Currency  value={Number(expense.expense_amount)} />
+                            </TableCell>
+                            <TableCell>
+                                <Button onClick={() => handleDeleteExpense(index)}>Delete</Button>
+                            </TableCell>
+                        </TableRow>
+                    ))}
                 </TableBody>
             </Table>
+            <Box>
+            {formSubmitted ? (
+                            <Button type='button' onClick={handleEdit}>
+                                Edit
+                            </Button>
+                        ) : (
+                            <Button type='button' onClick={() => handleSubmit(event)}>
+                                Submit
+                            </Button>
+                        )}
+            </Box>
             <ProgressBar back={'futureplans'} next={'valuepay'} value={36} budgetId={budgetId}/>
         </Container>
         <Footer/>
