@@ -22,6 +22,7 @@ function* startPlan(action) {
 function* fetchBudget(action) {
     try {
         const response = yield axios.get(`/api/budget/${action.payload}`)
+        console.log(response.data);
         yield put({
             type: 'SET_FINAL_BUDGET',
             payload: response.data
@@ -29,6 +30,10 @@ function* fetchBudget(action) {
         yield put({
             type: 'SET_EXPENSE',
             payload: response.data[0].expenses
+        })
+        yield put({
+            type: 'SET_FUTURE_PLAN',
+            payload: response.data[0].future_plans
         })
     } catch(err) {
         console.log('Error getting working budget', err);

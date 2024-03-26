@@ -7,12 +7,13 @@ const router = express.Router();
  * POST route to insert data into the "future_plans" table
  */
 router.post('/', rejectUnauthenticated, async (req, res) => {
-    const queryText = `
+    const sql = `
         INSERT INTO future_plans (budget_id, name, start_date, end_date, savings_needed)
         VALUES ($1, $2, $3, $4, $5)
         RETURNING *;
     `;
     const data = req.body;
+    console.log(data);
     try {
         const result = await pool.query(sql, [data.budget_id, data.name, data.start_date, data.end_date, data.savings_needed]);
         res.send(result.rows);
