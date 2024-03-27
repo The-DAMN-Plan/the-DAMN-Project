@@ -13,7 +13,7 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 
 function MarketingBudgetYear1() {
     const dispatch = useDispatch();
-    const  budgetId  = useParams();
+    const budgetId = useParams();
     const [expenseName, setExpenseName] = useState('');
     const [serviceProvider, setServiceProvider] = useState('');
     const [paymentInterval, setPaymentInterval] = useState('');
@@ -24,7 +24,8 @@ function MarketingBudgetYear1() {
     const [marketingValues, setMarketingValues] = useState([]);
     const expense = useSelector((store) => store.expense);
     const filteredExpenses = expense.filter(item => item.type === 'business marketing');
-        console.log('business marketing', filteredExpenses);
+    const combinedExpenses = [...marketingValues, ...filteredExpenses]
+    console.log('business marketing', filteredExpenses);
 
 
     useEffect(() => {
@@ -36,7 +37,7 @@ function MarketingBudgetYear1() {
         const budgetIdObj = budgetId.budgetId;
         const expenseNumber = Number(costPerUse * monthlyUsageCount * 12).toFixed(2);
         const newCostPerUse = Number(parseFloat(costPerUse).toFixed(2));
-        
+
         const newExpense = {
             expense_name: expenseName,
             facilitator: serviceProvider,
@@ -62,13 +63,7 @@ function MarketingBudgetYear1() {
         setVendor('');
         setMonthlyUsageCount('');
     };
-
-    const handleDeleteMarketingValue = (index) => {
-        // Remove a marketing value from the list
-        const updatedValues = marketingValues.filter((_, i) => i !== index);
-        setMarketingValues(updatedValues);
-    };
-
+    
     const handleSubmitAll = () => {
         // Submit all marketing values
         const payload = marketingValues.map(item => ({
@@ -78,13 +73,22 @@ function MarketingBudgetYear1() {
         console.log("What are we sending:", payload);
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: payload });
 
-        // Optionally, reset marketingValues after submission
+        // Clear the form
         setMarketingValues([]);
     };
+    const handleDeleteMarketingValue = (index) => {
+        // Remove a marketing value from the list
+        const updatedValues = marketingValues.filter((_, i) => i !== index);
+        setMarketingValues(updatedValues);
+
+        const deletedValue = combinedExpenses.filter((_, i) => i !== index);
+        setMarketingValues(deletedValue);
+    };
+
 
     return (
-        <Container sx={{ paddingTop: '64px' }}>
-            <Typography variant="h4" gutterBottom >Marketing Budget</Typography>
+        <Container sx={{ paddingTop: '64px', paddingBottom: '64px' }}>
+            <Typography variant="h4" gutterBottom >Marketing Budget Year 1</Typography>
             <Grid container spacing={2} alignItems="center">
                 <Grid item xs={12} md={3}>
                     <TextField
@@ -157,11 +161,8 @@ function MarketingBudgetYear1() {
                     <Button variant="contained" color="primary" onClick={handleAddMarketingValue}>Add Marketing Value</Button>
                 </Grid>
             </Grid>
-            <Grid>
-                <button onClick={handleSubmitAll}>Save</button>
-            </Grid>
 
-            <Table>
+            <Table >
                 <TableHead>
                     <TableRow>
                         <TableCell>Service/ Item</TableCell>
@@ -195,14 +196,44 @@ function MarketingBudgetYear1() {
                                 <Currency value={value.frequency * value.cost_per_use * 12} />
                             </TableCell>
                             <TableCell align="center">
-                                <Button onClick={() => handleDeleteMarketingValue(index)} variant="contained" color="secondary">Delete</Button>
+                                <Button onClick={() => handleDeleteMarketingValue(index)} variant="outlined" color="secondary">Delete</Button>
                             </TableCell>
                         </TableRow>
                     ))}
-                </TableBody>
-            </Table>
-
-
+                        {marketingValues.map((value, index) => (
+                        <TableRow key={index}>
+                            <TableCell>{value.expense_name}</TableCell>
+                            <TableCell align="right">{value.facilitator}</TableCell>
+                            <TableCell align="right">{value.timing}</TableCell>
+                            <TableCell align="right">{value.assets_needed}</TableCell>
+                            <TableCell align="right"><Currency value={value.cost_per_use} /></TableCell>
+                            <TableCell align="right">{value.vendor}</TableCell>
+                            <TableCell align="right">{value.frequency}</TableCell>
+                            <TableCell align="right">
+                                {/* Calculate Monthly Expense */}
+                                <Currency value={value.frequency * value.cost_per_use} />
+                            </TableCell>
+                            <TableCell align="right">
+                                {/* Calculate Yearly Expense */}
+                                <Currency value={value.frequency * value.cost_per_use * 12} />
+                            </TableCell>
+                            <TableCell align="center">
+                                <Button onClick={() => handleDeleteMarketingValue(index)} variant="outlined" color="secondary">Delete</Button>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                    </TableBody>
+                </Table>
+                
+        
+            <Box paddingTop={'24px'}>
+            <Grid>
+                <Button onClick={handleSubmitAll}>
+                    Save
+                </Button>
+            </Grid>
+            </Box>
+        
             <ProgressBar next={'marketingy2'} back={'otherexpenses'} value={72} budgetId={budgetId} />
         </Container>
     );
