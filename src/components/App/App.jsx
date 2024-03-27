@@ -134,7 +134,7 @@ function App() {
               </Route>
 
               <Route exact path="/otherexpenses/:budgetId">
-                <OtherExpenses/>
+                <OtherExpenses />
               </Route>
 
               <Route exact path="/incomeyear1/:budgetId">
