@@ -20,6 +20,7 @@ function Year1Income() {
     const [price, setPrice] = useState('');
     const [unit, setUnit] = useState('');
     const [timeUsed, setTimeUsed] = useState('');
+    const [costPerDelivery, setCostPerDelivery] = useState('');
     const [idealClient, setIdealClient] = useState('');
     const [rateOfLove, setRateOfLove] = useState('');
     const [purchasers, setPurchasers] = useState('');
@@ -33,7 +34,7 @@ function Year1Income() {
   }, [dispatch, budgetId]);
     
     const handleAddRevenueStream = () => {
-        if (!revenueStream || !description || !price || !unit || !timeUsed || !idealClient || !rateOfLove || !purchasers) return;
+        if (!revenueStream || !description || !price || !unit || !timeUsed || !costPerDelivery || !idealClient || !rateOfLove || !purchasers) return;
         
         const newRevenueStream = {
             revenueStream,
@@ -41,6 +42,7 @@ function Year1Income() {
             price,
             unit,
             timeUsed,
+            costPerDelivery,
             idealClient,
             rateOfLove,
             purchasers
@@ -52,6 +54,7 @@ function Year1Income() {
         setPrice('');
         setUnit('');
         setTimeUsed('');
+        setCostPerDelivery('');
         setIdealClient('');
         setRateOfLove('');
         setPurchasers('');
@@ -66,7 +69,8 @@ function Year1Income() {
             ideal_client: idealClient,
             rate_of_love: rateOfLove,
             purchasers: purchasers,
-            year: 1
+            year: 1,
+            cost_per_delivery: costPerDelivery
         };
 
         setUserEntry([...userEntry, formData]);
@@ -109,7 +113,7 @@ return (
               <Grid item xs={12} sm={6} md={3}>
                 <TextField
                   fullWidth
-                  label="Name of Product"
+                  label="Name of Service/Product"
                   value={revenueStream}
                   onChange={(e) => setRevenueStream(e.target.value)}
                 />
@@ -146,6 +150,14 @@ return (
                   label="Time Used"
                   value={timeUsed}
                   onChange={(e) => setTimeUsed(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  fullWidth
+                  label="Cost Per Delivery"
+                  value={costPerDelivery}
+                  onChange={(e) => setCostPerDelivery(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
@@ -194,14 +206,16 @@ return (
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Name of Service</TableCell>
+                  <TableCell>Name of Service/Product</TableCell>
                   <TableCell>Description</TableCell>
                   <TableCell>Price</TableCell>
                   <TableCell>Unit</TableCell>
                   <TableCell>Time Used</TableCell>
+                  <TableCell>Cost Per Delivery</TableCell>
                   <TableCell>Ideal Clients</TableCell>
                   <TableCell>Love Rating</TableCell>
                   <TableCell>Purchasers</TableCell>
+                  <TableCell>Rate for Money</TableCell>
                   <TableCell>Action</TableCell>
                 </TableRow>
               </TableHead>
@@ -213,9 +227,11 @@ return (
                     <TableCell>{stream.price}</TableCell>
                     <TableCell>{stream.unit}</TableCell>
                     <TableCell>{stream.timeUsed}</TableCell>
+                    <TableCell>{stream.costPerDelivery}</TableCell>
                     <TableCell>{stream.idealClient}</TableCell>
                     <TableCell>{stream.rateOfLove}</TableCell>
                     <TableCell>{stream.purchasers}</TableCell>
+                    <TableCell>{(parseFloat((stream.price - stream.costPerDelivery) / stream.timeUsed)).toFixed(2)}</TableCell>
                     <TableCell>
                   <Button
                     variant="outlined"
@@ -234,9 +250,11 @@ return (
                     <TableCell>{income1.price}</TableCell>
                     <TableCell>{income1.unit}</TableCell>
                     <TableCell>{income1.time_used}</TableCell>
+                    <TableCell>{income1.cost_per_delivery}</TableCell>
                     <TableCell>{income1.ideal_client}</TableCell>
                     <TableCell>{income1.rate_of_love}</TableCell>
                     <TableCell>{income1.purchasers}</TableCell>
+                    <TableCell>{(parseFloat((income1.price - income1.cost_per_delivery) / income1.time_used)).toFixed(2)}</TableCell>
                     <TableCell>
                   <Button
                     variant="outlined"
