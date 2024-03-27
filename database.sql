@@ -173,3 +173,8 @@ ALTER TABLE "budgets"
 DROP CONSTRAINT IF EXISTS budgets_business_id_fkey, 
 ADD CONSTRAINT budgets_business_id_fkey FOREIGN KEY ("business_id") 
 REFERENCES businesses(id) ON DELETE CASCADE;
+
+-- Adds in the value pay stats so we can save them and pull them later
+ALTER TABLE "public"."budgets"
+  ADD COLUMN "vp_percent" numeric,
+  ADD COLUMN "vp_income" numeric;

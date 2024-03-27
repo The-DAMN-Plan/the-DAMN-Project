@@ -40,128 +40,126 @@ export default function RegisterForm() {
   }; // end registerUser
 
   return (
-    <Grid container>
+    <Grid container sx={{ height: '100vh' }}>
       <Grid xs={2} >
 
       </Grid>
       <Grid component='form' direction='column' autoComplete="off" alignItems="center" justifyContent="center" container spacing={2} xs={8} onSubmit={registerUser} >
-        <Paper sx={{ p: 3, m: 3 }}>
-          <Grid textAlign='center'>
-            <Typography variant='h5' sx={{mb:1}}>Register User</Typography>
-            {errors.loginMessage && (
-              <Typography variant='h6' className="alert" role="alert">
-                {errors.loginMessage}
-              </Typography>
-            )}
-          </Grid>
+        <Grid textAlign='center'>
+          <Typography variant='h2' color={'primary'} sx={{ mb: 1 }}>Register User</Typography>
+          {errors.loginMessage && (
+            <Typography variant='h6' className="alert" role="alert">
+              {errors.loginMessage}
+            </Typography>
+          )}
+        </Grid>
 
-          <Grid>
-            <TextField
-              fullWidth label='Username' variant="outlined"
-              type="text"
-              name="username"
-              sx={{ my: 0.5 }}
-              required
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-            />
-          </Grid>
-          <Grid>
-            <TextField
-              fullWidth label='Password'
-              variant="outlined"
-              type="password"
-              name="password"
-              sx={{ my: 0.5 }}
-              required
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </Grid>
-          <Grid>
-            <TextField
-              fullWidth label='Phone'
-              variant="outlined"
-              type="text"
-              name="phone"
-              sx={{ my: 0.5 }}
-              required
-              value={phone}
-              onChange={(event) => setPhone(event.target.value)}
-            />
-          </Grid>
-          <Grid>
-            <TextField
-              fullWidth label='First Name'
-              variant="outlined"
-              type="text"
-              name="firstName"
-              sx={{ my: 0.5 }}
-              required
-              value={firstName}
-              onChange={(event) => setfirstName(event.target.value)}
-            />
-          </Grid>
-          <Grid>
-            <TextField
-              fullWidth label='Last Name'
-              variant="outlined"
-              type="text"
-              name="lastName"
-              sx={{ my: 0.5 }}
-              required
-              value={lastName}
-              onChange={(event) => setlastName(event.target.value)}
-            />
-          </Grid>
-          <Grid>
-            <TextField
-              fullWidth label='Email'
-              variant="outlined"
-              type="text"
-              name="email"
-              sx={{ my: 0.5 }}
-              required
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </Grid>
-          <Grid>
-            <FormControlLabel
-              sx={{ my: 0.5 }}
-              control={
-                <Checkbox
-                  checked={agreeToEmails}
-                  onChange={(event) => setAgreeToEmails(event.target.checked)}
-                />}
-              label="Agree to Emails?" />
-          </Grid>
-          <Grid>
-            <Button fullWidth variant='contained'
-              className="btn"
-              type="submit"
-              name="submit"
-              value="Register"
-              sx={{ my: 0.5 }}
-            >
-              Register
-            </Button>
+        <Grid>
+          <TextField
+            fullWidth label='Username' variant="outlined"
+            type="text"
+            name="username"
+            sx={{ my: 0.5, width:'40vh' }}
+            required
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+          />
+        </Grid>
+        <Grid>
+          <TextField
+            fullWidth label='Password'
+            variant="outlined"
+            type="password"
+            name="password"
+            sx={{ my: 0.5,width:'40vh' }}
+            required
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </Grid>
+        <Grid>
+          <TextField
+            fullWidth label='Phone'
+            variant="outlined"
+            type="text"
+            name="phone"
+            sx={{ my: 0.5,width:'40vh' }}
+            required
+            value={phone}
+            onChange={(event) => setPhone(event.target.value)}
+          />
+        </Grid>
+        <Grid>
+          <TextField
+            fullWidth label='First Name'
+            variant="outlined"
+            type="text"
+            name="firstName"
+            sx={{ my: 0.5,width:'40vh' }}
+            required
+            value={firstName}
+            onChange={(event) => setfirstName(event.target.value)}
+          />
+        </Grid>
+        <Grid>
+          <TextField
+            fullWidth label='Last Name'
+            variant="outlined"
+            type="text"
+            name="lastName"
+            sx={{ my: 0.5,width:'40vh' }}
+            required
+            value={lastName}
+            onChange={(event) => setlastName(event.target.value)}
+          />
+        </Grid>
+        <Grid>
+          <TextField
+            fullWidth label='Email'
+            variant="outlined"
+            type="text"
+            name="email"
+            sx={{ my: 0.5,width:'40vh' }}
+            required
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </Grid>
+        <Grid>
+          <FormControlLabel
+            sx={{ my: 0.5 }}
+            control={
+              <Checkbox
+                checked={agreeToEmails}
+                onChange={(event) => setAgreeToEmails(event.target.checked)}
+              />}
+            label="Agree to Emails?" />
+        </Grid>
+        <Grid width={'50vh'}>
+          <Button fullWidth variant='contained'
+            className="btn"
+            type="submit"
+            name="submit"
+            value="Register"
+            sx={{ my: 0.5 }}
+          >
+            Register
+          </Button>
 
-            <Button fullWidth
-              variant='outlined'
-              color='secondary'
-              type="button"
-              className="btn btn_asLink"
-              sx={{ my: 0.5 }}
-              onClick={() => {
-                history.push('/login');
-              }}
-            >
-              Login
-            </Button>
-          </Grid>
+          <Button fullWidth
+            variant='outlined'
+            color='secondary'
+            type="button"
+            className="btn btn_asLink"
+            sx={{ my: 0.5 }}
+            onClick={() => {
+              history.push('/login');
+            }}
+          >
+            Login
+          </Button>
+        </Grid>
 
-        </Paper>
       </Grid>
       <Grid xs={2} >
 
