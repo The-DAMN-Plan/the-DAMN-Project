@@ -50,7 +50,8 @@ function* fetchBudget(action) {
 function* updateBudget(action) {
     try {
         console.log('payload', action.payload);
-        const response = yield axios.put(`/api/budget/expense`, action.payload);
+        const {budget_id} = action.payload
+        yield axios.put(`/api/budget/budget/${budget_id}`, action.payload);
 
     } catch(error) {
         console.log('Error updating budget', error);
