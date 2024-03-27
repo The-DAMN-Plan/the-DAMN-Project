@@ -10,6 +10,7 @@ function PBpage2() {
     const budgetId = useParams();
     const finalBudget = useSelector((store) => store.finalBudget);
     const expense = useSelector((store) => store.expense);
+    const status = useSelector((store) => store.status);
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [formValues, setFormValues] = useState({
         realEstateTax: '',
@@ -50,11 +51,7 @@ function PBpage2() {
         return expenseItem ? expenseItem.expense_amount : '';
     };
 
-
-
     const [userEntry, setUserEntry] = useState([])
-
-
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -88,29 +85,26 @@ function PBpage2() {
         });
     };
 
-    console.log(userEntry);
-
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-
         const updateObj = {
-            completed: true,
-            budget_id: Number(budgetId.budgetId),
+            completed: true, 
+            budget_id: Number(budgetId.budgetId), 
             step: 'fundamentalexpenses'
         }
 
-        dispatch({ type: 'UPDATE_STATUS', payload: updateObj }) // Will need to be set up later to post the completed step to the status table
-
-        setFormSubmitted(true);
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
+        dispatch({type: 'UPDATE_STATUS', payload: updateObj})
     };
 
-    const handleEdit = (event) => {
-        console.log('Edit MAMA');
+    const handleEdit = () => {
+        dispatch({ type: 'UPDATE_EXPENSE', payload: userEntry })
     }
-    return (
 
+    const isStartPlanCompleted = status.find(s => s.step === 'fundamentalexpenses')?.completed;
+
+    return (
+        <Main open={open}>
         <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
             <Typography variant="h5" align="center" gutterBottom>
                 Fundamental Bill Payments
@@ -118,7 +112,6 @@ function PBpage2() {
             <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
                 Take some time to think about monthly bill payments you must make.
             </Typography>
-
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={2} justifyContent="center">
                     <Grid item xs={12} md={6}>
@@ -154,15 +147,15 @@ function PBpage2() {
                             value={formValues.loanPayments}
                             onChange={handleInputChange}
                             sx={{ marginBottom: 2 }} />
-                        {formSubmitted ? (
-                            <Button type='button' onClick={handleEdit}>
-                                Edit
-                            </Button>
-                        ) : (
-                            <Button type='submit'>
-                                Submit
-                            </Button>
-                        )}
+                        {isStartPlanCompleted ? (
+                                <Button type='button' onClick={handleEdit}>
+                                    Update
+                                </Button>
+                                ) : (
+                                <Button type='submit'>
+                                    Save
+                                </Button>
+                            )}
                     </Grid>
                 </Grid>
                 <ProgressBar back={'startplan'} next={'personalsavings'} value={12} budgetId={budgetId} />
