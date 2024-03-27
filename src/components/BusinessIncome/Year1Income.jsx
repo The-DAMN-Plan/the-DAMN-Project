@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { InputLabel, Select, MenuItem, InputAdornment } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import Footer from '../Footer/Footer';
+import Main from '../Main/Main';
 
     
 function Year1Income() {
     const dispatch = useDispatch();
-    const budget = useSelector((store) => store.budget);
-    const budgetObj = budget[0]
     const budgetId = useParams();
+    const income = useSelector((store) => store.income);
+    console.log('INCOME', income);
 
     const [revenueStream, setRevenueStream] = useState('');
     const [description, setDescription] = useState('');
@@ -21,8 +23,14 @@ function Year1Income() {
     const [idealClient, setIdealClient] = useState('');
     const [rateOfLove, setRateOfLove] = useState('');
     const [purchasers, setPurchasers] = useState('');
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const [revenueStreams, setRevenueStreams] = useState([]);
     const [userEntry, setUserEntry] = useState([]);
+    const open = useSelector((store)=>store.sideNav);
+
+    useEffect(() => {
+      dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
+  }, [dispatch, budgetId]);
     
     const handleAddRevenueStream = () => {
         if (!revenueStream || !description || !price || !unit || !timeUsed || !idealClient || !rateOfLove || !purchasers) return;
@@ -49,7 +57,7 @@ function Year1Income() {
         setPurchasers('');
 
         const formData = {
-            budget_id: budgetObj.id,
+            budget_id: budgetId.budgetId,
             revenue_stream: revenueStream,
             description: description,
             price: price,
@@ -78,8 +86,17 @@ function Year1Income() {
         const newUserEntry = userEntry.filter((_, i) => i !== index);
         setUserEntry(newUserEntry);
     };
+
+    const deleteProductFromDB = (incomeId) => {
+      const budgetObjId = budgetId.budgetId;
+      dispatch({ type: 'DELETE_INCOME', payload: { incomeId, budgetObjId } });
+  };
+
+    const filteredIncomes = income.filter(item => item.year === 1);
+    console.log('Year 1', filteredIncomes);
     
 return (
+  <Main open={open}>
         <Container sx={{ paddingTop: '64px', paddingBottom: '64px' }}>
           <Typography variant="h4" gutterBottom align="center">
             Year 1 Business Income
@@ -210,11 +227,46 @@ return (
                 </TableCell>
               </TableRow>
             ))}
+            {filteredIncomes?.map((income1) => (
+                  <TableRow key={income1.id}>
+                    <TableCell>{income1.revenue_stream}</TableCell>
+                    <TableCell>{income1.description}</TableCell>
+                    <TableCell>{income1.price}</TableCell>
+                    <TableCell>{income1.unit}</TableCell>
+                    <TableCell>{income1.time_used}</TableCell>
+                    <TableCell>{income1.ideal_client}</TableCell>
+                    <TableCell>{income1.rate_of_love}</TableCell>
+                    <TableCell>{income1.purchasers}</TableCell>
+                    <TableCell>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => deleteProductFromDB(income1.id)}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
+        <Box>
+            {formSubmitted ? (
+                            <Button type='button' onClick={handleEdit}>
+                                Update
+                            </Button>
+                        ) : (
+                            <Button type='button' onClick={() => handleSubmit(event)}>
+                                Save
+                            </Button>
+                        )}
+            </Box>
       </Paper>
         <ProgressBar back={'valuepay'} next={'incomeyear2'} submit={handleSubmit} value={42} budgetId={budgetId}/>
     </Container>
+    <Footer/>
+    
+    </Main>
   );
 }
 

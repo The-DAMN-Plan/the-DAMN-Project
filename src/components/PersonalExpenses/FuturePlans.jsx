@@ -54,12 +54,19 @@ function FuturePlans() {
         setAmount('');
     };
 
+    // Deletes an future plan from the ta ble before it's added to the DB
     const handleDeleteExpense = (index) => {
         const newExpenses = expenses.filter((_, i) => i !== index);
         setExpenses(newExpenses);
 
         const newUserEntry = userEntry.filter((_, i) => i !== index);
         setUserEntry(newUserEntry);
+    };
+
+    // Deletes a future plan that's already been added to the DB
+    const handleDeleteFromDB = (futurePlanId) => {
+        const budgetObjId = budgetId.budgetId;
+        dispatch({ type: 'DELETE_FUTURE_PLAN', payload: { futurePlanId, budgetObjId } });
     };
     
 console.log('user entry',userEntry);
@@ -115,7 +122,7 @@ console.log('user entry',userEntry);
                             <TableCell>{`${moment(plan.end_date).diff(moment(plan.start_date), 'months')}`}</TableCell>
                             <TableCell>{`$${plan.savings_needed}`}</TableCell>
                             <TableCell>
-                                <Button onClick={() => handleDeleteExpense(index)}>Delete</Button>
+                                <Button onClick={() => handleDeleteFromDB(plan.id)}>Delete</Button>
                             </TableCell>
                         </TableRow>
                     ))}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Container, Grid, Paper, Typography, Button } from '@mui/material';
+import { Box, Container, Grid, Paper, Typography, Button, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import InputLabel from '@mui/material/InputLabel';
@@ -16,11 +16,19 @@ function UserPage() {
   const budget = useSelector((store) => store.budget);
   const budgetObj = budget[0];
   const business = useSelector((store) => store.business);
+  const [name, setName] = useState('');
+  const [pendingCreate, setPendingCreate] = useState(false);
   console.log(budget);
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_BUSINESS' })
+    dispatch({ type: 'FETCH_BUSINESS' });
   }, [dispatch]);
+
+  useEffect(() => {
+    if (pendingCreate) {
+      history.push(`/startplan/${budgetObj.id}`);
+    }
+  }, [budgetObj]);
 
   const [selectedBusiness, setSelectedBusiness] = useState('');
   const [open, setOpen] = React.useState(false);
@@ -42,22 +50,23 @@ function UserPage() {
     if (selectedBusinessObj) {
       const budgetData = {
         business_id: selectedBusinessObj.id, // Get the business_id of the selected business
-        name: 'test'
+        name: name
       }
       dispatch({ type: 'START_PLAN', payload: budgetData })
-      history.push(`/startplan/${budgetObj.id}`);
+      setPendingCreate(true);
     } else {
       console.error('No business selected for starting a plan.');
     }
+    setName('');
   }
 
   return (
     <Container maxWidth="lg">
-      <Grid container spacing={3} sx={{mt:4}}>
+      <Grid container spacing={3} sx={{ mt: 4 }}>
         <Grid item xs={6}>
           <Paper style={{ maxHeight: '400px', overflowY: 'auto' }}>
             <Box p={3}>
-              <Typography variant="h5" gutterBottom textAlign='center'>
+              <Typography variant="h3" color={'primary'} gutterBottom textAlign='center'>
                 Your Businesses
               </Typography>
               {business.length === 0 ? (
@@ -66,7 +75,7 @@ function UserPage() {
                 </Typography>
               ) : (
                 business.map(item => (
-                  <Typography key={item.id} variant='body1'>
+                  <Typography sx={{ my: 1 }} key={item.id} variant='body1'>
                     {item.name}
                   </Typography>
                 ))
@@ -84,13 +93,17 @@ function UserPage() {
           </Paper>
         </Grid>
         <Grid item xs={6}>
-          <Paper>
+          <Paper sx={{ p: 2 }}>
+            <Typography variant="h3" color={'primary'} gutterBottom textAlign='center'>
+              Create a Plan
+            </Typography>
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <InputLabel id="business-select-label">Select Business</InputLabel>
                 <Select
                   labelId="business-select-label"
                   id="business-select"
+                  label="Select Business"
                   value={selectedBusiness}
                   onChange={handleChange}
                 >
@@ -100,13 +113,11 @@ function UserPage() {
                     </MenuItem>
                   ))}
                 </Select>
+                <TextField sx={{ my: 1 }} value={name} onChange={(e) => setName(e.target.value)} label="Plan Name" />
               </FormControl>
             </Box>
             <Box p={3}>
               {/* Need a reducer for budgets and loop over budgets associated with that business */}
-              <Typography variant="h5" gutterBottom>
-                Budgets
-              </Typography>
               <Box display="flex" justifyContent="space-between" marginBottom="10px">
                 <Button variant="contained" color="primary" onClick={() => startPlan()}>
                   Start a New Plan

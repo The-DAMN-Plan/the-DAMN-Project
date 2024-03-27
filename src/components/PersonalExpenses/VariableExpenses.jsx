@@ -7,11 +7,9 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function VariableExpenses() {
     const dispatch = useDispatch();
-    const budget = useSelector((store) => store.budget);
     const budgetId = useParams();
-    const finalBudget = useSelector((store) => store.finalBudget);
-    const expense = useSelector((store) => store.expense)
-    const [formSubmitted, setFormSubmitted] = useState(false);
+    const expense = useSelector((store) => store.expense);
+    const status = useSelector((store) => store.status);
     const [userEntry, setUserEntry] = useState([])
     const [formValues, setFormValues] = useState({
         food: '',
@@ -23,13 +21,6 @@ function VariableExpenses() {
         carRepairs: '',
         homeMaintenance: ''
     });
-
-
-    console.log(formValues);
-
-    console.log('Expense reducer', expense);
-    console.log('URL', budgetId);
-    console.log('Big budget object', finalBudget);
 
     useEffect(() => {
         dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
@@ -91,19 +82,26 @@ function VariableExpenses() {
         });
     };
 
-    console.log(userEntry);
-
     const handleSubmit = (event) => {
         event.preventDefault();
-
+        
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-        // dispatch({type: 'UPDATE_STATUS', payload: ''}) // Will need to be set up later to post the completed step to the status table
-        setFormSubmitted(true);
+
+        const updateObj = {
+            completed: true,
+            budget_id: Number(budgetId.budgetId),
+            step: 'variableexpenses'
+        }
+
+        dispatch({ type: 'UPDATE_STATUS', payload: updateObj }) // Will need to be set up later to post the completed step to the status table
     };
 
-    const handleEdit = (event) => {
-        console.log('Edit MAMA');
+    const handleEdit = () => {
+        console.log('Update', userEntry);
+        dispatch({ type: 'UPDATE_EXPENSE', payload: userEntry })
     }
+
+    const isStartPlanCompleted = status.find(s => s.step === 'startplan')?.completed;
 
     return (
         <Container maxWidth="md">
@@ -114,7 +112,6 @@ function VariableExpenses() {
                 <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
                     On this page take some time to think about your monthly expenses that change and try to come up with an average of what you pay.
                 </Typography>
-
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2} justifyContent="center">
                         <Grid item xs={12} md={6}>
@@ -128,15 +125,15 @@ function VariableExpenses() {
                             <TextField name="gas" label="Gas" fullWidth value={formValues.gas} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="carRepairs" label="Car Repairs" fullWidth value={formValues.carRepairs} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="homeMaintenance" label="Home Maintenance" fullWidth value={formValues.homeMaintenance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            {formSubmitted ? (
-                            <Button type='button' onClick={handleEdit}>
-                                Edit
-                            </Button>
-                        ) : (
-                            <Button type='submit'>
-                                Submit
-                            </Button>
-                        )}
+                            {isStartPlanCompleted ? (
+                                <Button type='button' onClick={handleEdit}>
+                                    Update
+                                </Button>
+                                ) : (
+                                <Button type='submit'>
+                                    Save
+                                </Button>
+                            )}
                         </Grid>
                     </Grid>
                     <ProgressBar next={'futureplans'} back={'personalsavings'} value={24} budgetId={budgetId}/>

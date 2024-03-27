@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
@@ -19,6 +19,10 @@ function OtherExpenses() {
     const [amount, setAmount] = useState('');
     const [expenses, setExpenses] = useState([]);
     const [userEntry, setUserEntry] = useState([]);
+
+    useEffect(() => {
+        dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
+    }, [dispatch, budgetId]);
 
     const handleAddExpense = () => {
         if (!expenseName || !amount) return;
@@ -50,6 +54,11 @@ function OtherExpenses() {
 
         const newUserEntry = userEntry.filter((_, i) => i !== index);
         setUserEntry(newUserEntry);
+    };
+
+    const handleDeleteFromDB = (expenseId) => {
+        const budgetObjId = budgetId.budgetId;
+        dispatch({ type: 'DELETE_EXPENSE', payload: { expenseId, budgetObjId } });
     };
     
     const filteredExpenses = expense.filter(item => item.type === 'personal other');
@@ -89,14 +98,14 @@ function OtherExpenses() {
                             </TableCell>
                         </TableRow>
                     ))}
-                    {filteredExpenses?.map((expense, index) => (
-                        <TableRow key={index}>
+                    {filteredExpenses?.map((expense) => (
+                        <TableRow key={expense.id}>
                             <TableCell>{expense.expense_name}</TableCell>
                             <TableCell>
                                 <Currency  value={Number(expense.expense_amount)} />
                             </TableCell>
                             <TableCell>
-                                <Button onClick={() => handleDeleteExpense(index)}>Delete</Button>
+                                <Button onClick={() => handleDeleteFromDB(expense.id)}>Delete</Button>
                             </TableCell>
                         </TableRow>
                     ))}

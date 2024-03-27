@@ -9,6 +9,8 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import Footer from '../Footer/Footer';
+import Main from '../Main/Main';
+
 
 
 
@@ -24,8 +26,15 @@ function MarketingBudgetYear1() {
     const [costPerUse, setCostPerUse] = useState('');
     const [vendor, setVendor] = useState('');
     const [monthlyUsageCount, setMonthlyUsageCount] = useState('');
+
     const [userEntry, setuserEntry] = useState([]);
     const [expenses, setExpenses] = useState([]);
+
+
+
+    const open = useSelector((store)=>store.sideNav);
+
+
     const filteredExpenses = expense.filter(item => item.type === 'business marketing');
     console.log('business marketing', filteredExpenses);
 
@@ -89,8 +98,11 @@ console.log('Marketing Data entered by User', userEntry);
 
 
     return (
-        <Container sx={{ paddingTop: '64px', paddingBottom: '64px' }}>
+
+        <Main open={open}>
+        <Container sx={{ paddingTop: '64px' }}>
             <Typography variant="h4" gutterBottom >Marketing Budget Year 1</Typography>
+
             <Grid container spacing={2} alignItems="center">
                 <Grid item xs={12} md={3}>
                     <TextField
@@ -239,6 +251,8 @@ console.log('Marketing Data entered by User', userEntry);
             <ProgressBar next={'marketingy2'} back={'otherexpenses'} value={72} budgetId={budgetId} />
             <Footer/>
         </Container>
+        <Footer/>
+        </Main>
     );
 }
 

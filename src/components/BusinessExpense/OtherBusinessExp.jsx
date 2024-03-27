@@ -1,95 +1,128 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { useParams } from 'react-router-dom/cjs/react-router-dom';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
+import Currency from '../Shared/Currency';
 
-export default function OtherBusinessExp(params) {
+
+function OtherBusinessExp() {
     const dispatch = useDispatch();
-    const history = useHistory();
-    const budget = useSelector((store) => store.budget);
-    const budgetObj = budget[0];
     const budgetId = useParams();
+    const expense = useSelector((store) => store.expense);
+    const [formSubmitted, setFormSubmitted] = useState(false);
+    const open = useSelector(store=>store.sideNav);
+    const [expenseName, setExpenseName] = useState('');
+    const [amount, setAmount] = useState('');
+    const [expenses, setExpenses] = useState([]);
+    const [userEntry, setUserEntry] = useState([]);
 
-    //default values for each input start at 0 incase user does not input anything 
+    useEffect(() => {
+        dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
+    }, [dispatch, budgetId]);
 
-    const [formValues, setFormValues] = useState({
-        cellPhones: '',
-        internet: '',
-        printPublish: '',
-        softwareTech: '',
-        officeSupply: '',
-        miscellaneous: ''
-    });
+    const handleAddExpense = () => {
+        if (!expenseName || !amount) return;
+        // Remove any non-numeric characters except for a decimal point and a minus sign
+        const sanitizedAmount = amount.replace(/[^\d.-]/g, '');
+        setExpenses([...expenses, { name: expenseName, amount: parseFloat(sanitizedAmount).toFixed(2) }]);
+        setExpenseName('');
+        setAmount('');
 
-
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-
-        const existingIndex = userEntry.findIndex(item => item.expense_name === name);
-
-        // If the formData object exists, update its expense_amount
-        if (existingIndex !== -1) {
-            const updatedUserEntry = [...userEntry];
-            updatedUserEntry[existingIndex] = {
-                ...updatedUserEntry[existingIndex],
-                expense_amount: value
-            };
-            setUserEntry(updatedUserEntry);
-        } else {
-            // If the formData object doesn't exist, create a new one
-            const formData = {
-                budget_id: budgetObj.id,
-                type: 'business expense',
-                expense_name: name,
-                expense_amount: value
-            };
-            setUserEntry([...userEntry, formData]);
-        }
-
-        // Update the form values
-        setFormValues({
-            ...formValues,
-            [name]: value,
-        });
+        const formData = {
+            budget_id: budgetId.budgetId,
+            type: 'business other',
+            expense_name: expenseName,
+            expense_amount: sanitizedAmount 
+        };
+        setUserEntry([...userEntry, formData]);
     };
-
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log(userEntry);
-        dispatch({ type: 'ADD_BUSINESS_EXPENSE', payload: userEntry });
+
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
     };
+
+    const handleDeleteExpense = (index) => {
+        const newExpenses = expenses.filter((_, i) => i !== index);
+        setExpenses(newExpenses);
+
+        const newUserEntry = userEntry.filter((_, i) => i !== index);
+        setUserEntry(newUserEntry);
+    };
+
+    const handleDeleteFromDB = (expenseId) => {
+        const budgetObjId = budgetId.budgetId;
+        dispatch({ type: 'DELETE_EXPENSE', payload: { expenseId, budgetObjId } });
+    };
+    
+    const filteredExpenses = expense.filter(item => item.type === 'business other');
+    
     return (
-        <Container maxWidth="md">
-            <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Business Expense
-                </Typography>
-                <Typography variant="h5" align="center" gutterBottom>
-                    Fundamental Business Expenses
-                </Typography>
+        <Main open={open}>
+            <Container sx={{ paddingTop: '64px' }}> {/* Adjust this value based on the height of your nav bar */}
+            <Typography variant="h4" gutterBottom>
+                Other Business Expenses
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+                Enter any additional expenses you have here. You can add as many as you need.
+            </Typography>
+            <TextField label="Name of Expense" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
+            <TextField label="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
+            <Button onClick={handleAddExpense}>Submit</Button>
 
-
-                <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2} justifyContent="center">
-                        <Grid item xs={12} md={6}>
-                            <TextField name='cellPhones' label="Cell Phones" fullWidth value={formValues.cellPhones} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="internet" label="Internet & Utilities" fullWidth value={formValues.internet} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="printPublish" label="Printing & Publishing" fullWidth value={formValues.printPublish} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <TextField name="softwareTech" label="Software & Technology" fullWidth value={formValues.softwareTech} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="officeSupply" label="Office Supplies" fullWidth value={formValues.officeSupply} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="miscellaneous" label="Miscellaneous" fullWidth value={formValues.miscellaneous} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                        </Grid>
-                    </Grid>
-                </form>
-
-            </Paper>
-            <ProgressBar back={''} next={'breakeven'} value={95} budgetId={budgetId} />
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Name of Expense</TableCell>
+                        <TableCell>Amount</TableCell>
+                        <TableCell>Delete</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {expenses.map((expense, index) => (
+                        <TableRow key={index}>
+                            <TableCell>{expense.name}</TableCell>
+                            <TableCell>
+                                <Currency  value={expense.amount} />
+                            </TableCell>
+                            <TableCell>
+                                <Button onClick={() => handleDeleteExpense(index)}>Delete</Button>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                    {filteredExpenses?.map((expense) => (
+                        <TableRow key={expense.id}>
+                            <TableCell>{expense.expense_name}</TableCell>
+                            <TableCell>
+                                <Currency  value={Number(expense.expense_amount)} />
+                            </TableCell>
+                            <TableCell>
+                                <Button onClick={() => handleDeleteFromDB(expense.id)}>Delete</Button>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+            <Box>
+            {formSubmitted ? (
+                            <Button type='button' onClick={handleEdit}>
+                                Edit
+                            </Button>
+                        ) : (
+                            <Button type='button' onClick={() => handleSubmit(event)}>
+                                Save
+                            </Button>
+                        )}
+            </Box>
+            <ProgressBar back={'hrpagey2'} next={'breakeven'} value={95} budgetId={budgetId} />
         </Container>
-    )
-
+        <Footer/>
+        </Main>
+    );
 }
+
+export default OtherBusinessExp;
