@@ -14,6 +14,8 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 function MarketingBudgetYear1() {
     const dispatch = useDispatch();
     const budgetId = useParams();
+    const expense = useSelector((store) => store.expense);
+    console.log('Expeense Array:', expense);
     const [expenseName, setExpenseName] = useState('');
     const [serviceProvider, setServiceProvider] = useState('');
     const [paymentInterval, setPaymentInterval] = useState('');
@@ -21,24 +23,19 @@ function MarketingBudgetYear1() {
     const [costPerUse, setCostPerUse] = useState('');
     const [vendor, setVendor] = useState('');
     const [monthlyUsageCount, setMonthlyUsageCount] = useState('');
-    const [marketingValues, setMarketingValues] = useState([]);
-    const expense = useSelector((store) => store.expense);
+    const [userEntry, setuserEntry] = useState([]);
+    const [expenses, setExpenses] = useState([]);
     const filteredExpenses = expense.filter(item => item.type === 'business marketing');
-    const combinedExpenses = [...marketingValues, ...filteredExpenses]
     console.log('business marketing', filteredExpenses);
 
 
-    useEffect(() => {
-        dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
-    }, [dispatch, budgetId]);
-
-    const handleAddMarketingValue = () => {
+    const handleAddExpense = () => {
         if (!expenseName || !costPerUse || !vendor) return; // Validate input
         const budgetIdObj = budgetId.budgetId;
         const expenseNumber = Number(costPerUse * monthlyUsageCount * 12).toFixed(2);
         const newCostPerUse = Number(parseFloat(costPerUse).toFixed(2));
 
-        const newExpense = {
+        const formData = {
             expense_name: expenseName,
             facilitator: serviceProvider,
             timing: paymentInterval,
@@ -47,14 +44,29 @@ function MarketingBudgetYear1() {
             vendor: vendor,
             frequency: monthlyUsageCount,
             budget_id: budgetIdObj,
-            expense_amount: expenseNumber
+            expense_amount: expenseNumber,
+            type: 'business marketing'
         };
-        setMarketingValues(prevValues => [...prevValues, newExpense]);
+        setuserEntry([...userEntry, formData]);
         resetForm();
+    };
+    console.log(userEntry);
+
+    useEffect(() => {
+        dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
+    }, [dispatch, budgetId]);
+    
+    const handleDeleteExpense = (index) => {
+        // Remove a marketing value from the list
+        const updatedValues = userEntry.filter((_, i) => i !== index);
+        setuserEntry(updatedValues);
+
+        const deletedValue = expenses.filter((_, i) => i !== index);
+        setuserEntry(deletedValue);
     };
 
     const resetForm = () => {
-        // Reset form fields after adding a new marketing value
+        // Reset form fields after adding a new expense
         setExpenseName('');
         setServiceProvider('');
         setPaymentInterval('');
@@ -64,26 +76,6 @@ function MarketingBudgetYear1() {
         setMonthlyUsageCount('');
     };
     
-    const handleSubmitAll = () => {
-        // Submit all marketing values
-        const payload = marketingValues.map(item => ({
-            ...item,
-            type: 'business marketing', // Specify the type for the backend
-        }));
-        console.log("What are we sending:", payload);
-        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: payload });
-
-        // Clear the form
-        setMarketingValues([]);
-    };
-    const handleDeleteMarketingValue = (index) => {
-        // Remove a marketing value from the list
-        const updatedValues = marketingValues.filter((_, i) => i !== index);
-        setMarketingValues(updatedValues);
-
-        const deletedValue = combinedExpenses.filter((_, i) => i !== index);
-        setMarketingValues(deletedValue);
-    };
 
 
     return (
@@ -158,7 +150,7 @@ function MarketingBudgetYear1() {
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button variant="contained" color="primary" onClick={handleAddMarketingValue}>Add Marketing Value</Button>
+                    <Button variant="contained" color="primary" onClick={handleAddExpense}>Add Marketing Value</Button>
                 </Grid>
             </Grid>
 
@@ -178,7 +170,7 @@ function MarketingBudgetYear1() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {marketingValues.map((value, index) => (
+                    {userEntry.map((value, index) => (
                         <TableRow key={index}>
                             <TableCell>{value.expense_name}</TableCell>
                             <TableCell align="right">{value.facilitator}</TableCell>
@@ -196,11 +188,11 @@ function MarketingBudgetYear1() {
                                 <Currency value={value.frequency * value.cost_per_use * 12} />
                             </TableCell>
                             <TableCell align="center">
-                                <Button onClick={() => handleDeleteMarketingValue(index)} variant="outlined" color="secondary">Delete</Button>
+                                <Button onClick={() => handleDeleteExpense(index)} variant="outlined" color="secondary">Delete</Button>
                             </TableCell>
                         </TableRow>
                     ))}
-                        {marketingValues.map((value, index) => (
+                        {userEntry.map((value, index) => (
                         <TableRow key={index}>
                             <TableCell>{value.expense_name}</TableCell>
                             <TableCell align="right">{value.facilitator}</TableCell>
@@ -218,7 +210,7 @@ function MarketingBudgetYear1() {
                                 <Currency value={value.frequency * value.cost_per_use * 12} />
                             </TableCell>
                             <TableCell align="center">
-                                <Button onClick={() => handleDeleteMarketingValue(index)} variant="outlined" color="secondary">Delete</Button>
+                                <Button onClick={() => handleDeleteExpense(index)} variant="outlined" color="secondary">Delete</Button>
                             </TableCell>
                         </TableRow>
                     ))}
@@ -228,7 +220,7 @@ function MarketingBudgetYear1() {
         
             <Box paddingTop={'24px'}>
             <Grid>
-                <Button onClick={handleSubmitAll}>
+                <Button onClick={handleSubmit}>
                     Save
                 </Button>
             </Grid>
