@@ -21,15 +21,10 @@ import LoginButton from '../LogInButton/LoginButton';
 function Nav({ drawerWidth }) {
   const user = useSelector((store) => store.user);
   const open = useSelector((store)=> store.sideNav);
-  let { budgetId } = useParams();
-  
   const history = useHistory();
   const location = useLocation();
-  console.log(location);
-  console.log(budgetId);
-  console.log(history);
 
-  // list of routes where side bar is available for the user
+  // list of routes where side bar is not accessable (available)
   const listOfRoutes = [
     `/user`,
     `/info`,
@@ -38,7 +33,6 @@ function Nav({ drawerWidth }) {
     `/login`,
     `/registration`,
     `/plans`
-
   ]
   
   const dispatch = useDispatch();
@@ -46,9 +40,9 @@ function Nav({ drawerWidth }) {
         dispatch({
             type: 'TOGGLE_SIDE_NAV'
         })
-        
     }
 
+  // AppBar wrapper to move the app bar to the right when drawer opens
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
   })(({ theme, open }) => ({
@@ -57,35 +51,36 @@ function Nav({ drawerWidth }) {
       duration: theme.transitions.duration.leavingScreen,
     }),
     ...(open && {
-      width: listOfRoutes.includes(location.pathname) ? `calc(100%-${drawerWidth}px)` : `calc(100%)`,
-      marginLeft: `${0}px`,
+      width: listOfRoutes.includes(location.pathname) ? `calc(10%-${drawerWidth}px)` : `calc(100%)`,
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
     }),
   }));
-  // width: listOfRoutes.includes(location.pathname) ? `calc(108% - ${drawerWidth}px)` : `calc(100%)`,
 
   return (
     <AppBar position="fixed" open={open} >
-      < Container  maxWidth='xl' >
-        <Toolbar disableGutters sx={{display: 'flex', alignItems: 'right', justifyContent:'left'}}>
-
-              {!listOfRoutes.includes(location.pathname) &&<Box>
-               <> 
-                    <IconButton
-                      color="inherit"
-                      aria-label="open drawer"
-                      onClick={()=>toggleDrawer()}
-                      sx={{ ...(open && { display: 'none' }) }}
-                    >
-                      <MenuIcon />
-                    </IconButton>
-                    <SideNav drawerWidth={drawerWidth}/>
+      < Container maxWidth='xl' >
+        <Toolbar disableGutters sx={{display: 'flex', alignItems: 'right', justifyContent:'space-between'}}>
+              {/* Menu Icon */}
+              {!listOfRoutes.includes(location.pathname) &&
+              <Box>
+                <> 
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={()=>toggleDrawer()}
+                    sx={{ ...(open && { display: 'none' }) }}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                  <SideNav drawerWidth={drawerWidth}/>
                 </>
               </Box>}
-              <Box>
+
+              {/*Logo  */}
+              {!open&&<Box>
                 <Typography
               variant="h6"
               noWrap
@@ -101,15 +96,54 @@ function Nav({ drawerWidth }) {
             >
               The DAMN Plan
             </Typography>
-            </Box>
-            
+            </Box>}
+
+            {open ?
+            <>
+            <Container>
+              <Box sx={{display:'flex', backgroundColor:'#fff', alignItems:'center'}}>
+                  <Button 
+                  onClick={() => {
+                    history.push('/home');
+                  }}>
+                  Home
+                </Button>
+
+                {user.id &&
+                <Button
+                onClick={() => {
+                  history.push('/budget');
+                }}>Plans</Button>}
+
+                <Button
+                onClick={() => {
+                  history.push('/about');
+                }}>About</Button>
+
+                {user.id &&<Button
+                onClick={() => {
+                  history.push('/info');
+                }}>info</Button>}
+                  
+              </Box>
 
               
-
+            </Container>
+            <Box sx={{ flexGrow: 1 }}>
+                {user.id ? <LogOutButton/> :
+                  <Button
+                    color='secondary'
+                    variant='contained'
+                    onClick={()=>history.push('/login')}>
+                    Log In
+                  </Button>
+                }
+            </Box>
+            
+            </>:
+            <>
               <Box>
-
                 <Box sx={{display:'flex', backgroundColor:'#fff', alignItems:'center', justifyContent:'center'}}>
-                
                     <Button 
                     onClick={() => {
                       history.push('/home');
@@ -117,42 +151,39 @@ function Nav({ drawerWidth }) {
                     Home
                   </Button>
 
-                    
-                    <Button
-                    onClick={() => {
-                      history.push('/budget');
-                    }}
+                  {user.id &&
+                  <Button
+                  onClick={() => {
+                    history.push('/budget');
+                  }}>Plans</Button>}
 
-      
-                  >
-                    New Budget
-                  </Button>
-                  
-                    
-                    <Button
-                    onClick={() => {
-                      history.push('/info');
-                    }}
-                  >
-                    info
-                  </Button>
+                  <Button
+                  onClick={() => {
+                    history.push('/about');
+                  }}>About</Button>
+
+                  {user.id &&<Button
+                  onClick={() => {
+                    history.push('/info');
+                  }}>info</Button>}
                     
                 </Box>
               </Box>
           
-            <Box sx={{ flexGrow: 0 }}>
-              
-              {user.id ? <LogOutButton/> :
-                <Button
-                  color='secondary'
-                  variant='contained'
-                  onClick={()=>history.push('/login')}>
-                  Log In
-                </Button>
-              }
-            </Box>
+              <Box sx={{ flexGrow: 0 }}>
+                {user.id ? <LogOutButton/> :
+                  <Button
+                    color='secondary'
+                    variant='contained'
+                    onClick={()=>history.push('/login')}>
+                    Log In
+                  </Button>
+                }
+              </Box>
+            </>}
+            
         </Toolbar>
-      </Container >
+      </Container>
     </AppBar >
 
   )
