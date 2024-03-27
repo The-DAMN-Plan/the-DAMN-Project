@@ -14,7 +14,6 @@ function StartPlan() {
     const open = useSelector(store=>store.sideNav);
     const expense = useSelector((store) => store.expense);
     const status = useSelector((store) => store.status);
-    console.log(status);
     const [formValues, setFormValues] = useState({
         rentOrMortgage: '',
         electric: '',
@@ -25,11 +24,6 @@ function StartPlan() {
         childcare: '',
     });
 
-    console.log(formValues);
-
-    console.log('Expense reducer', expense);
-    console.log('URL', budgetId);
-    console.log('Big budget object', finalBudget);
 
     useEffect(() => {
         dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
@@ -102,9 +96,9 @@ function StartPlan() {
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
         dispatch({type: 'UPDATE_STATUS', payload: updateObj}) // Will need to be set up later to post the completed step to the status table
     };
-    console.log('1111',userEntry);
+
     const handleEdit = () => {
-        console.log('2222', userEntry);
+        console.log('Update', userEntry);
         dispatch({ type: 'UPDATE_EXPENSE', payload: userEntry })
     }
 
