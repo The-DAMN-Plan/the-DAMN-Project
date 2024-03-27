@@ -27,6 +27,7 @@ import Year1Income from '../BusinessIncome/Year1Income';
 import Year2Income from '../BusinessIncome/Year2Income';
 import BEOverview from '../BEOverview/BEOverview';
 import MarketingPageYear1 from '../BusinessExpense/MarketingPageYear1';
+import MarketingPageYear2 from '../BusinessExpense/MarketingPageYear2';
 
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
@@ -169,7 +170,7 @@ function App() {
               </Route> */}
 
               <Route exact path="/marketingy2/:budgetId">
-                <MarketingPageYear1 />
+                <MarketingPageYear2 />
               </Route>
 
               <Route exact path="/hrpagey1/:budgetId">

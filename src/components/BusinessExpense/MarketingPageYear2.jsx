@@ -14,7 +14,7 @@ import Main from '../Main/Main';
 
 
 
-function MarketingBudgetYear1() {
+function MarketingPageYear2() {
     const dispatch = useDispatch();
     const budgetId = useParams();
     const expense = useSelector((store) => store.expense);
@@ -50,7 +50,7 @@ function MarketingBudgetYear1() {
             cost_per_use: newCostPerUse,
             vendor: vendor,
             frequency: monthlyUsageCount,
-            year: 1,
+            year: 2,
             budget_id: budgetIdObj,
             expense_amount: expenseNumber,
             type: 'business marketing'
@@ -68,7 +68,7 @@ function MarketingBudgetYear1() {
         const updateObj = {
             completed: true,
             budget_id: Number(budgetId.budgetId),
-            step: 'marketingy1'
+            step: 'marketingy2'
         }
 
         dispatch({ type: 'UPDATE_STATUS', payload: updateObj })
@@ -112,10 +112,13 @@ function MarketingBudgetYear1() {
 
         <Main open={open}>
         <Container sx={{ paddingTop: '64px' }}>
-            <Typography variant="h4" gutterBottom >
-                Marketing Budget Year 1
+            <Typography variant="h4" gutterBottom marginTop={'24px'} marginBottom={'24px'}>
+                Marketing Budget Year 2
             </Typography>
 
+            <Typography variant="body1" marginTop={'24px'} marginBottom={'24px'} >
+            To develop your marketing budget, follow these steps: Begin with market research and decisions on marketing strategy and tools, listing each activity's cost. Exclude costs covered by employee time or contractor fees but document these activities for completion records. Determine each item's frequency, timing, responsible party (contractor or in-house), and necessary assets like copy or photos. Enter the cost per use and calculate monthly and yearly expenses. 
+            </Typography>
             <Grid container spacing={2} alignItems="center">
                 <Grid item xs={12} md={3}>
                     <TextField
@@ -262,7 +265,7 @@ function MarketingBudgetYear1() {
             </Grid>
             </Box>
         
-            <ProgressBar next={'marketingy2'} back={'otherexpenses'} value={72} budgetId={budgetId} />
+            <ProgressBar back={'marketingy1'} next={'hrpagey1'} value={78} budgetId={budgetId} />
             
         </Container>
         <Footer/>
@@ -270,4 +273,4 @@ function MarketingBudgetYear1() {
     );
 }
 
-export default MarketingBudgetYear1;
+export default MarketingPageYear2;
