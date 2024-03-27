@@ -18,7 +18,7 @@ function PersonalSavings() {
     const budgetId = useParams();
     const finalBudget = useSelector((store) => store.finalBudget);
     const expense = useSelector((store) => store.expense);
-    const [formSubmitted, setFormSubmitted] = useState(false);
+    const status = useSelector((store) => store.status);
     const [userEntry, setUserEntry] = useState([]);
     const [formValues, setFormValues] = useState({
         personalAllowance: '',
@@ -93,15 +93,22 @@ function PersonalSavings() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        const updateObj = {
+            completed: true, 
+            budget_id: Number(budgetId.budgetId), 
+            step: 'personalsavings'
+        }
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-        // dispatch({type: 'UPDATE_STATUS', payload: ''}) // Will need to be set up later to post the completed step to the status table
-        setFormSubmitted(true);
+        dispatch({type: 'UPDATE_STATUS', payload: updateObj})
     };
 
-    const handleEdit = (event) => {
-        console.log('Edit MAMA');
+    const handleEdit = () => {
+        dispatch({ type: 'UPDATE_EXPENSE', payload: userEntry })
     }
+
+    const isStartPlanCompleted = status.find(s => s.step === 'personalsavings')?.completed;
+
     return (
         <Main open={open}>
             <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
@@ -141,13 +148,13 @@ function PersonalSavings() {
                                 value={formValues.investments}
                                 onChange={handleInputChange}
                                 sx={{ marginBottom: 2 }} />
-                            {formSubmitted ? (
+                            {isStartPlanCompleted ? (
                                 <Button type='button' onClick={handleEdit}>
-                                    Edit
+                                    Update
                                 </Button>
-                            ) : (
+                                ) : (
                                 <Button type='submit'>
-                                    Submit
+                                    Save
                                 </Button>
                             )}
                         </Grid>
