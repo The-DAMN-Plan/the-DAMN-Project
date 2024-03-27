@@ -13,7 +13,6 @@ export default function BusinessExpense(params) {
     const status = useSelector((store) => store.status);
     const expense = useSelector((store) => store.expense);
     const history = useHistory();
-    const open = useSelector(store=>store.sideNav);
     const [formSubmitted, setFormSubmitted] = useState(false);
     const budgetId = useParams();
 
