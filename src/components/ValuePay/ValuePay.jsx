@@ -12,7 +12,7 @@ import Footer from '../Footer/Footer';
 export default function ValuePay(props) {
   const [percent, setPercent] = useState(0);
   const [dollarAmount, setDollarAmount] = useState(0);
-  const open = useSelector(store=>store.sideNav);
+  const open = useSelector(store => store.sideNav);
   const history = useHistory();
   const budgetId = useParams();
 
@@ -89,12 +89,10 @@ export default function ValuePay(props) {
             <Typography textAlign={'center'} variant='h5'>$xx,xxx</Typography>
           </Paper>
         </Grid>
-      <Button onClick={handleSubmit} sx={{mx:'50%'}}>Save</Button>
-      </Grid>
-      <ProgressBar back={'otherexpenses'} next={'incomeyear1'} value={40} budgetId={budgetId} />
-    </Container>
-    <Footer/>
-  </Main>
+        <Button onClick={handleSubmit} sx={{ mx: '50%' }}>Save</Button>
+        <ProgressBar back={'otherexpenses'} next={'incomeyear1'} value={40} budgetId={budgetId} />
+      </Container>
+    </Main >
   );
 }
 
