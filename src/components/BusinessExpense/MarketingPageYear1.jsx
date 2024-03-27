@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import Footer from '../Footer/Footer';
 
 
 
@@ -28,6 +29,11 @@ function MarketingBudgetYear1() {
     const filteredExpenses = expense.filter(item => item.type === 'business marketing');
     console.log('business marketing', filteredExpenses);
 
+    useEffect(() => {
+        dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
+    }, [dispatch, budgetId]);
+
+    const open = useSelector(s=>s.sideNav);
 
     const handleAddExpense = () => {
         if (!expenseName || !costPerUse || !vendor) return; // Validate input
@@ -50,20 +56,19 @@ function MarketingBudgetYear1() {
         setuserEntry([...userEntry, formData]);
         resetForm();
     };
-    console.log(userEntry);
+    console.log('user entered data', userEntry);
 
-    useEffect(() => {
-        dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
-    }, [dispatch, budgetId]);
+
     
     const handleDeleteExpense = (index) => {
-        // Remove a marketing value from the list
-        const updatedValues = userEntry.filter((_, i) => i !== index);
-        setuserEntry(updatedValues);
+        const newExpenses = setExpenses.filter((_, i) => i !== index);
+        setExpenses(newExpenses);
 
-        const deletedValue = expenses.filter((_, i) => i !== index);
-        setuserEntry(deletedValue);
+        const newUserEntry = expenses.filter((_, i) => i !== index);
+        setuserEntry(newUserEntry);
     };
+
+console.log('Marketing Data entered by User', userEntry);
 
     const resetForm = () => {
         // Reset form fields after adding a new expense
@@ -76,6 +81,11 @@ function MarketingBudgetYear1() {
         setMonthlyUsageCount('');
     };
     
+    const handleSubmit = (event) => {
+        event.preventDefault();
+    
+        dispatch({ type: 'ADD_BUSINESS_EXPENSE', payload: userEntry });
+    };
 
 
     return (
@@ -170,7 +180,7 @@ function MarketingBudgetYear1() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {userEntry.map((value, index) => (
+                    {expenses.map((value, index) => (
                         <TableRow key={index}>
                             <TableCell>{value.expense_name}</TableCell>
                             <TableCell align="right">{value.facilitator}</TableCell>
@@ -192,7 +202,7 @@ function MarketingBudgetYear1() {
                             </TableCell>
                         </TableRow>
                     ))}
-                        {userEntry.map((value, index) => (
+                        {userEntry?.map((value, index) => (
                         <TableRow key={index}>
                             <TableCell>{value.expense_name}</TableCell>
                             <TableCell align="right">{value.facilitator}</TableCell>
@@ -227,6 +237,7 @@ function MarketingBudgetYear1() {
             </Box>
         
             <ProgressBar next={'marketingy2'} back={'otherexpenses'} value={72} budgetId={budgetId} />
+            <Footer/>
         </Container>
     );
 }
