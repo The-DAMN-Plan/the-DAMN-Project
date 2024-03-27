@@ -91,6 +91,7 @@ function UserPage() {
                 <Select
                   labelId="business-select-label"
                   id="business-select"
+                  label="Select Business"
                   value={selectedBusiness}
                   onChange={handleChange}
                 >
