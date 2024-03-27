@@ -4,14 +4,11 @@ import { Typography, TextField, Button, Container, Grid } from '@mui/material';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
 
 function PBpage2() {
     const dispatch = useDispatch();
     const budgetId = useParams();
     const finalBudget = useSelector((store) => store.finalBudget);
-    const open = useSelector(store=>store.sideNav);
     const expense = useSelector((store) => store.expense);
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [formValues, setFormValues] = useState({
@@ -97,7 +94,15 @@ function PBpage2() {
         event.preventDefault();
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-        // dispatch({type: 'UPDATE_STATUS', payload: ''}) // Will need to be set up later to post the completed step to the status table
+
+        const updateObj = {
+            completed: true,
+            budget_id: Number(budgetId.budgetId),
+            step: 'fundamentalexpenses'
+        }
+
+        dispatch({ type: 'UPDATE_STATUS', payload: updateObj }) // Will need to be set up later to post the completed step to the status table
+
         setFormSubmitted(true);
     };
 
@@ -105,9 +110,7 @@ function PBpage2() {
         console.log('Edit MAMA');
     }
     return (
-        
-       <Main open={open}>
-     
+
         <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
             <Typography variant="h5" align="center" gutterBottom>
                 Fundamental Bill Payments
@@ -162,11 +165,9 @@ function PBpage2() {
                         )}
                     </Grid>
                 </Grid>
-                    <ProgressBar back={'startplan'} next={'personalsavings'} value={12} budgetId={budgetId}/>
-                </form>
+                <ProgressBar back={'startplan'} next={'personalsavings'} value={12} budgetId={budgetId} />
+            </form>
         </Container>
-        <Footer/>
-       </Main>
     );
 }
 

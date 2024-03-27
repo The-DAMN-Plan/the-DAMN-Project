@@ -91,15 +91,25 @@ router.post('/createstatus', async (req, res) => {
     'breakeven',
     'cashflow']
 
+    const skippableSteps = [
+      'otherexpenses',
+      'otherbusiness',
+      'breakeven',
+      'cashflow',
+    ]
+
   const sql = `insert into "status" ("budget_id","step")
   values($1,$2) returning *;`
+  const sql2 = `update "status" set completed = true where step =$1 AND budget_id = $2`
   const budget_id = req.body.budget_id;
 
   try {
     for (const step of stepArray) {
       await pool.query(sql, [budget_id, step]);
     }
-
+    for (const step of skippableSteps) {
+      await pool.query(sql2, [step, budget_id]);
+    }
     res.sendStatus(200);
   } catch (error) {
     console.log(error);
