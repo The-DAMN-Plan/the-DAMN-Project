@@ -112,8 +112,12 @@ function MarketingBudgetYear1() {
 
         <Main open={open}>
         <Container sx={{ paddingTop: '64px' }}>
-            <Typography variant="h4" gutterBottom >
+            <Typography variant="h4" gutterBottom marginTop={'24px'} marginBottom={'24px'} >
                 Marketing Budget Year 1
+            </Typography>
+
+            <Typography variant="body1" marginTop={'24px'} marginBottom={'24px'} >
+            To develop your marketing budget, follow these steps: Begin with market research and decisions on marketing strategy and tools, listing each activity's cost. Exclude costs covered by employee time or contractor fees but document these activities for completion records. Determine each item's frequency, timing, responsible party (contractor or in-house), and necessary assets like copy or photos. Enter the cost per use and calculate monthly and yearly expenses. 
             </Typography>
 
             <Grid container spacing={2} alignItems="center">
