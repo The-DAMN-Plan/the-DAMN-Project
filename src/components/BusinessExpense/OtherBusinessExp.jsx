@@ -5,8 +5,6 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
-import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
 import Currency from '../Shared/Currency';
 
 

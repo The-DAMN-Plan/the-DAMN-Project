@@ -5,7 +5,6 @@ import {
 } from '@mui/material';
 // import Grid from '@mui/material/Unstable_Grid2';
 import { useDispatch, useSelector } from 'react-redux';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
 import ProgressBar from '../ProgressBar/ProgressBar';
