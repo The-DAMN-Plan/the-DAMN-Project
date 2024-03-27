@@ -135,8 +135,8 @@ function App() {
                 <FuturePlans />
               </Route>
 
-              <Route exact path="/otherbusiness/:budgetId">
-                <OtherBusinessExp />
+              <Route exact path="/otherexpenses/:budgetId">
+                <OtherExpenses />
               </Route>
 
               <Route exact path="/incomeyear1/:budgetId">
