@@ -4,6 +4,7 @@ import { Typography, TextField, Button, Container, Grid } from '@mui/material';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import Main from '../Main/Main';
 
 function PBpage2() {
     const dispatch = useDispatch();

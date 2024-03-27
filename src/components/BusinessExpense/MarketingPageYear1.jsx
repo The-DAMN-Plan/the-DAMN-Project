@@ -31,10 +31,6 @@ function MarketingBudgetYear1() {
     const [expenses, setExpenses] = useState([]);
 
 
-
-    const open = useSelector((store)=>store.sideNav);
-
-
     const filteredExpenses = expense.filter(item => item.type === 'business marketing');
     console.log('business marketing', filteredExpenses);
 
