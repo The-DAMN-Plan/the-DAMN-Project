@@ -23,6 +23,7 @@ function Year2Income() {
   const [idealClient, setIdealClient] = useState('');
   const [rateOfLove, setRateOfLove] = useState('');
   const [purchasers, setPurchasers] = useState('');
+  const [costPerDelivery, setCostPerDelivery] = useState('');
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [revenueStreams, setRevenueStreams] = useState([]);
   const [userEntry, setUserEntry] = useState([]);
@@ -33,7 +34,7 @@ function Year2Income() {
 }, [dispatch, budgetId]);
 
   const handleAddRevenueStream = () => {
-    if (!revenueStream || !description || !price || !unit || !timeUsed || !idealClient || !rateOfLove || !purchasers) return;
+    if (!revenueStream || !description || !price || !unit || !timeUsed || !costPerDelivery || !idealClient || !rateOfLove || !purchasers) return;
 
     const newRevenueStream = {
       revenueStream,
@@ -41,6 +42,7 @@ function Year2Income() {
       price,
       unit,
       timeUsed,
+      costPerDelivery,
       idealClient,
       rateOfLove,
       purchasers
@@ -52,6 +54,7 @@ function Year2Income() {
     setPrice('');
     setUnit('');
     setTimeUsed('');
+    setCostPerDelivery('');
     setIdealClient('');
     setRateOfLove('');
     setPurchasers('');
@@ -66,7 +69,8 @@ function Year2Income() {
       ideal_client: idealClient,
       rate_of_love: rateOfLove,
       purchasers: purchasers,
-      year: 2 // Change the year to two
+      year: 2, // Change the year to two
+      cost_per_delivery: costPerDelivery
     };
 
     setUserEntry([...userEntry, formData]);
@@ -152,6 +156,14 @@ function Year2Income() {
           <Grid item xs={12} sm={6} md={3}>
             <TextField
               fullWidth
+              label="Cost Per Delivery"
+              value={costPerDelivery}
+              onChange={(e) => setCostPerDelivery(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <TextField
+              fullWidth
               label="Ideal Client"
               value={idealClient}
               onChange={(e) => setIdealClient(e.target.value)}
@@ -201,8 +213,10 @@ function Year2Income() {
               <TableCell>Unit</TableCell>
               <TableCell>Time Used</TableCell>
               <TableCell>Ideal Clients</TableCell>
+              <TableCell>Cost Per Delivery</TableCell>
               <TableCell>Love Rating</TableCell>
               <TableCell>Purchasers</TableCell>
+              <TableCell>Rate for Money</TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
@@ -214,9 +228,11 @@ function Year2Income() {
                 <TableCell>{stream.price}</TableCell>
                 <TableCell>{stream.unit}</TableCell>
                 <TableCell>{stream.timeUsed}</TableCell>
+                <TableCell>{stream.costPerDelivery}</TableCell>
                 <TableCell>{stream.idealClient}</TableCell>
                 <TableCell>{stream.rateOfLove}</TableCell>
                 <TableCell>{stream.purchasers}</TableCell>
+                <TableCell>{(parseFloat((stream.price - stream.costPerDelivery) / stream.timeUsed)).toFixed(2)}</TableCell>
                 <TableCell>
                   <Button
                     variant="outlined"
@@ -235,9 +251,11 @@ function Year2Income() {
                     <TableCell>{income2.price}</TableCell>
                     <TableCell>{income2.unit}</TableCell>
                     <TableCell>{income2.time_used}</TableCell>
+                    <TableCell>{income2.cost_per_delivery}</TableCell>
                     <TableCell>{income2.ideal_client}</TableCell>
                     <TableCell>{income2.rate_of_love}</TableCell>
                     <TableCell>{income2.purchasers}</TableCell>
+                    <TableCell>{(parseFloat((income2.price - income2.cost_per_delivery) / income2.time_used)).toFixed(2)}</TableCell>
                     <TableCell>
                   <Button
                     variant="outlined"
