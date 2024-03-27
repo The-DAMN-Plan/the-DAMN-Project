@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import Footer from '../Footer/Footer';
-import Main from '../Main/Main';
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
 
@@ -11,7 +9,6 @@ import Currency from '../Shared/Currency';
 function OtherBusinessExp() {
     const dispatch = useDispatch();
     const budgetId = useParams();
-    const open = useSelector(store=>store.sideNav);
     const expense = useSelector((store) => store.expense);
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [expenseName, setExpenseName] = useState('');
@@ -61,7 +58,6 @@ function OtherBusinessExp() {
     
     const filteredExpenses = expense.filter(item => item.type === 'business other');
     
-
     return (
         <Main open={open}>
             <Container sx={{ paddingTop: '64px' }}> {/* Adjust this value based on the height of your nav bar */}

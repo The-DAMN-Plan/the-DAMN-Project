@@ -7,7 +7,6 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
 
-
 function PersonalSavings() {
     const dispatch = useDispatch();
 
@@ -95,7 +94,13 @@ function PersonalSavings() {
         event.preventDefault();
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-        // dispatch({type: 'UPDATE_STATUS', payload: ''}) // Will need to be set up later to post the completed step to the status table
+        const updateObj = {
+            completed: true,
+            budget_id: Number(budgetId.budgetId),
+            step: 'personalsavings'
+        }
+
+        dispatch({ type: 'UPDATE_STATUS', payload: updateObj }) // Will need to be set up later to post the completed step to the status table
         setFormSubmitted(true);
     };
 

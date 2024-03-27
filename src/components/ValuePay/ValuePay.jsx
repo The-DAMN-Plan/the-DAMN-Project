@@ -12,9 +12,20 @@ import Footer from '../Footer/Footer';
 export default function ValuePay(props) {
   const [percent, setPercent] = useState(0);
   const [dollarAmount, setDollarAmount] = useState(0);
-  const open = useSelector(store=>store.sideNav);
+  const open = useSelector(store => store.sideNav);
   const history = useHistory();
   const budgetId = useParams();
+
+  function handleSubmit() {
+
+    const updateObj = {
+      completed: true,
+      budget_id: Number(budgetId.budgetId),
+      step: 'valuepay'
+    }
+
+    dispatch({ type: 'UPDATE_STATUS', payload: updateObj }) // Will need to be set up later to post the completed step to the status table
+  }
 
 
   return (
@@ -60,10 +71,28 @@ export default function ValuePay(props) {
             </Paper>
           </Grid>
         </Grid>
+        <Grid xs={6} textAlign={'center'}>
+          <Paper sx={{ m: 2, p: 2 }}>
+            <Typography textAlign={'center'} variant='h4'>Owner Pay</Typography>
+            <Typography textAlign={'center'} variant='subtitle1'>Beyond the amount shown as required income, what  is the additional value pay that you want to deposit every month in your bank account?</Typography>
+            <TextField
+              fullWidth variant="outlined"
+              type="number"
+              name="dollaramount"
+              sx={{ m: 4, width: 195 }}
+              required
+              InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
+              value={dollarAmount}
+              onChange={(event) => setDollarAmount(event.target.value)}
+            />
+            <Typography textAlign={'center'} variant='subtitle1'>Owner's Value Pay:</Typography>
+            <Typography textAlign={'center'} variant='h5'>$xx,xxx</Typography>
+          </Paper>
+        </Grid>
+        <Button onClick={handleSubmit} sx={{ mx: '50%' }}>Save</Button>
         <ProgressBar back={'otherexpenses'} next={'incomeyear1'} value={40} budgetId={budgetId} />
       </Container>
-      <Footer/>
-    </Main>
+    </Main >
   );
 }
 

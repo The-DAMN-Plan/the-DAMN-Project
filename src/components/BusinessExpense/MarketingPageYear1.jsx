@@ -23,6 +23,7 @@ function MarketingBudgetYear1() {
     const [vendor, setVendor] = useState('');
     const [monthlyUsageCount, setMonthlyUsageCount] = useState('');
     const [marketingValues, setMarketingValues] = useState([]);
+
     const open = useSelector((store)=>store.sideNav);
     const expense = useSelector((store) => store.expense);
     const filteredExpenses = expense.filter(item => item.type === 'business marketing');
