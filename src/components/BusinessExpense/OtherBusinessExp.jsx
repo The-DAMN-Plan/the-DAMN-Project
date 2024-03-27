@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
+import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 
 
 function OtherBusinessExp() {

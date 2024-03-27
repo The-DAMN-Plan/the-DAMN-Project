@@ -16,6 +16,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import SideNav from './SideNav';
 import { Grid } from '@mui/material';
+import LoginButton from '../LogInButton/LoginButton';
 
 function Nav({ drawerWidth }) {
   const user = useSelector((store) => store.user);
@@ -35,7 +36,8 @@ function Nav({ drawerWidth }) {
     `/about`,
     `/home`,
     `/login`,
-    `/registration`
+    `/registration`,
+    `/plans`
 
   ]
   
@@ -105,7 +107,7 @@ function Nav({ drawerWidth }) {
               
 
               <Box>
-              {user.id && (
+
                 <Box sx={{display:'flex', backgroundColor:'#fff', alignItems:'center', justifyContent:'center'}}>
                 
                     <Button 
@@ -136,22 +138,29 @@ function Nav({ drawerWidth }) {
                   </Button>
                     
                 </Box>
-              )}
               </Box>
           
             <Box sx={{ flexGrow: 0 }}>
-              {user.id ? <LogOutButton /> : ''}
-              <Menu
-                id="menu-appbar"
-              >
+              
+              {user.id ? <LogOutButton/> :
+                <Button
+                  color='secondary'
+                  variant='contained'
+                  onClick={()=>history.push('/login')}>
+                  Log In
+                </Button>
+              // <Menu
+              //   id="menu-appbar"
+              // >
 
-                <MenuItem onClick={() => {
-                  history.push('/login');
-                }}>
-                  <Typography textAlign="center">Log Out</Typography>
-                </MenuItem>
+              //   <MenuItem onClick={() => {
+              //     history.push('/login');
+              //   }}>
+              //     <Typography textAlign="center">Log Out</Typography>
+              //   </MenuItem>
 
-              </Menu>
+              // </Menu>
+              }
             </Box>
         </Toolbar>
       </Container >
