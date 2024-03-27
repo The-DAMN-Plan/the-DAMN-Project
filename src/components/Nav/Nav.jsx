@@ -149,17 +149,6 @@ function Nav({ drawerWidth }) {
                   onClick={()=>history.push('/login')}>
                   Log In
                 </Button>
-              // <Menu
-              //   id="menu-appbar"
-              // >
-
-              //   <MenuItem onClick={() => {
-              //     history.push('/login');
-              //   }}>
-              //     <Typography textAlign="center">Log Out</Typography>
-              //   </MenuItem>
-
-              // </Menu>
               }
             </Box>
         </Toolbar>
