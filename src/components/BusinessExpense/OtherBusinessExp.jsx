@@ -4,6 +4,8 @@ import { Box, Typography, TextField, Button, Container, Grid, Paper } from '@mui
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useParams } from 'react-router-dom/cjs/react-router-dom';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import Footer from '../Footer/Footer';
+import Main from '../Main/Main';
 
 export default function OtherBusinessExp(params) {
     const dispatch = useDispatch();
@@ -11,6 +13,7 @@ export default function OtherBusinessExp(params) {
     const budget = useSelector((store) => store.budget);
     const budgetObj = budget[0];
     const budgetId = useParams();
+    const open = useSelector(store=>store.sideNav);
 
     //default values for each input start at 0 incase user does not input anything 
 
@@ -62,34 +65,37 @@ export default function OtherBusinessExp(params) {
         dispatch({ type: 'ADD_BUSINESS_EXPENSE', payload: userEntry });
     };
     return (
-        <Container maxWidth="md">
-            <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Business Expense
-                </Typography>
-                <Typography variant="h5" align="center" gutterBottom>
-                    Fundamental Business Expenses
-                </Typography>
+        <Main open={open}>
+            <Container maxWidth="md">
+                <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
+                    <Typography variant="h4" align="center" gutterBottom>
+                        Business Expense
+                    </Typography>
+                    <Typography variant="h5" align="center" gutterBottom>
+                        Fundamental Business Expenses
+                    </Typography>
 
 
-                <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2} justifyContent="center">
-                        <Grid item xs={12} md={6}>
-                            <TextField name='cellPhones' label="Cell Phones" fullWidth value={formValues.cellPhones} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="internet" label="Internet & Utilities" fullWidth value={formValues.internet} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="printPublish" label="Printing & Publishing" fullWidth value={formValues.printPublish} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                    <form onSubmit={handleSubmit}>
+                        <Grid container spacing={2} justifyContent="center">
+                            <Grid item xs={12} md={6}>
+                                <TextField name='cellPhones' label="Cell Phones" fullWidth value={formValues.cellPhones} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="internet" label="Internet & Utilities" fullWidth value={formValues.internet} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="printPublish" label="Printing & Publishing" fullWidth value={formValues.printPublish} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextField name="softwareTech" label="Software & Technology" fullWidth value={formValues.softwareTech} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="officeSupply" label="Office Supplies" fullWidth value={formValues.officeSupply} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="miscellaneous" label="Miscellaneous" fullWidth value={formValues.miscellaneous} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} md={6}>
-                            <TextField name="softwareTech" label="Software & Technology" fullWidth value={formValues.softwareTech} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="officeSupply" label="Office Supplies" fullWidth value={formValues.officeSupply} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="miscellaneous" label="Miscellaneous" fullWidth value={formValues.miscellaneous} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                        </Grid>
-                    </Grid>
-                </form>
+                    </form>
 
-            </Paper>
-            <ProgressBar back={''} next={'breakeven'} value={95} budgetId={budgetId} />
-        </Container>
+                </Paper>
+                <ProgressBar back={''} next={'breakeven'} value={95} budgetId={budgetId} />
+            </Container>
+            <Footer/>
+        </Main>
     )
 
 }

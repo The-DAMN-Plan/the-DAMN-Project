@@ -4,10 +4,12 @@ import {
     Typography, Box, FormControl, InputLabel, Select, MenuItem, Grid
 } from '@mui/material';
 // import Grid from '@mui/material/Unstable_Grid2';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import Footer from '../Footer/Footer';
+import Main from '../Main/Main';
 
 
 function MarketingBudgetYear1() {
@@ -21,6 +23,7 @@ function MarketingBudgetYear1() {
     const [vendor, setVendor] = useState('');
     const [monthlyUsageCount, setMonthlyUsageCount] = useState('');
     const [marketingValues, setMarketingValues] = useState([]);
+    const open = useSelector((store)=>store.sideNav);
 
     const handleAddMarketingValue = () => {
         if (!expenseName || !costPerUse || !vendor) return; // Validate input
@@ -68,6 +71,7 @@ function MarketingBudgetYear1() {
     };
 
     return (
+        <Main open={open}>
         <Container sx={{ paddingTop: '64px' }}>
             <Typography variant="h4" gutterBottom >Marketing Budget</Typography>
             <Grid container spacing={2} alignItems="center">
@@ -187,6 +191,8 @@ function MarketingBudgetYear1() {
 
             <ProgressBar next={'marketingy2'} back={'otherexpenses'} value={72} budgetId={budgetId} />
         </Container>
+        <Footer/>
+        </Main>
     );
 }
 

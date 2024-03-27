@@ -9,12 +9,15 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import Footer from '../Footer/Footer';
+import Main from '../Main/Main';
 
 export default function HumanResourcesPage2() {
     const dispatch = useDispatch();
     const history = useHistory();
     const budget = useSelector((store) => store.budget);
     const budgetId = useParams();
+    const open = useSelector((store)=>store.sideNav);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_BUDGET' });
@@ -40,6 +43,7 @@ export default function HumanResourcesPage2() {
 
 
     return (
+        <Main open={open}>
         <Container sx={{ paddingTop: '64px' }}>
             <Typography variant="h4" color={'primary'} gutterBottom>Human Resource Budget Year 2</Typography>
             <Typography variant="subtitle1" gutterBottom>Make determined-decisions about which essential tasks and skills must be outsourced. Analyze the cost / benefit of outsourcing vs. either doing it all yourself or hiring staff. Make determined-decisions about which essential tasks and skills must be outsourced. Analyze the cost / benefit of outsourcing vs. either doing it all yourself or hiring staff. After vetting qualified contractors, enter their business name and service they will provide. </Typography>
@@ -119,6 +123,9 @@ export default function HumanResourcesPage2() {
 
             <ProgressBar back={'hrpagey1'} next={'otherbusiness'} value={90} budgetId={budgetId} />
         </Container>
+        <Footer/>
+        </Main>
+        
     );
 }
 

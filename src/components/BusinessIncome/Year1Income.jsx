@@ -5,6 +5,8 @@ import { InputLabel, Select, MenuItem, InputAdornment } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import Footer from '../Footer/Footer';
+import Main from '../Main/Main';
 
     
 function Year1Income() {
@@ -23,6 +25,7 @@ function Year1Income() {
     const [purchasers, setPurchasers] = useState('');
     const [revenueStreams, setRevenueStreams] = useState([]);
     const [userEntry, setUserEntry] = useState([]);
+    const open = useSelector((store)=>store.sideNav);
     
     const handleAddRevenueStream = () => {
         if (!revenueStream || !description || !price || !unit || !timeUsed || !idealClient || !rateOfLove || !purchasers) return;
@@ -80,6 +83,7 @@ function Year1Income() {
     };
     
 return (
+  <Main open={open}>
         <Container sx={{ paddingTop: '64px', paddingBottom: '64px' }}>
           <Typography variant="h4" gutterBottom align="center">
             Year 1 Business Income
@@ -215,6 +219,9 @@ return (
       </Paper>
         <ProgressBar back={'valuepay'} next={'incomeyear2'} submit={handleSubmit} value={42} budgetId={budgetId}/>
     </Container>
+    <Footer/>
+    
+    </Main>
   );
 }
 
