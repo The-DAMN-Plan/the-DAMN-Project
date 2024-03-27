@@ -4,14 +4,11 @@ import { Typography, TextField, Button, Container, Grid } from '@mui/material';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
 
 function PBpage2() {
     const dispatch = useDispatch();
     const budgetId = useParams();
     const finalBudget = useSelector((store) => store.finalBudget);
-    const open = useSelector(store=>store.sideNav);
     const expense = useSelector((store) => store.expense);
     const status = useSelector((store) => store.status);
     const [formSubmitted, setFormSubmitted] = useState(false);
@@ -161,11 +158,9 @@ function PBpage2() {
                             )}
                     </Grid>
                 </Grid>
-                    <ProgressBar back={'startplan'} next={'personalsavings'} value={12} budgetId={budgetId}/>
-                </form>
+                <ProgressBar back={'startplan'} next={'personalsavings'} value={12} budgetId={budgetId} />
+            </form>
         </Container>
-        <Footer/>
-       </Main>
     );
 }
 

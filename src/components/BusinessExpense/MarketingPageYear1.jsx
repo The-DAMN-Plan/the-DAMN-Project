@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import Footer from '../Footer/Footer';
+import Main from '../Main/Main';
 
 
 
@@ -22,6 +24,8 @@ function MarketingBudgetYear1() {
     const [vendor, setVendor] = useState('');
     const [monthlyUsageCount, setMonthlyUsageCount] = useState('');
     const [marketingValues, setMarketingValues] = useState([]);
+
+    const open = useSelector((store)=>store.sideNav);
     const expense = useSelector((store) => store.expense);
     const filteredExpenses = expense.filter(item => item.type === 'business marketing');
         console.log('business marketing', filteredExpenses);
@@ -83,6 +87,7 @@ function MarketingBudgetYear1() {
     };
 
     return (
+        <Main open={open}>
         <Container sx={{ paddingTop: '64px' }}>
             <Typography variant="h4" gutterBottom >Marketing Budget</Typography>
             <Grid container spacing={2} alignItems="center">
@@ -205,6 +210,8 @@ function MarketingBudgetYear1() {
 
             <ProgressBar next={'marketingy2'} back={'otherexpenses'} value={72} budgetId={budgetId} />
         </Container>
+        <Footer/>
+        </Main>
     );
 }
 

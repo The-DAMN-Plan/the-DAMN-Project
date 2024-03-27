@@ -2,19 +2,27 @@ import React from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Button } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { useSelector } from 'react-redux';
 
 export default function ProgressBar({ next, back, value, budgetId }) {
   const history = useHistory();
+  const location = useLocation();
+  const status = useSelector((store) => store.status);
+  const currentStatus = status.filter((item) => {
+    return `/${item.step}/${budgetId.budgetId}` === `${location.pathname}`
+  })
+  console.log(location.pathname)
+  console.log('current status item', currentStatus)
 
-  console.log(budgetId.budgetId);
-
-
+  if (currentStatus.length === 0) {
+    return (<LinearProgress color="secondary" />)
+  }
   function handleBack() {
     history.push(`/${back}/${budgetId.budgetId}`);
   }
 
-  function handleNext(event) {
+  function handleNext() {
     history.push(`/${next}/${budgetId.budgetId}`);
   }
 
@@ -31,7 +39,11 @@ export default function ProgressBar({ next, back, value, budgetId }) {
         <LinearProgress variant="determinate" value={value} />
       </Grid>
       <Grid textAlign="center" xs={3} sm={2}>
-        <Button onClick={handleNext} variant='contained'>Next</Button>
+        {currentStatus[0].completed ?
+          <Button onClick={handleNext} variant='contained'>Next</Button>
+          :
+          <Button disabled variant='contained'>Next</Button>
+        }
       </Grid>
     </Grid>
   );

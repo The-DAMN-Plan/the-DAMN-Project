@@ -8,13 +8,18 @@ export default function ActivePlans(props) {
   const businesses = useSelector(store => store.business);
   const dispatch = useDispatch();
   const history = useHistory();
+  const status = useSelector((store) => store.status);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_BUSINESS' });
   }, [])
 
   function handleView(budget_id) {
-
+    for (const step of status) {
+      if (step.step === 'startplan' && step.completed === false){
+        history.push(`/startplan/${budget_id}`);
+      } 
+    }
   }
 
   return (

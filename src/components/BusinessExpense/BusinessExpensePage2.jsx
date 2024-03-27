@@ -12,6 +12,7 @@ export default function BusinessExpense(params) {
     const open = useSelector(store=>store.sideNav);
     const status = useSelector((store) => store.status);
     const expense = useSelector((store) => store.expense);
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const budgetId = useParams();
 
     useEffect(() => {
@@ -55,6 +56,7 @@ export default function BusinessExpense(params) {
         },
         {
             budget_id: budgetId.budgetId,
+
             expense_amount: getExpenseAmount('printPublish') || "0",
             expense_name: "printPublish",
             type: "business expense"
@@ -173,8 +175,18 @@ export default function BusinessExpense(params) {
                                 </Button>
                             )}
                         </Grid>
+                        {formSubmitted ? (
+                            <Button type='button'>
+                                Update
+                            </Button>
+                        ) : (
+                            <Button type='submit'>
+                                Save
+                            </Button>
+                        )}
                     </Grid>
                 </form>
+                
                 <ProgressBar back={'businessexpensepage1'} next={'marketingy1'} value={66} budgetId={budgetId}/>
             </Paper>
         </Container>

@@ -11,16 +11,6 @@ function* addPersonalExpense(action) {
     }
 }
 
-function* addBusinessExpense(action) {
-    try {
-        yield axios.post(`/api/budget/expense`, action.payload);
-        put({ type: 'FETCH_BUSINESS' })
-    } catch (error) {
-        console.log(error);
-    }
-
-}
-
 function* fetchExpenses(action) {
     try {
         const response = yield axios.get(`/api/budget/expense/${action.payload}`);
@@ -59,7 +49,6 @@ function* updateExpense(action) {
 function* expenseSaga() {
     yield takeLatest('FETCH_EXPENSES', fetchExpenses);
     yield takeLatest('ADD_PERSONAL_EXPENSE', addPersonalExpense);
-    yield takeLatest('ADD_BUSINESS_EXPENSE', addBusinessExpense);
     yield takeLatest('DELETE_EXPENSE', deleteExpense);
     yield takeLatest('UPDATE_EXPENSE', updateExpense);
 }

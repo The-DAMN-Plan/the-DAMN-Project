@@ -12,6 +12,9 @@ export default function BusinessExpense(params) {
     const open = useSelector(store=>store.sideNav);
     const status = useSelector((store) => store.status);
     const expense = useSelector((store) => store.expense);
+    const history = useHistory();
+    const open = useSelector(store=>store.sideNav);
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const budgetId = useParams();
 
     useEffect(() => {
@@ -74,6 +77,7 @@ export default function BusinessExpense(params) {
         },
         {
             budget_id: budgetId.budgetId,
+
             expense_amount: getExpenseAmount('travelLodging') || "0",
             expense_name: "travelLodging",
             type: "business expense"
@@ -114,7 +118,7 @@ export default function BusinessExpense(params) {
         } else {
             // If the formData object doesn't exist, create a new one
             const formData = {
-                budget_id: budgetObj.id,
+                budget_id: budgetId.budgetId,
                 type: 'business expense',
                 expense_name: name,
                 expense_amount: value
@@ -166,7 +170,7 @@ export default function BusinessExpense(params) {
                         <Grid item xs={12} md={6}>
                             <TextField name="accountingSupport" label="Accounting Support" fullWidth value={formValues.accountingSupport} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="insuranceGeneral" label="Insurance General"  fullWidth value={formValues.insuranceGeneral} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name='insuranceHealthLifeDisability' label="Insurance - Health, Life & Disability" defaultValue={0}  fullWidth value={formValues.insuranceHealthLifeDisability} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name='insuranceHealthLifeDisability' label="Insurance - Health, Life & Disability" fullWidth value={formValues.insuranceHealthLifeDisability} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="legal" label="Legal or Other Professional Support"  fullWidth value={formValues.legal} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -183,8 +187,19 @@ export default function BusinessExpense(params) {
                                 </Button>
                             )}
                         </Grid>
+                        {formSubmitted ? (
+                            <Button type='button'>
+                                Update
+                            </Button>
+                        ) : (
+                            <Button type='submit'>
+                                Save
+                            </Button>
+                        )}
                     </Grid>
+                    
                 </form>
+                
                 <ProgressBar back={'overview'} next={'businessexpensepage2'} value={60} budgetId={budgetId}/>
             </Paper>
         </Container>
