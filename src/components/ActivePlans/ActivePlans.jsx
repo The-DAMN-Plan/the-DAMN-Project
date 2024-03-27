@@ -9,16 +9,81 @@ export default function ActivePlans(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const status = useSelector((store) => store.status);
+  const [sent, setSent] = useState(false);
+  const [budgetId, setBudgetId] = useState(false);
+
 
   useEffect(() => {
     dispatch({ type: 'FETCH_BUSINESS' });
   }, [])
 
   function handleView(budget_id) {
+    dispatch({ type: 'BUDGET_PLAN', payload: budget_id });
+    setBudgetId(budget_id);
+    setSent(true);
+  }
+
+
+  useEffect(() => {
+    if (status.length > 0 && sent) {
+      sendToPlan(status, budgetId);
+      setSent(false);
+    }
+  }, [status])
+
+  function sendToPlan(status, budget_id) {
     for (const step of status) {
-      if (step.step === 'startplan' && step.completed === false){
+      console.log(step);
+      if (step.step === 'startplan' && step.completed === false) {
+        console.log('made it')
         history.push(`/startplan/${budget_id}`);
-      } 
+        return;
+      } else if (step.step === 'fundamentalexpenses' && step.completed === false) {
+        history.push(`/fundamentalexpenses/${budget_id}`);
+        return;
+      } else if (step.step === 'personalsavings' && step.completed === false) {
+        history.push(`/personalsavings/${budget_id}`);
+        return;
+      } else if (step.step === 'variableexpenses' && step.completed === false) {
+        history.push(`/variableexpenses/${budget_id}`);
+        return;
+      } else if (step.step === 'valuepay' && step.completed === false) {
+        history.push(`/valuepay/${budget_id}`);
+        return;
+      } else if (step.step === 'incomeyear1' && step.completed === false) {
+        history.push(`/incomeyear1/${budget_id}`);
+        return;
+      } else if (step.step === 'incomeyear2' && step.completed === false) {
+        history.push(`/incomeyear2/${budget_id}`);
+        return;
+      } else if (step.step === 'overview' && step.completed === false) {
+        history.push(`/overview/${budget_id}`);
+        return;
+      } else if (step.step === 'businessexpensepage1' && step.completed === false) {
+        history.push(`/businessexpensepage1/${budget_id}`);
+        return;
+      } else if (step.step === 'businessexpensepage2' && step.completed === false) {
+        history.push(`/businessexpensepage2/${budget_id}`);
+        return;
+      } else if (step.step === 'marketingy1' && step.completed === false) {
+        history.push(`/marketingy1/${budget_id}`);
+        return;
+      } else if (step.step === 'marketingy2' && step.completed === false) {
+        history.push(`/marketingy2/${budget_id}`);
+        return;
+      } else if (step.step === 'hrpagey1' && step.completed === false) {
+        history.push(`/hrpagey1/${budget_id}`);
+        return;
+      } else if (step.step === 'hrpagey2' && step.completed === false) {
+        history.push(`/hrpagey2/${budget_id}`);
+        return;
+      } else if (step.step === 'breakeven' && step.completed === false) {
+        history.push(`/breakeven/${budget_id}`);
+        return;
+      } else if (step.step === 'cashflow' && step.completed === false) {
+        history.push(`/cashflow/${budget_id}`);
+        return;
+      }
     }
   }
 
