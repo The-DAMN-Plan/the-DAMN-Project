@@ -13,7 +13,8 @@ function StartPlan() {
     const finalBudget = useSelector((store) => store.finalBudget);
     const open = useSelector(store=>store.sideNav);
     const expense = useSelector((store) => store.expense);
-    const [formSubmitted, setFormSubmitted] = useState(false);
+    const status = useSelector((store) => store.status);
+    console.log(status);
     const [formValues, setFormValues] = useState({
         rentOrMortgage: '',
         electric: '',
@@ -90,22 +91,27 @@ function StartPlan() {
         });
     };
 
-    console.log(userEntry);
-
     const handleSubmit = (event) => {
         event.preventDefault();
+        const updateObj = {
+            completed: true, 
+            budget_id: Number(budgetId.budgetId), 
+            step: 'startplan'
+        }
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-        // dispatch({type: 'UPDATE_STATUS', payload: ''}) // Will need to be set up later to post the completed step to the status table
-        setFormSubmitted(true);
+        dispatch({type: 'UPDATE_STATUS', payload: updateObj}) // Will need to be set up later to post the completed step to the status table
     };
-
-    const handleEdit = (event) => {
-        console.log('Edit MAMA');
+    console.log('1111',userEntry);
+    const handleEdit = () => {
+        console.log('2222', userEntry);
+        dispatch({ type: 'UPDATE_EXPENSE', payload: userEntry })
     }
+
+    const isStartPlanCompleted = status.find(s => s.step === 'startplan')?.completed;
+
     return (
         <Main open={open}>
-
         <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
             <Typography variant="h4" align="center" gutterBottom>
                 Start a DAMN Plan
@@ -119,7 +125,6 @@ function StartPlan() {
             <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
                 Take some time to think about monthly living expenses. This will help figure out how much your value is.
             </Typography>
-
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={2} justifyContent="center">
                     <Grid item xs={12} md={6}>
@@ -167,18 +172,17 @@ function StartPlan() {
                             value={formValues.childcare}
                             onChange={handleInputChange}
                             sx={{ marginBottom: 2 }} />
-                        {formSubmitted ? (
-                            <Button type='button' onClick={handleEdit}>
-                                Edit
-                            </Button>
-                        ) : (
-                            <Button type='submit'>
-                                Submit
-                            </Button>
-                        )}
+                            {isStartPlanCompleted ? (
+                                <Button type='button' onClick={handleEdit}>
+                                    Update
+                                </Button>
+                                ) : (
+                                <Button type='submit'>
+                                    Save
+                                </Button>
+                            )}
                     </Grid>
                 </Grid>
-
                 <ProgressBar back={`startplan`} next={`fundamentalexpenses`} value={6} budgetId={budgetId} />
             </form>
             <Footer />
