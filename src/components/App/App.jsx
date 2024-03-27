@@ -95,9 +95,7 @@ function App() {
         <DrawerHeader />
         <Router>
           <div>
-            {user.id ?
-              <Nav drawerWidth={drawerWidth} /> : ''
-            }
+            <Nav drawerWidth={drawerWidth} />
             <Switch>
               {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
               <Redirect exact from="/" to="/home" />

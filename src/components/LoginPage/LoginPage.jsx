@@ -16,7 +16,7 @@ function LoginPage() {
         </video>
       </div>
       <div className='login-container'>
-      <LoginForm />
+        <LoginForm />
       </div>
     </>
   );

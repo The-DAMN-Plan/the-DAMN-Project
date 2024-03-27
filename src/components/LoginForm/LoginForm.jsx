@@ -48,10 +48,10 @@ function LoginForm() {
 
         <Grid>
           <TextField
-            fullWidth label='Username' variant="outlined"
+            fullWidth label='Username' variant="filled"
             type="text"
             name="username"
-            sx={{ my: 0.5, width:'50vh' }}
+            sx={{ my: 0.5, width:'50vh',backgroundColor:'rgb(255,255,255)' }}
             required
             value={username}
             onChange={(event) => setUsername(event.target.value)}
@@ -61,10 +61,10 @@ function LoginForm() {
         <Grid>
           <TextField
             fullWidth label='Password'
-            variant="outlined"
+            variant="filled"
             type="password"
             name="password"
-            sx={{ my: 0.5, width:'50vh' }}
+            sx={{ my: 0.5, width:'50vh',backgroundColor:'rgb(255,255,255)' }}
             required
             value={password}
             onChange={(event) => setPassword(event.target.value)}

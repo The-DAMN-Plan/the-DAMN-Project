@@ -40,7 +40,7 @@ export default function RegisterForm() {
   }; // end registerUser
 
   return (
-    <Grid container sx={{ height: '100vh' }}>
+    <Grid container sx={{ height: '100%' }}>
       <Grid xs={2} >
 
       </Grid>
@@ -56,10 +56,10 @@ export default function RegisterForm() {
 
         <Grid>
           <TextField
-            fullWidth label='Username' variant="outlined"
+            fullWidth label='Username' variant="filled"
             type="text"
             name="username"
-            sx={{ my: 0.5, width:'40vh' }}
+            sx={{ my: 0.5, width: '50vh',backgroundColor:'rgb(255,255,255)'  }}
             required
             value={username}
             onChange={(event) => setUsername(event.target.value)}
@@ -68,10 +68,10 @@ export default function RegisterForm() {
         <Grid>
           <TextField
             fullWidth label='Password'
-            variant="outlined"
+            variant="filled"
             type="password"
             name="password"
-            sx={{ my: 0.5,width:'40vh' }}
+            sx={{ my: 0.5, width: '50vh',backgroundColor:'rgb(255,255,255)' }}
             required
             value={password}
             onChange={(event) => setPassword(event.target.value)}
@@ -80,10 +80,10 @@ export default function RegisterForm() {
         <Grid>
           <TextField
             fullWidth label='Phone'
-            variant="outlined"
+            variant="filled"
             type="text"
             name="phone"
-            sx={{ my: 0.5,width:'40vh' }}
+            sx={{ my: 0.5, width: '50vh',backgroundColor:'rgb(255,255,255)' }}
             required
             value={phone}
             onChange={(event) => setPhone(event.target.value)}
@@ -92,10 +92,10 @@ export default function RegisterForm() {
         <Grid>
           <TextField
             fullWidth label='First Name'
-            variant="outlined"
+            variant="filled"
             type="text"
             name="firstName"
-            sx={{ my: 0.5,width:'40vh' }}
+            sx={{ my: 0.5, width: '50vh', backgroundColor:'rgb(255,255,255)' }}
             required
             value={firstName}
             onChange={(event) => setfirstName(event.target.value)}
@@ -104,10 +104,10 @@ export default function RegisterForm() {
         <Grid>
           <TextField
             fullWidth label='Last Name'
-            variant="outlined"
+            variant="filled"
             type="text"
             name="lastName"
-            sx={{ my: 0.5,width:'40vh' }}
+            sx={{ my: 0.5, width: '50vh', backgroundColor:'rgb(255,255,255)' }}
             required
             value={lastName}
             onChange={(event) => setlastName(event.target.value)}
@@ -116,10 +116,10 @@ export default function RegisterForm() {
         <Grid>
           <TextField
             fullWidth label='Email'
-            variant="outlined"
+            variant="filled"
             type="text"
             name="email"
-            sx={{ my: 0.5,width:'40vh' }}
+            sx={{ my: 0.5, width: '50vh', backgroundColor:'rgb(255,255,255)' }}
             required
             value={email}
             onChange={(event) => setEmail(event.target.value)}
@@ -135,7 +135,7 @@ export default function RegisterForm() {
               />}
             label="Agree to Emails?" />
         </Grid>
-        <Grid width={'50vh'}>
+        <Grid width={'40vh'}>
           <Button fullWidth variant='contained'
             className="btn"
             type="submit"
@@ -159,7 +159,6 @@ export default function RegisterForm() {
             Login
           </Button>
         </Grid>
-
       </Grid>
       <Grid xs={2} >
 
