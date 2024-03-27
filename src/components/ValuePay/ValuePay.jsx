@@ -1,6 +1,6 @@
 import { Container, Typography, Paper, TextField, InputAdornment, Button } from '@mui/material';
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import ProgressBar from '../ProgressBar/ProgressBar';
@@ -10,11 +10,19 @@ import Footer from '../Footer/Footer';
 
 
 export default function ValuePay(props) {
+  const dispatch = useDispatch();
   const [percent, setPercent] = useState(0);
   const [dollarAmount, setDollarAmount] = useState(0);
+  const expense = useSelector((store) => store.expense);
+  console.log(expense);
   const open = useSelector(store => store.sideNav);
   const history = useHistory();
   const budgetId = useParams();
+
+  useEffect(() => {
+    dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
+}, [dispatch, budgetId]);
+
 
   function handleSubmit() {
 
@@ -24,6 +32,7 @@ export default function ValuePay(props) {
       step: 'valuepay'
     }
 
+    dispatch()
     dispatch({ type: 'UPDATE_STATUS', payload: updateObj }) // Will need to be set up later to post the completed step to the status table
   }
 

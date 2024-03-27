@@ -144,18 +144,20 @@ router.put('/status', async (req, res) => {
 
 router.post('/', async (req, res) => {
   // POST route code here
-  const sql = `insert into "budgets" ("business_id","name","escrow_savings","y1_cogs","y2_cogs","cash_balance")
-  values($1,$2,$3,$4,$5,$6) returning *;`
+  const sql = `insert into "budgets" ("business_id","name","escrow_savings","y1_cogs","y2_cogs","cash_balance","vp_percent","vp_income")
+  values($1,$2,$3,$4,$5,$6,$7,$8) returning *;`
   const data = req.body;
 
   try {
-    const result = await pool.query(sql, [data.business_id, data.name, data.escrow_savings, data.y1_cogs, data.y2_cogs, data.cash_balance]);
+    const result = await pool.query(sql, [data.business_id, data.name, data.escrow_savings, data.y1_cogs, data.y2_cogs, data.cash_balance, data.vp_percent, data.vp_income]);
     res.send(result.rows);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
   }
 });
+
+
 
 router.get('/expenses/:budgetId', async (req, res) => {
   const budgetId = req.params.budgetId;

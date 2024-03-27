@@ -101,7 +101,7 @@ function VariableExpenses() {
         dispatch({ type: 'UPDATE_EXPENSE', payload: userEntry })
     }
 
-    const isStartPlanCompleted = status.find(s => s.step === 'startplan')?.completed;
+    const isStartPlanCompleted = status.find(s => s.step === 'variableexpenses')?.completed;
 
     return (
         <Container maxWidth="md">
