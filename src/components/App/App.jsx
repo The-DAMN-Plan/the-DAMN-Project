@@ -43,7 +43,6 @@ import BusinessExpensePage2 from '../BusinessExpense/BusinessExpensePage2';
 import ValuePay from '../ValuePay/ValuePay';
 import SideNav from '../Nav/SideNav';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
-import OtherBusinessExpenses from '../BusinessExpense/OtherBusinessExpenses';
 import ActivePlans from '../ActivePlans/ActivePlans';
 import HumanResourcesPage1 from '../BusinessExpense/HumanResourcesPage1';
 import HumanResourcesPage2 from '../BusinessExpense/HumanResourcesPage2';
@@ -134,8 +133,8 @@ function App() {
                 <FuturePlans />
               </Route>
 
-              <Route exact path="/otherbusiness/:budgetId">
-                <OtherBusinessExp />
+              <Route exact path="/otherexpenses/:budgetId">
+                <OtherExpenses/>
               </Route>
 
               <Route exact path="/incomeyear1/:budgetId">
