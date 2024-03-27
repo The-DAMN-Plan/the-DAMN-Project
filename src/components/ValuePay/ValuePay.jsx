@@ -13,6 +13,17 @@ export default function ValuePay(props) {
   const history = useHistory();
   const budgetId = useParams();
 
+  function handleSubmit() {
+
+    const updateObj = {
+      completed: true,
+      budget_id: Number(budgetId.budgetId),
+      step: 'valuepay'
+    }
+
+    dispatch({ type: 'UPDATE_STATUS', payload: updateObj }) // Will need to be set up later to post the completed step to the status table
+  }
+
 
   return (
     <Container>
@@ -55,6 +66,7 @@ export default function ValuePay(props) {
             <Typography textAlign={'center'} variant='h5'>$xx,xxx</Typography>
           </Paper>
         </Grid>
+      <Button onClick={handleSubmit} sx={{mx:'50%'}}>Save</Button>
       </Grid>
       <ProgressBar back={'otherexpenses'} next={'incomeyear1'} value={40} budgetId={budgetId} />
     </Container>
