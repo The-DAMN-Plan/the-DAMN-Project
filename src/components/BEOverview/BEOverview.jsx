@@ -20,7 +20,6 @@ export default function BEOverview(props) {
 
 
   return (
-    
     <Main open={open}>
       <Container>
       <Typography textAlign={'center'} color={'primary'} variant='h2'>Overview</Typography>

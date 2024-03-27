@@ -5,6 +5,8 @@ import { InputLabel, Select, MenuItem, InputAdornment } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import Footer from '../Footer/Footer';
+import Main from '../Main/Main';
 
 
 function Year2Income() {
@@ -24,6 +26,7 @@ function Year2Income() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [revenueStreams, setRevenueStreams] = useState([]);
   const [userEntry, setUserEntry] = useState([]);
+  const open = useSelector((store)=>store.sideNav);
 
   useEffect(() => {
     dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
@@ -94,6 +97,7 @@ function Year2Income() {
     
 
   return (
+    <Main open={open}>
     <Container sx={{ paddingTop: '64px', paddingBottom: '64px' }}>
       <Typography variant="h4" gutterBottom align="center">
         Year 2 Business Income
@@ -261,6 +265,8 @@ function Year2Income() {
       </Paper>
       <ProgressBar back={'incomeyear1'} next={'overview'} submit={handleSubmit} value={48} budgetId={budgetId} />
     </Container>
+    <Footer/>
+    </Main>
   );
 }
 

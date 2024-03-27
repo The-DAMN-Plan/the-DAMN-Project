@@ -7,7 +7,6 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
 
-
 function PersonalSavings() {
     const dispatch = useDispatch();
 

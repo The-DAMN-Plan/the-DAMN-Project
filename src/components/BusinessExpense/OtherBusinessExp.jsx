@@ -61,7 +61,6 @@ function OtherBusinessExp() {
     
     const filteredExpenses = expense.filter(item => item.type === 'business other');
     
-
     return (
         <Main open={open}>
             <Container sx={{ paddingTop: '64px' }}> {/* Adjust this value based on the height of your nav bar */}
