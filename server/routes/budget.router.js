@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
   -- this will get the cashflow_months as a nested object
             (SELECT coalesce(jsonb_agg(item), '[]'::jsonb) FROM (
             SELECT "cashflow_months".* FROM "cashflow_months" WHERE "cashflow_months"."budget_id"="budgets"."id") item) as "cashflow_months" from budgets where budgets.id = $1;`
-  const budget_id = Number(req.params.id);
+  const budget_id = parseInt(req.params.id, 10);
   console.log('Budget id big get', budget_id);
 
   try {
@@ -53,7 +53,7 @@ router.get('/business/:businessId', async (req, res) => {
 });
 
 // update by id
-router.put('/:id', async (req, res) => {
+router.put('/budget/:id', async (req, res) => {
   // put route code here
   const sql = `update "budgets" set "name"=$1,"escrow_savings"=$2,"y1_cogs"=$3,"y2_cogs"=$4,"cash_balance"=$5 where id=$6 returning *;`
   const data = req.body;
@@ -111,6 +111,7 @@ router.put('/status', async (req, res) => {
   // POST route code here
   const sql = `update "status" set "completed"=$1 where "budget_id"=$2 AND "step"=$3 returning *;`
   const data = req.body;
+  console.log(data);
 
   // TO USE THIS PUT - your action.payload should be an object that looks like this:
   // {completed:true, budget_id: Number(budgetId), step:'valuepay'}
@@ -193,19 +194,22 @@ router.post('/expense', async (req, res) => {
 // updates all expenses given to it
 router.put('/expense', async (req, res) => {
   // put route code here
-  const sql = `update "expenses" set "budget_id"=$1,"type"=$2,"expense_name"=$3,"expense_amount"=$4,"percent_change"=$5,
-  "year"=$6,"frequency"=$7,"timing"=$8,"facilitator"=$9,"vendor"=$10,"cost_per_use"=$11,"assets_needed"=$12,"service"=$13 where id=$14 returning *;`
+  const sql = `UPDATE "expenses" SET  "type" = $1, "expense_amount" = $2, "percent_change" = $3, "year" = $4, "frequency" = $5,
+      "timing" = $6, "facilitator" = $7, "vendor" = $8, "cost_per_use" = $9, "assets_needed" = $10, "service" = $11 WHERE "budget_id" = $12 AND "expense_name" = $13 RETURNING *;`
   const data = req.body;
-  for (const expense of data) {
-    try {
+  console.log('Update data', data);
+  try {
+    for (const expense of data) {
       const result = await pool.query(sql, [
-        expense.budget_id, expense.type, expense.expense_name, expense.expense_amount, expense.percent_change, expense.year, expense.frequency,
-        expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use, expense.assests_needed, expense.service, expense.id]);
-      res.send(result);
-    } catch (error) {
-      console.log(error);
-      res.sendStatus(500);
+        expense.type, expense.expense_amount, expense.percent_change, expense.year, expense.frequency,
+        expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use, expense.assests_needed, expense.service, expense.budget_id, expense.expense_name]);
+      console.log(result);
     }
+    res.sendStatus(200);
+    // console.log(result);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
   }
 });
 

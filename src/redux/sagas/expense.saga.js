@@ -41,11 +41,27 @@ function* deleteExpense(action) {
     }
 }
 
+function* updateExpense(action) {
+    try {
+        console.log('payload', action.payload);
+        // const budget_id = action.payload[0].budget_id;
+        // console.log('id', budget_id);
+        const response = yield axios.put(`/api/budget/expense`, action.payload);
+        // yield put({
+        //     type: 'SET_EXPENSE',
+        //     payload: response.data
+        // });
+    } catch(error) {
+        console.log('Error updating expense', error);
+    }
+}
+
 function* expenseSaga() {
     yield takeLatest('FETCH_EXPENSES', fetchExpenses);
     yield takeLatest('ADD_PERSONAL_EXPENSE', addPersonalExpense);
     yield takeLatest('ADD_BUSINESS_EXPENSE', addBusinessExpense);
     yield takeLatest('DELETE_EXPENSE', deleteExpense);
+    yield takeLatest('UPDATE_EXPENSE', updateExpense);
 }
 
 export default expenseSaga;
