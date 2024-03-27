@@ -15,7 +15,6 @@ function StartPlan() {
     const expense = useSelector((store) => store.expense);
     const status = useSelector((store) => store.status);
     console.log(status);
-    const [formSubmitted, setFormSubmitted] = useState(false);
     const [formValues, setFormValues] = useState({
         rentOrMortgage: '',
         electric: '',
@@ -92,8 +91,6 @@ function StartPlan() {
         });
     };
 
-    console.log(userEntry);
-
     const handleSubmit = (event) => {
         event.preventDefault();
         const updateObj = {
@@ -105,9 +102,10 @@ function StartPlan() {
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
         dispatch({type: 'UPDATE_STATUS', payload: updateObj}) // Will need to be set up later to post the completed step to the status table
     };
-
-    const handleEdit = (event) => {
-        console.log('Edit MAMA');
+    console.log('1111',userEntry);
+    const handleEdit = () => {
+        console.log('2222', userEntry);
+        dispatch({ type: 'UPDATE_EXPENSE', payload: userEntry })
     }
 
     const isStartPlanCompleted = status.find(s => s.step === 'startplan')?.completed;
