@@ -9,7 +9,6 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function BusinessExpense(params) {
     const dispatch = useDispatch();
-    const history = useHistory();
     const open = useSelector(store=>store.sideNav);
     const status = useSelector((store) => store.status);
     const expense = useSelector((store) => store.expense);
@@ -45,43 +44,43 @@ export default function BusinessExpense(params) {
     const [userEntry, setUserEntry] = useState([
         {
             budget_id: budgetId.budgetId,
-            expense_amount: "0",
+            expense_amount: getExpenseAmount('accountingSupport') || "0",
             expense_name: "accountingSupport",
             type: "business expense"
         },
         {
             budget_id: budgetId.budgetId,
-            expense_amount: "0",
+            expense_amount: getExpenseAmount('insuranceGeneral') || "0",
             expense_name: "insuranceGeneral",
             type: "business expense"
         },
         {
             budget_id: budgetId.budgetId,
-            expense_amount: "0",
+            expense_amount: getExpenseAmount('insuranceHealthLifeDisability') || "0",
             expense_name: "insuranceHealthLifeDisability",
             type: "business expense"
         },
         {
             budget_id: budgetId.budgetId,
-            expense_amount: "0",
+            expense_amount: getExpenseAmount('legal') || "0",
             expense_name: "legal",
             type: "business expense"
         },
         {
             budget_id: budgetId.budgetId,
-            expense_amount: "0",
+            expense_amount: getExpenseAmount('coaching') || "0",
             expense_name: "coaching",
             type: "business expense"
         },
         {
             budget_id: budgetId.budgetId,
-            expense_amount: "0",
+            expense_amount: getExpenseAmount('travelLodging') || "0",
             expense_name: "travelLodging",
             type: "business expense"
         },
         {
             budget_id: budgetId.budgetId,
-            expense_amount: "0",
+            expense_amount: getExpenseAmount('clientTravelMeals') || "0",
             expense_name: "clientTravelMeals",
             type: "business expense"
         },
