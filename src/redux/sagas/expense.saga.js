@@ -41,11 +41,16 @@ function* deleteExpense(action) {
     }
 }
 
+function* updateExpense(action) {
+
+}
+
 function* expenseSaga() {
     yield takeLatest('FETCH_EXPENSES', fetchExpenses);
     yield takeLatest('ADD_PERSONAL_EXPENSE', addPersonalExpense);
     yield takeLatest('ADD_BUSINESS_EXPENSE', addBusinessExpense);
     yield takeLatest('DELETE_EXPENSE', deleteExpense);
+    yield takeLatest('UPDATE_EXPENSE', updateExpense);
 }
 
 export default expenseSaga;

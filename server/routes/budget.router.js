@@ -53,7 +53,7 @@ router.get('/business/:businessId', async (req, res) => {
 });
 
 // update by id
-router.put('/:id', async (req, res) => {
+router.put('/budget/:id', async (req, res) => {
   // put route code here
   const sql = `update "budgets" set "name"=$1,"escrow_savings"=$2,"y1_cogs"=$3,"y2_cogs"=$4,"cash_balance"=$5 where id=$6 returning *;`
   const data = req.body;
@@ -111,6 +111,7 @@ router.put('/status', async (req, res) => {
   // POST route code here
   const sql = `update "status" set "completed"=$1 where "budget_id"=$2 AND "step"=$3 returning *;`
   const data = req.body;
+  console.log(data);
 
   // TO USE THIS PUT - your action.payload should be an object that looks like this:
   // {completed:true, budget_id: Number(budgetId), step:'valuepay'}
