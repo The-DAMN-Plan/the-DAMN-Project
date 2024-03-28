@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import Main from '../Main/Main';
 
 function VariableExpenses() {
     const dispatch = useDispatch();
     const budgetId = useParams();
     const expense = useSelector((store) => store.expense);
     const status = useSelector((store) => store.status);
+    const open = useSelector((store)=>store.sideNav);
     const [userEntry, setUserEntry] = useState([])
     const [formValues, setFormValues] = useState({
         food: '',
@@ -104,6 +106,7 @@ function VariableExpenses() {
     const isStartPlanCompleted = status.find(s => s.step === 'startplan')?.completed;
 
     return (
+        <Main open={open}>
         <Container maxWidth="md">
             <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
                 <Typography variant="h3" align="center" gutterBottom>
@@ -140,6 +143,7 @@ function VariableExpenses() {
                 </form>
             </Paper>
         </Container>
+        </Main>
     );
 }
 

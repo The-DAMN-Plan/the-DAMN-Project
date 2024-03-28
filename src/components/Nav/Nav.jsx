@@ -114,7 +114,7 @@ function Nav({ drawerWidth }) {
                   color: '#fff'
                 }}
                 onClick={() => {
-                  history.push('/budget');
+                  history.push('/plans');
                 }}>Plans</Button>}
 
                 <Button

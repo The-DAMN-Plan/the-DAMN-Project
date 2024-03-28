@@ -12,6 +12,7 @@ function OtherBusinessExp() {
     const dispatch = useDispatch();
     const budgetId = useParams();
     const expense = useSelector((store) => store.expense);
+    const open = useSelector(store=>store.sideNav);
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [expenseName, setExpenseName] = useState('');
     const [amount, setAmount] = useState('');

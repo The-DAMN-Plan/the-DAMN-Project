@@ -13,7 +13,7 @@ function PBpage2() {
     const expense = useSelector((store) => store.expense);
     const status = useSelector((store) => store.status);
     const [formSubmitted, setFormSubmitted] = useState(false);
-    const open = useSelector(store=>store.SideNav);
+    const open = useSelector(store=>store.sideNav);
     const [formValues, setFormValues] = useState({
         realEstateTax: '',
         carInsurance: '',
@@ -164,7 +164,6 @@ function PBpage2() {
 
                 <ProgressBar back={'startplan'} next={'personalsavings'} value={12} budgetId={budgetId} />
             </Container>
-            
         </Main>
     );
 }

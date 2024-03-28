@@ -245,7 +245,6 @@ console.log('Marketing Data entered by User', userEntry);
             </Box>
         
             <ProgressBar next={'marketingy2'} back={'otherexpenses'} value={72} budgetId={budgetId} />
-            <Footer/>
         </Container>
         <Footer/>
         </Main>
