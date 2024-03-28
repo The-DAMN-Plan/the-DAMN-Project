@@ -99,7 +99,7 @@ function MarketingPageYear2() {
         dispatch({ type: 'DELETE_EXPENSE', payload: { expenseId, budgetObjId } })
     };
 
-    const filteredExpenses = expense.filter(item => item.type === 'business marketing');
+    const filteredExpenses = expense.filter(item => item.type === 'business marketing' && item.year === 2);
     console.log('business marketing', filteredExpenses);
 
     console.log('Marketing Data entered by User', userEntry);

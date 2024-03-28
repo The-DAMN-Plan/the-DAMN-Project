@@ -131,7 +131,7 @@ export default function BusinessExpense(params) {
             step: 'businessexpensepage2'
         }
         
-        dispatch({ type: 'ADD_BUSINESS_EXPENSE', payload: userEntry });
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
         dispatch({type: 'UPDATE_STATUS', payload: updateObj})
     };
 

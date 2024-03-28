@@ -12,6 +12,7 @@ function* startPlan(action) {
         });
         console.log('Budget id:', response.data[0].id)
         const response2 = yield axios.post(`/api/budget/createstatus`, { budget_id: response.data[0].id });
+        const response3 = yield axios.post(`/api/budget/createcashflow`, { budget_id: response.data[0].id});
         
     } catch (error) {
         console.log('Error adding personal expense', error);

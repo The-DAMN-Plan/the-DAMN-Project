@@ -12,6 +12,7 @@ function StartPlan() {
     const budgetId = useParams();
     const open = useSelector(store=>store.sideNav);
     const expense = useSelector((store) => store.expense);
+    console.log(expense);
     const status = useSelector((store) => store.status);
     const [formValues, setFormValues] = useState({
         rentOrMortgage: '',
