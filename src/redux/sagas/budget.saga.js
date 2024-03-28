@@ -42,6 +42,10 @@ function* fetchBudget(action) {
             type: 'SET_STATUS',
             payload: response.data[0].status
         })
+        yield put({
+            type: 'SET_CASHFLOW',
+            payload: response.data[0].cashflow_months
+        })
     } catch (err) {
         console.log('Error getting working budget', err);
     }
