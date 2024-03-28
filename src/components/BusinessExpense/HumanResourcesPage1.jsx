@@ -30,7 +30,7 @@ export default function HumanResourcesPage1() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        dispatch({ type: 'ADD_BUSINESS_EXPENSE', payload: { expense_name: expenseName, service, frequency, expense_amount: expenseAmount } });
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: { expense_name: expenseName, service, frequency, expense_amount: expenseAmount } });
 
         setExpenseName('');
         setService('');
