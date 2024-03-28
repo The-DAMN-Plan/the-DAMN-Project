@@ -96,8 +96,7 @@ router.post('/createstatus', async (req, res) => {
       'futureplans',
       'otherexpenses',
       'otherbusiness',
-      'breakeven',
-      'cashflow'
+      'breakeven'
     ]
 
   const sql = `insert into "status" ("budget_id","step")

@@ -48,6 +48,7 @@ import ActivePlans from '../ActivePlans/ActivePlans';
 import HumanResourcesPage1 from '../BusinessExpense/HumanResourcesPage1';
 import HumanResourcesPage2 from '../BusinessExpense/HumanResourcesPage2';
 import OtherBusinessExp from '../BusinessExpense/OtherBusinessExp';
+import CashFlow from '../CashFlow/CashFlow';
 
 
 function App() {
@@ -188,7 +189,7 @@ function App() {
               </Route>
 
               <Route exact path="/cashflow/:budgetId">
-                <AboutPage />
+                <CashFlow />
               </Route>
 
               <Route exact path="/valuepay/:budgetId">
