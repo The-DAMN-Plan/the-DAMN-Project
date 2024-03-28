@@ -10,7 +10,6 @@ import Footer from '../Footer/Footer';
 function StartPlan() {
     const dispatch = useDispatch();
     const budgetId = useParams();
-    const finalBudget = useSelector((store) => store.finalBudget);
     const open = useSelector(store=>store.sideNav);
     const expense = useSelector((store) => store.expense);
     const status = useSelector((store) => store.status);
@@ -180,7 +179,6 @@ function StartPlan() {
                 <ProgressBar back={`startplan`} next={`fundamentalexpenses`} value={6} budgetId={budgetId} />
             </form>
             <Footer />
-            
         </Container>
         </Main>
     );

@@ -18,7 +18,8 @@ function MarketingBudgetYear1() {
     const dispatch = useDispatch();
     const budgetId = useParams();
     const expense = useSelector((store) => store.expense);
-    console.log('Expeense Array:', expense);
+    console.log('BIG Expense Array:', expense);
+    const open = useSelector(store=>store.sideNav);
     const [expenseName, setExpenseName] = useState('');
     const [serviceProvider, setServiceProvider] = useState('');
     const [paymentInterval, setPaymentInterval] = useState('');
@@ -26,19 +27,14 @@ function MarketingBudgetYear1() {
     const [costPerUse, setCostPerUse] = useState('');
     const [vendor, setVendor] = useState('');
     const [monthlyUsageCount, setMonthlyUsageCount] = useState('');
+    
 
     const [userEntry, setuserEntry] = useState([]);
     const [expenses, setExpenses] = useState([]);
 
-
-    const filteredExpenses = expense.filter(item => item.type === 'business marketing');
-    console.log('business marketing', filteredExpenses);
-
     useEffect(() => {
         dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
     }, [dispatch, budgetId]);
-
-    const open = useSelector(s=>s.sideNav);
 
     const handleAddExpense = () => {
         if (!expenseName || !costPerUse || !vendor) return; // Validate input
@@ -54,27 +50,39 @@ function MarketingBudgetYear1() {
             cost_per_use: newCostPerUse,
             vendor: vendor,
             frequency: monthlyUsageCount,
+            year: 1,
             budget_id: budgetIdObj,
             expense_amount: expenseNumber,
             type: 'business marketing'
         };
         setuserEntry([...userEntry, formData]);
         resetForm();
+
     };
-    console.log('user entered data', userEntry);
+    // console.log('Business Marketing Expenses Filtered:', filteredExpenses);
+    console.log('User Entered Data:', userEntry);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
+        const updateObj = {
+            completed: true,
+            budget_id: Number(budgetId.budgetId),
+            step: 'marketingy1'
+        }
 
-
+        dispatch({ type: 'UPDATE_STATUS', payload: updateObj })
+        setuserEntry([]);
+    };
     
-    const handleDeleteExpense = (index) => {
-        const newExpenses = setExpenses.filter((_, i) => i !== index);
-        setExpenses(newExpenses);
+    const handleDeleteExpense = (id) => {
 
-        const newUserEntry = expenses.filter((_, i) => i !== index);
+        const newUserEntry = userEntry.filter((i) => i.id !== id);
         setuserEntry(newUserEntry);
+
+
     };
-
-console.log('Marketing Data entered by User', userEntry);
-
+    
     const resetForm = () => {
         // Reset form fields after adding a new expense
         setExpenseName('');
@@ -85,19 +93,32 @@ console.log('Marketing Data entered by User', userEntry);
         setVendor('');
         setMonthlyUsageCount('');
     };
-    
-    const handleSubmit = (event) => {
-        event.preventDefault();
-    
-        dispatch({ type: 'ADD_BUSINESS_EXPENSE', payload: userEntry });
+
+    const handleDeleteFromDB = (expenseId) => {
+        const budgetObjId = budgetId.budgetId;
+        dispatch({ type: 'DELETE_EXPENSE', payload: { expenseId, budgetObjId } })
     };
+
+    const filteredExpenses = expense.filter(item => item.type === 'business marketing');
+    console.log('business marketing', filteredExpenses);
+
+    console.log('Marketing Data entered by User', userEntry);
+
+
+    
 
 
     return (
 
         <Main open={open}>
         <Container sx={{ paddingTop: '64px' }}>
-            <Typography variant="h4" gutterBottom >Marketing Budget Year 1</Typography>
+            <Typography variant="h4" gutterBottom marginTop={'24px'} marginBottom={'24px'} >
+                Marketing Budget Year 1
+            </Typography>
+
+            <Typography variant="body1" marginTop={'24px'} marginBottom={'24px'} >
+            To develop your marketing budget, follow these steps: Begin with market research and decisions on marketing strategy and tools, listing each activity's cost. Exclude costs covered by employee time or contractor fees but document these activities for completion records. Determine each item's frequency, timing, responsible party (contractor or in-house), and necessary assets like copy or photos. Enter the cost per use and calculate monthly and yearly expenses. 
+            </Typography>
 
             <Grid container spacing={2} alignItems="center">
                 <Grid item xs={12} md={3}>
@@ -151,6 +172,7 @@ console.log('Marketing Data entered by User', userEntry);
                         <Select
                             labelId="vendor-label"
                             value={vendor}
+                            label="Vendor"
                             onChange={(e) => setVendor(e.target.value)}
                         >
                             <MenuItem value="Contractor">Contractor</MenuItem>
@@ -168,7 +190,7 @@ console.log('Marketing Data entered by User', userEntry);
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button variant="contained" color="primary" onClick={handleAddExpense}>Add Marketing Value</Button>
+                    <Button variant="contained" color="primary" onClick={handleAddExpense}>Submit</Button>
                 </Grid>
             </Grid>
 
@@ -184,11 +206,11 @@ console.log('Marketing Data entered by User', userEntry);
                         <TableCell align="right">Monthly Usage Count</TableCell>
                         <TableCell align="right">Monthly Expense</TableCell> {/* New Column */}
                         <TableCell align="right">Yearly Expense</TableCell> {/* New Column */}
-                        <TableCell align="center">Actions</TableCell>
+                        <TableCell align="center"></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {expenses.map((value, index) => (
+                    {userEntry.map((value, index) => (
                         <TableRow key={index}>
                             <TableCell>{value.expense_name}</TableCell>
                             <TableCell align="right">{value.facilitator}</TableCell>
@@ -206,29 +228,29 @@ console.log('Marketing Data entered by User', userEntry);
                                 <Currency value={value.frequency * value.cost_per_use * 12} />
                             </TableCell>
                             <TableCell align="center">
-                                <Button onClick={() => handleDeleteExpense(index)} variant="outlined" color="secondary">Delete</Button>
+                                <Button onClick={() => handleDeleteExpense(value.id)} variant="outlined" color="secondary">Delete</Button>
                             </TableCell>
                         </TableRow>
                     ))}
-                        {userEntry?.map((value, index) => (
-                        <TableRow key={index}>
-                            <TableCell>{value.expense_name}</TableCell>
-                            <TableCell align="right">{value.facilitator}</TableCell>
-                            <TableCell align="right">{value.timing}</TableCell>
-                            <TableCell align="right">{value.assets_needed}</TableCell>
-                            <TableCell align="right"><Currency value={value.cost_per_use} /></TableCell>
-                            <TableCell align="right">{value.vendor}</TableCell>
-                            <TableCell align="right">{value.frequency}</TableCell>
+                        {filteredExpenses?.map((expense) => (
+                        <TableRow key={expense.id}>
+                            <TableCell>{expense.expense_name}</TableCell>
+                            <TableCell align="right">{expense.facilitator}</TableCell>
+                            <TableCell align="right">{expense.timing}</TableCell>
+                            <TableCell align="right">{expense.assets_needed}</TableCell>
+                            <TableCell align="right"><Currency value={expense.cost_per_use} /></TableCell>
+                            <TableCell align="right">{expense.vendor}</TableCell>
+                            <TableCell align="right">{expense.frequency}</TableCell>
                             <TableCell align="right">
                                 {/* Calculate Monthly Expense */}
-                                <Currency value={value.frequency * value.cost_per_use} />
+                                <Currency value={expense.frequency * expense.cost_per_use} />
                             </TableCell>
                             <TableCell align="right">
                                 {/* Calculate Yearly Expense */}
-                                <Currency value={value.frequency * value.cost_per_use * 12} />
+                                <Currency value={expense.frequency * expense.cost_per_use * 12} />
                             </TableCell>
                             <TableCell align="center">
-                                <Button onClick={() => handleDeleteExpense(index)} variant="outlined" color="secondary">Delete</Button>
+                                <Button onClick={() => handleDeleteFromDB(expense.id)} variant="outlined" color="secondary">Delete</Button>
                             </TableCell>
                         </TableRow>
                     ))}
@@ -238,7 +260,7 @@ console.log('Marketing Data entered by User', userEntry);
         
             <Box paddingTop={'24px'}>
             <Grid>
-                <Button onClick={handleSubmit}>
+                <Button type='button' onClick={() => handleSubmit(event)}>
                     Save
                 </Button>
             </Grid>

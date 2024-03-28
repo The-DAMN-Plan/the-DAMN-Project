@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 
 function PBpage2() {
     const dispatch = useDispatch();

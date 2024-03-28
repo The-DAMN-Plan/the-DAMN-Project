@@ -31,7 +31,9 @@ export default function ProgressBar({ next, back, value, budgetId }) {
       direction="row"
       alignItems="center"
       justifyContent="center"
-      xs={12}>
+      xs={12}
+      sx={{mt: 4}}
+      >
       <Grid textAlign="center" xs={3} sm={2}>
         <Button onClick={handleBack} variant='outlined'>Back</Button>
       </Grid>

@@ -42,8 +42,23 @@ function* fetchBudget(action) {
             type: 'SET_STATUS',
             payload: response.data[0].status
         })
+        yield put({
+            type: 'SET_CASHFLOW',
+            payload: response.data[0].cashflow_months
+        })
     } catch (err) {
         console.log('Error getting working budget', err);
+    }
+}
+
+function* updateBudget(action) {
+    try {
+        console.log('payload', action.payload);
+        const {budget_id} = action.payload
+        yield axios.put(`/api/budget/budget/${budget_id}`, action.payload);
+
+    } catch(error) {
+        console.log('Error updating budget', error);
     }
 }
 
@@ -52,6 +67,7 @@ function* fetchBudget(action) {
 function* budgetSaga() {
     yield takeLatest('START_PLAN', startPlan);
     yield takeLatest('BUDGET_PLAN', fetchBudget);
+    yield takeLatest('UPDATE_BUDGET', updateBudget);
 }
 
 export default budgetSaga;
