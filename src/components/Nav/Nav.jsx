@@ -61,7 +61,7 @@ function Nav({ drawerWidth }) {
   return (
       <AppBar position="fixed" open={open}>
         <Toolbar>
-          {!listOfRoutes.includes(location.pathname) &&
+          {user.id && !listOfRoutes.includes(location.pathname) &&
             <Box>
               <> 
                 <IconButton
@@ -133,7 +133,20 @@ function Nav({ drawerWidth }) {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: 'flex'}}>
           <Box sx={{ flexGrow: 0 }}>
-                {user.id ? <LogOutButton/> :
+                {user.id ? <Button
+      // This button shows up in multiple locations and is styled differently
+      // because it's styled differently depending on where it is used, the className
+      // is passed to it from it's parents through React props
+      color='secondary'
+      variant='contained'
+      onClick={() => {
+        dispatch({ type: 'LOGOUT' });
+      }}
+
+
+    >
+      Log Out
+    </Button>:
                   <Button
                     color='secondary'
                     variant='contained'

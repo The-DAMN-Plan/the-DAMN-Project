@@ -1,4 +1,4 @@
-function sideNav(state=false,action) {
+function sideNav(state=true,action) {
     if (action.type == 'SET_SIDE_NAV') {
         return !state;
     }

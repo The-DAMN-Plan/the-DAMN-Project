@@ -107,9 +107,9 @@ function App() {
                 <AboutPage />
               </Route>
 
-              <Route exact path="/plans">
+              <ProtectedRoute exact path="/plans">
                 <ActivePlans />
-              </Route>
+              </ProtectedRoute>
 
               <Route exact path="/test/:budgetId">
                 <HumanResourcesPage1 />

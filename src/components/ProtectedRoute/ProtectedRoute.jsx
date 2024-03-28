@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import LoginPage from '../LoginPage/LoginPage';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 // A Custom Wrapper Component -- This will keep our code DRY.
 // Responsible for watching redux state, and returning an appropriate component
@@ -15,7 +16,7 @@ import {useSelector} from 'react-redux';
 
 function ProtectedRoute({ component, children, ...props }) {
   const user = useSelector((store) => store.user);
-
+  const history = useHistory();
   // Component may be passed in as a "component" prop,
   // or as a child component.
   const ProtectedComponent = component || (() => children);
@@ -32,7 +33,7 @@ function ProtectedRoute({ component, children, ...props }) {
         <ProtectedComponent />
         :
         // Otherwise, redirect to the Loginpage
-        <LoginPage />
+        history.push('/')
       }
     </Route>
 
