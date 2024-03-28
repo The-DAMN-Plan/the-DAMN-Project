@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, TextField, Button, Container, Grid, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom/cjs/react-router-dom';
 
 function CashFlow() {
+    const dispatch = useDispatch();
+    const budgetId = useParams();
+    const cashflow = useSelector((store) => store.cashflow);
   const [selectedYear, setSelectedYear] = useState('Year 1');
   const [selectedMonth, setSelectedMonth] = useState('');
 
@@ -41,17 +46,7 @@ function CashFlow() {
               {/* Add more months as needed */}
             </Select>
           </FormControl>
-          {/* Content area */}
-          <TextField
-            multiline
-            rows={4}
-            variant="outlined"
-            fullWidth
-            placeholder="Content will be displayed here"
-            value={null}
-            onChange={null}
-            style={{ marginTop: '20px' }}
-          />
+          <Typography></Typography>
         </Grid>
         <Grid item xs={12} md={3}>
         </Grid>

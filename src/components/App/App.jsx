@@ -189,17 +189,12 @@ function App() {
               </Route>
 
               <Route exact path="/cashflow/:budgetId">
-                <AboutPage />
+                <CashFlow />
               </Route>
 
               <Route exact path="/valuepay/:budgetId">
                 <ValuePay />
               </Route>
-
-              <Route exact path="/yourplan/:budgetId">
-                <CashFlow />
-              </Route>
-
 
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
