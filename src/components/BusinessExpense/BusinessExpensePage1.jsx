@@ -12,8 +12,7 @@ export default function BusinessExpense(params) {
     const open = useSelector(store=>store.sideNav);
     const status = useSelector((store) => store.status);
     const expense = useSelector((store) => store.expense);
-    const history = useHistory();
-    const [formSubmitted, setFormSubmitted] = useState(false);
+    console.log(expense);
     const budgetId = useParams();
 
     useEffect(() => {
@@ -134,14 +133,14 @@ export default function BusinessExpense(params) {
 
 
     const handleSubmit = (event) => {
-        event.preventDefault()
+        event.preventDefault();
         const updateObj = {
             completed: true, 
             budget_id: Number(budgetId.budgetId), 
             step: 'businessexpensepage1'
         }
         
-        dispatch({ type: 'ADD_BUSINESS_EXPENSE', payload: userEntry });
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
         dispatch({type: 'UPDATE_STATUS', payload: updateObj})
     };
 
@@ -162,8 +161,6 @@ export default function BusinessExpense(params) {
                 <Typography variant="h5" align="center" gutterBottom>
                     Fundamental Business Expenses
                 </Typography>
-                
-
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2} justifyContent="center">
                         <Grid item xs={12} md={6}>
@@ -186,19 +183,8 @@ export default function BusinessExpense(params) {
                                 </Button>
                             )}
                         </Grid>
-                        {formSubmitted ? (
-                            <Button type='button'>
-                                Update
-                            </Button>
-                        ) : (
-                            <Button type='submit'>
-                                Save
-                            </Button>
-                        )}
                     </Grid>
-                    
                 </form>
-                
                 <ProgressBar back={'overview'} next={'businessexpensepage2'} value={60} budgetId={budgetId}/>
             </Paper>
         </Container>
