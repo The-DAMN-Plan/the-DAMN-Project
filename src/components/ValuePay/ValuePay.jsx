@@ -28,9 +28,9 @@ export default function ValuePay(props) {
   const budgetId = useParams();
 
   console.log('Big budget object', finalBudget);
-  const vpPercent = finalBudget[0].vp_percent
-  const vpIncome = finalBudget[0].vp_income
   
+  const vpPercent = finalBudget[0].vp_percent;
+  const vpIncome = finalBudget[0].vp_income;
   
   useEffect(() => {
     dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
