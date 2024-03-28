@@ -179,6 +179,10 @@ ALTER TABLE "public"."budgets"
   ADD COLUMN "vp_percent" numeric,
   ADD COLUMN "vp_income" numeric;
 
-
+-- Adds columns as the correct info so that you can use the income page
 ALTER TABLE revenue_streams
   ADD COLUMN "cost_of_delivery" numeric;
+
+ALTER TABLE "public"."revenue_streams"
+  DROP COLUMN "year",
+  ADD COLUMN "year" integer;
