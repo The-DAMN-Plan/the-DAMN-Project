@@ -111,90 +111,90 @@ function App() {
                 <ActivePlans />
               </ProtectedRoute>
 
-              <Route exact path="/test/:budgetId">
+              <ProtectedRoute exact path="/test/:budgetId">
                 <HumanResourcesPage1 />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/startplan/:budgetId">
+              <ProtectedRoute exact path="/startplan/:budgetId">
                 <StartPlan />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/fundamentalexpenses/:budgetId">
+              <ProtectedRoute exact path="/fundamentalexpenses/:budgetId">
                 <PBPage2 />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/personalsavings/:budgetId">
+              <ProtectedRoute exact path="/personalsavings/:budgetId">
                 <PersonalSavings />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/variableexpenses/:budgetId">
+              <ProtectedRoute exact path="/variableexpenses/:budgetId">
                 <VariableExpenses />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/futureplans/:budgetId">
+              <ProtectedRoute exact path="/futureplans/:budgetId">
                 <FuturePlans />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/otherexpenses/:budgetId">
+              <ProtectedRoute exact path="/otherexpenses/:budgetId">
                 <OtherExpenses />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/incomeyear1/:budgetId">
+              <ProtectedRoute exact path="/incomeyear1/:budgetId">
                 <Year1Income />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/incomeyear2/:budgetId">
+              <ProtectedRoute exact path="/incomeyear2/:budgetId">
                 <Year2Income />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/overview/:budgetId">
+              <ProtectedRoute exact path="/overview/:budgetId">
                 <BEOverview />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/businessexpensepage1/:budgetId">
+              <ProtectedRoute exact path="/businessexpensepage1/:budgetId">
                 <BusinessExpensePage1 />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/businessexpensepage2/:budgetId">
+              <ProtectedRoute exact path="/businessexpensepage2/:budgetId">
                 <BusinessExpensePage2 />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/marketingy1/:budgetId">
+              <ProtectedRoute exact path="/marketingy1/:budgetId">
                 <MarketingPageYear1 />
-              </Route>
+              </ProtectedRoute>
               {/* this one below needs to have a progbar value of 78 */}
 
               {/* <Route exact path="/marketingy2">
                 <MarketingPage />
               </Route> */}
 
-              <Route exact path="/marketingy2/:budgetId">
+              <ProtectedRoute exact path="/marketingy2/:budgetId">
                 <MarketingPageYear2 />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/hrpagey1/:budgetId">
+              <ProtectedRoute exact path="/hrpagey1/:budgetId">
                 <HumanResourcesPage1 />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/hrpagey2/:budgetId">
+              <ProtectedRoute exact path="/hrpagey2/:budgetId">
                 <HumanResourcesPage2 />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/otherbusiness/:budgetId">
+              <ProtectedRoute exact path="/otherbusiness/:budgetId">
                 <OtherBusinessExp />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/breakeven/:budgetId">
+              <ProtectedRoute exact path="/breakeven/:budgetId">
                 <BreakEven />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/cashflow/:budgetId">
+              <ProtectedRoute exact path="/cashflow/:budgetId">
                 <CashFlow />
-              </Route>
+              </ProtectedRoute>
 
-              <Route exact path="/valuepay/:budgetId">
+              <ProtectedRoute exact path="/valuepay/:budgetId">
                 <ValuePay />
-              </Route>
+              </ProtectedRoute>
 
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
@@ -218,9 +218,9 @@ function App() {
                   <LoginPage />
                 }
               </Route>
-              <Route exact path="/breakeven/:budgetId">
+              <ProtectedRoute exact path="/breakeven/:budgetId">
                 <BreakEven />
-              </Route>
+              </ProtectedRoute>
 
               <Route exact path="/registration">
                 {user.id ? <Redirect to="/user" /> : <RegisterPage />}
