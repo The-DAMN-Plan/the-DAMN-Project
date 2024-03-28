@@ -92,12 +92,12 @@ router.post('/createstatus', async (req, res) => {
     'breakeven',
     'cashflow']
 
-    const skippableSteps = [
-      'futureplans',
-      'otherexpenses',
-      'otherbusiness',
-      'breakeven'
-    ]
+  const skippableSteps = [
+    'futureplans',
+    'otherexpenses',
+    'otherbusiness',
+    'breakeven'
+  ]
 
   const sql = `insert into "status" ("budget_id","step")
   values($1,$2) returning *;`
@@ -244,18 +244,18 @@ router.delete('/expense/:id', async (req, res) => {
 router.post('/revenuestream', async (req, res) => {
   // POST route code here
   const sql = `INSERT INTO "revenue_streams" ("budget_id", "revenue_stream", "description", "price",
-    "unit", "time_used", "ideal_client", "rate_of_love", "purchasers", "year") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;`;
+    "unit", "time_used", "ideal_client", "rate_of_love", "purchasers", "year", "cost_of_delivery") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *;`;
   const data = req.body;
-  for (const revenueStream of data) {
-    try {
+  try {
+    for (const revenueStream of data) {
       const result = await pool.query(sql, [
         revenueStream.budget_id, revenueStream.revenue_stream, revenueStream.description, revenueStream.price, revenueStream.unit, revenueStream.time_used,
-        revenueStream.ideal_client, revenueStream.rate_of_love, revenueStream.purchasers, revenueStream.year]);
-      res.send(result);
-    } catch (error) {
-      console.log(error);
-      res.sendStatus(500);
+        revenueStream.ideal_client, revenueStream.rate_of_love, revenueStream.purchasers, revenueStream.year, revenueStream.cost_of_delivery]);
     }
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
   }
 });
 
