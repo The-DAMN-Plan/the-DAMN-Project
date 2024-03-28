@@ -48,6 +48,7 @@ import ActivePlans from '../ActivePlans/ActivePlans';
 import HumanResourcesPage1 from '../BusinessExpense/HumanResourcesPage1';
 import HumanResourcesPage2 from '../BusinessExpense/HumanResourcesPage2';
 import OtherBusinessExp from '../BusinessExpense/OtherBusinessExp';
+import CashFlow from '../CashFlow/CashFlow';
 
 
 function App() {
@@ -194,6 +195,11 @@ function App() {
               <Route exact path="/valuepay/:budgetId">
                 <ValuePay />
               </Route>
+
+              <Route exact path="/yourplan/:budgetId">
+                <CashFlow />
+              </Route>
+
 
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
