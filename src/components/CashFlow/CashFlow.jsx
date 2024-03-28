@@ -14,6 +14,12 @@ function CashFlow() {
     setSelectedYear(year);
   };
 
+  useEffect(() => {
+    dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
+}, [dispatch, budgetId]);
+
+
+
   const handleMonthChange = (event) => {
     setSelectedMonth(event.target.value);
   };
@@ -34,17 +40,21 @@ function CashFlow() {
           <Button onClick={() => handleYearChange('Year 2')} variant={selectedYear === 'Year 2' ? 'contained' : 'outlined'}>
             Year 2
           </Button>
-          {/* Month select */}
           <FormControl fullWidth>
-            <InputLabel>Select Month</InputLabel>
-            <Select value={selectedMonth} onChange={handleMonthChange}>
-              <MenuItem value="">Select</MenuItem>
-              {/* You can generate menu items for months dynamically */}
-              <MenuItem value="Month 1">Month 1</MenuItem>
-              <MenuItem value="Month 2">Month 2</MenuItem>
-              <MenuItem value="Month 3">Month 3</MenuItem>
-              {/* Add more months as needed */}
-            </Select>
+          <InputLabel id="month-select-label">Select Month</InputLabel>
+                <Select
+                  labelId="month-select-label"
+                  id="month-select"
+                  label="Select Month"
+                  value={selectedMonth}
+                  onChange={handleMonthChange}
+                >
+                  {cashflow.map(item => (
+                    <MenuItem key={item.id} value={item.month}>
+                      {item.month}
+                    </MenuItem>
+                  ))}
+                </Select>
           </FormControl>
           <Typography></Typography>
         </Grid>

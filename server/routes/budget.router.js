@@ -118,6 +118,37 @@ router.post('/createstatus', async (req, res) => {
   }
 });
 
+router.post('/createcashflow', async (req, res) => {
+  const monthArray = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+  ];
+  const yearArray = [
+    1, 2
+  ];
+
+  const percentArray = [
+    8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 10, 10
+  ];
+
+  const sql = `INSERT INTO cashflow_months (budget_id, month, percent, year) VALUES ($1, $2, $3, $4)`;
+
+  const budget_id = req.body.budget_id;
+
+  try {
+    for (const year of yearArray) {
+      for (let i = 0; i < monthArray.length; i++) {
+        const month = monthArray[i];
+        const percent = percentArray[i];
+        await pool.query(sql, [budget_id, month, percent, year]);
+      }
+    }
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
+
 router.put('/status', async (req, res) => {
   // POST route code here
   const sql = `update "status" set "completed"=$1 where "budget_id"=$2 AND "step"=$3 returning *;`
