@@ -60,28 +60,26 @@ function Nav({ drawerWidth }) {
   }));
 
   return (
-    <AppBar position="fixed" open={open} >
-      < Container maxWidth='xl' >
-        <Toolbar disableGutters sx={{display: 'flex', alignItems: 'right', justifyContent:'space-between'}}>
-              {/* Menu Icon */}
-              {!listOfRoutes.includes(location.pathname) &&
-              <Box>
-                <> 
-                  <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={()=>toggleDrawer()}
-                    sx={{ ...(open && { display: 'none' }) }}
-                  >
-                    <MenuIcon />
-                  </IconButton>
-                  <SideNav drawerWidth={drawerWidth}/>
-                </>
-              </Box>}
-
-              {/*Logo  */}
-              {!open&&<Box>
-                <Typography
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          {!listOfRoutes.includes(location.pathname) &&
+            <Box>
+              <> 
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={()=>toggleDrawer()}
+                  sx={{ ...(open && { display: 'none' }) }}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <SideNav drawerWidth={drawerWidth}/>
+              </>
+            </Box>
+          }
+          {/*Logo  */}
+          {!open&&<Box>
+            <Typography
               variant="h6"
               noWrap
               component="a"
@@ -96,13 +94,14 @@ function Nav({ drawerWidth }) {
             >
               The DAMN Plan
             </Typography>
-            </Box>}
-
-            {open ?
-            <>
-            <Container>
-              <Box sx={{display:'flex', backgroundColor:'#fff', alignItems:'center'}}>
-                  <Button 
+            </Box>
+          }
+          {/* <Box sx={{ flexGrow: 1 }} /> */}
+          <Box sx={{ display:'flex', color:'#fff', alignItems:'center'}}>
+                <Button 
+                  sx={{
+                    color: '#fff'
+                  }}
                   onClick={() => {
                     history.push('/home');
                   }}>
@@ -111,11 +110,17 @@ function Nav({ drawerWidth }) {
 
                 {user.id &&
                 <Button
+                sx={{
+                  color: '#fff'
+                }}
                 onClick={() => {
                   history.push('/budget');
                 }}>Plans</Button>}
 
                 <Button
+                sx={{
+                  color: '#fff'
+                }}
                 onClick={() => {
                   history.push('/about');
                 }}>About</Button>
@@ -125,52 +130,10 @@ function Nav({ drawerWidth }) {
                   history.push('/info');
                 }}>info</Button>}
                   
-              </Box>
-
-              
-            </Container>
-            <Box sx={{ flexGrow: 1 }}>
-                {user.id ? <LogOutButton/> :
-                  <Button
-                    color='secondary'
-                    variant='contained'
-                    onClick={()=>history.push('/login')}>
-                    Log In
-                  </Button>
-                }
-            </Box>
-            
-            </>:
-            <>
-              <Box>
-                <Box sx={{display:'flex', backgroundColor:'#fff', alignItems:'center', justifyContent:'center'}}>
-                    <Button 
-                    onClick={() => {
-                      history.push('/home');
-                    }}>
-                    Home
-                  </Button>
-
-                  {user.id &&
-                  <Button
-                  onClick={() => {
-                    history.push('/budget');
-                  }}>Plans</Button>}
-
-                  <Button
-                  onClick={() => {
-                    history.push('/about');
-                  }}>About</Button>
-
-                  {user.id &&<Button
-                  onClick={() => {
-                    history.push('/info');
-                  }}>info</Button>}
-                    
-                </Box>
-              </Box>
-          
-              <Box sx={{ flexGrow: 0 }}>
+          </Box>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: 'flex'}}>
+          <Box sx={{ flexGrow: 0 }}>
                 {user.id ? <LogOutButton/> :
                   <Button
                     color='secondary'
@@ -180,12 +143,10 @@ function Nav({ drawerWidth }) {
                   </Button>
                 }
               </Box>
-            </>}
             
+          </Box>
         </Toolbar>
-      </Container>
-    </AppBar >
-
+      </AppBar>
   )
 }
 
