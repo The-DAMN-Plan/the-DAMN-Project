@@ -16,7 +16,6 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import SideNav from './SideNav';
 import { Grid } from '@mui/material';
-import LoginButton from '../LogInButton/LoginButton';
 
 function Nav({ drawerWidth }) {
   const user = useSelector((store) => store.user);
