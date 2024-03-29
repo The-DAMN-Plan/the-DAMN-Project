@@ -11,6 +11,7 @@ function CashFlow() {
     const dispatch = useDispatch();
     const budgetId = useParams();
     const cashflow = useSelector((store) => store.cashflow);
+    console.log(cashflow);
     const totalExpenseAmount = useSelector((store) =>
     store.expense.reduce((total, currentExpense) => {
         if (currentExpense.year === null || currentExpense.year === selectedYear) {
@@ -24,13 +25,14 @@ function CashFlow() {
     const open = useSelector(store=>store.sideNav);
     const [beginningCash, setBeginningCash] = useState(0);
     const [selectedYear, setSelectedYear] = useState(1);
-    const [selectedMonth, setSelectedMonth] = useState('');
+    const [selectedMonth, setSelectedMonth] = useState(1);
+    const [monthlySales, setMonthlySales] = useState(0);
 
     
     useEffect(() => {
         dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
     }, [dispatch, budgetId]);
-    
+
     function calculateTotal() {
         let total = { y1: 0, y2: 0 };
         for (const item of income) {
@@ -44,18 +46,16 @@ function CashFlow() {
     }
     const totalIncome = calculateTotal();
 
-    function monthlyIncome() {
-        let total = 0;
-    }
+    // When the year/month/cashflow changes, we want to run some calculations
+    useEffect(() => {
+        const calculatedCashFlow = cashflow.find(item => item.year === selectedYear && item.month === selectedMonth);
+        const monthlyPercentOfCashFlow = calculatedCashFlow.percent / 100;
+        const yearIndex = 'y' + selectedYear;
+        const yearlyIncome = totalIncome[yearIndex];
+        setMonthlySales(yearlyIncome * monthlyPercentOfCashFlow);
+    }, [selectedMonth, selectedYear, cashflow, totalIncome]);
 
-    function endingCashBalance() {
-        let cashBalance = (monthlySales + beginningCash) - totalExpenseAmount;
 
-        return cashBalance;
-    }
-
-    const cashBalanceTotal = endingCashBalance();
-    
     const handleYearChange = (year) => {
         setSelectedYear(year);
     };
@@ -105,7 +105,7 @@ function CashFlow() {
                     id="month-select"
                     label="Select Month"
                     value={selectedMonth}
-                    onChange={handleMonthChange}
+                    onChange={(event)=>handleMonthChange(event)}
                     >
                     {filteredCashflow.map(item => (
                         <MenuItem key={item.id} value={item.month}>
@@ -125,7 +125,7 @@ function CashFlow() {
             <Grid xs={6} textAlign={'center'}>
                 <Paper sx={{ m: 2, p: 2 }}>
                 <Typography textAlign={'center'} variant='subtitle1'>Sales for the Month</Typography>
-                <Typography textAlign={'center'} variant='h5'><Currency value={monthlySales || 0} /></Typography>
+                <Typography textAlign={'center'} variant='h5'><Currency value={monthlySales} /></Typography>
                 </Paper>
             </Grid>
             <Grid xs={6} textAlign={'center'}>
@@ -137,7 +137,7 @@ function CashFlow() {
             <Grid xs={6} textAlign={'center'}>
                 <Paper sx={{ m: 2, p: 2 }}>
                 <Typography textAlign={'center'} variant='subtitle1'>Ending Cash Balance</Typography>
-                <Typography textAlign={'center'} variant='h5'><Currency value={cashBalanceTotal || 0} /></Typography>
+                {/* <Typography textAlign={'center'} variant='h5'><Currency value={cashBalanceTotal || 0} /></Typography> */}
                 </Paper>
             </Grid>
         </Container>
