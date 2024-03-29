@@ -11,7 +11,7 @@ const theme = createTheme({
             main: 'rgb(208, 50, 39)', // Secondary color
         },
         third: {
-            main: 'rgb(255, 253, 90)', // Third color
+            main: 'rgb(62, 62, 62)', // Third color
         },
     },
     typography: {
