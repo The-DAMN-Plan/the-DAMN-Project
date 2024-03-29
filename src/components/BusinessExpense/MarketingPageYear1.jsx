@@ -19,7 +19,7 @@ function MarketingBudgetYear1() {
     const budgetId = useParams();
     const expense = useSelector((store) => store.expense);
     console.log('BIG Expense Array:', expense);
-    const open = useSelector(store=>store.sideNav);
+    const open = useSelector(store => store.sideNav);
     const [expenseName, setExpenseName] = useState('');
     const [serviceProvider, setServiceProvider] = useState('');
     const [paymentInterval, setPaymentInterval] = useState('');
@@ -27,7 +27,7 @@ function MarketingBudgetYear1() {
     const [costPerUse, setCostPerUse] = useState('');
     const [vendor, setVendor] = useState('');
     const [monthlyUsageCount, setMonthlyUsageCount] = useState('');
-    
+
 
     const [userEntry, setuserEntry] = useState([]);
     const [expenses, setExpenses] = useState([]);
@@ -63,7 +63,7 @@ function MarketingBudgetYear1() {
     console.log('User Entered Data:', userEntry);
     const handleSubmit = (event) => {
         event.preventDefault();
-        
+
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
         const updateObj = {
             completed: true,
@@ -74,7 +74,7 @@ function MarketingBudgetYear1() {
         dispatch({ type: 'UPDATE_STATUS', payload: updateObj })
         setuserEntry([]);
     };
-    
+
     const handleDeleteExpense = (id) => {
 
         const newUserEntry = userEntry.filter((i) => i.id !== id);
@@ -82,7 +82,7 @@ function MarketingBudgetYear1() {
 
 
     };
-    
+
     const resetForm = () => {
         // Reset form fields after adding a new expense
         setExpenseName('');
@@ -105,170 +105,167 @@ function MarketingBudgetYear1() {
     console.log('Marketing Data entered by User', userEntry);
 
 
-    
+
 
 
     return (
 
         <Main open={open}>
-        <Container sx={{ paddingTop: '64px' }}>
-            <Typography variant="h4" gutterBottom marginTop={'24px'} marginBottom={'24px'} >
-                Marketing Budget Year 1
-            </Typography>
+            <Container >
+                <Typography variant="h3" color={'primary'} gutterBottom marginTop={'24px'} textAlign={'center'} marginBottom={'24px'} >
+                    Marketing Budget Year 1
+                </Typography>
 
-            <Typography variant="body1" marginTop={'24px'} marginBottom={'24px'} >
-            To develop your marketing budget, follow these steps: Begin with market research and decisions on marketing strategy and tools, listing each activity's cost. Exclude costs covered by employee time or contractor fees but document these activities for completion records. Determine each item's frequency, timing, responsible party (contractor or in-house), and necessary assets like copy or photos. Enter the cost per use and calculate monthly and yearly expenses. 
-            </Typography>
+                <Typography variant="body1" marginTop={'24px'} textAlign={'center'} marginBottom={'24px'} >
+                    To develop your marketing budget, follow these steps: Begin with market research and decisions on marketing strategy and tools, listing each activity's cost. Exclude costs covered by employee time or contractor fees but document these activities for completion records. Determine each item's frequency, timing, responsible party (contractor or in-house), and necessary assets like copy or photos. Enter the cost per use and calculate monthly and yearly expenses.
+                </Typography>
 
-            <Grid container spacing={2} alignItems="center">
-                <Grid item xs={12} md={3}>
-                    <TextField
-                        name="expenseName"
-                        label="Service/ Item"
-                        value={expenseName}
-                        onChange={(e) => setExpenseName(e.target.value)}
-                        fullWidth
-                    />
+                <Grid container spacing={2} alignItems="center" justifyContent={'center'}>
+                    <Grid item xs={12} md={3}>
+                        <TextField
+                            name="expenseName"
+                            label="Service/ Item"
+                            value={expenseName}
+                            onChange={(e) => setExpenseName(e.target.value)}
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={3}>
+                        <TextField
+                            name="serviceProvider"
+                            label="Service Provider"
+                            value={serviceProvider}
+                            onChange={(e) => setServiceProvider(e.target.value)}
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={3}>
+                        <TextField
+                            name="costPerUse"
+                            label="Cost Per Use"
+                            value={costPerUse}
+                            onChange={(e) => setCostPerUse(e.target.value)}
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            name="assetsNeeded"
+                            label="Assets Needed"
+                            value={assetsNeeded}
+                            onChange={(e) => setAssetsNeeded(e.target.value)}
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={3}>
+                        <TextField
+                            name="monthlyUsageCount"
+                            label="Monthly Usage Count"
+                            value={monthlyUsageCount}
+                            onChange={(e) => setMonthlyUsageCount(e.target.value)}
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <FormControl fullWidth>
+                            <InputLabel id="vendor-label">Vendor</InputLabel>
+                            <Select
+                                labelId="vendor-label"
+                                value={vendor}
+                                label="Vendor"
+                                onChange={(e) => setVendor(e.target.value)}
+                            >
+                                <MenuItem value="Contractor">Contractor</MenuItem>
+                                <MenuItem value="In-House">In-House</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} md={3}>
+                        <TextField
+                            name="paymentInterval"
+                            label="Payment Interval"
+                            value={paymentInterval}
+                            onChange={(e) => setPaymentInterval(e.target.value)}
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={12} textAlign={'center'}>
+                        <Button variant="contained" color="primary" onClick={handleAddExpense}>Submit</Button>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} md={3}>
-                    <TextField
-                        name="serviceProvider"
-                        label="Service Provider"
-                        value={serviceProvider}
-                        onChange={(e) => setServiceProvider(e.target.value)}
-                        fullWidth
-                    />
-                </Grid>
-                <Grid item xs={12} md={3}>
-                    <TextField
-                        name="costPerUse"
-                        label="Cost Per Use"
-                        value={costPerUse}
-                        onChange={(e) => setCostPerUse(e.target.value)}
-                        fullWidth
-                    />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField
-                        name="assetsNeeded"
-                        label="Assets Needed"
-                        value={assetsNeeded}
-                        onChange={(e) => setAssetsNeeded(e.target.value)}
-                        fullWidth
-                    />
-                </Grid>
-                <Grid item xs={12} md={3}>
-                    <TextField
-                        name="monthlyUsageCount"
-                        label="Monthly Usage Count"
-                        value={monthlyUsageCount}
-                        onChange={(e) => setMonthlyUsageCount(e.target.value)}
-                        fullWidth
-                    />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <FormControl fullWidth>
-                        <InputLabel id="vendor-label">Vendor</InputLabel>
-                        <Select
-                            labelId="vendor-label"
-                            value={vendor}
-                            label="Vendor"
-                            onChange={(e) => setVendor(e.target.value)}
-                        >
-                            <MenuItem value="Contractor">Contractor</MenuItem>
-                            <MenuItem value="In-House">In-House</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12} md={3}>
-                    <TextField
-                        name="paymentInterval"
-                        label="Payment Interval"
-                        value={paymentInterval}
-                        onChange={(e) => setPaymentInterval(e.target.value)}
-                        fullWidth
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <Button variant="contained" color="primary" onClick={handleAddExpense}>Submit</Button>
-                </Grid>
-            </Grid>
 
-            <Table >
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Service/ Item</TableCell>
-                        <TableCell align="right">Service Provider</TableCell>
-                        <TableCell align="right">Payment Interval</TableCell>
-                        <TableCell align="right">Assets Needed</TableCell>
-                        <TableCell align="right">Cost Per Use</TableCell>
-                        <TableCell align="right">Contractor or In-House</TableCell>
-                        <TableCell align="right">Monthly Usage Count</TableCell>
-                        <TableCell align="right">Monthly Expense</TableCell> {/* New Column */}
-                        <TableCell align="right">Yearly Expense</TableCell> {/* New Column */}
-                        <TableCell align="center"></TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {userEntry.map((value, index) => (
-                        <TableRow key={index}>
-                            <TableCell>{value.expense_name}</TableCell>
-                            <TableCell align="right">{value.facilitator}</TableCell>
-                            <TableCell align="right">{value.timing}</TableCell>
-                            <TableCell align="right">{value.assets_needed}</TableCell>
-                            <TableCell align="right"><Currency value={value.cost_per_use} /></TableCell>
-                            <TableCell align="right">{value.vendor}</TableCell>
-                            <TableCell align="right">{value.frequency}</TableCell>
-                            <TableCell align="right">
-                                {/* Calculate Monthly Expense */}
-                                <Currency value={value.frequency * value.cost_per_use} />
-                            </TableCell>
-                            <TableCell align="right">
-                                {/* Calculate Yearly Expense */}
-                                <Currency value={value.frequency * value.cost_per_use * 12} />
-                            </TableCell>
-                            <TableCell align="center">
-                                <Button onClick={() => handleDeleteExpense(value.id)} variant="outlined" color="secondary">Delete</Button>
-                            </TableCell>
+                <Table sx={{mt:2}}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Service/ Item</TableCell>
+                            <TableCell align="right">Service Provider</TableCell>
+                            <TableCell align="right">Payment Interval</TableCell>
+                            <TableCell align="right">Assets Needed</TableCell>
+                            <TableCell align="right">Cost Per Use</TableCell>
+                            <TableCell align="right">Contractor or In-House</TableCell>
+                            <TableCell align="right">Monthly Usage Count</TableCell>
+                            <TableCell align="right">Monthly Expense</TableCell> {/* New Column */}
+                            <TableCell align="right">Yearly Expense</TableCell> {/* New Column */}
+                            <TableCell align="center"></TableCell>
                         </TableRow>
-                    ))}
+                    </TableHead>
+                    <TableBody>
+                        {userEntry.map((value, index) => (
+                            <TableRow key={index}>
+                                <TableCell>{value.expense_name}</TableCell>
+                                <TableCell align="right">{value.facilitator}</TableCell>
+                                <TableCell align="right">{value.timing}</TableCell>
+                                <TableCell align="right">{value.assets_needed}</TableCell>
+                                <TableCell align="right"><Currency value={value.cost_per_use} /></TableCell>
+                                <TableCell align="right">{value.vendor}</TableCell>
+                                <TableCell align="right">{value.frequency}</TableCell>
+                                <TableCell align="right">
+                                    {/* Calculate Monthly Expense */}
+                                    <Currency value={value.frequency * value.cost_per_use} />
+                                </TableCell>
+                                <TableCell align="right">
+                                    {/* Calculate Yearly Expense */}
+                                    <Currency value={value.frequency * value.cost_per_use * 12} />
+                                </TableCell>
+                                <TableCell align="center">
+                                    <Button onClick={() => handleDeleteExpense(value.id)} variant="outlined" color="secondary">Delete</Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
                         {filteredExpenses?.map((expense) => (
-                        <TableRow key={expense.id}>
-                            <TableCell>{expense.expense_name}</TableCell>
-                            <TableCell align="right">{expense.facilitator}</TableCell>
-                            <TableCell align="right">{expense.timing}</TableCell>
-                            <TableCell align="right">{expense.assets_needed}</TableCell>
-                            <TableCell align="right"><Currency value={expense.cost_per_use} /></TableCell>
-                            <TableCell align="right">{expense.vendor}</TableCell>
-                            <TableCell align="right">{expense.frequency}</TableCell>
-                            <TableCell align="right">
-                                {/* Calculate Monthly Expense */}
-                                <Currency value={expense.frequency * expense.cost_per_use} />
-                            </TableCell>
-                            <TableCell align="right">
-                                {/* Calculate Yearly Expense */}
-                                <Currency value={expense.frequency * expense.cost_per_use * 12} />
-                            </TableCell>
-                            <TableCell align="center">
-                                <Button onClick={() => handleDeleteFromDB(expense.id)} variant="outlined" color="secondary">Delete</Button>
-                            </TableCell>
-                        </TableRow>
-                    ))}
+                            <TableRow key={expense.id}>
+                                <TableCell>{expense.expense_name}</TableCell>
+                                <TableCell align="right">{expense.facilitator}</TableCell>
+                                <TableCell align="right">{expense.timing}</TableCell>
+                                <TableCell align="right">{expense.assets_needed}</TableCell>
+                                <TableCell align="right"><Currency value={expense.cost_per_use} /></TableCell>
+                                <TableCell align="right">{expense.vendor}</TableCell>
+                                <TableCell align="right">{expense.frequency}</TableCell>
+                                <TableCell align="right">
+                                    {/* Calculate Monthly Expense */}
+                                    <Currency value={expense.frequency * expense.cost_per_use} />
+                                </TableCell>
+                                <TableCell align="right">
+                                    {/* Calculate Yearly Expense */}
+                                    <Currency value={expense.frequency * expense.cost_per_use * 12} />
+                                </TableCell>
+                                <TableCell align="center">
+                                    <Button onClick={() => handleDeleteFromDB(expense.id)} variant="outlined" color="secondary">Delete</Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
                     </TableBody>
                 </Table>
-                
-        
-            <Box paddingTop={'24px'}>
-            <Grid>
-                <Button type='button' onClick={() => handleSubmit(event)}>
-                    Save
-                </Button>
-            </Grid>
-            </Box>
-        
-            <ProgressBar next={'marketingy2'} back={'otherexpenses'} value={72} budgetId={budgetId} />
-        </Container>
-        <Footer/>
+
+                <Box paddingTop={'24px'} textAlign={'center'}>
+                    <Button variant='contained' type='button' onClick={() => handleSubmit(event)}>
+                        Save
+                    </Button>
+                </Box>
+
+                <ProgressBar next={'marketingy2'} back={'otherexpenses'} value={72} budgetId={budgetId} />
+            </Container>
+            <Footer />
         </Main>
     );
 }

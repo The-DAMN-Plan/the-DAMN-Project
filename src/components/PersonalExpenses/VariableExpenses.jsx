@@ -11,7 +11,7 @@ function VariableExpenses() {
     const budgetId = useParams();
     const expense = useSelector((store) => store.expense);
     const status = useSelector((store) => store.status);
-    const open = useSelector((store)=>store.sideNav);
+    const open = useSelector((store) => store.sideNav);
     const [userEntry, setUserEntry] = useState([])
     const [formValues, setFormValues] = useState({
         food: '',
@@ -86,7 +86,7 @@ function VariableExpenses() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        
+
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
 
         const updateObj = {
@@ -107,9 +107,8 @@ function VariableExpenses() {
 
     return (
         <Main open={open}>
-        <Container maxWidth="md">
-            <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
-                <Typography variant="h3" align="center" gutterBottom>
+            <Container maxWidth="md">
+                <Typography variant="h3" color={'primary'} align="center" gutterBottom>
                     Variable Living Expenses
                 </Typography>
                 <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
@@ -128,21 +127,20 @@ function VariableExpenses() {
                             <TextField name="gas" label="Gas" fullWidth value={formValues.gas} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="carRepairs" label="Car Repairs" fullWidth value={formValues.carRepairs} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="homeMaintenance" label="Home Maintenance" fullWidth value={formValues.homeMaintenance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            {isStartPlanCompleted ? (
-                                <Button type='button' onClick={handleEdit}>
-                                    Update
-                                </Button>
-                                ) : (
-                                <Button type='submit'>
-                                    Save
-                                </Button>
-                            )}
                         </Grid>
+                        {isStartPlanCompleted ? (
+                            <Button variant='outlined' type='button' onClick={handleEdit}>
+                                Update
+                            </Button>
+                        ) : (
+                            <Button variant='contained' type='submit'>
+                                Save
+                            </Button>
+                        )}
                     </Grid>
-                    <ProgressBar next={'futureplans'} back={'personalsavings'} value={24} budgetId={budgetId}/>
+                    <ProgressBar next={'futureplans'} back={'personalsavings'} value={24} budgetId={budgetId} />
                 </form>
-            </Paper>
-        </Container>
+            </Container>
         </Main>
     );
 }

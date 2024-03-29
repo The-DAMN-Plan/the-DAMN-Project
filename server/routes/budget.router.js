@@ -55,13 +55,14 @@ router.get('/business/:businessId', async (req, res) => {
 // update by id
 router.put('/budget/:id', async (req, res) => {
   // put route code here
-  const sql = `update "budgets" set "escrow_savings"=$1,"y1_cogs"=$2,"y2_cogs"=$3,"cash_balance"=$4,"vp_percent"=$5,"vp_income"=$6  where id=$7 returning *;`
+  const sql = `update "budgets" set "escrow_savings"=$1,"y1_cogs"=$2,"y2_cogs"=$3,"cash_balance"=$4,"vp_percent"=$5,"vp_income"=$6, "valuepay"=$8 where id=$7 returning *;`
   const data = req.body;
+  console.log(data.valuepay)
   console.log('Budget Update', data);
   const budget_id = Number(req.params.id);
 
   try {
-    const result = await pool.query(sql, [data.escrow_savings, data.y1_cogs, data.y2_cogs, data.cash_balance, data.vp_percent, data.vp_income, budget_id]);
+    const result = await pool.query(sql, [data.escrow_savings, data.y1_cogs, data.y2_cogs, data.cash_balance, data.vp_percent, data.vp_income, budget_id, data.valuepay]);
     res.send(result);
   } catch (error) {
     console.log(error);
@@ -213,7 +214,7 @@ router.post('/expense', async (req, res) => {
   const data = req.body;
   const results = []; // Array to collect all the results
   let errorOccurred = false;
-  console.log("Post");
+  console.log("Post:", data);
   for (const expense of data) {
     try {
       const result = await pool.query(sql, [

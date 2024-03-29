@@ -186,3 +186,5 @@ ALTER TABLE revenue_streams
 ALTER TABLE "public"."revenue_streams"
   DROP COLUMN "year",
   ADD COLUMN "year" integer;
+  
+ALTER TABLE "public"."budgets" ADD COLUMN "valuepay" numeric;
