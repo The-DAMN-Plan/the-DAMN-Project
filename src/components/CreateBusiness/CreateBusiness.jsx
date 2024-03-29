@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Grid from '@mui/material/Unstable_Grid2';
 import { DatePicker } from '@mui/x-date-pickers';
 
-function CreateBusiness(props) {
+function CreateBusiness({ handleClose }) {
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
 
@@ -49,6 +49,7 @@ function CreateBusiness(props) {
     setNumEmployees(0);
     setYearStarted(null);
     setAvgRevenue(0);
+    handleClose();
   }
 
   return (
@@ -56,7 +57,7 @@ function CreateBusiness(props) {
       <Typography color={'primary'} textAlign='center' variant='h4' sx={{ mb: 1 }}>Create a Business</Typography>
       <Grid component='form' method='post' direction='row' autoComplete="off" alignItems="center" justifyContent="center" container spacing={2} xs={12} onSubmit={(e) => createBusiness(e)} >
 
-        <Grid>
+        <Grid xs={6}>
           <TextField
             fullWidth label='Business Name' variant="outlined"
             type="text"
@@ -67,7 +68,7 @@ function CreateBusiness(props) {
             onChange={(event) => setBusinessName(event.target.value)}
           />
         </Grid>
-        <Grid>
+        <Grid xs={6}>
           <TextField
             fullWidth label='Type of Business' variant="outlined"
             type="text"
@@ -78,7 +79,7 @@ function CreateBusiness(props) {
             onChange={(event) => setTypeOfBusiness(event.target.value)}
           />
         </Grid>
-        <Grid>
+        <Grid xs={6}>
           <InputLabel id="occupation">Occupation Type *</InputLabel>
           <Select
             labelId="occupation"
@@ -95,7 +96,7 @@ function CreateBusiness(props) {
             <MenuItem value={'Side Hustle'}>Side Hustle</MenuItem>
           </Select>
         </Grid>
-        <Grid>
+        <Grid xs={6}>
           <InputLabel id="employees">Number of Employees *</InputLabel>
           <TextField
             fullWidth variant="outlined"
@@ -107,11 +108,11 @@ function CreateBusiness(props) {
             onChange={(event) => setNumEmployees(event.target.value)}
           />
         </Grid>
-        <Grid>
+        <Grid xs={6}>
           <InputLabel id="employees">Date Business Started *</InputLabel>
           <DatePicker value={yearStarted} onChange={(newValue) => setYearStarted(newValue)} sx={{ width: 195 }} />
         </Grid>
-        <Grid >
+        <Grid xs={6}>
           <InputLabel id="employees">Average Revenue *</InputLabel>
           <TextField
             fullWidth variant="outlined"
@@ -124,17 +125,15 @@ function CreateBusiness(props) {
             onChange={(event) => setAvgRevenue(event.target.value)}
           />
         </Grid>
-        <Grid>
-          <Button fullWidth variant='contained'
-            className="btn"
-            type="submit"
-            name="submit"
-            value="Create"
-            sx={{ my: 0.5 }}
-          >
-            Create
-          </Button>
-        </Grid>
+        <Button fullWidth variant='contained'
+          className="btn"
+          type="submit"
+          name="submit"
+          value="Create"
+          sx={{ my: 0.5 }}
+        >
+          Create
+        </Button>
       </Grid>
 
     </Box>
