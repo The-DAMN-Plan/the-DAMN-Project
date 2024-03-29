@@ -175,15 +175,6 @@ export default function BusinessExpense(params) {
                                 </Button>
                             )}
                         </Grid>
-                        {formSubmitted ? (
-                            <Button type='button'>
-                                Update
-                            </Button>
-                        ) : (
-                            <Button type='submit'>
-                                Save
-                            </Button>
-                        )}
                     </Grid>
                 </form>
                 
