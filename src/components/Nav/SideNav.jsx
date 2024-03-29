@@ -97,13 +97,13 @@ export default function SideNav({drawerWidth}) {
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/variableexpenses/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}  >
-                                            <ListItemText sx={{pl: 2}} primary={'Variable Expenses'} />
+                                            <ListItemButton component={NavLink} to={`/personalsavings/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}} >
+                                            <ListItemText sx={{pl: 2}} primary={'Regular Financial Responsibilities'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/personalsavings/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}} >
-                                            <ListItemText sx={{pl: 2}} primary={'Regular Financial Responsibilities'} />
+                                            <ListItemButton component={NavLink} to={`/variableexpenses/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}  >
+                                            <ListItemText sx={{pl: 2}} primary={'Variable Expenses'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
