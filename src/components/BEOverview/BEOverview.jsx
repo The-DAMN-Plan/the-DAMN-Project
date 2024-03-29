@@ -25,9 +25,9 @@ export default function BEOverview(props) {
     let total = { y1: 0, y2: 0 };
     for (const item of income) {
       if (item.year === 1) {
-        total.y1 += item.price * Number(item.time_used);
+        total.y1 += (item.price / item.time_used) * Number(item.purchasers);
       } else {
-        total.y2 += item.price * Number(item.time_used);
+        total.y2 += (item.price / item.time_used) * Number(item.purchasers);
       }
     }
     return total;
