@@ -88,7 +88,7 @@ function UserPage() {
                 aria-labelledby="child-modal-title"
                 aria-describedby="child-modal-description"
               >
-                <CreateBusiness />
+                <CreateBusiness handleClose={handleClose} />
               </Modal>
             </Box>
           </Paper>
