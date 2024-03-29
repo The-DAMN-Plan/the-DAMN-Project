@@ -53,6 +53,7 @@ function CashFlow() {
         return total;
     }
     const totalIncome = calculateTotal();
+    console.log(totalIncome);
 
     // let lastCashBalance = 100;
     // const arraryOfCashFlows = cashflow.map((monthlyCashFlow) => {
