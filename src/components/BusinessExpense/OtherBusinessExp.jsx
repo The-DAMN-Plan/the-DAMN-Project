@@ -3,17 +3,17 @@ import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, T
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import Currency from '../Shared/Currency';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
-import Currency from '../Shared/Currency';
 
 
 function OtherBusinessExp() {
     const dispatch = useDispatch();
     const budgetId = useParams();
     const expense = useSelector((store) => store.expense);
-    const [formSubmitted, setFormSubmitted] = useState(false);
     const open = useSelector(store=>store.sideNav);
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const [expenseName, setExpenseName] = useState('');
     const [amount, setAmount] = useState('');
     const [expenses, setExpenses] = useState([]);

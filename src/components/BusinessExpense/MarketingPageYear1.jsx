@@ -267,7 +267,6 @@ function MarketingBudgetYear1() {
             </Box>
         
             <ProgressBar next={'marketingy2'} back={'otherexpenses'} value={72} budgetId={budgetId} />
-            
         </Container>
         <Footer/>
         </Main>

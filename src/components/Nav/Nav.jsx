@@ -20,23 +20,18 @@ import { Grid } from '@mui/material';
 function Nav({ drawerWidth }) {
   const user = useSelector((store) => store.user);
   const open = useSelector((store)=> store.sideNav);
-  let { budgetId } = useParams();
-  
   const history = useHistory();
   const location = useLocation();
-  console.log(location);
-  console.log(budgetId);
-  console.log(history);
 
-  // list of routes where side bar is available for the user
+  // list of routes where side bar is not accessable (available)
   const listOfRoutes = [
     `/user`,
     `/info`,
     `/about`,
     `/home`,
     `/login`,
-    `/registration`
-
+    `/registration`,
+    `/plans`
   ]
   
   const dispatch = useDispatch();
@@ -44,9 +39,9 @@ function Nav({ drawerWidth }) {
         dispatch({
             type: 'TOGGLE_SIDE_NAV'
         })
-        
     }
 
+  // AppBar wrapper to move the app bar to the right when drawer opens
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
   })(({ theme, open }) => ({
@@ -55,36 +50,35 @@ function Nav({ drawerWidth }) {
       duration: theme.transitions.duration.leavingScreen,
     }),
     ...(open && {
-      width: listOfRoutes.includes(location.pathname) ? `calc(100%-${drawerWidth}px)` : `calc(100%)`,
-      marginLeft: `${0}px`,
+      width: listOfRoutes.includes(location.pathname) ? `calc(10%-${drawerWidth}px)` : `calc(100%)`,
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
     }),
   }));
-  // width: listOfRoutes.includes(location.pathname) ? `calc(108% - ${drawerWidth}px)` : `calc(100%)`,
 
   return (
-    <AppBar position="fixed" open={open} >
-      < Container  maxWidth='xl' >
-        <Toolbar disableGutters sx={{display: 'flex', alignItems: 'right', justifyContent:'left'}}>
-
-              {!listOfRoutes.includes(location.pathname) &&<Box>
-               <> 
-                    <IconButton
-                      color="inherit"
-                      aria-label="open drawer"
-                      onClick={()=>toggleDrawer()}
-                      sx={{ ...(open && { display: 'none' }) }}
-                    >
-                      <MenuIcon />
-                    </IconButton>
-                    <SideNav drawerWidth={drawerWidth}/>
-                </>
-              </Box>}
-              <Box>
-                <Typography
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          {user.id && !listOfRoutes.includes(location.pathname) &&
+            <Box>
+              <> 
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={()=>toggleDrawer()}
+                  sx={{ ...(open && { display: 'none' }) }}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <SideNav drawerWidth={drawerWidth}/>
+              </>
+            </Box>
+          }
+          {/*Logo  */}
+          {!open&&<Box>
+            <Typography
               variant="h6"
               noWrap
               component="a"
@@ -100,63 +94,71 @@ function Nav({ drawerWidth }) {
               The DAMN Plan
             </Typography>
             </Box>
-            
+          }
+          {/* <Box sx={{ flexGrow: 1 }} /> */}
+          <Box sx={{ display:'flex', color:'#fff', alignItems:'center'}}>
+                <Button 
+                  sx={{
+                    color: '#fff'
+                  }}
+                  onClick={() => {
+                    history.push('/home');
+                  }}>
+                  Home
+                </Button>
 
-              
+                {user.id &&
+                <Button
+                sx={{
+                  color: '#fff'
+                }}
+                onClick={() => {
+                  history.push('/plans');
+                }}>Plans</Button>}
 
-              <Box>
-              {user.id && (
-                <Box sx={{display:'flex', backgroundColor:'#fff', alignItems:'center', justifyContent:'center'}}>
-                
-                    <Button 
-                    onClick={() => {
-                      history.push('/home');
-                    }}>
-                    Home
-                  </Button>
+                <Button
+                sx={{
+                  color: '#fff'
+                }}
+                onClick={() => {
+                  history.push('/about');
+                }}>About</Button>
 
-                    
-                    <Button
-                    onClick={() => {
-                      history.push('/budget');
-                    }}
-
-      
-                  >
-                    New Budget
-                  </Button>
+                {user.id &&<Button
+                onClick={() => {
+                  history.push('/info');
+                }}>info</Button>}
                   
-                    
-                    <Button
-                    onClick={() => {
-                      history.push('/info');
-                    }}
-                  >
-                    info
+          </Box>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: 'flex'}}>
+          <Box sx={{ flexGrow: 0 }}>
+                {user.id ? <Button
+      // This button shows up in multiple locations and is styled differently
+      // because it's styled differently depending on where it is used, the className
+      // is passed to it from it's parents through React props
+      color='secondary'
+      variant='contained'
+      onClick={() => {
+        dispatch({ type: 'LOGOUT' });
+      }}
+
+
+    >
+      Log Out
+    </Button>:
+                  <Button
+                    color='secondary'
+                    variant='contained'
+                    onClick={()=>history.push('/login')}>
+                    Log In
                   </Button>
-                    
-                </Box>
-              )}
+                }
               </Box>
-          
-            <Box sx={{ flexGrow: 0 }}>
-              {user.id ? <LogOutButton /> : ''}
-              <Menu
-                id="menu-appbar"
-              >
-
-                <MenuItem onClick={() => {
-                  history.push('/login');
-                }}>
-                  <Typography textAlign="center">Log Out</Typography>
-                </MenuItem>
-
-              </Menu>
-            </Box>
+            
+          </Box>
         </Toolbar>
-      </Container >
-    </AppBar >
-
+      </AppBar>
   )
 }
 

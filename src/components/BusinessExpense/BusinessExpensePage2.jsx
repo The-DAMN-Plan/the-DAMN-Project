@@ -31,7 +31,7 @@ export default function BusinessExpense(params) {
     const handleExpense = () => {
         const newFormValues = {
             cellPhones: getExpenseAmount('cellPhones'),
-            internet: getExpenseAmount('internet'),
+            internet: getExpenseAmount('business_internet'),
             printPublish: getExpenseAmount('printPublish'),
             softwareTech: getExpenseAmount('softwareTech'),
             officeSupply: getExpenseAmount('officeSupply'),
@@ -158,7 +158,7 @@ export default function BusinessExpense(params) {
                     <Grid container spacing={2} justifyContent="center">
                         <Grid item xs={12} md={6}>
                             <TextField name='cellPhones' label="Cell Phones" fullWidth value={formValues.cellPhones} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="internet" label="Internet & Utilities" fullWidth value={formValues.internet} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="business_internet" label="Internet & Utilities" fullWidth value={formValues.internet} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="printPublish" label="Printing & Publishing"  fullWidth value={formValues.printPublish} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                         <Grid item xs={12} md={6}>

@@ -60,6 +60,7 @@ function UserPage() {
     setName('');
   }
 
+  console.log(user);
   return (
     <Container maxWidth="lg">
       <Grid container spacing={3} sx={{ mt: 4 }}>

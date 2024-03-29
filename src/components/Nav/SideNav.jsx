@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Collapse, Container, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import {Box, Button, Collapse, Container, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useState } from "react";
@@ -8,25 +8,25 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import LogOutButton from "../LogOutButton/LogOutButton";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function SideNav({drawerWidth}) {
     const theme = useTheme();
-    // const user = useSelector((store) => store.user);
     const open = useSelector(((store) => store.sideNav));
     const location = useLocation();
     const dispatch = useDispatch();
+    //handles opening and closing the side nav
     function toggleDrawer() {
         dispatch({
             type: 'TOGGLE_SIDE_NAV'
         })
         
     }
-    console.log(location.pathname);
+
     const pathNameArr = location.pathname.split('/');
     const budgetId = pathNameArr[pathNameArr.length-1];
+
     const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -49,13 +49,13 @@ export default function SideNav({drawerWidth}) {
               boxSizing: 'border-box',
             },
           }}
+          transitionDuration={{enter:500, exit: 1000 }}
           variant="persistent"
           anchor="left"
           open={open}
           onClose={()=>toggleDrawer()}
         >
-          <DrawerHeader>
-            
+        <DrawerHeader>
             <Container sx={{display: 'flex', alignItems: 'center', justifyContent:'center'}}>
                 <Typography
                     variant="h6"
@@ -73,149 +73,143 @@ export default function SideNav({drawerWidth}) {
                     The DAMN Plan
                 </Typography>
             </Container>
-                <IconButton onClick={()=>toggleDrawer()}>
-                {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                </IconButton>
-          </DrawerHeader>
-          
-          
-          <Divider />
-          <Box sx={{ width: 380}} role="presentation" >
-                    <List>
-                        <CollapeMenu>
-                            <ListItemText sx={{pl:1}} primary={'Personal Budget'} />
+
+            {/* Open/Close sub menu */}
+            <IconButton onClick={()=>toggleDrawer()}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+            </DrawerHeader>
+                <Divider />
+                {/* A collapsable menu and sub menu */}
+                <Box sx={{ width: 380}} role="presentation" >
                             <List>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/startplan/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}  >
-                                    <ListItemText primary={'Start a Plan'} />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/fundamentalexpenses/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}  >
-                                    <ListItemText primary={'Fudamental Living Expenses'} />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/variableexpenses/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}  >
-                                    <ListItemText primary={'Variable Expenses'} />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/personalsavings/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}} >
-                                    <ListItemText primary={'Regular Financial Responsibilities'} />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/futureplans/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}>
-                                    <ListItemText primary={'Future Plans'}  />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/otherexpenses/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}>
-                                    <ListItemText primary={'Other Expenses'}  />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/valuepay/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}>
-                                    <ListItemText primary={'Value Pay'}  />
-                                    </ListItemButton>
-                                </ListItem>
+                                <CollapeMenu>
+                                    <ListItemText sx={{pl:1}} primary={'Personal Budget'} />
+                                    <List>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/startplan/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}  >
+                                            <ListItemText sx={{pl: 2}} primary={'Start a Plan'} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/fundamentalexpenses/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}  >
+                                            <ListItemText sx={{pl: 2}} primary={'Fudamental Living Expenses'} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/variableexpenses/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}  >
+                                            <ListItemText sx={{pl: 2}} primary={'Variable Expenses'} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/personalsavings/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}} >
+                                            <ListItemText sx={{pl: 2}} primary={'Regular Financial Responsibilities'} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/futureplans/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemText sx={{pl: 2}} primary={'Future Plans'}  />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/otherexpenses/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemText sx={{pl: 2}} primary={'Other Expenses'}  />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/valuepay/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemText sx={{pl: 2}} primary={'Value Pay'}  />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    </List>
+                                </CollapeMenu>
+                                <CollapeMenu>
+                                    <ListItemText sx={{pl:1}} primary={'Business Income'} />
+                                    <List>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/incomeyear1/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemText sx={{pl: 2}} primary={'Businsess Income Page 1'} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/incomeyear2/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemText sx={{pl: 2}} primary={'Businsess Income Page 2'} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        
+                                    </List>
+                                </CollapeMenu>
+                                <CollapeMenu>
+                                    <ListItemText sx={{pl:1}} primary={'Business Expense'} />
+                                    <List>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/overview/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemText sx={{pl: 2}} primary={'Overview'} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/businessexpensepage1/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemText sx={{pl: 2}} primary={'Businsess Expense Page 1'} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/businessexpensepage2/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemText sx={{pl: 2}} primary={'Businsess Expense Page 2'} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/marketingy1/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemText sx={{pl: 2}} primary={'Marketing Expense Page 1'} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/marketingy2/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemText sx={{pl: 2}} primary={'Marketing Expense Page 2'} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/hrpagey1/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemText sx={{pl: 2}} primary={'Human Resource Expense Page 1'} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/hrpagey2/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemText sx={{pl: 2}} primary={'Human Resource Expense Page 2'} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/otherbusiness/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemText sx={{pl: 2}} primary={'Other Businsess Expense'} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    </List>
+                                </CollapeMenu>
+                                <CollapeMenu>
+                                    <ListItemText sx={{pl:1}} primary={'Break Even'} />
+                                    <List>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/breakeven/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemText sx={{pl: 2}} primary={'Break Even'} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        
+                                    </List>
+                                </CollapeMenu>
+                                <CollapeMenu>
+                                    <ListItemText sx={{pl:1}} primary={'Cashflow'} />
+                                    <List>
+                                        <ListItem disablePadding>
+                                            <ListItemButton component={NavLink} to={`/cashflow/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemText sx={{pl:2}} primary={'Cashflow'} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    </List>
+                                </CollapeMenu>
                             </List>
-                        </CollapeMenu>
-                        <CollapeMenu>
-                            <ListItemText sx={{pl:1}} primary={'Business Income'} />
-                            <List>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/incomeyear1/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}>
-                                    <ListItemText primary={'Businsess Income Page 1'} />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/incomeyear2/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}>
-                                    <ListItemText primary={'Businsess Income Page 2'} />
-                                    </ListItemButton>
-                                </ListItem>
-                                
-                            </List>
-                        </CollapeMenu>
-                        <CollapeMenu>
-                            <ListItemText sx={{pl:1}} primary={'Business Expense'} />
-                            <List>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/businessexpensepage1/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}>
-                                    <ListItemText primary={'Businsess Expense Page 1'} />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/businessexpensepage2/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}>
-                                    <ListItemText primary={'Businsess Expense Page 2'} />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/marketingy1/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}>
-                                    <ListItemText primary={'Marketing Expense Page 1'} />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/marketingy2/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}>
-                                    <ListItemText primary={'Marketing Expense Page 2'} />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/hrpagey1/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}>
-                                    <ListItemText primary={'Human Resource Expense Page 1'} />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/hrpagey2/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}>
-                                    <ListItemText primary={'Human Resource Expense Page 2'} />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/otherbusiness/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}>
-                                    <ListItemText primary={'Other Businsess Expense'} />
-                                    </ListItemButton>
-                                </ListItem>
-                            </List>
-                        </CollapeMenu>
-                        <CollapeMenu>
-                            <ListItemText sx={{pl:1}} primary={'Break Even'} />
-                            <List>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/breakeven/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}>
-                                    <ListItemText primary={'Break Even'} />
-                                    </ListItemButton>
-                                </ListItem>
-                                
-                            </List>
-                        </CollapeMenu>
-                        <CollapeMenu>
-                            <ListItemText sx={{pl:1}} primary={'Overview'} />
-                            <List>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/overview/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}>
-                                    <ListItemText primary={'Overview'} />
-                                    </ListItemButton>
-                                </ListItem>
-                                
-                            </List>
-                        </CollapeMenu>
-                        <CollapeMenu>
-                            <ListItemText sx={{pl:1}} primary={'Cashflow'} />
-                            <List>
-                                <ListItem sx={{pl:2}} disablePadding>
-                                    <ListItemButton component={NavLink} to={`/cashflow/${budgetId}`} sx={{"&.active": {background:'#5d5179', color:'white'}}}>
-                                    <ListItemText primary={'Cashflow'} />
-                                    </ListItemButton>
-                                </ListItem>
-                                
-                            </List>
-                        </CollapeMenu>
-                        
-                    </List>
-                </Box>
-          <Divider />
-        <DrawerHeader/>
+                        </Box>
+                <Divider />
+            {/* acts like a footer for the side bar */}
+            <DrawerHeader/>
         </Drawer>
       </Box>
     );
@@ -229,7 +223,7 @@ const CollapeMenu = (props)=>{
     }; 
     return (
         <>
-        {/* toggle hidden sub menu when clicked */}
+        {/* open/close hidden sub menu when clicked */}
         <ListItemButton sx={{p:1}} onClick={()=>handleClick()}>
             {/* ListTextItem is passed as props */}
             {props.children[0]} 
@@ -238,7 +232,7 @@ const CollapeMenu = (props)=>{
               </ListItemIcon>
         </ListItemButton>
         
-        {/* hidden sub menu */}
+        {/* collapsable sub menu */}
         <Collapse in={open} timeout="auto" unmountOnExit>
             {props.children[1]}
         </Collapse>

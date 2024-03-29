@@ -14,6 +14,7 @@ function PBpage2() {
     const expense = useSelector((store) => store.expense);
     const status = useSelector((store) => store.status);
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const open = useSelector(store=>store.sideNav);
     const [formValues, setFormValues] = useState({
         realEstateTax: '',
         carInsurance: '',
