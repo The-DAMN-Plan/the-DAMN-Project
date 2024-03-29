@@ -12,8 +12,13 @@ function CashFlow() {
     const budgetId = useParams();
     const cashflow = useSelector((store) => store.cashflow);
     const totalExpenseAmount = useSelector((store) =>
-        store.expense.reduce((total, currentExpense) => total + currentExpense.expense_amount, 0)
-    );
+    store.expense.reduce((total, currentExpense) => {
+        if (currentExpense.year === null || currentExpense.year === selectedYear) {
+            return total + currentExpense.expense_amount;
+        }
+        return total;
+    }, 0)
+);
     const futurePlans = useSelector((store) => store.futurePlans);
     const income = useSelector((store) => store.income);
     const open = useSelector(store=>store.sideNav);
@@ -38,6 +43,18 @@ function CashFlow() {
         return total;
     }
     const totalIncome = calculateTotal();
+
+    function monthlyIncome() {
+        let total = 0;
+    }
+
+    function endingCashBalance() {
+        let cashBalance = (monthlySales + beginningCash) - totalExpenseAmount;
+
+        return cashBalance;
+    }
+
+    const cashBalanceTotal = endingCashBalance();
     
     const handleYearChange = (year) => {
         setSelectedYear(year);
@@ -108,19 +125,19 @@ function CashFlow() {
             <Grid xs={6} textAlign={'center'}>
                 <Paper sx={{ m: 2, p: 2 }}>
                 <Typography textAlign={'center'} variant='subtitle1'>Sales for the Month</Typography>
-                <Typography textAlign={'center'} variant='h5'>$XXXX</Typography>
+                <Typography textAlign={'center'} variant='h5'><Currency value={monthlySales || 0} /></Typography>
                 </Paper>
             </Grid>
             <Grid xs={6} textAlign={'center'}>
                 <Paper sx={{ m: 2, p: 2 }}>
                 <Typography textAlign={'center'} variant='subtitle1'>Total Cash Paid Out</Typography>
-                <Typography textAlign={'center'} variant='h5'>$XXXX</Typography>
+                <Typography textAlign={'center'} variant='h5'><Currency value={totalExpenseAmount || 0} /></Typography>
                 </Paper>
             </Grid>
             <Grid xs={6} textAlign={'center'}>
                 <Paper sx={{ m: 2, p: 2 }}>
                 <Typography textAlign={'center'} variant='subtitle1'>Ending Cash Balance</Typography>
-                <Typography textAlign={'center'} variant='h5'>$XXXX</Typography>
+                <Typography textAlign={'center'} variant='h5'><Currency value={cashBalanceTotal || 0} /></Typography>
                 </Paper>
             </Grid>
         </Container>
