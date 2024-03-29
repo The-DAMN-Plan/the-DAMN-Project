@@ -111,7 +111,7 @@ function PersonalSavings() {
     return (
         <Main open={open}>
             <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
-                <Typography variant="h5" align="center" gutterBottom>
+                <Typography variant="h3" color={'primary'} align="center" gutterBottom>
                     Personal Savings
                 </Typography>
                 <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
@@ -147,16 +147,16 @@ function PersonalSavings() {
                                 value={formValues.investments}
                                 onChange={handleInputChange}
                                 sx={{ marginBottom: 2 }} />
-                            {isStartPlanCompleted ? (
-                                <Button type='button' onClick={handleEdit}>
-                                    Update
-                                </Button>
-                                ) : (
-                                <Button type='submit'>
-                                    Save
-                                </Button>
-                            )}
                         </Grid>
+                        {isStartPlanCompleted ? (
+                            <Button variant='outlined' type='button' onClick={handleEdit}>
+                                Update
+                            </Button>
+                        ) : (
+                            <Button variant='contained' type='submit'>
+                                Save
+                            </Button>
+                        )}
                     </Grid>
                 </form>
                 <ProgressBar back={'fundamentalexpenses'} next={'variableexpenses'} value={18} budgetId={budgetId}/>

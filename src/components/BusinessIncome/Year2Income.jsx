@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
+import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography, FormControl } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { InputLabel, Select, MenuItem, InputAdornment } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -113,10 +113,9 @@ function Year2Income() {
   return (
     <Main open={open}>
       <Container sx={{ paddingTop: '64px', paddingBottom: '64px' }}>
-        <Typography variant="h4" gutterBottom align="center">
-          Year 2 Business Income
+        <Typography variant="h3" color={'primary'} gutterBottom align="center">
+          Year 2 Sales Projections
         </Typography>
-        <Paper elevation={3} sx={{ p: 4, mb: 4 }}>
           <Typography variant="h6" gutterBottom>
             Add New Revenue Stream
           </Typography>
@@ -124,7 +123,7 @@ function Year2Income() {
             <Grid item xs={12} sm={6} md={3}>
               <TextField
                 fullWidth
-                label="Name of Product"
+                label="Name of Service/Product"
                 value={revenueStream}
                 onChange={(e) => setRevenueStream(e.target.value)}
               />
@@ -180,20 +179,24 @@ function Year2Income() {
               />
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <InputLabel id="rate-of-love-label">Rate of Love</InputLabel>
-              <Select
-                labelId="rate-of-love-label"
-                id="rate-of-love"
-                value={rateOfLove}
-                style={{ width: '100%' }}
-                onChange={(e) => setRateOfLove(e.target.value)}
-              >
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-                <MenuItem value={5}>5</MenuItem>
-              </Select>
+              <FormControl fullWidth>
+
+                <InputLabel id="rate-of-love-label">Rate of Love</InputLabel>
+                <Select
+                  labelId="rate-of-love-label"
+                  id="rate-of-love"
+                  value={rateOfLove}
+                  label='Rate of Love'
+                  style={{ width: '100%' }}
+                  onChange={(e) => setRateOfLove(e.target.value)}
+                >
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                  <MenuItem value={4}>4</MenuItem>
+                  <MenuItem value={5}>5</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
               <TextField
@@ -203,15 +206,13 @@ function Year2Income() {
                 onChange={(e) => setPurchasers(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid item xs={12} sm={6} md={3} display={'flex'} alignItems={'center'}>
               <Button variant="contained" color="primary" onClick={handleAddRevenueStream}>
                 Submit
               </Button>
             </Grid>
           </Grid>
-        </Paper>
-        <Paper elevation={3} sx={{ p: 4 }}>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6" sx={{mt:4}} gutterBottom>
             Revenue Streams
           </Typography>
           <Table>
@@ -279,18 +280,11 @@ function Year2Income() {
               ))}
             </TableBody>
           </Table>
-          <Box>
-            {formSubmitted ? (
-              <Button type='button' onClick={handleEdit}>
-                Update
-              </Button>
-            ) : (
-              <Button type='button' onClick={() => handleSubmit(event)}>
-                Save
-              </Button>
-            )}
+          <Box textAlign={'center'}>
+            <Button variant='contained' type='button' onClick={() => handleSubmit(event)}>
+              Save
+            </Button>
           </Box>
-        </Paper>
         <ProgressBar back={'incomeyear1'} next={'overview'} submit={handleSubmit} value={48} budgetId={budgetId} />
       </Container>
       <Footer />

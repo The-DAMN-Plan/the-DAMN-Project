@@ -14,7 +14,7 @@ function PBpage2() {
     const expense = useSelector((store) => store.expense);
     const status = useSelector((store) => store.status);
     const [formSubmitted, setFormSubmitted] = useState(false);
-    const open = useSelector(store=>store.sideNav);
+    const open = useSelector(store => store.sideNav);
     const [formValues, setFormValues] = useState({
         realEstateTax: '',
         carInsurance: '',
@@ -109,7 +109,7 @@ function PBpage2() {
     return (
         <Main open={open}>
             <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
-                <Typography variant="h5" align="center" gutterBottom>
+                <Typography variant="h3" color={'primary'} align="center" gutterBottom>
                     Fundamental Bill Payments
                 </Typography>
                 <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
@@ -150,16 +150,16 @@ function PBpage2() {
                                 value={formValues.loanPayments}
                                 onChange={handleInputChange}
                                 sx={{ marginBottom: 2 }} />
-                            {isStartPlanCompleted ? (
-                                <Button type='button' onClick={handleEdit}>
-                                    Update
-                                </Button>
-                            ) : (
-                                <Button type='submit'>
-                                    Save
-                                </Button>
-                            )}
                         </Grid>
+                        {isStartPlanCompleted ? (
+                            <Button variant='outlined' type='button' onClick={handleEdit}>
+                                Update
+                            </Button>
+                        ) : (
+                            <Button variant='contained' type='submit'>
+                                Save
+                            </Button>
+                        )}
                     </Grid>
                 </form>
 

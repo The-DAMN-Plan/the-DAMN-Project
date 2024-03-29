@@ -107,16 +107,16 @@ function StartPlan() {
     return (
         <Main open={open}>
             <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
-                <Typography variant="h4" align="center" gutterBottom>
+                <Typography variant="h3" color={'primary'} align="center" gutterBottom>
                     Start a DAMN Plan
                 </Typography>
                 <Typography variant="h5" align="center" gutterBottom>
                     Fundamental Living Expenses
                 </Typography>
-                <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
+                <Typography variant="subtitle1" align="center" gutterBottom >
                     Your singular goal in business is to "meet your customer's wants and needs at a profit" and pay yourself!
                 </Typography>
-                <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
+                <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 3 }}>
                     Take some time to think about monthly living expenses. This will help figure out how much your value is.
                 </Typography>
                 <form onSubmit={handleSubmit}>
@@ -166,16 +166,16 @@ function StartPlan() {
                                 value={formValues.childcare}
                                 onChange={handleInputChange}
                                 sx={{ marginBottom: 2 }} />
-                            {isStartPlanCompleted ? (
-                                <Button type='button' onClick={handleEdit}>
-                                    Update
-                                </Button>
-                            ) : (
-                                <Button type='submit'>
-                                    Save
-                                </Button>
-                            )}
                         </Grid>
+                        {isStartPlanCompleted ? (
+                            <Button variant='outlined' type='button' onClick={handleEdit}>
+                                Update
+                            </Button>
+                        ) : (
+                            <Button variant='contained' type='submit'>
+                                Save
+                            </Button>
+                        )}
                     </Grid>
                     <ProgressBar back={`startplan`} next={`fundamentalexpenses`} value={6} budgetId={budgetId} />
                 </form>

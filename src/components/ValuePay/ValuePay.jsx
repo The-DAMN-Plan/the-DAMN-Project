@@ -1,4 +1,4 @@
-import { Container, Typography, Paper, TextField, InputAdornment, Button } from '@mui/material';
+import { Container, Typography, Paper, TextField, InputAdornment, Button, Box } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -18,7 +18,7 @@ export default function ValuePay(props) {
   const [dollarAmount, setDollarAmount] = useState(0);
   const expense = useSelector((store) => store.expense);
   const futurePlans = useSelector((store) => store.futurePlans);
-  console.log(futurePlans);
+  console.log(finalBudget);
   console.log(expense);
   const [totalPersonalExpenses, setTotalPersonalExpenses] = useState(0);
   const [totalFutureSavings, setTotalFutureSavings] = useState(0);
@@ -28,14 +28,14 @@ export default function ValuePay(props) {
   const budgetId = useParams();
 
   console.log('Big budget object', finalBudget);
-  
+
   const vpPercent = finalBudget[0]?.vp_percent
   const vpIncome = finalBudget[0]?.vp_income
-  
+
   useEffect(() => {
     dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
   }, [dispatch, budgetId]);
-  
+
   useEffect(() => {
     const personalExpenses = expense.filter(item => item.type === 'personal committed' || item.type === 'personal decision' || item.type === 'personal other');
     const total = personalExpenses.reduce((acc, curr) => acc + Number(curr.expense_amount), 0);
@@ -60,12 +60,12 @@ export default function ValuePay(props) {
     const newRequiredIncome = (combinedTotalExpenses * (vpPercent || percent)) / 100;
     setRequiredIncome(newRequiredIncome);
   }, [percent, totalPersonalExpenses, vpPercent, totalFutureSavings]);
-  
+
   useEffect(() => {
     const findValuePay = requiredIncome + Number(vpIncome || dollarAmount);
     setValuePay(findValuePay)
   }, [requiredIncome, vpIncome, dollarAmount])
-  
+
 
   function handleSubmit() {
 
@@ -82,10 +82,13 @@ export default function ValuePay(props) {
       y2_cogs: null,
       cash_balance: null,
       vp_percent: percent,
-      vp_income: dollarAmount
+      vp_income: dollarAmount,
+      valuepay: valuePay
     }
 
-    dispatch({ type: 'UPDATE_BUDGET', payload: valuePayObj})
+    console.log(valuePayObj);
+
+    dispatch({ type: 'UPDATE_BUDGET', payload: valuePayObj })
     dispatch({ type: 'UPDATE_STATUS', payload: updateObj }) // Will need to be set up later to post the completed step to the status table
   }
 
@@ -101,6 +104,7 @@ export default function ValuePay(props) {
             <Paper sx={{ m: 2, p: 2 }}>
               <Typography textAlign={'center'} variant='h4'>Enter a Percentage</Typography>
               <Typography textAlign={'center'} variant='subtitle1'>This is the percent of household expenses that must be covered with business income.</Typography>
+              <br></br>
               <TextField
                 fullWidth variant="outlined"
                 type="number"
@@ -134,15 +138,17 @@ export default function ValuePay(props) {
             </Paper>
           </Grid>
         </Grid>
-        {isStartPlanCompleted ? (
-              <Button type='button' onClick={handleSubmit}>
-                Update
-              </Button>
-            ) : (
-              <Button type='submit' onClick={handleSubmit}>
-                Save
-              </Button>
+        <Box textAlign='center'>
+          {isStartPlanCompleted ? (
+            <Button variant='outlined' type='button' onClick={handleSubmit}>
+              Update
+            </Button>
+          ) : (
+            <Button variant='contained' type='submit' onClick={handleSubmit}>
+              Save
+            </Button>
           )}
+        </Box>
         <ProgressBar back={'otherexpenses'} next={'incomeyear1'} value={40} budgetId={budgetId} />
       </Container>
     </Main >
