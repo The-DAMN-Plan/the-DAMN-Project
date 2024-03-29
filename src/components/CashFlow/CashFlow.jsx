@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom';
 import Currency from '../Shared/Currency';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
+import moment from 'moment';
 
 
 function CashFlow() {
@@ -12,21 +13,24 @@ function CashFlow() {
     const budgetId = useParams();
     const cashflow = useSelector((store) => store.cashflow);
     console.log(cashflow);
+    const expense = useSelector((store) => store.expense);
+    const futurePlans = useSelector((store) => store.futurePlans);
+    const income = useSelector((store) => store.income);
+    const open = useSelector(store=>store.sideNav);
+    const [beginningCash, setBeginningCash] = useState(0);
+    const [salesPercent, setSalesPercent] = useState(0);
+    const [selectedYear, setSelectedYear] = useState(1);
+    const [selectedMonth, setSelectedMonth] = useState(1);
+    const [monthlySales, setMonthlySales] = useState(0);
+    const [totalFutureSavings, setTotalFutureSavings] = useState(0);
     const totalExpenseAmount = useSelector((store) =>
     store.expense.reduce((total, currentExpense) => {
-        if (currentExpense.year === null || currentExpense.year === selectedYear) {
+        if ((currentExpense.year === null || currentExpense.year === selectedYear) || (selectedYear === null && currentExpense.year === undefined)) {
             return total + currentExpense.expense_amount;
         }
         return total;
     }, 0)
 );
-    const futurePlans = useSelector((store) => store.futurePlans);
-    const income = useSelector((store) => store.income);
-    const open = useSelector(store=>store.sideNav);
-    const [beginningCash, setBeginningCash] = useState(0);
-    const [selectedYear, setSelectedYear] = useState(1);
-    const [selectedMonth, setSelectedMonth] = useState(1);
-    const [monthlySales, setMonthlySales] = useState(0);
 
     
     useEffect(() => {
@@ -54,6 +58,19 @@ function CashFlow() {
         const yearlyIncome = totalIncome[yearIndex];
         setMonthlySales(yearlyIncome * monthlyPercentOfCashFlow);
     }, [selectedMonth, selectedYear, cashflow, totalIncome]);
+
+
+    useEffect(() => {
+        const total = futurePlans.reduce((acc, plan) => {
+          const start = moment(plan.start_date);
+          const end = moment(plan.end_date);
+          const months = end.diff(start, 'months', true); // true for a fractional result
+          const monthlySavings = parseFloat(plan.savings_needed) / Math.max(months, 1); // Avoid division by zero
+          return acc + monthlySavings;
+        }, 0);
+        setTotalFutureSavings(total);
+      }, [futurePlans]);
+
 
 
     const handleYearChange = (year) => {
@@ -94,7 +111,7 @@ function CashFlow() {
                 name="salesPercent"
                 label="Sales Percent"
                 fullWidth
-                value={beginningCash}
+                value={salesPercent}
                 // onChange={}
                 sx={{ marginBottom: 2 }} 
                 />
@@ -119,7 +136,7 @@ function CashFlow() {
         <Grid xs={6} textAlign={'center'}>
                 <Paper sx={{ m: 2, p: 2 }}>
                 <Typography textAlign={'center'} variant='subtitle1'>Annual Projected Sales</Typography>
-                <Typography textAlign={'center'} variant='h5'><Currency value={totalIncome.y1 || 0}/></Typography>
+                <Typography textAlign={'center'} variant='h5'><Currency value={selectedYear === 1 ? totalIncome.y1 : totalIncome.y2 || 0}/></Typography>
                 </Paper>
             </Grid>
             <Grid xs={6} textAlign={'center'}>
@@ -131,7 +148,7 @@ function CashFlow() {
             <Grid xs={6} textAlign={'center'}>
                 <Paper sx={{ m: 2, p: 2 }}>
                 <Typography textAlign={'center'} variant='subtitle1'>Total Cash Paid Out</Typography>
-                <Typography textAlign={'center'} variant='h5'><Currency value={totalExpenseAmount || 0} /></Typography>
+                <Typography textAlign={'center'} variant='h5'><Currency value={totalExpenseAmount+totalFutureSavings || 0} /></Typography>
                 </Paper>
             </Grid>
             <Grid xs={6} textAlign={'center'}>
