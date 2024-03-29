@@ -32,9 +32,6 @@ export default function ValuePay(props) {
   const vpPercent = finalBudget[0]?.vp_percent
   const vpIncome = finalBudget[0]?.vp_income
   
-  const vpPercent = finalBudget[0].vp_percent;
-  const vpIncome = finalBudget[0].vp_income;
-  
   useEffect(() => {
     dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
   }, [dispatch, budgetId]);
