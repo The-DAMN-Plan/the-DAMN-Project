@@ -16,6 +16,8 @@ export default function HumanResourcesPage2() {
     const dispatch = useDispatch();
     const history = useHistory();
     const budget = useSelector((store) => store.budget);
+    const status = useSelector((store) => store.status);
+    const expenses = useSelector((store) => store.expense);
     const budgetId = useParams();
     const open = useSelector((store)=>store.sideNav);
 
@@ -30,8 +32,14 @@ export default function HumanResourcesPage2() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        const updateObj = {
+            completed: true, 
+            budget_id: Number(budgetId.budgetId), 
+            step: 'hrpagey2'
+        }
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: { expense_name: expenseName, service, frequency, expense_amount: expenseAmount } });
+        dispatch({type: 'UPDATE_STATUS', payload: updateObj})
 
         setExpenseName('');
         setService('');
@@ -39,7 +47,10 @@ export default function HumanResourcesPage2() {
         setFrequency(0);
     };
 
+    const isStartPlanCompleted = status.find(s => s.step === 'hrpagey2')?.completed;
 
+
+    const filteredExpenses = expenses.filter(item => item.type === 'business hr');
 
 
     return (
@@ -104,7 +115,7 @@ export default function HumanResourcesPage2() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {budget.map((formValues, index) => (
+                    {filteredExpenses.map((formValues, index) => (
                         <TableRow key={index}>
                             <TableCell>{formValues.expense_name}</TableCell>
                             <TableCell align="right">{formValues.expense_name}</TableCell>
@@ -120,7 +131,15 @@ export default function HumanResourcesPage2() {
                     ))}
                 </TableBody>
             </Table>
-
+            {isStartPlanCompleted ? (
+                                <Button type='button' onClick={handleEdit}>
+                                    Update
+                                </Button>
+                                ) : (
+                                <Button type='submit'>
+                                    Save
+                                </Button>
+                            )}
             <ProgressBar back={'hrpagey1'} next={'otherbusiness'} value={90} budgetId={budgetId} />
         </Container>
         <Footer/>

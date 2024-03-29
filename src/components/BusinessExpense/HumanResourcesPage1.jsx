@@ -16,8 +16,10 @@ export default function HumanResourcesPage1() {
     const dispatch = useDispatch();
     const history = useHistory();
     const expenses = useSelector((store) => store.expense);
+    const status = useSelector((store) => store.status);
     const budgetId = useParams();
     const open = useSelector((store)=>store.sideNav);
+
     useEffect(() => {
         dispatch({ type: 'FETCH_BUDGET' });
     }, [dispatch]);
@@ -29,8 +31,14 @@ export default function HumanResourcesPage1() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        const updateObj = {
+            completed: true, 
+            budget_id: Number(budgetId.budgetId), 
+            step: 'hrpagey1'
+        }
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: { expense_name: expenseName, service, frequency, expense_amount: expenseAmount } });
+        dispatch({type: 'UPDATE_STATUS', payload: updateObj})
 
         setExpenseName('');
         setService('');
@@ -41,7 +49,10 @@ export default function HumanResourcesPage1() {
     function handleDelete() {
 
     }
+    const isStartPlanCompleted = status.find(s => s.step === 'hrpagey1')?.completed;
 
+
+    const filteredExpenses = expenses.filter(item => item.type === 'business hr');
 
 
     return (
@@ -106,7 +117,7 @@ export default function HumanResourcesPage1() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {expenses?.map((formValues, index) => (
+                    {filteredExpenses?.map((formValues, index) => (
                         <TableRow key={index}>
                             <TableCell>{formValues.expense_name}</TableCell>
                             <TableCell align="right">{formValues.expense_name}</TableCell>
@@ -122,6 +133,15 @@ export default function HumanResourcesPage1() {
                     ))}
                 </TableBody>
             </Table>
+            {isStartPlanCompleted ? (
+                                <Button type='button' onClick={handleEdit}>
+                                    Update
+                                </Button>
+                                ) : (
+                                <Button type='submit'>
+                                    Save
+                                </Button>
+                            )}
             <ProgressBar back={'marketingy2'} next={'hrpagey2'} value={84} budgetId={budgetId} />
         </Container>
         <Footer/>
