@@ -1,9 +1,44 @@
 import React from 'react';
 import { Box, Typography, useMediaQuery, Card, CardContent, Button } from '@mui/material';
 import theme from '../../muiTheme';
+// import CustomSnackbar from '../Shared/CustomSnackBar';
+import { useState } from 'react';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 function AboutPage() {
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const [openSnack, setOpenSnack] = useState(false);
+
+  const handleClick = () => {
+    setOpenSnack(true);
+  };
+
+  const handleCloseSnack = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnack(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={handleCloseSnack}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleCloseSnack}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
 
   return (
     <Box>
@@ -59,16 +94,20 @@ function AboutPage() {
           padding: theme.spacing(2),
         }}
       >
-        <Button variant="contained" color="primary" sx={{ marginBottom: '8px' }}>
-          Primary Button
-        </Button>
-        <Button variant="contained" color="secondary" sx={{ marginBottom: '8px' }}>
-          Secondary Button
-        </Button>
-        <Button variant="contained" sx={{ backgroundColor: theme.palette.third.main }}>
-          Third Button
-        </Button>
+
+
+
       </Box>
+      <div>
+        <Button onClick={handleClick}>Open Snackbar</Button>
+        <Snackbar
+          open={openSnack}
+          autoHideDuration={6000}
+          onClose={handleCloseSnack}
+          message="Note archived"
+          action={action}
+        />
+      </div>
     </Box>
   );
 }
