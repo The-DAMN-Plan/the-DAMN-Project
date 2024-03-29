@@ -9,7 +9,7 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 
 export default function BusinessExpense(params) {
     const dispatch = useDispatch();
-    const open = useSelector(store=>store.sideNav);
+    const open = useSelector(store => store.sideNav);
     const status = useSelector((store) => store.status);
     const expense = useSelector((store) => store.expense);
     const [formSubmitted, setFormSubmitted] = useState(false);
@@ -82,7 +82,7 @@ export default function BusinessExpense(params) {
     ])
 
     const [formValues, setFormValues] = useState({
-        cellPhones:'',
+        cellPhones: '',
         internet: '',
         printPublish: '',
         softwareTech: '',
@@ -93,9 +93,9 @@ export default function BusinessExpense(params) {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-    
+
         const existingIndex = userEntry.findIndex(item => item.expense_name === name);
-    
+
         // If the formData object exists, update its expense_amount
         if (existingIndex !== -1) {
             const updatedUserEntry = [...userEntry];
@@ -114,7 +114,7 @@ export default function BusinessExpense(params) {
             };
             setUserEntry([...userEntry, formData]);
         }
-    
+
         // Update the form values
         setFormValues({
             ...formValues,
@@ -126,13 +126,13 @@ export default function BusinessExpense(params) {
     const handleSubmit = (event) => {
         event.preventDefault()
         const updateObj = {
-            completed: true, 
-            budget_id: Number(budgetId.budgetId), 
+            completed: true,
+            budget_id: Number(budgetId.budgetId),
             step: 'businessexpensepage2'
         }
-        
+
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-        dispatch({type: 'UPDATE_STATUS', payload: updateObj})
+        dispatch({ type: 'UPDATE_STATUS', payload: updateObj })
     };
 
     const handleEdit = () => {
@@ -142,17 +142,12 @@ export default function BusinessExpense(params) {
 
     const isStartPlanCompleted = status.find(s => s.step === 'businessexpensepage2')?.completed;
 
-    return(
+    return (
         <Main open={open}>
             <Container maxWidth="md">
-            <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Business Expense
+                <Typography variant="h3" sx={{mb:4}} color={'primary'} align="center" gutterBottom>
+                Business Expenses Page 2
                 </Typography>
-                <Typography variant="h5" align="center" gutterBottom>
-                    Fundamental Business Expenses
-                </Typography>
-                
 
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2} justifyContent="center">
@@ -165,23 +160,22 @@ export default function BusinessExpense(params) {
                         <TextField name="softwareTech" label="Software & Technology"  fullWidth value={formValues.softwareTech} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="officeSupply" label="Office Supplies" fullWidth value={formValues.officeSupply} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="miscellaneous" label="Miscellaneous"  fullWidth value={formValues.miscellaneous} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                        </Grid>
                             {isStartPlanCompleted ? (
-                                <Button type='button' onClick={handleEdit}>
+                                <Button variant='outlined' type='button' onClick={handleEdit}>
                                     Update
                                 </Button>
                                 ) : (
-                                <Button type='submit'>
+                                <Button variant='contained' type='submit'>
                                     Save
                                 </Button>
                             )}
-                        </Grid>
                     </Grid>
                 </form>
                 
                 <ProgressBar back={'businessexpensepage1'} next={'marketingy1'} value={66} budgetId={budgetId}/>
-            </Paper>
         </Container>
         <Footer/>
-        </Main>
+        </Main >
     )
 }

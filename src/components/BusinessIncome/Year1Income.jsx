@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
 import Currency from '../Shared/Currency';
+import FormControl from '@mui/material/FormControl';
 
 
 function Year1Income() {
@@ -112,78 +113,79 @@ function Year1Income() {
   return (
     <Main open={open}>
       <Container sx={{ paddingTop: '64px', paddingBottom: '64px' }}>
-        <Typography variant="h4" gutterBottom align="center">
+        <Typography variant="h3" color={'primary'} gutterBottom align="center">
           Year 1 Sales Projections
         </Typography>
-        <Paper elevation={3} sx={{ p: 4, mb: 4 }}>
-          <Typography variant="h6" gutterBottom>
-            Add New Revenue Stream
-          </Typography>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label="Name of Service/Product"
-                value={revenueStream}
-                onChange={(e) => setRevenueStream(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label="Price"
-                type='number'
-                InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label="Unit"
-                value={unit}
-                onChange={(e) => setUnit(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label="Time Used"
-                value={timeUsed}
-                onChange={(e) => setTimeUsed(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label="Cost Per Delivery"
-                value={costPerDelivery}
-                onChange={(e) => setCostPerDelivery(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label="Ideal Client"
-                value={idealClient}
-                onChange={(e) => setIdealClient(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+        <Typography variant="h6" gutterBottom>
+          Add New Revenue Stream
+        </Typography>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6} md={3}>
+            <TextField
+              fullWidth
+              label="Name of Service/Product"
+              value={revenueStream}
+              onChange={(e) => setRevenueStream(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <TextField
+              fullWidth
+              label="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <TextField
+              fullWidth
+              label="Price"
+              type='number'
+              InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <TextField
+              fullWidth
+              label="Unit"
+              value={unit}
+              onChange={(e) => setUnit(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <TextField
+              fullWidth
+              label="Time Used"
+              value={timeUsed}
+              onChange={(e) => setTimeUsed(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <TextField
+              fullWidth
+              label="Cost Per Delivery"
+              value={costPerDelivery}
+              onChange={(e) => setCostPerDelivery(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <TextField
+              fullWidth
+              label="Ideal Client"
+              value={idealClient}
+              onChange={(e) => setIdealClient(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <FormControl fullWidth>
               <InputLabel id="rate-of-love-label">Rate of Love</InputLabel>
               <Select
                 labelId="rate-of-love-label"
                 id="rate-of-love"
                 value={rateOfLove}
+                label="Rate of Love"
                 style={{ width: '100%' }}
                 onChange={(e) => setRateOfLove(e.target.value)}
               >
@@ -193,103 +195,95 @@ function Year1Income() {
                 <MenuItem value={4}>4</MenuItem>
                 <MenuItem value={5}>5</MenuItem>
               </Select>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label="Purchasers"
-                value={purchasers}
-                onChange={(e) => setPurchasers(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Button variant="contained" color="primary" onClick={handleAddRevenueStream}>
-                Submit
-              </Button>
-            </Grid>
+            </FormControl>
           </Grid>
-        </Paper>
-        <Paper elevation={3} sx={{ p: 4 }}>
-          <Typography variant="h6" gutterBottom>
-            Revenue Streams
-          </Typography>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Name of Service/Product</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Price</TableCell>
-                <TableCell>Unit</TableCell>
-                <TableCell>Time Used</TableCell>
-                <TableCell>Cost Per Delivery</TableCell>
-                <TableCell>Ideal Clients</TableCell>
-                <TableCell>Love Rating</TableCell>
-                <TableCell>Purchasers</TableCell>
-                <TableCell>Rate for Money</TableCell>
-                <TableCell>Action</TableCell>
+          <Grid item xs={12} sm={6} md={3}>
+            <TextField
+              fullWidth
+              label="Purchasers"
+              value={purchasers}
+              onChange={(e) => setPurchasers(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3} display={'flex'} alignItems={'center'}>
+            <Button variant="contained" color="primary" onClick={handleAddRevenueStream}>
+              Submit
+            </Button>
+          </Grid>
+        </Grid>
+        <Typography variant="h6" sx={{mt:4}} gutterBottom>
+          Revenue Streams
+        </Typography>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name of Service/Product</TableCell>
+              <TableCell>Description</TableCell>
+              <TableCell>Price</TableCell>
+              <TableCell>Unit</TableCell>
+              <TableCell>Time Used</TableCell>
+              <TableCell>Cost Per Delivery</TableCell>
+              <TableCell>Ideal Clients</TableCell>
+              <TableCell>Love Rating</TableCell>
+              <TableCell>Purchasers</TableCell>
+              <TableCell>Rate for Money</TableCell>
+              <TableCell>Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {revenueStreams.map((stream, index) => (
+              <TableRow key={index}>
+                <TableCell>{stream.revenueStream}</TableCell>
+                <TableCell>{stream.description}</TableCell>
+                <TableCell><Currency value={stream.price} /></TableCell>
+                <TableCell>{stream.unit}</TableCell>
+                <TableCell>{stream.timeUsed}</TableCell>
+                <TableCell><Currency value={Number(stream.costPerDelivery)} /></TableCell>
+                <TableCell>{stream.idealClient}</TableCell>
+                <TableCell>{stream.rateOfLove}</TableCell>
+                <TableCell>{stream.purchasers}</TableCell>
+                <TableCell><Currency value={(stream.price - Number(stream.costPerDelivery)) / stream.timeUsed} /></TableCell>
+                <TableCell>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => handleDeleteProduct(index)}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {revenueStreams.map((stream, index) => (
-                <TableRow key={index}>
-                  <TableCell>{stream.revenueStream}</TableCell>
-                  <TableCell>{stream.description}</TableCell>
-                  <TableCell><Currency value={stream.price} /></TableCell>
-                  <TableCell>{stream.unit}</TableCell>
-                  <TableCell>{stream.timeUsed}</TableCell>
-                  <TableCell><Currency value={Number(stream.costPerDelivery)} /></TableCell>
-                  <TableCell>{stream.idealClient}</TableCell>
-                  <TableCell>{stream.rateOfLove}</TableCell>
-                  <TableCell>{stream.purchasers}</TableCell>
-                  <TableCell><Currency value={(stream.price - Number(stream.costPerDelivery)) / stream.timeUsed} /></TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outlined"
-                      color="error"
-                      onClick={() => handleDeleteProduct(index)}
-                    >
-                      Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-              {filteredIncomes?.map((income1) => (
-                <TableRow key={income1.id}>
-                  <TableCell>{income1.revenue_stream}</TableCell>
-                  <TableCell>{income1.description}</TableCell>
-                  <TableCell><Currency value={income1.price} /></TableCell>
-                  <TableCell>{income1.unit}</TableCell>
-                  <TableCell>{income1.time_used}</TableCell>
-                  <TableCell><Currency value={income1.cost_of_delivery} /></TableCell>
-                  <TableCell>{income1.ideal_client}</TableCell>
-                  <TableCell>{income1.rate_of_love}</TableCell>
-                  <TableCell>{income1.purchasers}</TableCell>
-                  <TableCell><Currency value={(income1.price - income1.cost_of_delivery) / income1.time_used} /></TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outlined"
-                      color="error"
-                      onClick={() => deleteProductFromDB(income1.id)}
-                    >
-                      Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          <Box>
-            {formSubmitted ? (
-              <Button type='button' onClick={handleEdit}>
-                Update
-              </Button>
-            ) : (
-              <Button type='button' onClick={() => handleSubmit(event)}>
-                Save
-              </Button>
-            )}
-          </Box>
-        </Paper>
+            ))}
+            {filteredIncomes?.map((income1) => (
+              <TableRow key={income1.id}>
+                <TableCell>{income1.revenue_stream}</TableCell>
+                <TableCell>{income1.description}</TableCell>
+                <TableCell><Currency value={income1.price} /></TableCell>
+                <TableCell>{income1.unit}</TableCell>
+                <TableCell>{income1.time_used}</TableCell>
+                <TableCell><Currency value={income1.cost_of_delivery} /></TableCell>
+                <TableCell>{income1.ideal_client}</TableCell>
+                <TableCell>{income1.rate_of_love}</TableCell>
+                <TableCell>{income1.purchasers}</TableCell>
+                <TableCell><Currency value={(income1.price - income1.cost_of_delivery) / income1.time_used} /></TableCell>
+                <TableCell>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => deleteProductFromDB(income1.id)}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <Box textAlign={'center'}>
+          <Button variant='contained' type='button' onClick={() => handleSubmit(event)}>
+            Save
+          </Button>
+        </Box>
         <ProgressBar back={'valuepay'} next={'incomeyear2'} submit={handleSubmit} value={42} budgetId={budgetId} />
       </Container>
       <Footer />

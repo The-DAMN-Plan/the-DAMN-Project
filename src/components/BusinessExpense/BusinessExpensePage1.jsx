@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function BusinessExpense(params) {
     const dispatch = useDispatch();
-    const open = useSelector(store=>store.sideNav);
+    const open = useSelector(store => store.sideNav);
     const status = useSelector((store) => store.status);
     const expense = useSelector((store) => store.expense);
     console.log(expense);
@@ -101,10 +101,10 @@ export default function BusinessExpense(params) {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-    
+
         // Find the index of the existing formData object with the same expense_name
         const existingIndex = userEntry.findIndex(item => item.expense_name === name);
-    
+
         // If the formData object exists, update its expense_amount
         if (existingIndex !== -1) {
             const updatedUserEntry = [...userEntry];
@@ -123,7 +123,7 @@ export default function BusinessExpense(params) {
             };
             setUserEntry([...userEntry, formData]);
         }
-    
+
         // Update the form values
         setFormValues({
             ...formValues,
@@ -135,13 +135,13 @@ export default function BusinessExpense(params) {
     const handleSubmit = (event) => {
         event.preventDefault();
         const updateObj = {
-            completed: true, 
-            budget_id: Number(budgetId.budgetId), 
+            completed: true,
+            budget_id: Number(budgetId.budgetId),
             step: 'businessexpensepage1'
         }
-        
+
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-        dispatch({type: 'UPDATE_STATUS', payload: updateObj})
+        dispatch({ type: 'UPDATE_STATUS', payload: updateObj })
     };
 
     const handleEdit = () => {
@@ -151,45 +151,40 @@ export default function BusinessExpense(params) {
 
     const isStartPlanCompleted = status.find(s => s.step === 'businessexpensepage1')?.completed;
 
-    return(
+    return (
         <Main open={open}>
             <Container maxWidth="md">
-            <Paper elevation={3} style={{ padding: 24, marginTop: 32 }}>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Business Expense 
-                </Typography>
-                <Typography variant="h5" align="center" gutterBottom>
-                    Fundamental Business Expenses
+            <Typography variant="h3" sx={{mb:4}} color={'primary'} align="center" gutterBottom>
+                Business Expenses Page 1
                 </Typography>
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2} justifyContent="center">
                         <Grid item xs={12} md={6}>
                             <TextField name="accountingSupport" label="Accounting Support" fullWidth value={formValues.accountingSupport} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="insuranceGeneral" label="Insurance General"  fullWidth value={formValues.insuranceGeneral} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="insuranceGeneral" label="Insurance General" fullWidth value={formValues.insuranceGeneral} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name='insuranceHealthLifeDisability' label="Insurance - Health, Life & Disability" fullWidth value={formValues.insuranceHealthLifeDisability} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="legal" label="Legal or Other Professional Support"  fullWidth value={formValues.legal} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="legal" label="Legal or Other Professional Support" fullWidth value={formValues.legal} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                         <Grid item xs={12} md={6}>
-                        <TextField name="coaching" label="Coaching & Professional Development"  fullWidth value={formValues.coaching} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="coaching" label="Coaching & Professional Development" fullWidth value={formValues.coaching} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="travelLodging" label="Travel/Lodging" fullWidth value={formValues.travelLodging} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="clientTravelMeals" label="Client/Travel Meals"  fullWidth value={formValues.clientTravelMeals} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            {isStartPlanCompleted ? (
-                                <Button type='button' onClick={handleEdit}>
-                                    Update
-                                </Button>
-                                ) : (
-                                <Button type='submit'>
-                                    Save
-                                </Button>
-                            )}
+                            <TextField name="clientTravelMeals" label="Client/Travel Meals" fullWidth value={formValues.clientTravelMeals} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
+                        {isStartPlanCompleted ? (
+                            <Button variant='outlined' type='button' onClick={handleEdit}>
+                                Update
+                            </Button>
+                        ) : (
+                            <Button variant='contained' type='submit'>
+                                Save
+                            </Button>
+                        )}
                     </Grid>
                 </form>
-                <ProgressBar back={'overview'} next={'businessexpensepage2'} value={60} budgetId={budgetId}/>
-            </Paper>
-        </Container>
-        <Footer/>
+                <ProgressBar back={'overview'} next={'businessexpensepage2'} value={60} budgetId={budgetId} />
+            </Container>
+            <Footer />
         </Main>
     )
-    
+
 }
