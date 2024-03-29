@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Modal from '@mui/material/Modal';
 import CreateBusiness from '../CreateBusiness/CreateBusiness';
+import CustomToolTip from '../Shared/CustomToolTip';
 
 function UserPage() {
   const history = useHistory();
@@ -70,6 +71,9 @@ function UserPage() {
               <Typography variant="h3" color={'primary'} gutterBottom textAlign='center'>
                 Your Businesses
               </Typography>
+              <Box textAlign={'right'}>
+                <CustomToolTip title="Add a business to get started" />
+              </Box>
               {business.length === 0 ? (
                 <Typography variant="body1">
                   You have no businesses. Please add a business.
