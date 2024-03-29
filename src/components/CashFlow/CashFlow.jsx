@@ -25,7 +25,7 @@ function CashFlow() {
     const [monthlySales, setMonthlySales] = useState(0);
     const [totalFutureSavings, setTotalFutureSavings] = useState(0);
     const [arraryOfCashFlows, setArrayCashFlow] = useState([]);
-    const totalExpenseAmount = useSelector((store) => 
+    const totalExpenseAmount = useSelector((store) =>
         store.expense.reduce((total, currentExpense) => {
             if ((currentExpense.year === null || currentExpense.year === selectedYear) || (selectedYear === null && currentExpense.year === undefined)) {
                 return total + currentExpense.expense_amount;
@@ -33,7 +33,7 @@ function CashFlow() {
             return total;
         }, 0)
     );
-    
+
     console.log(totalExpenseAmount);
 
 
@@ -45,9 +45,9 @@ function CashFlow() {
         let total = { y1: 0, y2: 0 };
         for (const item of income) {
             if (item.year === 1) {
-                total.y1 += item.price * Number(item.time_used);
+                total.y1 += (item.price / item.time_used) * Number(item.purchasers);
             } else {
-                total.y2 += item.price * Number(item.time_used);
+                total.y2 += (item.price / item.time_used) * Number(item.purchasers);
             }
         }
         return total;
@@ -88,25 +88,55 @@ function CashFlow() {
     //     }
     // })
 
-    console.log('array cash',arraryOfCashFlows);
+    function mapArrays() {
+        let year = { one: [], two: [] }
+        let lastCashBalance = 0;
+        let beginningCashBalance = Number(beginningCash);
+
+        for (const item of cashflow) {
+            if (item.year === 1) {
+                if (item.month === 1) {
+                } else {
+                    beginningCashBalance = lastCashBalance;
+                }
+                const endingCashBalance = beginningCashBalance + monthlySales - totalExpenseAmount;
+                lastCashBalance = endingCashBalance;
+
+                year.one.push({
+                    year: item.year,
+                    month: item.month,
+                    beginningCashBalance,
+                    monthlySales,
+                    totalExpenseAmount,
+                    endingCashBalance,
+                })
+            }
+
+            if (item.year === 2) {
+
+                beginningCashBalance = lastCashBalance;
+                const endingCashBalance = beginningCashBalance + monthlySales - totalExpenseAmount;
+                lastCashBalance = endingCashBalance;
+
+                year.two.push({
+                    year: item.year,
+                    month: item.month,
+                    beginningCashBalance,
+                    monthlySales,
+                    totalExpenseAmount,
+                    endingCashBalance,
+                })
+            }
+        }
+
+        return year;
+    }
+
+    console.log(mapArrays());
 
     useEffect(() => {
-    let lastCashBalance = 0;
-    let beginningCashBalance = beginningCash;
-    setArrayCashFlow(cashflow.map((monthlyCashFlow) => {
-        beginningCashBalance = lastCashBalance;
-        const endingCashBalance = beginningCashBalance + monthlySales - totalExpenseAmount;
-        lastCashBalance = endingCashBalance;
-        return {
-            year: monthlyCashFlow.year,
-            month: monthlyCashFlow.month,
-            beginningCashBalance,
-            monthlySales,
-            totalExpenseAmount,
-            endingCashBalance,
-        }
-    }))
-    }, [selectedMonth]);
+        mapArrays();
+    }, [selectedMonth, beginningCash]);
 
     // When the year/month/cashflow changes, we want to run some calculations
     useEffect(() => {
@@ -133,95 +163,95 @@ function CashFlow() {
 
 
 
-        const handleYearChange = (year) => {
-            setSelectedYear(year);
-        };
+    const handleYearChange = (year) => {
+        setSelectedYear(year);
+    };
 
-        const handleMonthChange = (event) => {
-            setSelectedMonth(parseInt(event.target.value));
-        };
+    const handleMonthChange = (event) => {
+        setSelectedMonth(parseInt(event.target.value));
+    };
 
 
-        const filteredCashflow = cashflow.filter(item => item.year === selectedYear);
+    const filteredCashflow = cashflow.filter(item => item.year === selectedYear);
 
-        return (
-            <Main open={open}>
-                <Container>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} md={3}>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Typography variant="h4" gutterBottom>
-                                Cash Flow
-                            </Typography>
-                            <Button onClick={() => handleYearChange(1)} variant={selectedYear === 1 ? 'contained' : 'outlined'}>
-                                Year 1
-                            </Button>
-                            <Button onClick={() => handleYearChange(2)} variant={selectedYear === 2 ? 'contained' : 'outlined'}>
-                                Year 2
-                            </Button>
-                            <TextField
-                                name="beginningCash"
-                                label="Beginning Cash Balance"
-                                fullWidth
-                                value={beginningCash}
-                                // onChange={}
-                                sx={{ marginBottom: 2 }}
-                            />
-                            <TextField
-                                name="salesPercent"
-                                label="Sales Percent"
-                                fullWidth
-                                value={salesPercent}
-                                // onChange={}
-                                sx={{ marginBottom: 2 }}
-                            />
-                            <FormControl fullWidth>
-                                <InputLabel id="month-select-label">Select Month</InputLabel>
-                                <Select
-                                    labelId="month-select-label"
-                                    id="month-select"
-                                    label="Select Month"
-                                    value={selectedMonth}
-                                    onChange={(event) => handleMonthChange(event)}
-                                >
-                                    {filteredCashflow.map(item => (
-                                        <MenuItem key={item.id} value={item.month}>
-                                            Month {item.month}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </Grid>
+    return (
+        <Main open={open}>
+            <Container>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} md={3}>
                     </Grid>
-                    <Grid xs={6} textAlign={'center'}>
-                        <Paper sx={{ m: 2, p: 2 }}>
-                            <Typography textAlign={'center'} variant='subtitle1'>Annual Projected Sales</Typography>
-                            <Typography textAlign={'center'} variant='h5'><Currency value={selectedYear === 1 ? totalIncome.y1 : totalIncome.y2 || 0} /></Typography>
-                        </Paper>
+                    <Grid item xs={12} md={6}>
+                        <Typography variant="h4" gutterBottom>
+                            Cash Flow
+                        </Typography>
+                        <Button onClick={() => handleYearChange(1)} variant={selectedYear === 1 ? 'contained' : 'outlined'}>
+                            Year 1
+                        </Button>
+                        <Button onClick={() => handleYearChange(2)} variant={selectedYear === 2 ? 'contained' : 'outlined'}>
+                            Year 2
+                        </Button>
+                        <TextField
+                            name="beginningCash"
+                            label="Beginning Cash Balance"
+                            fullWidth
+                            value={beginningCash}
+                            onChange={(e) => setBeginningCash(e.target.value)}
+                            sx={{ marginBottom: 2 }}
+                        />
+                        <TextField
+                            name="salesPercent"
+                            label="Sales Percent"
+                            fullWidth
+                            value={salesPercent}
+                            // onChange={}
+                            sx={{ marginBottom: 2 }}
+                        />
+                        <FormControl fullWidth>
+                            <InputLabel id="month-select-label">Select Month</InputLabel>
+                            <Select
+                                labelId="month-select-label"
+                                id="month-select"
+                                label="Select Month"
+                                value={selectedMonth}
+                                onChange={(event) => handleMonthChange(event)}
+                            >
+                                {filteredCashflow.map(item => (
+                                    <MenuItem key={item.id} value={item.month}>
+                                        Month {item.month}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                     </Grid>
-                    <Grid xs={6} textAlign={'center'}>
-                        <Paper sx={{ m: 2, p: 2 }}>
-                            <Typography textAlign={'center'} variant='subtitle1'>Sales for the Month</Typography>
-                            <Typography textAlign={'center'} variant='h5'><Currency value={monthlySales} /></Typography>
-                        </Paper>
-                    </Grid>
-                    <Grid xs={6} textAlign={'center'}>
-                        <Paper sx={{ m: 2, p: 2 }}>
-                            <Typography textAlign={'center'} variant='subtitle1'>Total Cash Paid Out</Typography>
-                            <Typography textAlign={'center'} variant='h5'><Currency value={totalExpenseAmount + totalFutureSavings || 0} /></Typography>
-                        </Paper>
-                    </Grid>
-                    <Grid xs={6} textAlign={'center'}>
-                        <Paper sx={{ m: 2, p: 2 }}>
-                            <Typography textAlign={'center'} variant='subtitle1'>Ending Cash Balance</Typography>
-                            <Typography textAlign={'center'} variant='h5'><Currency value={endingCashBalance || 0} /></Typography>
-                        </Paper>
-                    </Grid>
-                </Container>
-                <Footer />
-            </Main>
-        );
-    }
+                </Grid>
+                <Grid xs={6} textAlign={'center'}>
+                    <Paper sx={{ m: 2, p: 2 }}>
+                        <Typography textAlign={'center'} variant='subtitle1'>Annual Projected Sales</Typography>
+                        <Typography textAlign={'center'} variant='h5'><Currency value={selectedYear === 1 ? totalIncome.y1 : totalIncome.y2 || 0} /></Typography>
+                    </Paper>
+                </Grid>
+                <Grid xs={6} textAlign={'center'}>
+                    <Paper sx={{ m: 2, p: 2 }}>
+                        <Typography textAlign={'center'} variant='subtitle1'>Sales for the Month</Typography>
+                        <Typography textAlign={'center'} variant='h5'><Currency value={monthlySales} /></Typography>
+                    </Paper>
+                </Grid>
+                <Grid xs={6} textAlign={'center'}>
+                    <Paper sx={{ m: 2, p: 2 }}>
+                        <Typography textAlign={'center'} variant='subtitle1'>Total Cash Paid Out</Typography>
+                        <Typography textAlign={'center'} variant='h5'><Currency value={totalExpenseAmount + totalFutureSavings || 0} /></Typography>
+                    </Paper>
+                </Grid>
+                <Grid xs={6} textAlign={'center'}>
+                    <Paper sx={{ m: 2, p: 2 }}>
+                        <Typography textAlign={'center'} variant='subtitle1'>Ending Cash Balance</Typography>
+                        <Typography textAlign={'center'} variant='h5'><Currency value={endingCashBalance || 0} /></Typography>
+                    </Paper>
+                </Grid>
+            </Container>
+            <Footer />
+        </Main>
+    );
+}
 
-    export default CashFlow;
+export default CashFlow;
