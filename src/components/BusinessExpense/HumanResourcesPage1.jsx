@@ -19,6 +19,7 @@ export default function HumanResourcesPage1() {
     const status = useSelector((store) => store.status);
     const budgetId = useParams();
     const open = useSelector((store)=>store.sideNav);
+
     useEffect(() => {
         dispatch({ type: 'FETCH_BUDGET' });
     }, [dispatch]);
@@ -30,8 +31,14 @@ export default function HumanResourcesPage1() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        const updateObj = {
+            completed: true, 
+            budget_id: Number(budgetId.budgetId), 
+            step: 'hrpagey1'
+        }
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: { expense_name: expenseName, service, frequency, expense_amount: expenseAmount } });
+        dispatch({type: 'UPDATE_STATUS', payload: updateObj})
 
         setExpenseName('');
         setService('');
@@ -42,7 +49,7 @@ export default function HumanResourcesPage1() {
     function handleDelete() {
 
     }
-    const isStartPlanCompleted = status.find(s => s.step === 'businessexpensepage2')?.completed;
+    const isStartPlanCompleted = status.find(s => s.step === 'hrpagey1')?.completed;
 
 
     const filteredExpenses = expenses.filter(item => item.type === 'business hr');
