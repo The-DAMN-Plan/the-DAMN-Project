@@ -29,9 +29,6 @@ export default function ValuePay(props) {
 
   console.log('Big budget object', finalBudget);
   
-  const vpPercent = finalBudget[0]?.vp_percent
-  const vpIncome = finalBudget[0]?.vp_income
-  
   const vpPercent = finalBudget[0].vp_percent;
   const vpIncome = finalBudget[0].vp_income;
   
