@@ -9,6 +9,12 @@ import Select from '@mui/material/Select';
 import Modal from '@mui/material/Modal';
 import CreateBusiness from '../CreateBusiness/CreateBusiness';
 import CustomToolTip from '../Shared/CustomToolTip';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Alert from '@mui/material/Alert';
+
+
 
 function UserPage() {
   const history = useHistory();
@@ -42,6 +48,33 @@ function UserPage() {
   const handleChange = (event) => {
     setSelectedBusiness(event.target.value);
   };
+
+  // Snack bar Test
+  const [openSnack, setOpenSnack] = useState(false);
+
+
+  const handleCloseSnack = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnack(false);
+  };
+
+  const action = (
+    <React.Fragment>
+
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleCloseSnack}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
 
   function startPlan() {
     // Find the selected business object based on its name
@@ -92,7 +125,7 @@ function UserPage() {
                 aria-labelledby="child-modal-title"
                 aria-describedby="child-modal-description"
               >
-                <CreateBusiness handleClose={handleClose} />
+                <CreateBusiness handleClose={handleClose} setOpenSnack={setOpenSnack} />
               </Modal>
             </Box>
           </Paper>
@@ -135,6 +168,26 @@ function UserPage() {
           </Paper>
         </Grid>
       </Grid>
+
+      {/* Snack Bar : Show Toast on success */}
+      <Snackbar
+          open={openSnack}
+          autoHideDuration={6000}
+          onClose={handleCloseSnack}
+          message="Business Created!"
+          action={action}
+
+        >
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            variant="filled"
+            sx={{ width: '100%' }}
+          >
+            Successfully Created Business!
+          </Alert>
+        </Snackbar>
+      
     </Container>
   );
 }

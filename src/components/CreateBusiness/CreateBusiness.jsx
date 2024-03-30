@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Grid from '@mui/material/Unstable_Grid2';
 import { DatePicker } from '@mui/x-date-pickers';
 
-function CreateBusiness({ handleClose }) {
+function CreateBusiness({ handleClose, setOpenSnack }) {
   const user = useSelector(store => store.user);
   const dispatch = useDispatch();
 
@@ -50,6 +50,7 @@ function CreateBusiness({ handleClose }) {
     setYearStarted(null);
     setAvgRevenue(0);
     handleClose();
+    setOpenSnack(true);
   }
 
   return (

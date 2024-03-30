@@ -1,9 +1,44 @@
 import React from 'react';
 import { Box, Typography, useMediaQuery, Card, CardContent, Button, Paper, CardMedia } from '@mui/material';
 import theme from '../../muiTheme';
+// import CustomSnackbar from '../Shared/CustomSnackBar';
+import { useState } from 'react';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 function AboutPage() {
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const [openSnack, setOpenSnack] = useState(false);
+
+  const handleClick = () => {
+    setOpenSnack(true);
+  };
+
+  const handleCloseSnack = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnack(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={handleCloseSnack}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleCloseSnack}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
 
   return (
     <Box>
@@ -48,16 +83,18 @@ function AboutPage() {
           my: 2,
         }}
       >
-        <CardMedia
-          width="560"
-          height="315"
-          src="https://www.youtube.com/watch?v=2LaO3A_gpMQ"
-          title="Welocome to The DAMN Plan App"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></CardMedia>
+
       </Box>
+      <div>
+        <Button onClick={handleClick}>Open Snackbar</Button>
+        <Snackbar
+          open={openSnack}
+          autoHideDuration={6000}
+          onClose={handleCloseSnack}
+          message="Note archived"
+          action={action}
+        />
+      </div>
     </Box>
   );
 }
