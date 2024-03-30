@@ -33,7 +33,7 @@ function ProtectedRoute({ component, children, ...props }) {
         <ProtectedComponent />
         :
         // Otherwise, redirect to the Loginpage
-        <LoginPage />
+        history.push('/')
       }
     </Route>
 
