@@ -23,15 +23,22 @@ export default function BusinessExpense(params) {
         handleExpense();
     }, [expense]);
 
+    // const getExpenseAmount = (expenseName) => {
+    //     const expenseItem = expense.find(item => item.expense_name === expenseName && item.type === 'business expense');
+    //     return expenseItem ? expenseItem.expense_amount : '';
+    // };
+
     const getExpenseAmount = (expenseName) => {
-        const expenseItem = expense.find(item => item.expense_name === expenseName);
+        console.log(`Fetching amount for: ${expenseName}`);
+        const expenseItem = expense.find(item => item.expense_name === expenseName && item.type === 'business expense');
+        console.log('Found item:', expenseItem);
         return expenseItem ? expenseItem.expense_amount : '';
     };
 
     const handleExpense = () => {
         const newFormValues = {
             cellPhones: getExpenseAmount('cellPhones'),
-            internet: getExpenseAmount('business_internet'),
+            business_internet: getExpenseAmount('business_internet'),
             printPublish: getExpenseAmount('printPublish'),
             softwareTech: getExpenseAmount('softwareTech'),
             officeSupply: getExpenseAmount('officeSupply'),
@@ -50,8 +57,8 @@ export default function BusinessExpense(params) {
         },
         {
             budget_id: budgetId.budgetId,
-            expense_amount: getExpenseAmount('internet') || "0",
-            expense_name: "internet",
+            expense_amount: getExpenseAmount('business_internet') || "0",
+            expense_name: "business_internet",
             type: "business expense"
         },
         {
@@ -83,7 +90,7 @@ export default function BusinessExpense(params) {
 
     const [formValues, setFormValues] = useState({
         cellPhones: '',
-        internet: '',
+        business_internet: '',
         printPublish: '',
         softwareTech: '',
         officeSupply: '',
@@ -153,7 +160,7 @@ export default function BusinessExpense(params) {
                     <Grid container spacing={2} justifyContent="center">
                         <Grid item xs={12} md={6}>
                             <TextField name='cellPhones' label="Cell Phones" fullWidth value={formValues.cellPhones} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="business_internet" label="Internet & Utilities" fullWidth value={formValues.internet} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            <TextField name="business_internet" label="Internet & Utilities" fullWidth value={formValues.business_internet} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                             <TextField name="printPublish" label="Printing & Publishing"  fullWidth value={formValues.printPublish} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                         </Grid>
                         <Grid item xs={12} md={6}>
