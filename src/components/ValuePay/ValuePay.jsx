@@ -34,6 +34,12 @@ export default function ValuePay(props) {
 
   useEffect(() => {
     dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
+    if (finalBudget.length === 0) {
+
+    } else {
+      setPercent(vpPercent);
+      setDollarAmount(vpIncome);
+    }
   }, [dispatch, budgetId]);
 
   useEffect(() => {
@@ -57,12 +63,13 @@ export default function ValuePay(props) {
 
   useEffect(() => {
     const combinedTotalExpenses = totalPersonalExpenses + totalFutureSavings;
-    const newRequiredIncome = (combinedTotalExpenses * (vpPercent || percent)) / 100;
+    const newRequiredIncome = (combinedTotalExpenses * (percent)) / 100;
     setRequiredIncome(newRequiredIncome);
+    console.log(newRequiredIncome);
   }, [percent, totalPersonalExpenses, vpPercent, totalFutureSavings]);
 
   useEffect(() => {
-    const findValuePay = requiredIncome + Number(vpIncome || dollarAmount);
+    const findValuePay = requiredIncome + Number(dollarAmount);
     setValuePay(findValuePay)
   }, [requiredIncome, vpIncome, dollarAmount])
 
