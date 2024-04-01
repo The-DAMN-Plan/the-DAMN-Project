@@ -44,7 +44,7 @@ function AboutPage() {
     <Box>
       <Box
         sx={{
-          backgroundImage: `url('/gallery/AdobeStock_217361156.jpeg')`,
+          backgroundImage: `url('/gallery/splash.jpeg')`,
           backgroundSize: 'cover',
           color: '#fff',
           padding: theme.spacing(4),
@@ -68,7 +68,7 @@ function AboutPage() {
           padding: theme.spacing(2),
         }}
       >
-      <Paper elevation={3} align="center" sx={{ maxWidth: 600, p: 2 }}>
+      <Paper elevation={1} align="center" sx={{ maxWidth: 1080, p: 2 }}>
         <Typography variant="body1" paragraph>
           DAMN Plan Coaching, a collaborative effort between a mother and daughter, is dedicated to assisting women entrepreneurs overwhelmed by their workload. These entrepreneurs value their worth but seek a structured plan for equitable compensation. Leveraging over four decades of combined business experience, we understand the unique challenges of balancing business with personal responsibilities. Our approach, founded on four core principles, empowers our clients to craft businesses that embody their ideals, offering a blend of autonomy, passion, and financial reward.
         </Typography>
@@ -84,8 +84,10 @@ function AboutPage() {
         }}
       >
 
+
+        {/* Snack Bar Example */}
       </Box>
-      <div>
+      {/* <div>
         <Button onClick={handleClick}>Open Snackbar</Button>
         <Snackbar
           open={openSnack}
@@ -94,8 +96,8 @@ function AboutPage() {
           message="Note archived"
           action={action}
         />
-      </div>
-    </Box>
+      </div> */}
+    </Box> 
   );
 }
 
