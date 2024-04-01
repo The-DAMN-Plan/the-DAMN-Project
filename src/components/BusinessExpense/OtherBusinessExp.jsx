@@ -53,42 +53,45 @@ function OtherBusinessExp() {
     return (
         <Main open={open}>
             <Container sx={{ paddingTop: '64px' }}> {/* Adjust this value based on the height of your nav bar */}
-                <Typography variant="h3" color={'primary'} textAlign={'center'} gutterBottom>
-                    Other Business Expenses
-                </Typography>
-                <Typography variant="body1" textAlign={'center'} gutterBottom>
-                    Enter any additional expenses you have here. You can add as many as you need.
-                </Typography>
-                <Grid container justifyContent={'center'}>
-                    <Grid display={'flex'} alignItems={'center'}>
-                        <TextField label="Name of Expense" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
-                        <TextField label="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
-                        <Button variant='contained' onClick={handleAddExpense}>Submit</Button>
+                <Paper sx={{ p: 3 }}>
+
+                    <Typography variant="h3" color={'primary'} textAlign={'center'} gutterBottom>
+                        Other Business Expenses
+                    </Typography>
+                    <Typography variant="body1" textAlign={'center'} gutterBottom>
+                        Enter any additional expenses you have here. You can add as many as you need.
+                    </Typography>
+                    <Grid container justifyContent={'center'}>
+                        <Grid display={'flex'} alignItems={'center'}>
+                            <TextField label="Name of Expense" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
+                            <TextField label="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
+                            <Button variant='contained' onClick={handleAddExpense}>Submit</Button>
+                        </Grid>
                     </Grid>
-                </Grid>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Name of Expense</TableCell>
-                            <TableCell>Amount</TableCell>
-                            <TableCell>Delete</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {filteredExpenses?.map((expense) => (
-                            <TableRow key={expense.id}>
-                                <TableCell>{expense.expense_name}</TableCell>
-                                <TableCell>
-                                    <Currency value={Number(expense.expense_amount)} />
-                                </TableCell>
-                                <TableCell>
-                                    <Button variant='contained' color='secondary' onClick={() => handleDeleteFromDB(expense.id)}>Delete</Button>
-                                </TableCell>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Name of Expense</TableCell>
+                                <TableCell>Amount</TableCell>
+                                <TableCell>Delete</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-                <ProgressBar back={'hrpagey2'} next={'breakeven'} value={95} budgetId={budgetId} />
+                        </TableHead>
+                        <TableBody>
+                            {filteredExpenses?.map((expense) => (
+                                <TableRow key={expense.id}>
+                                    <TableCell>{expense.expense_name}</TableCell>
+                                    <TableCell>
+                                        <Currency value={Number(expense.expense_amount)} />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Button variant='contained' color='secondary' onClick={() => handleDeleteFromDB(expense.id)}>Delete</Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                    <ProgressBar back={'hrpagey2'} next={'breakeven'} value={95} budgetId={budgetId} />
+                </Paper>
             </Container>
             <Footer />
         </Main>

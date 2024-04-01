@@ -108,38 +108,41 @@ function VariableExpenses() {
     return (
         <Main open={open}>
             <Container maxWidth="md">
-                <Typography variant="h3" color={'primary'} align="center" gutterBottom>
-                Decision Expenses
-                </Typography>
-                <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
-                    On this page take some time to think about your monthly expenses that change and try to come up with an average of what you pay.
-                </Typography>
-                <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2} justifyContent="center">
-                        <Grid item xs={12} md={6}>
-                            <TextField name="food" label="Food" fullWidth value={formValues.food} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="clothing" label="Clothing" fullWidth value={formValues.clothing} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="personalCare" label="Personal Care" fullWidth value={formValues.personalCare} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="recreation" label="Recreation" fullWidth value={formValues.recreation} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                <Paper sx={{ p: 3 }}>
+
+                    <Typography variant="h3" color={'primary'} align="center" gutterBottom>
+                        Decision Expenses
+                    </Typography>
+                    <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
+                        On this page take some time to think about your monthly expenses that change and try to come up with an average of what you pay.
+                    </Typography>
+                    <form onSubmit={handleSubmit}>
+                        <Grid container spacing={2} justifyContent="center">
+                            <Grid item xs={12} md={6}>
+                                <TextField name="food" label="Food" fullWidth value={formValues.food} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="clothing" label="Clothing" fullWidth value={formValues.clothing} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="personalCare" label="Personal Care" fullWidth value={formValues.personalCare} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="recreation" label="Recreation" fullWidth value={formValues.recreation} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextField name="gifts" label="Gifts" fullWidth value={formValues.gifts} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="gas" label="Gas" fullWidth value={formValues.gas} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="carRepairs" label="Car Repairs" fullWidth value={formValues.carRepairs} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="homeMaintenance" label="Home Maintenance" fullWidth value={formValues.homeMaintenance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            </Grid>
+                            {isStartPlanCompleted ? (
+                                <Button variant='outlined' type='button' onClick={handleEdit}>
+                                    Update
+                                </Button>
+                            ) : (
+                                <Button variant='contained' type='submit'>
+                                    Save
+                                </Button>
+                            )}
                         </Grid>
-                        <Grid item xs={12} md={6}>
-                            <TextField name="gifts" label="Gifts" fullWidth value={formValues.gifts} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="gas" label="Gas" fullWidth value={formValues.gas} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="carRepairs" label="Car Repairs" fullWidth value={formValues.carRepairs} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="homeMaintenance" label="Home Maintenance" fullWidth value={formValues.homeMaintenance} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                        </Grid>
-                        {isStartPlanCompleted ? (
-                            <Button variant='outlined' type='button' onClick={handleEdit}>
-                                Update
-                            </Button>
-                        ) : (
-                            <Button variant='contained' type='submit'>
-                                Save
-                            </Button>
-                        )}
-                    </Grid>
-                    <ProgressBar next={'futureplans'} back={'personalsavings'} value={24} budgetId={budgetId} />
-                </form>
+                        <ProgressBar next={'futureplans'} back={'personalsavings'} value={24} budgetId={budgetId} />
+                    </form>
+                </Paper>
             </Container>
         </Main>
     );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, TextField, Button, Container, Grid } from '@mui/material';
+import { Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
@@ -10,8 +10,8 @@ import Main from '../Main/Main';
 function PersonalSavings() {
     const dispatch = useDispatch();
 
-    
-    const open = useSelector(store=>store.sideNav);
+
+    const open = useSelector(store => store.sideNav);
 
 
     const budgetId = useParams();
@@ -93,13 +93,13 @@ function PersonalSavings() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const updateObj = {
-            completed: true, 
-            budget_id: Number(budgetId.budgetId), 
+            completed: true,
+            budget_id: Number(budgetId.budgetId),
             step: 'personalsavings'
         }
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
-        dispatch({type: 'UPDATE_STATUS', payload: updateObj})
+        dispatch({ type: 'UPDATE_STATUS', payload: updateObj })
     };
 
     const handleEdit = () => {
@@ -111,57 +111,60 @@ function PersonalSavings() {
     return (
         <Main open={open}>
             <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
-                <Typography variant="h3" color={'primary'} align="center" gutterBottom>
-                Committed Expenses Page 3
-                </Typography>
-                <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
-                    Take some time to think about the money you want to save for like retirement, spending money, etc.
-                </Typography>
+                <Paper sx={{ p: 3 }}>
 
-                <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2} justifyContent="center">
-                        <Grid item xs={12} md={6}>
-                            <TextField name="personalAllowance"
-                                label="Personal Allowance"
-                                fullWidth
-                                value={formValues.personalAllowance}
-                                onChange={handleInputChange}
-                                sx={{ marginBottom: 2 }} />
-                            <TextField name="emergencySavings"
-                                label="Emergency Savings"
-                                fullWidth
-                                value={formValues.emergencySavings}
-                                onChange={handleInputChange}
-                                sx={{ marginBottom: 2 }} />
+                    <Typography variant="h3" color={'primary'} align="center" gutterBottom>
+                        Committed Expenses Page 3
+                    </Typography>
+                    <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
+                        Take some time to think about the money you want to save for like retirement, spending money, etc.
+                    </Typography>
+
+                    <form onSubmit={handleSubmit}>
+                        <Grid container spacing={2} justifyContent="center">
+                            <Grid item xs={12} md={6}>
+                                <TextField name="personalAllowance"
+                                    label="Personal Allowance"
+                                    fullWidth
+                                    value={formValues.personalAllowance}
+                                    onChange={handleInputChange}
+                                    sx={{ marginBottom: 2 }} />
+                                <TextField name="emergencySavings"
+                                    label="Emergency Savings"
+                                    fullWidth
+                                    value={formValues.emergencySavings}
+                                    onChange={handleInputChange}
+                                    sx={{ marginBottom: 2 }} />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextField name="retirement"
+                                    label="Retirement"
+                                    fullWidth
+                                    value={formValues.retirement}
+                                    onChange={handleInputChange}
+                                    sx={{ marginBottom: 2 }} />
+                                <TextField name="investments"
+                                    label="Investments"
+                                    fullWidth
+                                    value={formValues.investments}
+                                    onChange={handleInputChange}
+                                    sx={{ marginBottom: 2 }} />
+                            </Grid>
+                            {isStartPlanCompleted ? (
+                                <Button variant='outlined' type='button' onClick={handleEdit}>
+                                    Update
+                                </Button>
+                            ) : (
+                                <Button variant='contained' type='submit'>
+                                    Save
+                                </Button>
+                            )}
                         </Grid>
-                        <Grid item xs={12} md={6}>
-                            <TextField name="retirement"
-                                label="Retirement"
-                                fullWidth
-                                value={formValues.retirement}
-                                onChange={handleInputChange}
-                                sx={{ marginBottom: 2 }} />
-                            <TextField name="investments"
-                                label="Investments"
-                                fullWidth
-                                value={formValues.investments}
-                                onChange={handleInputChange}
-                                sx={{ marginBottom: 2 }} />
-                        </Grid>
-                        {isStartPlanCompleted ? (
-                            <Button variant='outlined' type='button' onClick={handleEdit}>
-                                Update
-                            </Button>
-                        ) : (
-                            <Button variant='contained' type='submit'>
-                                Save
-                            </Button>
-                        )}
-                    </Grid>
-                </form>
-                <ProgressBar back={'fundamentalexpenses'} next={'variableexpenses'} value={18} budgetId={budgetId}/>
+                    </form>
+                    <ProgressBar back={'fundamentalexpenses'} next={'variableexpenses'} value={18} budgetId={budgetId} />
+                </Paper>
             </Container>
-            <Footer/>
+            <Footer />
         </Main>
     );
 }

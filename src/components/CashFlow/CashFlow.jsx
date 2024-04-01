@@ -42,16 +42,16 @@ function CashFlow() {
         console.log(total)
         for (const expense of filteredExpenses) {
 
-          total += expense.expense_amount;
+            total += expense.expense_amount;
 
-          console.log(total)
+            console.log(total)
         }
         total += Number(budget[0].valuepay) ? Number(budget[0].valuepay) : 0;
         console.log(total)
         return total;
-      }
+    }
 
-      const totalExpenseAmount = calculateOperatingCosts();
+    const totalExpenseAmount = calculateOperatingCosts();
 
 
 
@@ -120,12 +120,12 @@ function CashFlow() {
 
     console.log(mapArrays());
 
-    
+
     // When the year/month/cashflow changes, we want to run some calculations
     useEffect(() => {
         setMonthlySales(calculateMonthlySales(selectedMonth));
     }, [selectedMonth, selectedYear, cashflow]);
-    
+
     useEffect(() => {
         mapArrays();
     }, [selectedMonth, beginningCash]);
@@ -217,53 +217,56 @@ function CashFlow() {
                     <Grid item xs={12} md={3}>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                    <Typography variant="h3" color={'primary'} align="center" gutterBottom>
-                        Cash Flow
-                    </Typography>
-                        <Grid container spacing={2} sx={{ marginBottom: 2 }}>
-                        <Grid item xs={6}>
-                            <Button onClick={() => handleYearChange(1)} variant={selectedYear === 1 ? 'contained' : 'outlined'} size="large" fullWidth>
-                                Year 1
-                            </Button>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Button onClick={() => handleYearChange(2)} variant={selectedYear === 2 ? 'contained' : 'outlined'} size="large" fullWidth>
-                                Year 2
-                            </Button>
-                        </Grid>
-                        </Grid>
-                        <TextField
-                            name="beginningCash"
-                            label="Beginning Cash Balance"
-                            fullWidth
-                            value={beginningCash}
-                            onChange={(e) => setBeginningCash(e.target.value)}
-                            sx={{ marginBottom: 2 }}
-                        />
-                        <TextField
-                            name="salesPercent"
-                            label="Sales Percent"
-                            fullWidth
-                            value={salesPercent}
-                            // onChange={} Need to set up to update percent. Later Goal
-                            sx={{ marginBottom: 2 }}
-                        />
-                        <FormControl fullWidth>
-                            <InputLabel id="month-select-label">Select Month</InputLabel>
-                            <Select
-                                labelId="month-select-label"
-                                id="month-select"
-                                label="Select Month"
-                                value={selectedMonth}
-                                onChange={(event) => handleMonthChange(event)}
-                            >
-                                {filteredCashflow.map(item => (
-                                    <MenuItem key={item.id} value={item.month}>
-                                        Month {item.month}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                        <Paper sx={{ p: 3 }}>
+
+                            <Typography variant="h3" color={'primary'} align="center" gutterBottom>
+                                Cash Flow
+                            </Typography>
+                            <Grid container spacing={2} sx={{ marginBottom: 2 }}>
+                                <Grid item xs={6}>
+                                    <Button onClick={() => handleYearChange(1)} variant={selectedYear === 1 ? 'contained' : 'outlined'} size="large" fullWidth>
+                                        Year 1
+                                    </Button>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Button onClick={() => handleYearChange(2)} variant={selectedYear === 2 ? 'contained' : 'outlined'} size="large" fullWidth>
+                                        Year 2
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                            <TextField
+                                name="beginningCash"
+                                label="Beginning Cash Balance"
+                                fullWidth
+                                value={beginningCash}
+                                onChange={(e) => setBeginningCash(e.target.value)}
+                                sx={{ marginBottom: 2 }}
+                            />
+                            <TextField
+                                name="salesPercent"
+                                label="Sales Percent"
+                                fullWidth
+                                value={salesPercent}
+                                // onChange={} Need to set up to update percent. Later Goal
+                                sx={{ marginBottom: 2 }}
+                            />
+                            <FormControl fullWidth>
+                                <InputLabel id="month-select-label">Select Month</InputLabel>
+                                <Select
+                                    labelId="month-select-label"
+                                    id="month-select"
+                                    label="Select Month"
+                                    value={selectedMonth}
+                                    onChange={(event) => handleMonthChange(event)}
+                                >
+                                    {filteredCashflow.map(item => (
+                                        <MenuItem key={item.id} value={item.month}>
+                                            Month {item.month}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Paper>
                     </Grid>
                 </Grid>
                 <Grid container spacing={2} justifyContent="center">
