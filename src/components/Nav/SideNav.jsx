@@ -88,22 +88,22 @@ export default function SideNav({drawerWidth}) {
                                     <List>
                                         <ListItem disablePadding>
                                             <ListItemButton component={NavLink} to={`/startplan/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}  >
-                                            <ListItemText sx={{pl: 2}} primary={'Start a Plan'} />
+                                            <ListItemText sx={{pl: 2}} primary={'Commited Expenses Page 1'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
                                             <ListItemButton component={NavLink} to={`/fundamentalexpenses/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}  >
-                                            <ListItemText sx={{pl: 2}} primary={'Fudamental Living Expenses'} />
+                                            <ListItemText sx={{pl: 2}} primary={'Commited Expenses Page 2'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
                                             <ListItemButton component={NavLink} to={`/personalsavings/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}} >
-                                            <ListItemText sx={{pl: 2}} primary={'Regular Financial Responsibilities'} />
+                                            <ListItemText sx={{pl: 2}} primary={'Commited Expenses Page 3'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
                                             <ListItemButton component={NavLink} to={`/variableexpenses/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}  >
-                                            <ListItemText sx={{pl: 2}} primary={'Variable Expenses'} />
+                                            <ListItemText sx={{pl: 2}} primary={'Decision Expenses'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
@@ -128,12 +128,12 @@ export default function SideNav({drawerWidth}) {
                                     <List>
                                         <ListItem disablePadding>
                                             <ListItemButton component={NavLink} to={`/incomeyear1/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
-                                            <ListItemText sx={{pl: 2}} primary={'Businsess Income Page 1'} />
+                                            <ListItemText sx={{pl: 2}} primary={'Year 1 Sales Projection'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
                                             <ListItemButton component={NavLink} to={`/incomeyear2/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
-                                            <ListItemText sx={{pl: 2}} primary={'Businsess Income Page 2'} />
+                                            <ListItemText sx={{pl: 2}} primary={'Year 2 Sales Projections'} />
                                             </ListItemButton>
                                         </ListItem>
                                         

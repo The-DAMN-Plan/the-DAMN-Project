@@ -160,9 +160,6 @@ function PBpage2() {
                                 Save
                             </Button>
                         )}
-                        <Button variant="contained" color="primary" onClick={openVideo}>
-                            Watch Video
-                        </Button>
                     </Grid>
                 </form>
 
