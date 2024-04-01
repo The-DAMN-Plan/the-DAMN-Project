@@ -149,6 +149,8 @@ export default function BusinessExpense(params) {
 
     const isStartPlanCompleted = status.find(s => s.step === 'businessexpensepage2')?.completed;
 
+    
+    
     return (
         <Main open={open}>
             <Container maxWidth="md">
@@ -179,7 +181,6 @@ export default function BusinessExpense(params) {
                             )}
                     </Grid>
                 </form>
-                
                 <ProgressBar back={'businessexpensepage1'} next={'marketingy1'} value={66} budgetId={budgetId}/>
         </Container>
         <Footer/>

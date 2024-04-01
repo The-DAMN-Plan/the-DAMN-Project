@@ -95,6 +95,12 @@ function UserPage() {
   }
 
   console.log(user);
+
+  const openVideo = () => {
+    window.open('https://youtu.be/2LaO3A_gpMQ', '_blank');
+  };
+
+
   return (
     <Container maxWidth="lg">
       <Grid container spacing={3} sx={{ mt: 4 }}>
@@ -155,13 +161,15 @@ function UserPage() {
               </FormControl>
             </Box>
             <Box p={3}>
-              {/* Need a reducer for budgets and loop over budgets associated with that business */}
               <Box display="flex" justifyContent="space-between" marginBottom="10px">
                 <Button variant="contained" color="primary" onClick={() => startPlan()}>
                   Start a New Plan
                 </Button>
                 <Button variant="contained" color="primary" onClick={() => { history.push('/info') }}>
                   Info
+                </Button>
+                <Button variant="contained" color="primary" onClick={openVideo}>
+                  Watch Video
                 </Button>
               </Box>
             </Box>
