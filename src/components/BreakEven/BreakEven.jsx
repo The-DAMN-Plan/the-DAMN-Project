@@ -18,6 +18,7 @@ export default function BreakEven() {
   const budgetId = useParams();
   const expenses = useSelector(store => store.expense);
   const budget = useSelector(store => store.finalBudget);
+  
 
   const filteredExpenses = expenses.filter(item => item.type === 'business marketing' || item.type === 'business hr' || item.type === 'business other' || item.type === 'business expense');
   const operatingCosts = calculateOperatingCosts();
@@ -28,9 +29,11 @@ export default function BreakEven() {
     for (const expense of filteredExpenses) {
       total += expense.expense_amount;
     }
-    total += budget.valuepay ? budget.valuepay : 0;
+    total += Number(budget[0].valuepay) ? Number(budget[0].valuepay) : 0;
     return total;
   }
+
+
 
   function calculateBreakeven() {
     let total = { y1: 0, y2: 0 };
@@ -51,7 +54,7 @@ export default function BreakEven() {
           color='primary'>Breakeven Sales</Typography>
         <Typography
           textAlign="center"
-          variant='subtitle1'>Required Sales Volume to Break-even</Typography>
+          variant='subtitle1'>Required Monthly Sales Volume to Break-even</Typography>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container
             spacing={2}
@@ -60,14 +63,12 @@ export default function BreakEven() {
             justifyContent="center"
             sx={{ minHeight: '30vh' }}
           >
-
-            {/* {this is the center spot} */}
             <Grid container xs={12}>
               <Grid xs={12} sm={12} md={6} lg={6}>
                 <Fade in={true}>
                   <Paper sx={{ p: 3 }}>
                     <Typography noWrap textAlign="center" variant='h4'>Year One</Typography>
-                    <Typography color='primary' textAlign="center" variant='h5'><Currency value={breakEvenNumbers.y1} /></Typography>
+                    <Typography color='primary' textAlign="center" variant='h5'><Currency value={breakEvenNumbers.y1} />/Month</Typography>
                   </Paper>
                 </Fade>
               </Grid>
@@ -76,7 +77,7 @@ export default function BreakEven() {
                 <Fade in={true} style={{ transitionDelay: '100ms' }}>
                   <Paper sx={{ p: 3 }}>
                     <Typography textAlign="center" variant='h4'>Year Two</Typography>
-                    <Typography color='secondary' textAlign="center" variant='h5'><Currency value={breakEvenNumbers.y2} /></Typography>
+                    <Typography color='secondary' textAlign="center" variant='h5'><Currency value={breakEvenNumbers.y2} />/Month</Typography>
                   </Paper>
                 </Fade>
               </Grid>

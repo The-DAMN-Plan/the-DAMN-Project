@@ -14,9 +14,12 @@ function CashFlow() {
     const cashflow = useSelector((store) => store.cashflow);
     console.log(cashflow);
     const expense = useSelector((store) => store.expense);
+    const filteredExpenses = expense.filter(item => item.type === 'business marketing' || item.type === 'business hr' || item.type === 'business other' || item.type === 'business expense');
+    console.log(filteredExpenses);
     const futurePlans = useSelector((store) => store.futurePlans);
     const income = useSelector((store) => store.income);
     const open = useSelector(store => store.sideNav);
+    const budget = useSelector(store => store.finalBudget);
     const [beginningCash, setBeginningCash] = useState(0);
     const [endingCashBalance, setEndingCashBalance] = useState(0);
     const [salesPercent, setSalesPercent] = useState(0);
@@ -25,16 +28,31 @@ function CashFlow() {
     const [monthlySales, setMonthlySales] = useState({ y1: 0, y2: 0 });
     const [totalFutureSavings, setTotalFutureSavings] = useState(0);
     const [arraryOfCashFlows, setArrayCashFlow] = useState([]);
-    const totalExpenseAmount = useSelector((store) =>
-        store.expense.reduce((total, currentExpense) => {
-            if ((currentExpense.year === null || currentExpense.year === selectedYear) || (selectedYear === null && currentExpense.year === undefined)) {
-                return total + currentExpense.expense_amount;
-            }
-            return total;
-        }, 0)
-    );
+    // const totalExpenseAmount = useSelector((store) =>
+    //     store.expense.reduce((total, currentExpense) => {
+    //         if ((currentExpense.year === null || currentExpense.year === selectedYear) || (selectedYear === null && currentExpense.year === undefined)) {
+    //             return total + currentExpense.expense_amount;
+    //         }
+    //         return total;
+    //     }, 0)
+    // );
 
-    console.log(totalExpenseAmount);
+    function calculateOperatingCosts() {
+        let total = 0;
+        console.log(total)
+        for (const expense of filteredExpenses) {
+
+          total += expense.expense_amount;
+
+          console.log(total)
+        }
+        total += Number(budget[0].valuepay) ? Number(budget[0].valuepay) : 0;
+        console.log(total)
+        return total;
+      }
+
+      const totalExpenseAmount = calculateOperatingCosts();
+
 
 
     useEffect(() => {
@@ -199,15 +217,21 @@ function CashFlow() {
                     <Grid item xs={12} md={3}>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <Typography variant="h4" gutterBottom>
-                            Cash Flow
-                        </Typography>
-                        <Button onClick={() => handleYearChange(1)} variant={selectedYear === 1 ? 'contained' : 'outlined'}>
-                            Year 1
-                        </Button>
-                        <Button onClick={() => handleYearChange(2)} variant={selectedYear === 2 ? 'contained' : 'outlined'}>
-                            Year 2
-                        </Button>
+                    <Typography variant="h3" color={'primary'} align="center" gutterBottom>
+                        Cash Flow
+                    </Typography>
+                        <Grid container spacing={2} sx={{ marginBottom: 2 }}>
+                        <Grid item xs={6}>
+                            <Button onClick={() => handleYearChange(1)} variant={selectedYear === 1 ? 'contained' : 'outlined'} size="large" fullWidth>
+                                Year 1
+                            </Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button onClick={() => handleYearChange(2)} variant={selectedYear === 2 ? 'contained' : 'outlined'} size="large" fullWidth>
+                                Year 2
+                            </Button>
+                        </Grid>
+                        </Grid>
                         <TextField
                             name="beginningCash"
                             label="Beginning Cash Balance"
@@ -221,7 +245,7 @@ function CashFlow() {
                             label="Sales Percent"
                             fullWidth
                             value={salesPercent}
-                            // onChange={}
+                            // onChange={} Need to set up to update percent. Later Goal
                             sx={{ marginBottom: 2 }}
                         />
                         <FormControl fullWidth>
@@ -242,29 +266,31 @@ function CashFlow() {
                         </FormControl>
                     </Grid>
                 </Grid>
-                <Grid xs={6} textAlign={'center'}>
-                    <Paper sx={{ m: 2, p: 2 }}>
-                        <Typography textAlign={'center'} variant='subtitle1'>Annual Projected Sales</Typography>
-                        <Typography textAlign={'center'} variant='h5'><Currency value={selectedYear === 1 ? totalIncome.y1 : totalIncome.y2 || 0} /></Typography>
-                    </Paper>
-                </Grid>
-                <Grid xs={6} textAlign={'center'}>
-                    <Paper sx={{ m: 2, p: 2 }}>
-                        <Typography textAlign={'center'} variant='subtitle1'>Sales for the Month</Typography>
-                        <Typography textAlign={'center'} variant='h5'><Currency value={selectedYear === 1 ? monthlySales.y1 : monthlySales.y2} /></Typography>
-                    </Paper>
-                </Grid>
-                <Grid xs={6} textAlign={'center'}>
-                    <Paper sx={{ m: 2, p: 2 }}>
-                        <Typography textAlign={'center'} variant='subtitle1'>Total Cash Paid Out</Typography>
-                        <Typography textAlign={'center'} variant='h5'><Currency value={totalExpenseAmount + totalFutureSavings || 0} /></Typography>
-                    </Paper>
-                </Grid>
-                <Grid xs={6} textAlign={'center'}>
-                    <Paper sx={{ m: 2, p: 2 }}>
-                        <Typography textAlign={'center'} variant='subtitle1'>Ending Cash Balance</Typography>
-                        <Typography textAlign={'center'} variant='h5'><Currency value={endingBalance || 0} /></Typography>
-                    </Paper>
+                <Grid container spacing={2} justifyContent="center">
+                    <Grid item xs={12} md={6}>
+                        <Paper sx={{ m: 2, p: 2 }}>
+                            <Typography variant="subtitle1" textAlign="center">Annual Projected Sales</Typography>
+                            <Typography variant="h5" textAlign="center"><Currency value={selectedYear === 1 ? totalIncome.y1 : totalIncome.y2 || 0} /></Typography>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Paper sx={{ m: 2, p: 2 }}>
+                            <Typography variant="subtitle1" textAlign="center">Sales for the Month</Typography>
+                            <Typography variant="h5" textAlign="center"><Currency value={selectedYear === 1 ? monthlySales.y1 : monthlySales.y2} /></Typography>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Paper sx={{ m: 2, p: 2 }}>
+                            <Typography variant="subtitle1" textAlign="center">Total Cash Paid Out</Typography>
+                            <Typography variant="h5" textAlign="center"><Currency value={totalExpenseAmount || 0} /></Typography>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Paper sx={{ m: 2, p: 2 }}>
+                            <Typography variant="subtitle1" textAlign="center">Ending Cash Balance</Typography>
+                            <Typography variant="h5" textAlign="center"><Currency value={endingBalance || 0} /></Typography>
+                        </Paper>
+                    </Grid>
                 </Grid>
             </Container>
             <Footer />
