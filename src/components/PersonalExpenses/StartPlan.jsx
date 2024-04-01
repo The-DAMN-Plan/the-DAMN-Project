@@ -106,11 +106,8 @@ function StartPlan() {
     return (
         <Main open={open}>
         <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
-            <Typography variant="h4" align="center" gutterBottom>
-                Start a DAMN Plan
-            </Typography>
-            <Typography variant="h5" align="center" gutterBottom>
-                Fundamental Living Expenses
+            <Typography variant="h3" color={'primary'} align="center" gutterBottom>
+                Committed Expenses Page 1
             </Typography>
             <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
                 Your singular goal in business is to "meet your customer's wants and needs at a profit" and pay yourself!
