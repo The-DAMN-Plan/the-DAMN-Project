@@ -110,7 +110,7 @@ function PBpage2() {
         <Main open={open}>
             <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
                 <Typography variant="h3" color={'primary'} align="center" gutterBottom>
-                    Fundamental Bill Payments
+                Committed Expenses Page 2
                 </Typography>
                 <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
                     Take some time to think about monthly bill payments you must make.

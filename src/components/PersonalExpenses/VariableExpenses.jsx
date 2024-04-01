@@ -109,7 +109,7 @@ function VariableExpenses() {
         <Main open={open}>
             <Container maxWidth="md">
                 <Typography variant="h3" color={'primary'} align="center" gutterBottom>
-                    Variable Living Expenses
+                Decision Expenses
                 </Typography>
                 <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
                     On this page take some time to think about your monthly expenses that change and try to come up with an average of what you pay.
