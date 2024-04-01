@@ -49,7 +49,7 @@ import HumanResourcesPage1 from '../BusinessExpense/HumanResourcesPage1';
 import HumanResourcesPage2 from '../BusinessExpense/HumanResourcesPage2';
 import OtherBusinessExp from '../BusinessExpense/OtherBusinessExp';
 import CashFlow from '../CashFlow/CashFlow';
-
+import Background from '../Background/Background';
 
 function App() {
   const dispatch = useDispatch();
@@ -94,6 +94,8 @@ function App() {
     <LocalizationProvider dateAdapter={AdapterMoment} >
       <ThemeProvider theme={theme}>
         <CssBaseline />
+
+        {user.id ? <Background /> : ''}
         <DrawerHeader />
         <Router>
           <div>
