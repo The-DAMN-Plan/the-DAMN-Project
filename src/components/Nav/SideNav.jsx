@@ -87,37 +87,37 @@ export default function SideNav({drawerWidth}) {
                                     <ListItemText sx={{pl:1}} primary={'Personal Budget'} />
                                     <List>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/startplan/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}  >
-                                            <ListItemText sx={{pl: 2}} primary={'Start a Plan'} />
+                                            <ListItemButton component={NavLink} to={`/startplan/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}  >
+                                            <ListItemText sx={{pl: 2}} primary={'Commited Expenses Page 1'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/fundamentalexpenses/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}  >
-                                            <ListItemText sx={{pl: 2}} primary={'Fudamental Living Expenses'} />
+                                            <ListItemButton component={NavLink} to={`/fundamentalexpenses/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}  >
+                                            <ListItemText sx={{pl: 2}} primary={'Commited Expenses Page 2'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/personalsavings/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}} >
-                                            <ListItemText sx={{pl: 2}} primary={'Regular Financial Responsibilities'} />
+                                            <ListItemButton component={NavLink} to={`/personalsavings/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}} >
+                                            <ListItemText sx={{pl: 2}} primary={'Commited Expenses Page 3'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/variableexpenses/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}  >
-                                            <ListItemText sx={{pl: 2}} primary={'Variable Expenses'} />
+                                            <ListItemButton component={NavLink} to={`/variableexpenses/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}  >
+                                            <ListItemText sx={{pl: 2}} primary={'Decision Expenses'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/futureplans/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemButton component={NavLink} to={`/futureplans/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
                                             <ListItemText sx={{pl: 2}} primary={'Future Plans'}  />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/otherexpenses/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemButton component={NavLink} to={`/otherexpenses/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
                                             <ListItemText sx={{pl: 2}} primary={'Other Expenses'}  />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/valuepay/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemButton component={NavLink} to={`/valuepay/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
                                             <ListItemText sx={{pl: 2}} primary={'Value Pay'}  />
                                             </ListItemButton>
                                         </ListItem>
@@ -127,13 +127,13 @@ export default function SideNav({drawerWidth}) {
                                     <ListItemText sx={{pl:1}} primary={'Business Income'} />
                                     <List>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/incomeyear1/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
-                                            <ListItemText sx={{pl: 2}} primary={'Businsess Income Page 1'} />
+                                            <ListItemButton component={NavLink} to={`/incomeyear1/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
+                                            <ListItemText sx={{pl: 2}} primary={'Year 1 Sales Projection'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/incomeyear2/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
-                                            <ListItemText sx={{pl: 2}} primary={'Businsess Income Page 2'} />
+                                            <ListItemButton component={NavLink} to={`/incomeyear2/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
+                                            <ListItemText sx={{pl: 2}} primary={'Year 2 Sales Projections'} />
                                             </ListItemButton>
                                         </ListItem>
                                         
@@ -143,42 +143,42 @@ export default function SideNav({drawerWidth}) {
                                     <ListItemText sx={{pl:1}} primary={'Business Expense'} />
                                     <List>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/overview/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemButton component={NavLink} to={`/overview/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
                                             <ListItemText sx={{pl: 2}} primary={'Overview'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/businessexpensepage1/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemButton component={NavLink} to={`/businessexpensepage1/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
                                             <ListItemText sx={{pl: 2}} primary={'Businsess Expense Page 1'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/businessexpensepage2/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemButton component={NavLink} to={`/businessexpensepage2/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
                                             <ListItemText sx={{pl: 2}} primary={'Businsess Expense Page 2'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/marketingy1/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemButton component={NavLink} to={`/marketingy1/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
                                             <ListItemText sx={{pl: 2}} primary={'Marketing Expense Page 1'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/marketingy2/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemButton component={NavLink} to={`/marketingy2/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
                                             <ListItemText sx={{pl: 2}} primary={'Marketing Expense Page 2'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/hrpagey1/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemButton component={NavLink} to={`/hrpagey1/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
                                             <ListItemText sx={{pl: 2}} primary={'Human Resource Expense Page 1'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/hrpagey2/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemButton component={NavLink} to={`/hrpagey2/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
                                             <ListItemText sx={{pl: 2}} primary={'Human Resource Expense Page 2'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/otherbusiness/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemButton component={NavLink} to={`/otherbusiness/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
                                             <ListItemText sx={{pl: 2}} primary={'Other Businsess Expense'} />
                                             </ListItemButton>
                                         </ListItem>
@@ -188,7 +188,7 @@ export default function SideNav({drawerWidth}) {
                                     <ListItemText sx={{pl:1}} primary={'Break Even'} />
                                     <List>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/breakeven/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemButton component={NavLink} to={`/breakeven/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
                                             <ListItemText sx={{pl: 2}} primary={'Break Even'} />
                                             </ListItemButton>
                                         </ListItem>
@@ -199,7 +199,7 @@ export default function SideNav({drawerWidth}) {
                                     <ListItemText sx={{pl:1}} primary={'Cashflow'} />
                                     <List>
                                         <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/cashflow/${budgetId}`} sx={{"&.active": {background:'#e42320', color:'white'}}}>
+                                            <ListItemButton component={NavLink} to={`/cashflow/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
                                             <ListItemText sx={{pl:2}} primary={'Cashflow'} />
                                             </ListItemButton>
                                         </ListItem>
