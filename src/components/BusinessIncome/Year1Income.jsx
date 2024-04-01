@@ -110,6 +110,10 @@ function Year1Income() {
   const filteredIncomes = income.filter(item => item.year === 1);
   console.log('Year 1', filteredIncomes);
 
+  const openVideo = () => {
+    window.open('https://youtu.be/80XT9e_yN2Y', '_blank');
+  };
+
   return (
     <Main open={open}>
       <Container sx={{ paddingTop: '64px', paddingBottom: '64px' }}>
@@ -285,6 +289,13 @@ function Year1Income() {
           </Button>
         </Box>
         <ProgressBar back={'valuepay'} next={'incomeyear2'} submit={handleSubmit} value={42} budgetId={budgetId} />
+        <Grid container justifyContent="center" style={{ marginTop: 16 }}>
+          <Grid item>
+            <Button variant="contained" color="primary" onClick={openVideo}>
+              Watch Video
+            </Button>
+          </Grid>
+        </Grid>
       </Container>
       <Footer />
 

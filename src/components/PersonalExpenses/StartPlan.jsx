@@ -101,6 +101,11 @@ function StartPlan() {
         dispatch({ type: 'UPDATE_EXPENSE', payload: userEntry })
     }
 
+    const openVideo = () => {
+        window.open('https://youtu.be/Aggc8EiMZBY', '_blank');
+      };
+    
+
     const isStartPlanCompleted = status.find(s => s.step === 'startplan')?.completed;
 
     return (
@@ -177,6 +182,13 @@ function StartPlan() {
                     </Grid>
                 </Grid>
                 <ProgressBar back={`startplan`} next={`fundamentalexpenses`} value={6} budgetId={budgetId} />
+                <Grid container justifyContent="center" style={{ marginTop: 16 }}>
+                    <Grid item>
+                        <Button variant="contained" color="primary" onClick={openVideo}>
+                            Watch Video
+                        </Button>
+                    </Grid>
+                </Grid>
             </form>
             <Footer />
         </Container>
