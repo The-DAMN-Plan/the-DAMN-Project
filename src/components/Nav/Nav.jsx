@@ -77,7 +77,25 @@ function Nav({ drawerWidth }) {
             </Box>
           }
           {/*Logo  */}
-          {!open&&<Box>
+          {(listOfRoutes.includes(location.pathname)) && <Box>
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="#/"
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontWeight: 900,
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              The DAMN Plan
+            </Typography>
+            </Box>
+          }
+          {(!listOfRoutes.includes(location.pathname) && !open) && <Box>
             <Typography
               variant="h6"
               noWrap
