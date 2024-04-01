@@ -149,41 +149,44 @@ export default function BusinessExpense(params) {
 
     const isStartPlanCompleted = status.find(s => s.step === 'businessexpensepage2')?.completed;
 
-    
-    
+
+
     return (
         <Main open={open}>
             <Container maxWidth="md">
-                <Typography variant="h3" sx={{mb:4}} color={'primary'} align="center" gutterBottom>
-                Business Expenses Page 2
-                </Typography>
+                <Paper sx={{ p: 3 }}>
 
-                <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2} justifyContent="center">
-                        <Grid item xs={12} md={6}>
-                            <TextField name='cellPhones' label="Cell Phones" fullWidth value={formValues.cellPhones} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="business_internet" label="Internet & Utilities" fullWidth value={formValues.business_internet} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="printPublish" label="Printing & Publishing"  fullWidth value={formValues.printPublish} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                        <TextField name="softwareTech" label="Software & Technology"  fullWidth value={formValues.softwareTech} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="officeSupply" label="Office Supplies" fullWidth value={formValues.officeSupply} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="miscellaneous" label="Miscellaneous"  fullWidth value={formValues.miscellaneous} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                        </Grid>
+                    <Typography variant="h3" sx={{ mb: 4 }} color={'primary'} align="center" gutterBottom>
+                        Business Expenses Page 2
+                    </Typography>
+
+                    <form onSubmit={handleSubmit}>
+                        <Grid container spacing={2} justifyContent="center">
+                            <Grid item xs={12} md={6}>
+                                <TextField name='cellPhones' label="Cell Phones" fullWidth value={formValues.cellPhones} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="business_internet" label="Internet & Utilities" fullWidth value={formValues.business_internet} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="printPublish" label="Printing & Publishing" fullWidth value={formValues.printPublish} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextField name="softwareTech" label="Software & Technology" fullWidth value={formValues.softwareTech} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="officeSupply" label="Office Supplies" fullWidth value={formValues.officeSupply} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="miscellaneous" label="Miscellaneous" fullWidth value={formValues.miscellaneous} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            </Grid>
                             {isStartPlanCompleted ? (
                                 <Button variant='outlined' type='button' onClick={handleEdit}>
                                     Update
                                 </Button>
-                                ) : (
+                            ) : (
                                 <Button variant='contained' type='submit'>
                                     Save
                                 </Button>
                             )}
-                    </Grid>
-                </form>
-                <ProgressBar back={'businessexpensepage1'} next={'marketingy1'} value={66} budgetId={budgetId}/>
-        </Container>
-        <Footer/>
+                        </Grid>
+                    </form>
+                    <ProgressBar back={'businessexpensepage1'} next={'marketingy1'} value={66} budgetId={budgetId} />
+                </Paper>
+            </Container>
+            <Footer />
         </Main >
     )
 }

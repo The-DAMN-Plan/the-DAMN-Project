@@ -154,34 +154,37 @@ export default function BusinessExpense(params) {
     return (
         <Main open={open}>
             <Container maxWidth="md">
-            <Typography variant="h3" sx={{mb:4}} color={'primary'} align="center" gutterBottom>
-                Business Expenses Page 1
-                </Typography>
-                <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2} justifyContent="center">
-                        <Grid item xs={12} md={6}>
-                            <TextField name="accountingSupport" label="Accounting Support" fullWidth value={formValues.accountingSupport} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="insuranceGeneral" label="Insurance General" fullWidth value={formValues.insuranceGeneral} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name='insuranceHealthLifeDisability' label="Insurance - Health, Life & Disability" fullWidth value={formValues.insuranceHealthLifeDisability} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="legal" label="Legal or Other Professional Support" fullWidth value={formValues.legal} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                <Paper sx={{ p: 3 }}>
+
+                    <Typography variant="h3" sx={{ mb: 4 }} color={'primary'} align="center" gutterBottom>
+                        Business Expenses Page 1
+                    </Typography>
+                    <form onSubmit={handleSubmit}>
+                        <Grid container spacing={2} justifyContent="center">
+                            <Grid item xs={12} md={6}>
+                                <TextField name="accountingSupport" label="Accounting Support" fullWidth value={formValues.accountingSupport} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="insuranceGeneral" label="Insurance General" fullWidth value={formValues.insuranceGeneral} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name='insuranceHealthLifeDisability' label="Insurance - Health, Life & Disability" fullWidth value={formValues.insuranceHealthLifeDisability} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="legal" label="Legal or Other Professional Support" fullWidth value={formValues.legal} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextField name="coaching" label="Coaching & Professional Development" fullWidth value={formValues.coaching} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="travelLodging" label="Travel/Lodging" fullWidth value={formValues.travelLodging} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="clientTravelMeals" label="Client/Travel Meals" fullWidth value={formValues.clientTravelMeals} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                            </Grid>
+                            {isStartPlanCompleted ? (
+                                <Button variant='outlined' type='button' onClick={handleEdit}>
+                                    Update
+                                </Button>
+                            ) : (
+                                <Button variant='contained' type='submit'>
+                                    Save
+                                </Button>
+                            )}
                         </Grid>
-                        <Grid item xs={12} md={6}>
-                            <TextField name="coaching" label="Coaching & Professional Development" fullWidth value={formValues.coaching} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="travelLodging" label="Travel/Lodging" fullWidth value={formValues.travelLodging} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                            <TextField name="clientTravelMeals" label="Client/Travel Meals" fullWidth value={formValues.clientTravelMeals} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
-                        </Grid>
-                        {isStartPlanCompleted ? (
-                            <Button variant='outlined' type='button' onClick={handleEdit}>
-                                Update
-                            </Button>
-                        ) : (
-                            <Button variant='contained' type='submit'>
-                                Save
-                            </Button>
-                        )}
-                    </Grid>
-                </form>
-                <ProgressBar back={'overview'} next={'businessexpensepage2'} value={60} budgetId={budgetId} />
+                    </form>
+                    <ProgressBar back={'overview'} next={'businessexpensepage2'} value={60} budgetId={budgetId} />
+                </Paper>
             </Container>
             <Footer />
         </Main>

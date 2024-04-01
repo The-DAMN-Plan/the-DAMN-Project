@@ -113,9 +113,11 @@ function Year2Income() {
   return (
     <Main open={open}>
       <Container sx={{ paddingTop: '64px', paddingBottom: '64px' }}>
-        <Typography variant="h3" color={'primary'} gutterBottom align="center">
-          Year 2 Sales Projections
-        </Typography>
+        <Paper sx={{ p: 3 }}>
+
+          <Typography variant="h3" color={'primary'} gutterBottom align="center">
+            Year 2 Sales Projections
+          </Typography>
           <Typography variant="h6" gutterBottom>
             Add New Revenue Stream
           </Typography>
@@ -212,7 +214,7 @@ function Year2Income() {
               </Button>
             </Grid>
           </Grid>
-          <Typography variant="h6" sx={{mt:4}} gutterBottom>
+          <Typography variant="h6" sx={{ mt: 4 }} gutterBottom>
             Revenue Streams
           </Typography>
           <Table>
@@ -285,7 +287,8 @@ function Year2Income() {
               Save
             </Button>
           </Box>
-        <ProgressBar back={'incomeyear1'} next={'overview'} submit={handleSubmit} value={48} budgetId={budgetId} />
+          <ProgressBar back={'incomeyear1'} next={'overview'} submit={handleSubmit} value={48} budgetId={budgetId} />
+        </Paper>
       </Container>
       <Footer />
     </Main>

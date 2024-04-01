@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, TextField, Button, Container, Grid } from '@mui/material';
+import { Typography, TextField, Button, Container, Grid, Paper } from '@mui/material';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import SideNav from '../Nav/SideNav';
 import ProgressBar from '../ProgressBar/ProgressBar';
@@ -111,85 +111,89 @@ function StartPlan() {
     return (
         <Main open={open}>
             <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
-                <Typography variant="h3" color={'primary'} align="center" gutterBottom>
-                    Committed Expenses Page 1
-                </Typography>
-                <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
-                    Your singular goal in business is to "meet your customer's wants and needs at a profit" and pay yourself!
-                </Typography>
-                <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
-                    Take some time to think about monthly living expenses. This will help figure out how much your value is.
-                </Typography>
-                <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2} justifyContent="center">
-                        <Grid item xs={12} md={6}>
-                            <TextField name="rentOrMortgage"
-                                label="Rent or Mortgage"
-                                fullWidth
-                                value={formValues.rentOrMortgage}
-                                onChange={handleInputChange}
-                                sx={{ marginBottom: 2 }} />
-                            <TextField name="electric"
-                                label="Electric"
-                                fullWidth
-                                value={formValues.electric}
-                                onChange={handleInputChange}
-                                sx={{ marginBottom: 2 }} />
-                            <TextField name="heat"
-                                label="Heat"
-                                fullWidth
-                                value={formValues.heat}
-                                onChange={handleInputChange}
-                                sx={{ marginBottom: 2 }} />
-                            <TextField name="water"
-                                label="Water"
-                                fullWidth
-                                value={formValues.water}
-                                onChange={handleInputChange}
-                                sx={{ marginBottom: 2 }} />
+                <Paper sx={{p:3}}>
+
+                    <Typography variant="h3" color={'primary'} align="center" gutterBottom>
+                        Committed Expenses Page 1
+                    </Typography>
+                    <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
+                        Your singular goal in business is to "meet your customer's wants and needs at a profit" and pay yourself!
+                    </Typography>
+                    <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
+                        Take some time to think about monthly living expenses. This will help figure out how much your value is.
+                    </Typography>
+                    <form onSubmit={handleSubmit}>
+                        <Grid container spacing={2} justifyContent="center">
+                            <Grid item xs={12} md={6}>
+                                <TextField name="rentOrMortgage"
+                                    label="Rent or Mortgage"
+                                    fullWidth
+                                    value={formValues.rentOrMortgage}
+                                    onChange={handleInputChange}
+                                    sx={{ marginBottom: 2 }} />
+                                <TextField name="electric"
+                                    label="Electric"
+                                    fullWidth
+                                    value={formValues.electric}
+                                    onChange={handleInputChange}
+                                    sx={{ marginBottom: 2 }} />
+                                <TextField name="heat"
+                                    label="Heat"
+                                    fullWidth
+                                    value={formValues.heat}
+                                    onChange={handleInputChange}
+                                    sx={{ marginBottom: 2 }} />
+                                <TextField name="water"
+                                    label="Water"
+                                    fullWidth
+                                    value={formValues.water}
+                                    onChange={handleInputChange}
+                                    sx={{ marginBottom: 2 }} />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextField name="internet"
+                                    label="Internet"
+                                    fullWidth
+                                    value={formValues.internet}
+                                    onChange={handleInputChange}
+                                    sx={{ marginBottom: 2 }} />
+                                <TextField name="telephone"
+                                    label="Telephone"
+                                    fullWidth
+                                    value={formValues.telephone}
+                                    onChange={handleInputChange}
+                                    sx={{ marginBottom: 2 }} />
+                                <TextField name="childcare"
+                                    label="Childcare"
+                                    fullWidth
+                                    value={formValues.childcare}
+                                    onChange={handleInputChange}
+                                    sx={{ marginBottom: 2 }} />
+                            </Grid>
+                            {isStartPlanCompleted ? (
+                                <Button variant='outlined' type='button' onClick={handleEdit}>
+                                    Update
+                                </Button>
+                            ) : (
+                                <Button variant='contained' type='submit'>
+                                    Save
+                                </Button>
+                            )}
                         </Grid>
-                        <Grid item xs={12} md={6}>
-                            <TextField name="internet"
-                                label="Internet"
-                                fullWidth
-                                value={formValues.internet}
-                                onChange={handleInputChange}
-                                sx={{ marginBottom: 2 }} />
-                            <TextField name="telephone"
-                                label="Telephone"
-                                fullWidth
-                                value={formValues.telephone}
-                                onChange={handleInputChange}
-                                sx={{ marginBottom: 2 }} />
-                            <TextField name="childcare"
-                                label="Childcare"
-                                fullWidth
-                                value={formValues.childcare}
-                                onChange={handleInputChange}
-                                sx={{ marginBottom: 2 }} />
+                        <ProgressBar back={`startplan`} next={`fundamentalexpenses`} value={6} budgetId={budgetId} />
+                        <Grid container justifyContent="center" style={{ marginTop: 16 }}>
+                            <Grid item>
+                                <Button variant="contained" color="primary" onClick={openVideo}>
+                                    Watch Video
+                                </Button>
+                            </Grid>
                         </Grid>
-                        {isStartPlanCompleted ? (
-                            <Button variant='outlined' type='button' onClick={handleEdit}>
-                                Update
-                            </Button>
-                        ) : (
-                            <Button variant='contained' type='submit'>
-                                Save
-                            </Button>
-                        )}
-                    </Grid>
-                    <ProgressBar back={`startplan`} next={`fundamentalexpenses`} value={6} budgetId={budgetId} />
-                    <Grid container justifyContent="center" style={{ marginTop: 16 }}>
-                        <Grid item>
-                            <Button variant="contained" color="primary" onClick={openVideo}>
-                                Watch Video
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </form>
+                    </form>
+                </Paper>
+
                 <Footer />
             </Container>
-        </Main>
+        </Main >
     );
 }
 
