@@ -180,6 +180,18 @@ function CashFlow() {
 
     const endingBalance = findEndingBalance().endingCashBalance;
 
+    useEffect(() => {
+        // Find the item in cashflow array corresponding to selectedMonth and selectedYear
+        const percentItem = cashflow.find(item => item.month === selectedMonth && item.year === selectedYear);
+        // If found, update salesPercent with the percent value, else set it to 0
+        if (percentItem) {
+            setSalesPercent(percentItem.percent);
+        } else {
+            setSalesPercent(0);
+        }
+    }, [selectedMonth, selectedYear, cashflow]);
+
+
     return (
         <Main open={open}>
             <Container>

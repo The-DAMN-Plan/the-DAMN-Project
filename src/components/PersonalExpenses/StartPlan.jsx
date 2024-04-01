@@ -101,16 +101,18 @@ function StartPlan() {
         dispatch({ type: 'UPDATE_EXPENSE', payload: userEntry })
     }
 
+    const openVideo = () => {
+        window.open('https://youtu.be/Aggc8EiMZBY', '_blank');
+      };
+    
+
     const isStartPlanCompleted = status.find(s => s.step === 'startplan')?.completed;
 
     return (
         <Main open={open}>
         <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
-            <Typography variant="h4" align="center" gutterBottom>
-                Start a DAMN Plan
-            </Typography>
-            <Typography variant="h5" align="center" gutterBottom>
-                Fundamental Living Expenses
+            <Typography variant="h3" color={'primary'} align="center" gutterBottom>
+                Committed Expenses Page 1
             </Typography>
             <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
                 Your singular goal in business is to "meet your customer's wants and needs at a profit" and pay yourself!
@@ -177,6 +179,13 @@ function StartPlan() {
                     </Grid>
                 </Grid>
                 <ProgressBar back={`startplan`} next={`fundamentalexpenses`} value={6} budgetId={budgetId} />
+                <Grid container justifyContent="center" style={{ marginTop: 16 }}>
+                    <Grid item>
+                        <Button variant="contained" color="primary" onClick={openVideo}>
+                            Watch Video
+                        </Button>
+                    </Grid>
+                </Grid>
             </form>
             <Footer />
         </Container>

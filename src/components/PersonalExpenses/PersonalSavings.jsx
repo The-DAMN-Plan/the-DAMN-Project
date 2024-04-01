@@ -112,7 +112,7 @@ function PersonalSavings() {
         <Main open={open}>
             <Container maxWidth="md" style={{ padding: 24, marginTop: 32 }}>
                 <Typography variant="h3" color={'primary'} align="center" gutterBottom>
-                    Personal Savings
+                Committed Expenses Page 3
                 </Typography>
                 <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
                     Take some time to think about the money you want to save for like retirement, spending money, etc.
