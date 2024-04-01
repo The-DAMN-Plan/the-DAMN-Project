@@ -199,15 +199,21 @@ function CashFlow() {
                     <Grid item xs={12} md={3}>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <Typography variant="h4" gutterBottom>
-                            Cash Flow
-                        </Typography>
-                        <Button onClick={() => handleYearChange(1)} variant={selectedYear === 1 ? 'contained' : 'outlined'}>
-                            Year 1
-                        </Button>
-                        <Button onClick={() => handleYearChange(2)} variant={selectedYear === 2 ? 'contained' : 'outlined'}>
-                            Year 2
-                        </Button>
+                    <Typography variant="h3" color={'primary'} align="center" gutterBottom>
+                        Cash Flow
+                    </Typography>
+                        <Grid container spacing={2} sx={{ marginBottom: 2 }}>
+                        <Grid item xs={6}>
+                            <Button onClick={() => handleYearChange(1)} variant={selectedYear === 1 ? 'contained' : 'outlined'} size="large" fullWidth>
+                                Year 1
+                            </Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button onClick={() => handleYearChange(2)} variant={selectedYear === 2 ? 'contained' : 'outlined'} size="large" fullWidth>
+                                Year 2
+                            </Button>
+                        </Grid>
+                        </Grid>
                         <TextField
                             name="beginningCash"
                             label="Beginning Cash Balance"
@@ -221,7 +227,7 @@ function CashFlow() {
                             label="Sales Percent"
                             fullWidth
                             value={salesPercent}
-                            // onChange={}
+                            // onChange={} Need to set up to update percent. Later Goal
                             sx={{ marginBottom: 2 }}
                         />
                         <FormControl fullWidth>
@@ -242,29 +248,31 @@ function CashFlow() {
                         </FormControl>
                     </Grid>
                 </Grid>
-                <Grid xs={6} textAlign={'center'}>
-                    <Paper sx={{ m: 2, p: 2 }}>
-                        <Typography textAlign={'center'} variant='subtitle1'>Annual Projected Sales</Typography>
-                        <Typography textAlign={'center'} variant='h5'><Currency value={selectedYear === 1 ? totalIncome.y1 : totalIncome.y2 || 0} /></Typography>
-                    </Paper>
-                </Grid>
-                <Grid xs={6} textAlign={'center'}>
-                    <Paper sx={{ m: 2, p: 2 }}>
-                        <Typography textAlign={'center'} variant='subtitle1'>Sales for the Month</Typography>
-                        <Typography textAlign={'center'} variant='h5'><Currency value={selectedYear === 1 ? monthlySales.y1 : monthlySales.y2} /></Typography>
-                    </Paper>
-                </Grid>
-                <Grid xs={6} textAlign={'center'}>
-                    <Paper sx={{ m: 2, p: 2 }}>
-                        <Typography textAlign={'center'} variant='subtitle1'>Total Cash Paid Out</Typography>
-                        <Typography textAlign={'center'} variant='h5'><Currency value={totalExpenseAmount + totalFutureSavings || 0} /></Typography>
-                    </Paper>
-                </Grid>
-                <Grid xs={6} textAlign={'center'}>
-                    <Paper sx={{ m: 2, p: 2 }}>
-                        <Typography textAlign={'center'} variant='subtitle1'>Ending Cash Balance</Typography>
-                        <Typography textAlign={'center'} variant='h5'><Currency value={endingBalance || 0} /></Typography>
-                    </Paper>
+                <Grid container spacing={2} justifyContent="center">
+                    <Grid item xs={12} md={6}>
+                        <Paper sx={{ m: 2, p: 2 }}>
+                            <Typography variant="subtitle1" textAlign="center">Annual Projected Sales</Typography>
+                            <Typography variant="h5" textAlign="center"><Currency value={selectedYear === 1 ? totalIncome.y1 : totalIncome.y2 || 0} /></Typography>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Paper sx={{ m: 2, p: 2 }}>
+                            <Typography variant="subtitle1" textAlign="center">Sales for the Month</Typography>
+                            <Typography variant="h5" textAlign="center"><Currency value={selectedYear === 1 ? monthlySales.y1 : monthlySales.y2} /></Typography>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Paper sx={{ m: 2, p: 2 }}>
+                            <Typography variant="subtitle1" textAlign="center">Total Cash Paid Out</Typography>
+                            <Typography variant="h5" textAlign="center"><Currency value={totalExpenseAmount + totalFutureSavings || 0} /></Typography>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Paper sx={{ m: 2, p: 2 }}>
+                            <Typography variant="subtitle1" textAlign="center">Ending Cash Balance</Typography>
+                            <Typography variant="h5" textAlign="center"><Currency value={endingBalance || 0} /></Typography>
+                        </Paper>
+                    </Grid>
                 </Grid>
             </Container>
             <Footer />
