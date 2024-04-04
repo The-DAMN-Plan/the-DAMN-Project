@@ -54,7 +54,6 @@ function CashFlow() {
     const totalExpenseAmount = calculateOperatingCosts();
 
 
-
     useEffect(() => {
         dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
     }, [dispatch, budgetId]);

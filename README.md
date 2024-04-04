@@ -1,12 +1,24 @@
-# Prime Solo Project - Starting Repo
+# The DAMN App 
+
+The DAMN App is a user friendly web application. It is a degitized version of the DAMN Plan. It lets users create a business plan, understand their personal and business expenses by detrmining their value pay, understand their business by detrmining their breack even value and cashflow for each business.
 
 This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
 
-We **STRONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
 
-## Use the Template for This Repository (Don't Clone)
+## Built With
+- Javascript
+- React
+- MUI
+- Node
+- Express
+- Postgres
+- Redux
+- Sagas
+- Axios
 
-- Don't Fork or Clone. Instead, click the `Use this Template` button, and make a copy to your personal account. Make the project `PUBLIC`!
+## Getting Started
+VS code was used while building the project.
+
 
 ## Prerequisites
 
@@ -14,11 +26,12 @@ Before you get started, make sure you have the following software installed on y
 
 - [Node.js](https://nodejs.org/en)
 - [PostgreSQL](https://www.postgresql.org)
-- [Nodemon](https://nodemon.io)
 
 ## Create Database and Table
 
 Create a new database called `the_DAMN_plan` and create a `user` table:
+- database.sql has all the create table statement you'll need to get started with this project
+- Also includes all alter table statements needed to update the tables
 
 ```SQL
 CREATE TABLE "user" (
@@ -28,7 +41,7 @@ CREATE TABLE "user" (
 );
 ```
 
-If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`.
+If you would like to name your database something else, you will need to change `the_DAMN_plan` to the name of your new database name in `server/modules/pool.js`.
 
 ## Development Setup Instructions
 
@@ -74,7 +87,7 @@ After running the login route above, you can try any other route you've created 
 
 ## Production Build
 
-Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
+Before pushing to Fly.io, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
 
 - Start postgres if not running already by using opening up the [Postgres.app](https://postgresapp.com), or if using [Homebrew](https://brew.sh) you can use the command `brew services start postgresql`.
 - Run `npm start`.
@@ -84,9 +97,8 @@ Before pushing to Heroku, run `npm run build` in terminal. This will create a bu
 
 There are a few videos linked below that show a walkthrough the client and sever setup to help acclimatize to the boilerplate. Please take some time to watch the videos in order to get a better understanding of what the boilerplate is like.
 
-- [Initial Set](https://vimeo.com/453297271)
-- [Server Walkthrough](https://vimeo.com/453297212)
-- [Client Walkthrough](https://vimeo.com/453297124)
+- [App Walkthrough/Handoff Packet](https://drive.google.com/drive/folders/1BWJlQNDs-UutDPFRCBtrqxCR5KLJ88uN?usp=drive_link)
+
 
 Directory Structure:
 
@@ -94,31 +106,33 @@ Directory Structure:
 - `public/` contains static assets for the client-side.
 - `build/` after you build the project, contains the transpiled code from `src/` and `public/` that will be viewed on the production site.
 - `server/` contains the Express App.
+- `app/` contains all the page Routes protected and unprotected
 
-This code is also heavily commented. We recommend reading through the comments, getting a lay of the land, and becoming comfortable with how the code works before you start making too many changes. If you're wondering where to start, consider reading through component file comments in the following order:
+This code is also commented. We recommend reading through the comments, getting a lay of the land, and becoming comfortable with how the code works before you start making too many changes. If you're wondering where to start, consider reading through component file comments in the following order:
 
 - src/components
   - App/App
-  - Footer/Footer
   - Nav/Nav
   - AboutPage/AboutPage
-  - InfoPage/InfoPage
-  - UserPage/UserPage
   - LoginPage/LoginPage
   - RegisterPage/RegisterPage
   - LogOutButton/LogOutButton
+  - UserPage/UserPage
+  - CreateBusiness/CreateBusiness
+  - The DAMN Plan Pages
+    - PersonalExpenses/PersonalExpenses
+    - BusinessIncome/BusinessIncome
+    - BusinessExpenses/BusinessExpenses
+  - InfoPage/InfoPage
+  - Footer/Footer
   - ProtectedRoute/ProtectedRoute
 
 ## Deployment
 
-1. Create a new Heroku project.
-1. Link the Heroku project to the project GitHub Repo.
-1. Create an Heroku Postgres database.
-1. Connect to the Heroku Postgres database from Postico.
-1. Create the necessary tables.
-1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security.
-1. In the deploy section, select manual deploy.
+- Using Fly.io to host app
+- Using Neon.tech for app's Database
 
-## Update Documentation
+  - Reference fly-deploy-postgres.md
+    ()
 
-Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2.
+

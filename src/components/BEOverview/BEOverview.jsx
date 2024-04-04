@@ -94,7 +94,8 @@ export default function BEOverview(props) {
       cash_balance: budget.cash_balance,
       vp_percent: budget.vp_percent,
       vp_income: budget.vp_income,
-      budget_id: budgetId.budgetId
+      budget_id: budgetId.budgetId,
+      valuepay: budget.valuepay
     }
 
     dispatch({ type: 'UPDATE_BUDGET', payload: userInput })
