@@ -12,8 +12,6 @@ export default function ProgressBar({ next, back, value, budgetId }) {
   const currentStatus = status.filter((item) => {
     return `/${item.step}/${budgetId.budgetId}` === `${location.pathname}`
   })
-  console.log(location.pathname)
-  console.log('current status item', currentStatus)
 
   if (currentStatus.length === 0) {
     return (<LinearProgress color="secondary" />)

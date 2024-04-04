@@ -3,7 +3,6 @@ import axios from 'axios';
 
 function* addPersonalExpense(action) {
     try {
-        console.log('Expense post', action.payload);
         yield axios.post(`/api/budget/expense`, action.payload);
         put({ type: 'FETCH_BUSINESS' })
     } catch (error) {
@@ -22,7 +21,6 @@ function* fetchExpenses(action) {
 
 function* deleteExpense(action) {
     try{
-        console.log('Deleting expense', action.payload);
         const { expenseId, budgetObjId } = action.payload; // Destructure futurePlanId and budgetId from payload
         yield axios.delete(`/api/budget/expense/${expenseId}`);
         yield put({ type: 'BUDGET_PLAN', payload: budgetObjId }); // Pass budgetId as payload

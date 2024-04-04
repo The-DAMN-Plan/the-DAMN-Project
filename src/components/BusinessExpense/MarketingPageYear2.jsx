@@ -11,14 +11,10 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
 
-
-
-
 function MarketingPageYear2() {
     const dispatch = useDispatch();
     const budgetId = useParams();
     const expense = useSelector((store) => store.expense);
-    console.log('BIG Expense Array:', expense);
     const open = useSelector(store => store.sideNav);
     const [expenseName, setExpenseName] = useState('');
     const [serviceProvider, setServiceProvider] = useState('');
@@ -59,8 +55,7 @@ function MarketingPageYear2() {
         resetForm();
 
     };
-    // console.log('Business Marketing Expenses Filtered:', filteredExpenses);
-    console.log('User Entered Data:', userEntry);
+
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -100,13 +95,6 @@ function MarketingPageYear2() {
     };
 
     const filteredExpenses = expense.filter(item => item.type === 'business marketing' && item.year === 2);
-    console.log('business marketing', filteredExpenses);
-
-    console.log('Marketing Data entered by User', userEntry);
-
-
-
-
 
     return (
 

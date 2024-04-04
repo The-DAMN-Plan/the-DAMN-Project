@@ -18,17 +18,12 @@ export default function ValuePay(props) {
   const [dollarAmount, setDollarAmount] = useState(0);
   const expense = useSelector((store) => store.expense);
   const futurePlans = useSelector((store) => store.futurePlans);
-  console.log(finalBudget);
-  console.log(expense);
   const [totalPersonalExpenses, setTotalPersonalExpenses] = useState(0);
   const [totalFutureSavings, setTotalFutureSavings] = useState(0);
   const [valuePay, setValuePay] = useState(0);
   const [requiredIncome, setRequiredIncome] = useState(0);
   const open = useSelector(store => store.sideNav);
   const budgetId = useParams();
-
-  console.log('Big budget object', finalBudget);
-
   const vpPercent = finalBudget[0]?.vp_percent
   const vpIncome = finalBudget[0]?.vp_income
 
@@ -47,7 +42,6 @@ export default function ValuePay(props) {
     const total = personalExpenses.reduce((acc, curr) => acc + Number(curr.expense_amount), 0);
     setTotalPersonalExpenses(total);
   }, [expense]);
-  console.log('Total personal expenses:', totalPersonalExpenses); // Log total personal expenses
 
   useEffect(() => {
     const total = futurePlans.reduce((acc, plan) => {
@@ -59,13 +53,11 @@ export default function ValuePay(props) {
     }, 0);
     setTotalFutureSavings(total);
   }, [futurePlans]);
-  console.log('FP monthly total', totalFutureSavings);
 
   useEffect(() => {
     const combinedTotalExpenses = totalPersonalExpenses + totalFutureSavings;
     const newRequiredIncome = (combinedTotalExpenses * (percent)) / 100;
     setRequiredIncome(newRequiredIncome);
-    console.log(newRequiredIncome);
   }, [percent, totalPersonalExpenses, vpPercent, totalFutureSavings]);
 
   useEffect(() => {
@@ -92,8 +84,6 @@ export default function ValuePay(props) {
       vp_income: dollarAmount,
       valuepay: valuePay
     }
-
-    console.log(valuePayObj);
 
     dispatch({ type: 'UPDATE_BUDGET', payload: valuePayObj })
     dispatch({ type: 'UPDATE_STATUS', payload: updateObj }) // Will need to be set up later to post the completed step to the status table

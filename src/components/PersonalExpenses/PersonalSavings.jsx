@@ -26,12 +26,6 @@ function PersonalSavings() {
         investments: '',
     });
 
-    console.log(formValues);
-
-    console.log('Expense reducer', expense);
-    console.log('URL', budgetId);
-    console.log('Big budget object', finalBudget);
-
     useEffect(() => {
         dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
     }, [dispatch, budgetId]);
@@ -48,7 +42,6 @@ function PersonalSavings() {
             investments: getExpenseAmount('investments')
         };
         setFormValues(newFormValues);
-        console.log('Here be new values', newFormValues);
     };
 
     const getExpenseAmount = (expenseName) => {
@@ -87,8 +80,6 @@ function PersonalSavings() {
             [name]: value,
         });
     };
-
-    console.log(userEntry);
 
     const handleSubmit = (event) => {
         event.preventDefault();
