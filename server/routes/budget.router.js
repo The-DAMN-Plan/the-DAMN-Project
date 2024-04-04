@@ -151,16 +151,6 @@ router.put('/status', async (req, res) => {
   // POST route code here
   const sql = `update "status" set "completed"=$1 where "budget_id"=$2 AND "step"=$3 returning *;`
   const data = req.body;
-
-  // TO USE THIS PUT - your action.payload should be an object that looks like this:
-  // {completed:true, budget_id: Number(budgetId), step:'valuepay'}
-  // note the types below: 
-  // completed = boolean 
-  // budget = int
-  // step = string
-  // refer to the step array above for the specific names of each step or look at the status object that is created as a
-  // variable on the front end after the budget_plan is called in the sagas (inspect and look in the console)
-
   try {
     await pool.query(sql, [data.completed, data.budget_id, data.step]);
     res.sendStatus(200);
@@ -170,6 +160,7 @@ router.put('/status', async (req, res) => {
   }
 });
 
+// CREATES a budget upon clicking Start a Business button on dashboard 
 router.post('/', async (req, res) => {
   // POST route code here
   const sql = `insert into "budgets" ("business_id","name","escrow_savings","y1_cogs","y2_cogs","cash_balance","vp_percent","vp_income")
@@ -186,7 +177,7 @@ router.post('/', async (req, res) => {
 });
 
 
-
+// GETS all the expenses assoicated with that budget ID
 router.get('/expenses/:budgetId', async (req, res) => {
   const budgetId = req.params.budgetId;
   const sql = `SELECT * FROM "expenses"
@@ -201,7 +192,7 @@ router.get('/expenses/:budgetId', async (req, res) => {
     })
 });
 
-// creates all expenses given to it
+// Creates all expenses given to it
 router.post('/expense', async (req, res) => {
   // POST route code here
   const sql = `insert into "expenses" ("budget_id","type","expense_name","expense_amount","percent_change","year",
@@ -231,9 +222,9 @@ router.post('/expense', async (req, res) => {
   }
 });
 
-// updates all expenses given to it
+// Updates all expenses given to it
 router.put('/expense', async (req, res) => {
-  // put route code here
+  // Put route code here
   const sql = `UPDATE "expenses" SET  "type" = $1, "expense_amount" = $2, "percent_change" = $3, "year" = $4, "frequency" = $5,
       "timing" = $6, "facilitator" = $7, "vendor" = $8, "cost_per_use" = $9, "assets_needed" = $10, "service" = $11 WHERE "budget_id" = $12 AND "expense_name" = $13 RETURNING *;`
   const data = req.body;
@@ -250,7 +241,7 @@ router.put('/expense', async (req, res) => {
   }
 });
 
-// deletes individual expense
+// Deletes individual expense
 router.delete('/expense/:id', async (req, res) => {
   // delete route code here
   const expense_id = Number(req.params.id);
@@ -265,6 +256,7 @@ router.delete('/expense/:id', async (req, res) => {
   }
 });
 
+// Adds all Business Incomes
 router.post('/revenuestream', async (req, res) => {
   // POST route code here
   const sql = `INSERT INTO "revenue_streams" ("budget_id", "revenue_stream", "description", "price",
@@ -283,6 +275,7 @@ router.post('/revenuestream', async (req, res) => {
   }
 });
 
+// Deletes a business income by ID
 router.delete('/revenuestream/:id', async (req, res) => {
   // delete route code here
   const revenue_id = Number(req.params.id);
@@ -296,8 +289,5 @@ router.delete('/revenuestream/:id', async (req, res) => {
     res.sendStatus(500);
   }
 });
-
-
-// for delete consider a soft delete using a column on the db. nuking all the tables would be very time consuming.
 
 module.exports = router;
