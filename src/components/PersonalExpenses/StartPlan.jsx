@@ -97,7 +97,6 @@ function StartPlan() {
     };
 
     const handleEdit = () => {
-        console.log('Update', userEntry);
         dispatch({ type: 'UPDATE_EXPENSE', payload: userEntry })
     }
 

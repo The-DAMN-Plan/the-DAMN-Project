@@ -23,12 +23,6 @@ function PBpage2() {
         loanPayments: ''
     });
 
-    console.log(formValues);
-
-    console.log('Expense reducer', expense);
-    console.log('URL', budgetId);
-    console.log('Big budget object', finalBudget);
-
     useEffect(() => {
         dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
     }, [dispatch, budgetId]);
@@ -46,7 +40,6 @@ function PBpage2() {
             loanPayments: getExpenseAmount('loanPayments')
         };
         setFormValues(newFormValues);
-        console.log('Here be new values', newFormValues);
     };
 
     const getExpenseAmount = (expenseName) => {

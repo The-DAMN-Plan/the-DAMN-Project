@@ -18,7 +18,6 @@ function MarketingBudgetYear1() {
     const dispatch = useDispatch();
     const budgetId = useParams();
     const expense = useSelector((store) => store.expense);
-    console.log('BIG Expense Array:', expense);
     const open = useSelector(store => store.sideNav);
     const [expenseName, setExpenseName] = useState('');
     const [serviceProvider, setServiceProvider] = useState('');
@@ -59,8 +58,7 @@ function MarketingBudgetYear1() {
         resetForm();
 
     };
-    // console.log('Business Marketing Expenses Filtered:', filteredExpenses);
-    console.log('User Entered Data:', userEntry);
+
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -79,7 +77,6 @@ function MarketingBudgetYear1() {
 
         const newUserEntry = userEntry.filter((i) => i.id !== id);
         setuserEntry(newUserEntry);
-
 
     };
 
@@ -100,13 +97,6 @@ function MarketingBudgetYear1() {
     };
 
     const filteredExpenses = expense.filter(item => item.type === 'business marketing' && item.year === 1);
-    console.log('business marketing', filteredExpenses);
-
-    console.log('Marketing Data entered by User', userEntry);
-
-
-
-
 
     return (
 

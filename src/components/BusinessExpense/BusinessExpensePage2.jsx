@@ -23,15 +23,8 @@ export default function BusinessExpense(params) {
         handleExpense();
     }, [expense]);
 
-    // const getExpenseAmount = (expenseName) => {
-    //     const expenseItem = expense.find(item => item.expense_name === expenseName && item.type === 'business expense');
-    //     return expenseItem ? expenseItem.expense_amount : '';
-    // };
-
     const getExpenseAmount = (expenseName) => {
-        console.log(`Fetching amount for: ${expenseName}`);
         const expenseItem = expense.find(item => item.expense_name === expenseName && item.type === 'business expense');
-        console.log('Found item:', expenseItem);
         return expenseItem ? expenseItem.expense_amount : '';
     };
 
@@ -143,7 +136,6 @@ export default function BusinessExpense(params) {
     };
 
     const handleEdit = () => {
-        console.log('Update', userEntry);
         dispatch({ type: 'UPDATE_EXPENSE', payload: userEntry })
     }
 

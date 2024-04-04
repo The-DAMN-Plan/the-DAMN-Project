@@ -6,7 +6,6 @@ const router = express.Router();
  * GET: get businesses for a particular user
  */
 router.get('/', (req, res) => {
-    console.log('Getting businesses...');
     const queryText = `select *,
     (SELECT coalesce(jsonb_agg(item), '[]'::jsonb) FROM (
         SELECT "budgets".* FROM "budgets" WHERE "budgets"."business_id"="businesses"."id") item) as "budgets"
@@ -23,7 +22,6 @@ router.get('/', (req, res) => {
  * POST: create business
  */
 router.post('/', (req, res) => {
-    console.log('Creating business...');
     const queryText = `INSERT INTO businesses ("user_id", 
                                                 "name", 
                                                 "occupation_type", 
@@ -48,7 +46,6 @@ router.post('/', (req, res) => {
 
 // PUT: update a business
 router.put('/:id', (req,res)=>{
-    console.log('Updating business');
     const queryText = `update "businesses" set "name"=$1, 
                                                 "occupation_type"=$2, 
                                                 "type_of_business"=$3, 

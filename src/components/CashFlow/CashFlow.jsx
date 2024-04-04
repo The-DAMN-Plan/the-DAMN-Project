@@ -7,47 +7,30 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import moment from 'moment';
 
-
 function CashFlow() {
     const dispatch = useDispatch();
     const budgetId = useParams();
     const cashflow = useSelector((store) => store.cashflow);
-    console.log(cashflow);
     const expense = useSelector((store) => store.expense);
     const filteredExpenses = expense.filter(item => item.type === 'business marketing' || item.type === 'business hr' || item.type === 'business other' || item.type === 'business expense');
-    console.log(filteredExpenses);
     const futurePlans = useSelector((store) => store.futurePlans);
     const income = useSelector((store) => store.income);
     const open = useSelector(store => store.sideNav);
     const budget = useSelector(store => store.finalBudget);
     const [beginningCash, setBeginningCash] = useState(0);
-    const [endingCashBalance, setEndingCashBalance] = useState(0);
     const [salesPercent, setSalesPercent] = useState(0);
     const [selectedYear, setSelectedYear] = useState(1);
     const [selectedMonth, setSelectedMonth] = useState(1);
     const [monthlySales, setMonthlySales] = useState({ y1: 0, y2: 0 });
-    const [totalFutureSavings, setTotalFutureSavings] = useState(0);
-    const [arraryOfCashFlows, setArrayCashFlow] = useState([]);
-    // const totalExpenseAmount = useSelector((store) =>
-    //     store.expense.reduce((total, currentExpense) => {
-    //         if ((currentExpense.year === null || currentExpense.year === selectedYear) || (selectedYear === null && currentExpense.year === undefined)) {
-    //             return total + currentExpense.expense_amount;
-    //         }
-    //         return total;
-    //     }, 0)
-    // );
 
     function calculateOperatingCosts() {
         let total = 0;
-        console.log(total)
         for (const expense of filteredExpenses) {
 
             total += expense.expense_amount;
 
-            console.log(total)
         }
         total += Number(budget[0].valuepay) ? Number(budget[0].valuepay) : 0;
-        console.log(total)
         return total;
     }
 
@@ -71,8 +54,6 @@ function CashFlow() {
         return total;
     }
     const totalIncome = calculateTotal();
-    console.log(totalIncome);
-
 
     function mapArrays() {
         let year = { one: [], two: [] }
@@ -118,9 +99,6 @@ function CashFlow() {
         return year;
     }
 
-    console.log(mapArrays());
-
-
     // When the year/month/cashflow changes, we want to run some calculations
     useEffect(() => {
         setMonthlySales(calculateMonthlySales(selectedMonth));
@@ -137,23 +115,15 @@ function CashFlow() {
         let yearlyIncome = 0;
         let tempYearObj = { y1: 0, y2: 0 }
         // each year
-        console.log('out of loop')
         for (let i = 0; i < 2; i++) {
-            console.log('in loop')
-
             calculatedCashFlow = cashflow.find(item => item.month === month);
             monthlyPercentOfCashFlow = calculatedCashFlow.percent / 100;
             yearIndex = 'y' + (i + 1);
             yearlyIncome = totalIncome[yearIndex];
             if (i === 0) {
                 tempYearObj.y1 = yearlyIncome * monthlyPercentOfCashFlow;
-                console.log(i)
-                console.log(yearlyIncome * monthlyPercentOfCashFlow)
             } else {
                 tempYearObj.y2 = yearlyIncome * monthlyPercentOfCashFlow;
-                console.log('y2', yearlyIncome * monthlyPercentOfCashFlow)
-
-
             }
         }
         return tempYearObj;
@@ -171,9 +141,6 @@ function CashFlow() {
         setTotalFutureSavings(total);
     }, [futurePlans]);
 
-
-
-
     const handleYearChange = (year) => {
         setSelectedYear(year);
     };
@@ -181,7 +148,6 @@ function CashFlow() {
     const handleMonthChange = (event) => {
         setSelectedMonth(parseInt(event.target.value));
     };
-
 
     const filteredCashflow = cashflow.filter(item => item.year === selectedYear);
     const arrays = mapArrays();

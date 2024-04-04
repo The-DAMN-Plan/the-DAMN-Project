@@ -13,8 +13,6 @@ function OtherExpenses() {
     const dispatch = useDispatch();
     const budgetId = useParams();
     const expense = useSelector((store) => store.expense);
-    console.log('Expense array', expense);
-    const [formSubmitted, setFormSubmitted] = useState(false);
     const open = useSelector(store => store.sideNav);
     const [expenseName, setExpenseName] = useState('');
     const [amount, setAmount] = useState('');
@@ -56,8 +54,6 @@ function OtherExpenses() {
     };
 
     const filteredExpenses = expense.filter(item => item.type === 'personal other');
-    console.log('personal other', filteredExpenses);
-
 
     return (
         <Main open={open}>

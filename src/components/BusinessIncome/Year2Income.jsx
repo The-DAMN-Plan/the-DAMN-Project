@@ -14,8 +14,6 @@ function Year2Income() {
   const dispatch = useDispatch();
   const budgetId = useParams();
   const income = useSelector((store) => store.income);
-  console.log('INCOME', income);
-
   const [revenueStream, setRevenueStream] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
@@ -76,7 +74,6 @@ function Year2Income() {
 
     setUserEntry([...userEntry, formData]);
   };
-  console.log(userEntry);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -107,8 +104,6 @@ function Year2Income() {
   };
 
   const filteredIncomes = income.filter(item => item.year === 2);
-  console.log('Year 2', filteredIncomes);
-
 
   return (
     <Main open={open}>

@@ -24,7 +24,6 @@ router.get('/:id', async (req, res) => {
             (SELECT coalesce(jsonb_agg(item), '[]'::jsonb) FROM (
             SELECT "cashflow_months".* FROM "cashflow_months" WHERE "cashflow_months"."budget_id"="budgets"."id") item) as "cashflow_months" from budgets where budgets.id = $1;`
   const budget_id = parseInt(req.params.id, 10);
-  console.log('Budget id big get', budget_id);
 
   try {
     const result = await pool.query(sql, [budget_id]);
@@ -57,8 +56,6 @@ router.put('/budget/:id', async (req, res) => {
   // put route code here
   const sql = `update "budgets" set "escrow_savings"=$1,"y1_cogs"=$2,"y2_cogs"=$3,"cash_balance"=$4,"vp_percent"=$5,"vp_income"=$6, "valuepay"=$8 where id=$7 returning *;`
   const data = req.body;
-  console.log(data.valuepay)
-  console.log('Budget Update', data);
   const budget_id = Number(req.params.id);
 
   try {
@@ -154,7 +151,6 @@ router.put('/status', async (req, res) => {
   // POST route code here
   const sql = `update "status" set "completed"=$1 where "budget_id"=$2 AND "step"=$3 returning *;`
   const data = req.body;
-  console.log(data);
 
   // TO USE THIS PUT - your action.payload should be an object that looks like this:
   // {completed:true, budget_id: Number(budgetId), step:'valuepay'}
@@ -214,7 +210,6 @@ router.post('/expense', async (req, res) => {
   const data = req.body;
   const results = []; // Array to collect all the results
   let errorOccurred = false;
-  console.log("Post:", data);
   for (const expense of data) {
     try {
       const result = await pool.query(sql, [
@@ -242,16 +237,13 @@ router.put('/expense', async (req, res) => {
   const sql = `UPDATE "expenses" SET  "type" = $1, "expense_amount" = $2, "percent_change" = $3, "year" = $4, "frequency" = $5,
       "timing" = $6, "facilitator" = $7, "vendor" = $8, "cost_per_use" = $9, "assets_needed" = $10, "service" = $11 WHERE "budget_id" = $12 AND "expense_name" = $13 RETURNING *;`
   const data = req.body;
-  console.log('Update data', data);
   try {
     for (const expense of data) {
       const result = await pool.query(sql, [
         expense.type, expense.expense_amount, expense.percent_change, expense.year, expense.frequency,
         expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use, expense.assests_needed, expense.service, expense.budget_id, expense.expense_name]);
-      console.log(result);
     }
     res.sendStatus(200);
-    // console.log(result);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);

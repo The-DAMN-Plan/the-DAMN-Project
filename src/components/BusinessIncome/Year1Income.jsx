@@ -15,8 +15,6 @@ function Year1Income() {
   const dispatch = useDispatch();
   const budgetId = useParams();
   const income = useSelector((store) => store.income);
-  console.log('INCOME', income);
-
   const [revenueStream, setRevenueStream] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
@@ -77,7 +75,6 @@ function Year1Income() {
 
     setUserEntry([...userEntry, formData]);
   };
-  console.log(userEntry);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -108,7 +105,6 @@ function Year1Income() {
   };
 
   const filteredIncomes = income.filter(item => item.year === 1);
-  console.log('Year 1', filteredIncomes);
 
   const openVideo = () => {
     window.open('https://youtu.be/80XT9e_yN2Y', '_blank');

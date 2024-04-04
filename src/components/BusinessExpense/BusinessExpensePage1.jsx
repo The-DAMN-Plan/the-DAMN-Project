@@ -12,7 +12,6 @@ export default function BusinessExpense(params) {
     const open = useSelector(store => store.sideNav);
     const status = useSelector((store) => store.status);
     const expense = useSelector((store) => store.expense);
-    console.log(expense);
     const budgetId = useParams();
 
     useEffect(() => {
@@ -145,7 +144,6 @@ export default function BusinessExpense(params) {
     };
 
     const handleEdit = () => {
-        console.log('Update', userEntry);
         dispatch({ type: 'UPDATE_EXPENSE', payload: userEntry })
     }
 
