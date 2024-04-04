@@ -13,7 +13,6 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
         RETURNING *;
     `;
     const data = req.body;
-    console.log(data);
     try {
         const result = await pool.query(sql, [data.budget_id, data.name, data.start_date, data.end_date, data.savings_needed]);
         res.send(result.rows);

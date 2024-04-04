@@ -33,9 +33,7 @@ export default function ActivePlans(props) {
 
   function sendToPlan(status, budget_id) {
     for (const step of status) {
-      console.log(step);
       if (step.step === 'startplan' && step.completed === false) {
-        console.log('made it')
         history.push(`/startplan/${budget_id}`);
         return;
       } else if (step.step === 'fundamentalexpenses' && step.completed === false) {

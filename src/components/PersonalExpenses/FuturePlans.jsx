@@ -4,9 +4,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useDispatch, useSelector } from 'react-redux';
 import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
 import Grid from '@mui/material/Unstable_Grid2';
-
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import moment from 'moment';
 
@@ -16,8 +14,6 @@ function FuturePlans() {
     const dispatch = useDispatch();
     const budgetId = useParams();
     const futurePlans = useSelector((store) => store.futurePlans);
-    console.log('Future Plans reducer', futurePlans);
-    const [formSubmitted, setFormSubmitted] = useState(false);
     const [expenseName, setExpenseName] = useState('');
     const [amount, setAmount] = useState('');
     const [startDate, setStartDate] = useState(null);
@@ -30,7 +26,6 @@ function FuturePlans() {
     }, [dispatch, budgetId]);
 
     const open = useSelector(s => s.sideNav);
-
 
     const handleAddExpense = () => {
         if (!expenseName || !amount) return;

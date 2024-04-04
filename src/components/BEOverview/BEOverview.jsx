@@ -46,7 +46,6 @@ export default function BEOverview(props) {
     }
     return total;
   }
-  console.log(budget, 'this the budget')
   const totalExpenseToDeliver = calculateExpenseToDeliver();
 
   function calculateInitalVE() {

@@ -19,13 +19,11 @@ import Alert from '@mui/material/Alert';
 function UserPage() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
   const budget = useSelector((store) => store.budget);
   const budgetObj = budget[0];
   const business = useSelector((store) => store.business);
   const [name, setName] = useState('');
   const [pendingCreate, setPendingCreate] = useState(false);
-  console.log(budget);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_BUSINESS' });
@@ -93,8 +91,6 @@ function UserPage() {
     }
     setName('');
   }
-
-  console.log(user);
 
   const openVideo = () => {
     window.open('https://youtu.be/2LaO3A_gpMQ', '_blank');

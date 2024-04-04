@@ -3,7 +3,6 @@ import axios from 'axios';
 
 function* addRevenueStream(action) {
     try {
-        console.log('Revenue post', action.payload);
         yield axios.post(`/api/budget/revenuestream`, action.payload);
     } catch(error) {
         console.log('Error adding income', error);
@@ -12,7 +11,6 @@ function* addRevenueStream(action) {
 
 function* deleteRevenueStream(action) {
     try {
-        console.log('Deleting income', action.payload);
         const { incomeId, budgetObjId } = action.payload; // Destructure futurePlanId and budgetId from payload
         yield axios.delete(`/api/budget/revenuestream/${incomeId}`);
         yield put({ type: 'BUDGET_PLAN', payload: budgetObjId }); // Pass budgetId as payload

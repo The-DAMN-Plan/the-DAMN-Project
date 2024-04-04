@@ -4,13 +4,10 @@ import axios from 'axios';
 function* startPlan(action) {
     try {
         const response = yield axios.post(`/api/budget`, action.payload);
-        console.log('Start plan');
-        console.log(response.data);
         yield put({
             type: 'SET_BUDGET',
             payload: response.data
         });
-        console.log('Budget id:', response.data[0].id)
         const response2 = yield axios.post(`/api/budget/createstatus`, { budget_id: response.data[0].id });
         const response3 = yield axios.post(`/api/budget/createcashflow`, { budget_id: response.data[0].id});
         
@@ -22,7 +19,6 @@ function* startPlan(action) {
 function* fetchBudget(action) {
     try {
         const response = yield axios.get(`/api/budget/${action.payload}`)
-        console.log(response.data);
         yield put({
             type: 'SET_FINAL_BUDGET',
             payload: response.data
@@ -54,7 +50,6 @@ function* fetchBudget(action) {
 
 function* updateBudget(action) {
     try {
-        console.log('payload', action.payload);
         const {budget_id} = action.payload
         yield axios.put(`/api/budget/budget/${budget_id}`, action.payload);
 
