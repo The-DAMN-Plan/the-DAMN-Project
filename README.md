@@ -133,6 +133,5 @@ This code is also commented. We recommend reading through the comments, getting 
 - Using Neon.tech for app's Database
 
   - Reference fly-deploy-postgres.md
-    ()
 
 

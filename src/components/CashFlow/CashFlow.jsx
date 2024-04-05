@@ -22,6 +22,7 @@ function CashFlow() {
     const [selectedYear, setSelectedYear] = useState(1);
     const [selectedMonth, setSelectedMonth] = useState(1);
     const [monthlySales, setMonthlySales] = useState({ y1: 0, y2: 0 });
+    const [totalFutureSavings, setTotalFutureSavings] = useState(0);
 
     function calculateOperatingCosts() {
         let total = 0;
