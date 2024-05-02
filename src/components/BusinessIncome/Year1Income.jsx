@@ -116,7 +116,7 @@ function Year1Income() {
         <Paper sx={{ p: 3 }}>
 
           <Typography variant="h3" color={'primary'} gutterBottom align="center">
-            Year 1 Sales Projections
+            Sales Projections
           </Typography>
           <Typography variant="h6" gutterBottom>
             Add New Revenue Stream
