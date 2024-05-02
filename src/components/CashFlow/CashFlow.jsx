@@ -42,18 +42,34 @@ function CashFlow() {
         dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
     }, [dispatch, budgetId]);
 
+    // function calculateTotal() {
+    //     let total = { y1: 0, y2: 0 };
+    //     for (const item of income) {
+    //         if (item.year === 1) {
+    //             total.y1 += (item.price / item.time_used) * Number(item.purchasers);
+    //         } else {
+    //             total.y2 += (item.price / item.time_used) * Number(item.purchasers);
+    //         }
+    //     }
+    //     return total;
+    // }
+
     function calculateTotal() {
-        let total = { y1: 0, y2: 0 };
+        let total = 0;
+        console.log('ALL 2 INCOME', income);
         for (const item of income) {
-            if (item.year === 1) {
-                total.y1 += (item.price / item.time_used) * Number(item.purchasers);
-            } else {
-                total.y2 += (item.price / item.time_used) * Number(item.purchasers);
-            }
+            console.log('ITEM', item);
+            console.log('ITEM PRICE', item.price);
+            console.log('ITEM TIME', item.time_used);
+            console.log('ITEM BOUGHT', item.purchasers);
+                total += (item.price / item.time_used) * Number(item.purchasers);
+                console.log('total income', total);
         }
         return total;
     }
+
     const totalIncome = calculateTotal();
+    console.log('Total Income', totalIncome);
 
     function mapArrays() {
         let year = { one: [], two: [] }
@@ -165,8 +181,8 @@ function CashFlow() {
     const endingBalance = findEndingBalance().endingCashBalance;
 
     useEffect(() => {
-        // Find the item in cashflow array corresponding to selectedMonth and selectedYear
-        const percentItem = cashflow.find(item => item.month === selectedMonth && item.year === selectedYear);
+        // Find the item in cashflow array corresponding to selectedMonth
+        const percentItem = cashflow.find(item => item.month === selectedMonth);
         // If found, update salesPercent with the percent value, else set it to 0
         if (percentItem) {
             setSalesPercent(percentItem.percent);
@@ -184,22 +200,12 @@ function CashFlow() {
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <Paper sx={{ p: 3 }}>
-
                             <Typography variant="h3" color={'primary'} align="center" gutterBottom>
                                 Cash Flow
                             </Typography>
-                            <Grid container spacing={2} sx={{ marginBottom: 2 }}>
-                                <Grid item xs={6}>
-                                    <Button onClick={() => handleYearChange(1)} variant={selectedYear === 1 ? 'contained' : 'outlined'} size="large" fullWidth>
-                                        Year 1
-                                    </Button>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Button onClick={() => handleYearChange(2)} variant={selectedYear === 2 ? 'contained' : 'outlined'} size="large" fullWidth>
-                                        Year 2
-                                    </Button>
-                                </Grid>
-                            </Grid>
+                                    <Typography align='center' sx={{ marginBottom: 2}}>
+                                        Year Breakdown
+                                    </Typography>
                             <TextField
                                 name="beginningCash"
                                 label="Beginning Cash Balance"
@@ -239,7 +245,7 @@ function CashFlow() {
                     <Grid item xs={12} md={6}>
                         <Paper sx={{ m: 2, p: 2 }}>
                             <Typography variant="subtitle1" textAlign="center">Annual Projected Sales</Typography>
-                            <Typography variant="h5" textAlign="center"><Currency value={selectedYear === 1 ? totalIncome.y1 : totalIncome.y2 || 0} /></Typography>
+                            <Typography variant="h5" textAlign="center"><Currency value={totalIncome || 0} /></Typography>
                         </Paper>
                     </Grid>
                     <Grid item xs={12} md={6}>
