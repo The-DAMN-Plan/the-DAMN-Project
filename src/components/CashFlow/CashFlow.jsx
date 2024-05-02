@@ -21,7 +21,7 @@ function CashFlow() {
     const [salesPercent, setSalesPercent] = useState(0);
     const [selectedYear, setSelectedYear] = useState(1);
     const [selectedMonth, setSelectedMonth] = useState(1);
-    const [monthlySales, setMonthlySales] = useState({ y1: 0, y2: 0 });
+    const [monthlySales, setMonthlySales] = useState(0);
     const [totalFutureSavings, setTotalFutureSavings] = useState(0);
 
     function calculateOperatingCosts() {
@@ -42,78 +42,87 @@ function CashFlow() {
         dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
     }, [dispatch, budgetId]);
 
-    // function calculateTotal() {
-    //     let total = { y1: 0, y2: 0 };
-    //     for (const item of income) {
-    //         if (item.year === 1) {
-    //             total.y1 += (item.price / item.time_used) * Number(item.purchasers);
-    //         } else {
-    //             total.y2 += (item.price / item.time_used) * Number(item.purchasers);
-    //         }
-    //     }
-    //     return total;
-    // }
 
+    // Calulates the total of income for the year
     function calculateTotal() {
         let total = 0;
-        console.log('ALL 2 INCOME', income);
+
         for (const item of income) {
-            console.log('ITEM', item);
-            console.log('ITEM PRICE', item.price);
-            console.log('ITEM TIME', item.time_used);
-            console.log('ITEM BOUGHT', item.purchasers);
                 total += (item.price / item.time_used) * Number(item.purchasers);
-                console.log('total income', total);
         }
         return total;
     }
 
     const totalIncome = calculateTotal();
-    console.log('Total Income', totalIncome);
 
     function mapArrays() {
-        let year = { one: [], two: [] }
+        // let year = { one: [], two: [] }
         let lastCashBalance = 0;
         let beginningCashBalance = Number(beginningCash);
 
         for (const item of cashflow) {
-            if (item.year === 1) {
-                if (item.month === 1) {
-                } else {
-                    beginningCashBalance = lastCashBalance;
-                }
-                const endingCashBalance = beginningCashBalance + monthlySales.y1 - totalExpenseAmount;
-                lastCashBalance = endingCashBalance;
-
-                year.one.push({
-                    year: item.year,
-                    month: item.month,
-                    beginningCashBalance,
-                    monthlySales: monthlySales.y1,
-                    totalExpenseAmount,
-                    endingCashBalance,
-                })
-            }
-
-            if (item.year === 2) {
-
+            if (item.month !== 1) {
                 beginningCashBalance = lastCashBalance;
-                const endingCashBalance = beginningCashBalance + monthlySales.y2 - totalExpenseAmount;
-                lastCashBalance = endingCashBalance;
-
-                year.two.push({
-                    year: item.year,
-                    month: item.month,
-                    beginningCashBalance,
-                    monthlySales: monthlySales.y2,
-                    totalExpenseAmount,
-                    endingCashBalance,
-                })
             }
+
+            const endingCashBalance = beginningCashBalance + monthlySales - totalExpenseAmount;
+            lastCashBalance = endingCashBalance;
+
+            // year.one.push({
+            //     year: item.year,
+            //     month: item.month,
+            //     beginningCashBalance,
+            //     monthlySales: monthlySales.y1,
+            //     totalExpenseAmount,
+            //     endingCashBalance,
+            // })
         }
 
-        return year;
+        return '';
     }
+    // function mapArrays() {
+    //     let year = { one: [], two: [] }
+    //     let lastCashBalance = 0;
+    //     let beginningCashBalance = Number(beginningCash);
+
+    //     for (const item of cashflow) {
+    //         if (item.year === 1) {
+    //             if (item.month === 1) {
+    //             } else {
+    //                 beginningCashBalance = lastCashBalance;
+    //             }
+    //             const endingCashBalance = beginningCashBalance + monthlySales.y1 - totalExpenseAmount;
+    //             lastCashBalance = endingCashBalance;
+
+    //             year.one.push({
+    //                 year: item.year,
+    //                 month: item.month,
+    //                 beginningCashBalance,
+    //                 monthlySales: monthlySales.y1,
+    //                 totalExpenseAmount,
+    //                 endingCashBalance,
+    //             })
+    //         }
+
+    //         if (item.year === 2) {
+
+    //             beginningCashBalance = lastCashBalance;
+    //             const endingCashBalance = beginningCashBalance + monthlySales.y2 - totalExpenseAmount;
+    //             lastCashBalance = endingCashBalance;
+
+    //             year.two.push({
+    //                 year: item.year,
+    //                 month: item.month,
+    //                 beginningCashBalance,
+    //                 monthlySales: monthlySales.y2,
+    //                 totalExpenseAmount,
+    //                 endingCashBalance,
+    //             })
+    //         }
+    //     }
+
+    //     return year;
+    // }
 
     // When the year/month/cashflow changes, we want to run some calculations
     useEffect(() => {
@@ -124,25 +133,26 @@ function CashFlow() {
         mapArrays();
     }, [selectedMonth, beginningCash]);
 
+    // calculate monthly sales for each month selected
+    // it takes a month value as an integer
     function calculateMonthlySales(month) {
         let calculatedCashFlow = {};
         let monthlyPercentOfCashFlow = 0;
-        let yearIndex = '';
+        // let yearIndex = '';
         let yearlyIncome = 0;
-        let tempYearObj = { y1: 0, y2: 0 }
+        let tempYear= 0
         // each year
         for (let i = 0; i < 2; i++) {
+            console.log('cash flow',cashflow);
             calculatedCashFlow = cashflow.find(item => item.month === month);
             monthlyPercentOfCashFlow = calculatedCashFlow.percent / 100;
-            yearIndex = 'y' + (i + 1);
-            yearlyIncome = totalIncome[yearIndex];
+            yearlyIncome = totalIncome;
+        
             if (i === 0) {
-                tempYearObj.y1 = yearlyIncome * monthlyPercentOfCashFlow;
-            } else {
-                tempYearObj.y2 = yearlyIncome * monthlyPercentOfCashFlow;
+                tempYear= yearlyIncome * monthlyPercentOfCashFlow;
             }
         }
-        return tempYearObj;
+        return tempYear;
     }
 
 
@@ -168,17 +178,22 @@ function CashFlow() {
     const filteredCashflow = cashflow.filter(item => item.year === selectedYear);
     const arrays = mapArrays();
 
-    const findEndingBalance = () => {
-        if (selectedYear === 1) {
-            let endingBalance = arrays.one.find(eb => eb.month === selectedMonth);
-            return endingBalance;
-        } else if (selectedYear === 2) {
-            let endingBalance = arrays.two.find(eb => eb.month === selectedMonth);
-            return endingBalance;
-        }
-    }
+    // const findEndingBalance = () => {
+    //     if (selectedYear === 1) {
+    //         let endingBalance = arrays.one.find(eb => eb.month === selectedMonth);
+    //         return endingBalance;
+    //     } else if (selectedYear === 2) {
+    //         let endingBalance = arrays.two.find(eb => eb.month === selectedMonth);
+    //         return endingBalance;
+    //     }
+    // }
 
-    const endingBalance = findEndingBalance().endingCashBalance;
+    // const endingBalance = findEndingBalance().endingCashBalance;
+
+    const findEndingBalance = () => {
+        let endingBalance = 0;
+        
+    }
 
     useEffect(() => {
         // Find the item in cashflow array corresponding to selectedMonth
@@ -251,7 +266,7 @@ function CashFlow() {
                     <Grid item xs={12} md={6}>
                         <Paper sx={{ m: 2, p: 2 }}>
                             <Typography variant="subtitle1" textAlign="center">Sales for the Month</Typography>
-                            <Typography variant="h5" textAlign="center"><Currency value={selectedYear === 1 ? monthlySales.y1 : monthlySales.y2} /></Typography>
+                            <Typography variant="h5" textAlign="center"><Currency value={monthlySales || 0 } /></Typography>
                         </Paper>
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -263,6 +278,7 @@ function CashFlow() {
                     <Grid item xs={12} md={6}>
                         <Paper sx={{ m: 2, p: 2 }}>
                             <Typography variant="subtitle1" textAlign="center">Ending Cash Balance</Typography>
+                            {/* we need ending cash balance here */}
                             <Typography variant="h5" textAlign="center"><Currency value={endingBalance || 0} /></Typography>
                         </Paper>
                     </Grid>
