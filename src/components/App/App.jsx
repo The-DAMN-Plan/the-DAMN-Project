@@ -24,11 +24,9 @@ import PBPage2 from '../PersonalExpenses/PBpage2';
 import PersonalSavings from '../PersonalExpenses/PersonalSavings';
 import VariableExpenses from '../PersonalExpenses/VariableExpenses';
 import Year1Income from '../BusinessIncome/Year1Income';
-import Year2Income from '../BusinessIncome/Year2Income';
 import BEOverview from '../BEOverview/BEOverview';
 import MarketingPageYear1 from '../BusinessExpense/MarketingPageYear1';
 import MarketingPageYear2 from '../BusinessExpense/MarketingPageYear2';
-
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
 import CssBaseline from '@mui/material/CssBaseline';
@@ -143,10 +141,6 @@ function App() {
 
               <ProtectedRoute exact path="/incomeyear1/:budgetId">
                 <Year1Income />
-              </ProtectedRoute>
-
-              <ProtectedRoute exact path="/incomeyear2/:budgetId">
-                <Year2Income />
               </ProtectedRoute>
 
               <ProtectedRoute exact path="/overview/:budgetId">
