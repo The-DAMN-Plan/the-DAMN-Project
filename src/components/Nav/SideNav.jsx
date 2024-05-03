@@ -128,15 +128,9 @@ export default function SideNav({drawerWidth}) {
                                     <List>
                                         <ListItem disablePadding>
                                             <ListItemButton component={NavLink} to={`/incomeyear1/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
-                                            <ListItemText sx={{pl: 2}} primary={'Year 1 Sales Projections'} />
+                                            <ListItemText sx={{pl: 2}} primary={'Sales Projection'} />
                                             </ListItemButton>
                                         </ListItem>
-                                        <ListItem disablePadding>
-                                            <ListItemButton component={NavLink} to={`/incomeyear2/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
-                                            <ListItemText sx={{pl: 2}} primary={'Year 2 Sales Projections'} />
-                                            </ListItemButton>
-                                        </ListItem>
-                                        
                                     </List>
                                 </CollapeMenu>
                                 <CollapeMenu>
