@@ -26,7 +26,6 @@ import VariableExpenses from '../PersonalExpenses/VariableExpenses';
 import Year1Income from '../BusinessIncome/Year1Income';
 import BEOverview from '../BEOverview/BEOverview';
 import MarketingPageYear1 from '../BusinessExpense/MarketingPageYear1';
-import MarketingPageYear2 from '../BusinessExpense/MarketingPageYear2';
 import './App.css';
 import theme from '../../../src/muiTheme';  // Import the custom theme
 import CssBaseline from '@mui/material/CssBaseline';
@@ -44,7 +43,6 @@ import SideNav from '../Nav/SideNav';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import ActivePlans from '../ActivePlans/ActivePlans';
 import HumanResourcesPage1 from '../BusinessExpense/HumanResourcesPage1';
-import HumanResourcesPage2 from '../BusinessExpense/HumanResourcesPage2';
 import OtherBusinessExp from '../BusinessExpense/OtherBusinessExp';
 import CashFlow from '../CashFlow/CashFlow';
 import Background from '../Background/Background';

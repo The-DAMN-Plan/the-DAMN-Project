@@ -1,4 +1,4 @@
-// JUst commentting thins out in case we need it.
+// // Just commentting thins out in case we need it.
 
 // import React, { useState, useEffect } from 'react';
 // import {
