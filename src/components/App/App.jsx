@@ -158,15 +158,11 @@ function App() {
               <ProtectedRoute exact path="/marketingy1/:budgetId">
                 <MarketingPageYear1 />
               </ProtectedRoute>
-              {/* this one below needs to have a progbar value of 78 */}
 
-              {/* <Route exact path="/marketingy2">
-                <MarketingPage />
-              </Route> */}
-
-              <ProtectedRoute exact path="/marketingy2/:budgetId">
+              {/* Took out page 2 so no more year 2 Marketing expenses should come through */}
+              {/* <ProtectedRoute exact path="/marketingy2/:budgetId">
                 <MarketingPageYear2 />
-              </ProtectedRoute>
+              </ProtectedRoute> */}
 
               <ProtectedRoute exact path="/hrpagey1/:budgetId">
                 <HumanResourcesPage1 />

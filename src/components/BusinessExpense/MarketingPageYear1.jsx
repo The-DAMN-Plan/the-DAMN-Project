@@ -255,7 +255,7 @@ function MarketingBudgetYear1() {
                         </Button>
                     </Box>
 
-                    <ProgressBar next={'marketingy2'} back={'businessexpensepage2'} value={72} budgetId={budgetId} />
+                    <ProgressBar next={'hrpagey1'} back={'businessexpensepage2'} value={72} budgetId={budgetId} />
                 </Paper>
             </Container>
             <Footer />

@@ -156,11 +156,12 @@ export default function SideNav({drawerWidth}) {
                                             <ListItemText sx={{pl: 2}} primary={'Marketing Expense Page 1'} />
                                             </ListItemButton>
                                         </ListItem>
-                                        <ListItem disablePadding>
+                                        {/* Comment out Marketing Year 2  */}
+                                        {/* <ListItem disablePadding>
                                             <ListItemButton component={NavLink} to={`/marketingy2/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
                                             <ListItemText sx={{pl: 2}} primary={'Marketing Expense Page 2'} />
                                             </ListItemButton>
-                                        </ListItem>
+                                        </ListItem> */}
                                         <ListItem disablePadding>
                                             <ListItemButton component={NavLink} to={`/hrpagey1/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
                                             <ListItemText sx={{pl: 2}} primary={'Human Resource Expense Page 1'} />

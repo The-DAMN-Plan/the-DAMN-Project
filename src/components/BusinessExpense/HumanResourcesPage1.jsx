@@ -146,7 +146,7 @@ export default function HumanResourcesPage1() {
                             Save
                         </Button>
                     </Box>
-                    <ProgressBar back={'marketingy2'} next={'otherbusiness'} value={84} budgetId={budgetId} />
+                    <ProgressBar back={'marketingy1'} next={'otherbusiness'} value={84} budgetId={budgetId} />
                 </Paper>
             </Container>
             <Footer />
