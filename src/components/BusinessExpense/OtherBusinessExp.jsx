@@ -90,7 +90,7 @@ function OtherBusinessExp() {
                             ))}
                         </TableBody>
                     </Table>
-                    <ProgressBar back={'hrpagey2'} next={'breakeven'} value={95} budgetId={budgetId} />
+                    <ProgressBar back={'hrpagey1'} next={'breakeven'} value={95} budgetId={budgetId} />
                 </Paper>
             </Container>
             <Footer />

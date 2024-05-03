@@ -172,9 +172,10 @@ function App() {
                 <HumanResourcesPage1 />
               </ProtectedRoute>
 
-              <ProtectedRoute exact path="/hrpagey2/:budgetId">
+              {/* Took out page 2 so no more year 2 HR expenses should come through */}
+              {/* <ProtectedRoute exact path="/hrpagey2/:budgetId">
                 <HumanResourcesPage2 />
-              </ProtectedRoute>
+              </ProtectedRoute> */}
 
               <ProtectedRoute exact path="/otherbusiness/:budgetId">
                 <OtherBusinessExp />
