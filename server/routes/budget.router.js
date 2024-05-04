@@ -23,6 +23,9 @@ router.get('/:id', async (req, res) => {
   -- this will get the cashflow_months as a nested object
             (SELECT coalesce(jsonb_agg(item), '[]'::jsonb) FROM (
             SELECT "cashflow_months".* FROM "cashflow_months" WHERE "cashflow_months"."budget_id"="budgets"."id") item) as "cashflow_months" from budgets where budgets.id = $1;`
+
+  console.log('fetch budget');
+  console.log('budget id', req.params.id);
   const budget_id = parseInt(req.params.id, 10);
 
   try {
@@ -224,15 +227,13 @@ router.post('/expense', async (req, res) => {
 
 // Updates all expenses given to it
 router.put('/expense', async (req, res) => {
+  console.log('updating expense');
   // Put route code here
-  const sql = `UPDATE "expenses" SET  "type" = $1, "expense_amount" = $2, "percent_change" = $3, "year" = $4, "frequency" = $5,
-      "timing" = $6, "facilitator" = $7, "vendor" = $8, "cost_per_use" = $9, "assets_needed" = $10, "service" = $11 WHERE "budget_id" = $12 AND "expense_name" = $13 RETURNING *;`
+  const sql = `UPDATE "expenses" SET "expense_amount" = $1 WHERE "budget_id" = $2 AND "expense_name" = $3`;
   const data = req.body;
   try {
     for (const expense of data) {
-      const result = await pool.query(sql, [
-        expense.type, expense.expense_amount, expense.percent_change, expense.year, expense.frequency,
-        expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use, expense.assests_needed, expense.service, expense.budget_id, expense.expense_name]);
+      await pool.query(sql, [expense.expense_amount, expense.budget_id, expense.expense_name]);
     }
     res.sendStatus(200);
   } catch (error) {

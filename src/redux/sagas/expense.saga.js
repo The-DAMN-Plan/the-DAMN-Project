@@ -32,10 +32,11 @@ function* deleteExpense(action) {
 function* updateExpense(action) {
     try {
         const { budgetObjId } = action.payload; // Destructure futurePlanId and budgetId from payload
+        console.log('action payload',action.payload[0].budget_id);
 
         const response = yield axios.put(`/api/budget/expense`, action.payload);
         
-        yield put({ type: 'BUDGET_PLAN', payload: budgetObjId }); // Pass budgetId as payload
+        yield put({ type: 'BUDGET_PLAN', payload: action.payload[0].budget_id }); // Pass budgetId as payload
 
     } catch(error) {
         console.log('Error updating expense', error);
