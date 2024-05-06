@@ -286,7 +286,7 @@ function Year1Income() {
               Save
             </Button>
           </Box>
-          <ProgressBar back={'valuepay'} next={'incomeyear2'} submit={handleSubmit} value={42} budgetId={budgetId} />
+          <ProgressBar back={'valuepay'} next={'overview'} submit={handleSubmit} value={42} budgetId={budgetId} />
           <Grid container justifyContent="center" style={{ marginTop: 16 }}>
             <Grid item>
               <Button variant="contained" color="primary" onClick={openVideo}>

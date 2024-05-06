@@ -264,7 +264,7 @@ function CashFlow() {
                     </Grid>
                 </Grid>
             </Container>
-            <Footer />
+             <Footer />
         </Main>
     );
 }
