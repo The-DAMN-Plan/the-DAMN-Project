@@ -44,15 +44,34 @@ function CashFlow() {
     }, [dispatch, budgetId]);
 
 
-    // Calulates the total of income for the year
-    function calculateTotal() {
-        let total = 0;
+    // // Calulates the total of income for the year
+    // function calculateTotal() {
+    //     let total = 0;
 
+    //     for (const item of income) {
+    //             total += (item.price / item.time_used) * Number(item.purchasers);
+    //     }
+    //     return total;
+    // }
+
+    function calculateTotal() {
+        // let total = 0;
+        let totalCostOfDelivery = 0;
+        let projectedSales = 0;
+        console.log(income);
+    
         for (const item of income) {
-                total += (item.price / item.time_used) * Number(item.purchasers);
+            
+            // total += (item.price / item.time_used) * Number(item.purchasers);
+            projectedSales += item.price * item.purchasers;
+            totalCostOfDelivery += item.cost_of_delivery * item.purchasers;
         }
-        return total;
-    }
+        // console.log('total cost of Delivery:', totalCostOfDelivery);
+        // console.log('Projected Sales', projectedSales);
+        // console.log('cogs: ', totalCostOfDelivery/projectedSales* 100);
+        // console.log('Gross Profit: ', projectedSales - totalCostOfDelivery);
+        return projectedSales;
+      }
 
     const totalIncome = calculateTotal();
 

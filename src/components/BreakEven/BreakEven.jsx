@@ -18,31 +18,50 @@ export default function BreakEven() {
   const budgetId = useParams();
   const expenses = useSelector(store => store.expense);
   const budget = useSelector(store => store.finalBudget);
-  
-
   const filteredExpenses = expenses.filter(item => item.type === 'business marketing' || item.type === 'business hr' || item.type === 'business other' || item.type === 'business expense');
-  const operatingCosts = calculateOperatingCosts();
-  const breakEvenNumbers = calculateBreakeven();
-
+  const income = useSelector(s=> s.income);
+  let breakEven = 0;
+  
   function calculateOperatingCosts() {
-    let total = 0;
+    let totalOperatingCost = 0;
+    let totalCostOfDelivery = 0;
+    let projectedSales = 0;
+    console.log('filtered expense: ', filteredExpenses);
     for (const expense of filteredExpenses) {
-      total += expense.expense_amount;
+      console.log(expense.expense_name, expense.expense_amount);
+      totalOperatingCost += expense.expense_amount;
     }
-    total += Number(budget[0].valuepay) ? Number(budget[0].valuepay) : 0;
-    return total;
+    console.log('income', income); 
+    for (const item of income) {
+      projectedSales += item.price * item.purchasers;
+      totalCostOfDelivery += item.cost_of_delivery * item.purchasers;
+    }
+
+    let grossProfit = projectedSales - totalCostOfDelivery;
+    console.log('escrow savings', budget[0].escrow_savings);
+    console.log('gross profit',grossProfit *  parseInt(budget[0].escrow_savings)/100);
+    totalOperatingCost += budget[0].valuepay * 12 + grossProfit * parseInt(budget[0].escrow_savings)/100;
+    let netBeforeTax = grossProfit - totalOperatingCost;
+    console.log(budget[0].valuepay * 12);
+    console.log('total operating cost:', totalOperatingCost, budget[0].valuepay, budget[0].valuepay * 12.00);
+    console.log('net before tax:', netBeforeTax);
+    console.log(budget);
+    breakEven = totalOperatingCost / (1-budget[0].y1_cogs/100);
+
+    return totalOperatingCost;
   }
 
+  calculateOperatingCosts();
 
 
-  function calculateBreakeven() {
-    let total = { y1: 0, y2: 0 };
-    total.y1 = operatingCosts + (operatingCosts / (-budget[0].y1_cogs + 100))
-    total.y2 = operatingCosts + (operatingCosts / (-budget[0].y2_cogs + 100))
-    console.log(operatingCosts)
-    console.log(total)
-    return total;
-  }
+
+  // function calculateBreakeven() {
+  //   let total = 0;
+  //   total = operatingCosts + (operatingCosts / (-budget[0].y1_cogs + 100))
+  //   // console.log(operatingCosts)
+  //   // console.log(total)
+  //   return total;
+  // }
 
   return (
 
@@ -63,25 +82,13 @@ export default function BreakEven() {
             justifyContent="center"
             sx={{ minHeight: '30vh' }}
           >
-            <Grid container xs={12}>
-              <Grid xs={12} sm={12} md={6} lg={6}>
+
                 <Fade in={true}>
                   <Paper sx={{ p: 3 }}>
                     <Typography noWrap textAlign="center" variant='h4'>Year One</Typography>
-                    <Typography color='primary' textAlign="center" variant='h5'><Currency value={breakEvenNumbers.y1} />/Month</Typography>
+                    <Typography color='primary' textAlign="center" variant='h5'><Currency value={breakEven} />/Month</Typography>
                   </Paper>
                 </Fade>
-              </Grid>
-
-              <Grid xs={12} sm={12} md={6} lg={6}>
-                <Fade in={true} style={{ transitionDelay: '100ms' }}>
-                  <Paper sx={{ p: 3 }}>
-                    <Typography textAlign="center" variant='h4'>Year Two</Typography>
-                    <Typography color='secondary' textAlign="center" variant='h5'><Currency value={breakEvenNumbers.y2} />/Month</Typography>
-                  </Paper>
-                </Fade>
-              </Grid>
-            </Grid>
             {/* {end} */}
           </Grid>
           <ProgressBar next={'cashflow'} back={'otherbusiness'} value={98} budgetId={budgetId} />

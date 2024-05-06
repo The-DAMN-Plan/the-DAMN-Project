@@ -63,7 +63,7 @@ export default function BusinessExpense(params) {
         },
         {
             budget_id: budgetId.budgetId,
-            expense_amount: getExpenseAmount('softwareTech') || "0",
+            expense_amount: getExpenseAmount('softwareTech') || 0,
             expense_name: "softwareTech",
             type: "business expense"
         },
@@ -75,8 +75,8 @@ export default function BusinessExpense(params) {
         },
         {
             budget_id: budgetId.budgetId,
-            expense_amount: "0",
-            expense_name: getExpenseAmount('miscellaneous') || "miscellaneous",
+            expense_amount: getExpenseAmount('miscellaneous') || 0,
+            expense_name: "miscellaneous",
             type: "business expense"
         },
     ])
@@ -131,11 +131,14 @@ export default function BusinessExpense(params) {
             step: 'businessexpensepage2'
         }
 
+        
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
+        console.log(userEntry);
         dispatch({ type: 'UPDATE_STATUS', payload: updateObj })
     };
 
     const handleEdit = () => {
+        console.log(userEntry);
         dispatch({ type: 'UPDATE_EXPENSE', payload: userEntry })
     }
 
