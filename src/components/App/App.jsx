@@ -46,6 +46,7 @@ import HumanResourcesPage1 from '../BusinessExpense/HumanResourcesPage1';
 import OtherBusinessExp from '../BusinessExpense/OtherBusinessExp';
 import CashFlow from '../CashFlow/CashFlow';
 import Background from '../Background/Background';
+import Years from '../Years/years';
 
 function App() {
   const dispatch = useDispatch();
@@ -187,6 +188,9 @@ function App() {
                 <ValuePay />
               </ProtectedRoute>
 
+              <ProtectedRoute exact path="/years/:budgetId">
+                <Years />
+              </ProtectedRoute>
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).

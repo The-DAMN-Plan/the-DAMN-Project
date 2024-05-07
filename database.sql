@@ -96,6 +96,18 @@ CREATE TABLE "cashflow_months" (
 	"year" int
 );
 
+CREATE TABLE "years" (
+	"id" serial primary key,
+	"budget_id" int references budgets(id),
+	"name" varchar(250),
+	"created_at" date DEFAULT NOW(),
+	"cogs" decimal,
+	"escrow_savings" decimal,
+	"vp_percent" decimal,
+	"vp_income" int,
+	"valuepay" int 
+);
+
 
 --** Fake Data **--
 -- Insert into "user"
@@ -188,3 +200,26 @@ ALTER TABLE "public"."revenue_streams"
   ADD COLUMN "year" integer;
   
 ALTER TABLE "public"."budgets" ADD COLUMN "valuepay" numeric;
+
+
+
+
+
+-- Adds the year_id to the tables 
+ALTER TABLE "future_plans" 
+ADD COLUMN "year_id" int references "years"(id);
+
+ALTER TABLE "expenses" 
+ADD COLUMN "year_id" int references "years"(id);
+
+ALTER TABLE "revenue_streams" 
+ADD COLUMN "year_id" int references "years"(id);
+
+
+
+-- Drops the old "year" columns
+ALTER TABLE "revenue_streams" 
+DROP COLUMN "year";
+
+ALTER TABLE "expenses" 
+DROP COLUMN "year";

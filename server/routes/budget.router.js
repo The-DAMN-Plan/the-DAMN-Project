@@ -24,8 +24,6 @@ router.get('/:id', async (req, res) => {
             (SELECT coalesce(jsonb_agg(item), '[]'::jsonb) FROM (
             SELECT "cashflow_months".* FROM "cashflow_months" WHERE "cashflow_months"."budget_id"="budgets"."id") item) as "cashflow_months" from budgets where budgets.id = $1;`
 
-  console.log('fetch budget');
-  console.log('budget id', req.params.id);
   const budget_id = parseInt(req.params.id, 10);
 
   try {
@@ -198,8 +196,8 @@ router.get('/expenses/:budgetId', async (req, res) => {
 // Creates all expenses given to it
 router.post('/expense', async (req, res) => {
   // POST route code here
-  const sql = `insert into "expenses" ("budget_id","type","expense_name","expense_amount","percent_change","year",
-  "frequency","timing","facilitator","vendor","cost_per_use","assets_needed","service")
+  const sql = `insert into "expenses" ("budget_id","type","expense_name","expense_amount","percent_change",
+  "frequency","timing","facilitator","vendor","cost_per_use","assets_needed","service", "year_id")
   values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) returning *;`
   const data = req.body;
   const results = []; // Array to collect all the results
@@ -207,8 +205,8 @@ router.post('/expense', async (req, res) => {
   for (const expense of data) {
     try {
       const result = await pool.query(sql, [
-        expense.budget_id, expense.type, expense.expense_name, expense.expense_amount, expense.percent_change, expense.year,
-        expense.frequency, expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use, expense.assets_needed, expense.service // Fixed typo assests_needed -> assets_needed
+        expense.budget_id, expense.type, expense.expense_name, expense.expense_amount, expense.percent_change,
+        expense.frequency, expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use, expense.assets_needed, expense.service, expense.year_id // Fixed typo assests_needed -> assets_needed
       ]);
       results.push(result.rows[0]);
     } catch (error) {
