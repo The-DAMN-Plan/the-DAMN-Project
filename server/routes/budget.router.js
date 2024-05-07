@@ -163,14 +163,18 @@ router.put('/status', async (req, res) => {
 
 // CREATES a budget upon clicking Start a Business button on dashboard 
 router.post('/', async (req, res) => {
+  console.log('create a plan');
   // POST route code here
   const sql = `insert into "budgets" ("business_id","name","escrow_savings","y1_cogs","y2_cogs","cash_balance","vp_percent","vp_income")
   values($1,$2,$3,$4,$5,$6,$7,$8) returning *;`
   const data = req.body;
 
+  const createYearQuery =`INSERT INTO "years" ("budget_id", "name") VALUES ($1, $2) returning *`;
   try {
     const result = await pool.query(sql, [data.business_id, data.name, data.escrow_savings, data.y1_cogs, data.y2_cogs, data.cash_balance, data.vp_percent, data.vp_income]);
+    const yearData = await pool.query(createYearQuery, [result.rows[0].id, `${result.rows[0].name} Year 1 `]);
     res.send(result.rows);
+    
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
