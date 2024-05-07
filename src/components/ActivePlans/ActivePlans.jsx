@@ -66,14 +66,8 @@ export default function ActivePlans(props) {
       } else if (step.step === 'marketingy1' && step.completed === false) {
         history.push(`/marketingy1/${budget_id}`);
         return;
-      } else if (step.step === 'marketingy2' && step.completed === false) {
-        history.push(`/marketingy2/${budget_id}`);
-        return;
       } else if (step.step === 'hrpagey1' && step.completed === false) {
         history.push(`/hrpagey1/${budget_id}`);
-        return;
-      } else if (step.step === 'hrpagey2' && step.completed === false) {
-        history.push(`/hrpagey2/${budget_id}`);
         return;
       } else if (step.step === 'breakeven' && step.completed === false) {
         history.push(`/breakeven/${budget_id}`);
