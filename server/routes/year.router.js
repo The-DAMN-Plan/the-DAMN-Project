@@ -3,10 +3,11 @@ const pool = require('../modules/pool');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const router = express.Router();
 
-// GET year data
+// GET year data (Needs a budgetID)
 router.get('/:id',(req,res)=>{
     console.log('getting year data ...');
     const budgetID = req.params.id;
+    console.log(budgetID);
     const sql= `SELECT * FROM "years"
     WHERE budget_id = ${budgetID}`;
     pool.query(sql).then((result)=>{
@@ -19,14 +20,14 @@ router.get('/:id',(req,res)=>{
 })
 
 // POST to make the years (Needs a budget ID)
-router.post('/:id', async (req, res) => {
+router.post('/', async (req, res) => {
     console.log('posting year data ...');
-    const budgetID = req.params.id;
+   
     const sql = `
     INSERT INTO "years" ("budget_id", "name", "cogs", "escrow_savings", "vp_percent", "vp_income", "valuepay")
     VALUES ($1, $2, $3, $4, $5, $6, $7)`;
 
-    pool.query(sql, [budgetID, req.body.name, req.body.cogs, req.body.escrow_savings, req.body.vp_percent, req.body.vp_income, req.body.valuepay])
+    pool.query(sql, [req.body.budget_id, req.body.name, req.body.cogs, req.body.escrow_savings, req.body.vp_percent, req.body.vp_income, req.body.valuepay])
     .then((result) => {
         res.sendStatus(201);
 

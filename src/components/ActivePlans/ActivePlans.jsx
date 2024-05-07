@@ -104,6 +104,11 @@ export default function ActivePlans(props) {
                   <Grid xs={4} textAlign={'center'} alignSelf={'center'}>
                     <Button color='primary' variant='contained' onClick={() => handleView(budget.id)}>View Plan</Button>
                   </Grid>
+                  <Grid xs={4} textAlign={'center'} alignSelf={'center'}>
+                    <Button variant="contained" color="primary" onClick={()=>{history.push(`/years/${budget.id}`)}}>
+                      Years page
+                    </Button>
+                  </Grid>
                 </Grid>
                 {i === business.budgets.length - 1 ? '' : <Divider />}
               </>
