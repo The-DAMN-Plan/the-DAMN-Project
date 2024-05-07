@@ -10,6 +10,7 @@ import income from './income.reducer';
 import futurePlans from './futurePlan.reducer';
 import finalBudget from './finalBudget.reducer';
 import cashflow from './cashflow.reducer';
+import year from './year.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -28,7 +29,8 @@ const rootReducer = combineReducers({
   income,
   cashflow,
   futurePlans,
-  finalBudget
+  finalBudget,
+  year
 });
 
 export default rootReducer;

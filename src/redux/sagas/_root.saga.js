@@ -9,6 +9,7 @@ import futurePlanSaga from './futurePlan.saga';
 import sideNavSaga from './sidenav.saga';
 import incomeSaga from './income.saga';
 import statusSaga from './status.saga';
+import yearSaga from './year.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -28,6 +29,7 @@ export default function* rootSaga() {
     futurePlanSaga(),
     sideNavSaga(),
     incomeSaga(),
-    statusSaga()
+    statusSaga(),
+    yearSaga()
   ]);
 }
