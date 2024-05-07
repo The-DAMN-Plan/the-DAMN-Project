@@ -24,8 +24,6 @@ router.get('/:id', async (req, res) => {
             (SELECT coalesce(jsonb_agg(item), '[]'::jsonb) FROM (
             SELECT "cashflow_months".* FROM "cashflow_months" WHERE "cashflow_months"."budget_id"="budgets"."id") item) as "cashflow_months" from budgets where budgets.id = $1;`
 
-  console.log('fetch budget');
-  console.log('budget id', req.params.id);
   const budget_id = parseInt(req.params.id, 10);
 
   try {
