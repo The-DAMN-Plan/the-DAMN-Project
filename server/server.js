@@ -13,6 +13,7 @@ const userRouter = require('./routes/user.router');
 const budgetRouter = require('./routes/budget.router');
 const futurePlansRouter = require('./routes/future.plans.router');
 const businessRouter = require('./routes/business.router');
+const yearRouter = require('./routes/year.router');
 
 // Express Middleware
 app.use(express.json());
@@ -31,6 +32,7 @@ app.use('/api/user', userRouter);
 app.use('/api/budget', budgetRouter);
 app.use('/api/future_plans', futurePlansRouter)
 app.use('/api/business', businessRouter);
+app.use('/api/year', yearRouter);
 
 // Listen Server & Port
 app.listen(PORT, () => {

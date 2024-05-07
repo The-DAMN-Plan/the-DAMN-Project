@@ -96,6 +96,18 @@ CREATE TABLE "cashflow_months" (
 	"year" int
 );
 
+CREATE TABLE "years" (
+	"id" serial primary key,
+	"budget_id" int references budgets(id),
+	"name" varchar(250),
+	"created_at" date DEFAULT NOW(),
+	"cogs" decimal,
+	"escrow_savings" decimal,
+	"vp_percent" decimal,
+	"vp_income" int,
+	"valuepay" int 
+);
+
 
 --** Fake Data **--
 -- Insert into "user"
