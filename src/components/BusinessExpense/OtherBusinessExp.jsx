@@ -59,8 +59,7 @@ function OtherBusinessExp() {
                         Other Business Expenses
                     </Typography>
                     <Typography variant="body1" textAlign={'center'} gutterBottom>
-                        Enter any additional expenses you have here. You can add as many as you need.
-                    </Typography>
+                    If you have items on your budget that have not been mentioned, enter any additional items here.                    </Typography>
                     <Grid container justifyContent={'center'}>
                         <Grid display={'flex'} alignItems={'center'}>
                             <TextField label="Name of Expense" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />

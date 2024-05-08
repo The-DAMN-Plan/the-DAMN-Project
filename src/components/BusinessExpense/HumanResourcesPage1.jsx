@@ -63,8 +63,8 @@ export default function HumanResourcesPage1() {
             <Container >
                 <Paper sx={{ p: 3 }}>
 
-                    <Typography variant="h3" color={'primary'} textAlign={'center'} gutterBottom>Human Resource Budget Year 1</Typography>
-                    <Typography variant="subtitle1" textAlign={'center'} gutterBottom>Make determined-decisions about which essential tasks and skills must be outsourced. Analyze the cost / benefit of outsourcing vs. either doing it all yourself or hiring staff. Make determined-decisions about which essential tasks and skills must be outsourced. Analyze the cost / benefit of outsourcing vs. either doing it all yourself or hiring staff. After vetting qualified contractors, enter their business name and service they will provide. </Typography>
+                    <Typography variant="h3" color={'primary'} textAlign={'center'} gutterBottom>Human Resource Expense to Resource Expense Budget</Typography>
+                    <Typography variant="subtitle1" textAlign={'center'} gutterBottom>Okay! Time for some more determined-decisions! Start by thinking about all the tasks that must be done for your business to run smoothly. Ask yourself, am I the best person for the job? If no, determine your human resources. Ask yourself, can this be outsourced or should I hire staff? Once you’ve made your plan, add those decisions below.</Typography>
                     {/* Grid container for input fields */}
                     <form onSubmit={(e) => handleSubmit(e)}>
                         <Grid container spacing={2} alignformValuess="center" justifyContent={'center'} sx={{ mt: 4 }}>
