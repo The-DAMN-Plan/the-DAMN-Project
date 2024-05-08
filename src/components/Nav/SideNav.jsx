@@ -134,7 +134,7 @@ export default function SideNav({drawerWidth}) {
                                     </List>
                                 </CollapeMenu>
                                 <CollapeMenu>
-                                    <ListItemText sx={{pl:1}} primary={'Business Expense'} />
+                                    <ListItemText sx={{pl:1}} primary={'Business Operating Expenses'} />
                                     <List>
                                         <ListItem disablePadding>
                                             <ListItemButton component={NavLink} to={`/overview/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
@@ -143,17 +143,17 @@ export default function SideNav({drawerWidth}) {
                                         </ListItem>
                                         <ListItem disablePadding>
                                             <ListItemButton component={NavLink} to={`/businessexpensepage1/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
-                                            <ListItemText sx={{pl: 2}} primary={'Businsess Expense Page 1'} />
+                                            <ListItemText sx={{pl: 2}} primary={'Business Operating Expenses Page 1'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
                                             <ListItemButton component={NavLink} to={`/businessexpensepage2/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
-                                            <ListItemText sx={{pl: 2}} primary={'Businsess Expense Page 2'} />
+                                            <ListItemText sx={{pl: 2}} primary={'Business Operating Expenses Page 2'} />
                                             </ListItemButton>
                                         </ListItem>
                                         <ListItem disablePadding>
                                             <ListItemButton component={NavLink} to={`/marketingy1/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
-                                            <ListItemText sx={{pl: 2}} primary={'Marketing Expense Page 1'} />
+                                            <ListItemText sx={{pl: 2}} primary={'Marketing Budget'} />
                                             </ListItemButton>
                                         </ListItem>
                                         {/* Comment out Marketing Year 2  */}
@@ -164,7 +164,7 @@ export default function SideNav({drawerWidth}) {
                                         </ListItem> */}
                                         <ListItem disablePadding>
                                             <ListItemButton component={NavLink} to={`/hrpagey1/${budgetId}`} sx={{"&.active": {background:theme => theme.palette.third.main, color:'white'}}}>
-                                            <ListItemText sx={{pl: 2}} primary={'Human Resource Expense Page 1'} />
+                                            <ListItemText sx={{pl: 2}} primary={'Human Resource Expense to Resource Expense Budget'} />
                                             </ListItemButton>
                                         </ListItem>
                                         {/* Just commented out the HR page 2 */}

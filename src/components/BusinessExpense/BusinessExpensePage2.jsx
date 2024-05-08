@@ -152,7 +152,7 @@ export default function BusinessExpense(params) {
                 <Paper sx={{ p: 3 }}>
 
                     <Typography variant="h3" sx={{ mb: 4 }} color={'primary'} align="center" gutterBottom>
-                        Business Expenses Page 2
+                    Business Operating Expenses Page 2
                     </Typography>
 
                     <form onSubmit={handleSubmit}>

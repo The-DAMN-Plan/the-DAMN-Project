@@ -155,7 +155,10 @@ export default function BusinessExpense(params) {
                 <Paper sx={{ p: 3 }}>
 
                     <Typography variant="h3" sx={{ mb: 4 }} color={'primary'} align="center" gutterBottom>
-                        Business Expenses Page 1
+                    Business Operating Expenses Page 1
+                    </Typography>
+                    <Typography variant="body1" marginTop={'24px'} textAlign={'center'} marginBottom={'24px'} >
+                    Enter your current Business Operating Expenses. If you don’t see an expense category that your business accrues, please note there is an “Other Business Expense page to add those line items.
                     </Typography>
                     <form onSubmit={handleSubmit}>
                         <Grid container spacing={2} justifyContent="center">

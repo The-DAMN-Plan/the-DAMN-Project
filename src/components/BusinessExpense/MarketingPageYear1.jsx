@@ -105,11 +105,15 @@ function MarketingBudgetYear1() {
                 <Paper sx={{ p: 3 }}>
 
                     <Typography variant="h3" color={'primary'} gutterBottom marginTop={'24px'} textAlign={'center'} marginBottom={'24px'} >
-                        Marketing Budget Year 1
+                        Marketing Budget
                     </Typography>
 
                     <Typography variant="body1" marginTop={'24px'} textAlign={'center'} marginBottom={'24px'} >
-                        To develop your marketing budget, follow these steps: Begin with market research and decisions on marketing strategy and tools, listing each activity's cost. Exclude costs covered by employee time or contractor fees but document these activities for completion records. Determine each item's frequency, timing, responsible party (contractor or in-house), and necessary assets like copy or photos. Enter the cost per use and calculate monthly and yearly expenses.
+                    Whether you know your Marketing Budget or you are planning for the future, begin with market research to determine which marketing strategy and tools work best for your business. Once you’ve decided on your marketing plan, use this page to list each marketing activity's cost. 
+                    Note, do not enter employee costs or contractor fees on this page.
+                    </Typography>
+                    <Typography variant="body1" marginTop={'24px'} textAlign={'center'} marginBottom={'24px'} >
+                    Note, do not enter employee costs or contractor fees on this page.
                     </Typography>
 
                     <Grid container spacing={2} alignItems="center" justifyContent={'center'}>
