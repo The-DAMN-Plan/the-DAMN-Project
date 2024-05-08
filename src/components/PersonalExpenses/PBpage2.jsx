@@ -105,10 +105,10 @@ function PBpage2() {
                 <Paper sx={{ p: 3 }}>
 
                     <Typography variant="h3" color={'primary'} align="center" gutterBottom>
-                        Committed Expenses Page 2
+                        Personal Expenses
                     </Typography>
                     <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
-                        Take some time to think about monthly bill payments you must make.
+                        We recognize that some of these expenses are paid annually. If so, divide the annual cost by 12 to get your monthly “bill” payment.
                     </Typography>
                     <form onSubmit={handleSubmit}>
                         <Grid container spacing={2} justifyContent="center">
