@@ -110,15 +110,19 @@ function VariableExpenses() {
                 <Paper sx={{ p: 3 }}>
 
                     <Typography variant="h3" color={'primary'} align="center" gutterBottom>
-                        Decision Expenses
+                        Determined-Decisions Expenses
                     </Typography>
                     <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
-                        On this page take some time to think about your monthly expenses that change and try to come up with an average of what you pay.
+                        In the DAMN Plan, Determined-Decisions are decisions you make that are based on the truth and backed up with your resolve and willingness to act.
+                    </Typography>
+                    <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
+                        With that definition in mind, as you enter your expenses you can decide to enter your expenses as they are today or 
+                        you can choose to enter your estimated expenses based on your goals and your DAMN Plan for the future.
                     </Typography>
                     <form onSubmit={handleSubmit}>
                         <Grid container spacing={2} justifyContent="center">
                             <Grid item xs={12} md={6}>
-                                <TextField name="food" label="Food" fullWidth value={formValues.food} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
+                                <TextField name="food" label="Groceries" fullWidth value={formValues.food} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                                 <TextField name="clothing" label="Clothing" fullWidth value={formValues.clothing} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                                 <TextField name="personalCare" label="Personal Care" fullWidth value={formValues.personalCare} onChange={handleInputChange} sx={{ marginBottom: 2 }} />
                                 <TextField name="recreation" label="Recreation" fullWidth value={formValues.recreation} onChange={handleInputChange} sx={{ marginBottom: 2 }} />

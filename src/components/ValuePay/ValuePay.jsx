@@ -94,7 +94,7 @@ export default function ValuePay(props) {
   return (
     <Main open={open}>
       <Container>
-        <Typography textAlign={'center'} color={'primary'} variant='h2'>Your Value Pay</Typography>
+        <Typography textAlign={'center'} color={'primary'} variant='h2'>Your Value Pay to Pay Yourself</Typography>
         <Typography textAlign={'center'} variant='subtitle1'>This is the amount you'll need to pay yourself to ensure your expenses are covered. Furthermore, it serves as a tool to visualize your ideal compensation. Here, you have the freedom to explore and experiment with numbers to answer that lingering question: What if?</Typography>
         <Grid container xs={12}>
           <Grid xs={6} textAlign={'center'}>

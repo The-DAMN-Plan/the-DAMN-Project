@@ -113,13 +113,13 @@ function StartPlan() {
                 <Paper sx={{p:3}}>
 
                     <Typography variant="h3" color={'primary'} align="center" gutterBottom>
-                        Committed Expenses Page 1
+                        Personal Expenses
                     </Typography>
                     <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
-                        Your singular goal in business is to "meet your customer's wants and needs at a profit" and pay yourself!
+                        Meeting your customer’s wants and needs at a profit is The DAMN Plan which means paying yourself at a minimum what you need to cover your monthly expenses.
                     </Typography>
                     <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
-                        Take some time to think about monthly living expenses. This will help figure out how much your value is.
+                        In this section, you will enter your Personal Expenses. These are the bills that must be paid every month. 
                     </Typography>
                     <form onSubmit={handleSubmit}>
                         <Grid container spacing={2} justifyContent="center">

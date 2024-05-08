@@ -24,6 +24,7 @@ function PersonalSavings() {
         emergencySavings: '',
         retirement: '',
         investments: '',
+        othersavings: ''
     });
 
     useEffect(() => {
@@ -39,7 +40,8 @@ function PersonalSavings() {
             personalAllowance: getExpenseAmount('personalAllowance'),
             emergencySavings: getExpenseAmount('emergencySavings'),
             retirement: getExpenseAmount('retirement'),
-            investments: getExpenseAmount('investments')
+            investments: getExpenseAmount('investments'),
+            othersavings: getExpenseAmount('othersavings')
         };
         setFormValues(newFormValues);
     };
@@ -105,10 +107,15 @@ function PersonalSavings() {
                 <Paper sx={{ p: 3 }}>
 
                     <Typography variant="h3" color={'primary'} align="center" gutterBottom>
-                        Committed Expenses Page 3
+                        Personal Expenses
                     </Typography>
                     <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
-                        Take some time to think about the money you want to save for like retirement, spending money, etc.
+                        One of the ways to better manage your personal spending is to give yourself an allowance every month to spend on yourself. 
+                        If you learn to stay within the limit you have set, you can greatly decrease the leaks in your bank account. 
+                        In addition, planning for emergencies and stashing away cash into a savings account every month can help eliminate the pain of unexpected expenses that may drain the bank account.
+                    </Typography>
+                    <Typography variant="subtitle1" align="center" gutterBottom sx={{ marginBottom: 2 }}>
+                        Finally, your pathway to financial success is to invest in your future. Make it a budget item, not a hope.
                     </Typography>
 
                     <form onSubmit={handleSubmit}>
@@ -126,6 +133,12 @@ function PersonalSavings() {
                                     value={formValues.emergencySavings}
                                     onChange={handleInputChange}
                                     sx={{ marginBottom: 2 }} />
+                                <TextField name="othersavings"
+                                label="Other Savings"
+                                fullWidth
+                                value={formValues.othersavings}
+                                onChange={handleInputChange}
+                                sx={{ marginBottom: 2 }}/>
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <TextField name="retirement"

@@ -76,7 +76,12 @@ function FuturePlans() {
                         Future Plans
                     </Typography>
                     <Typography variant="body1" gutterBottom textAlign={'center'}>
-                        If you have any future plans that you’d like to account for. Now is the time to put as many of them into your budget as you’d like. These could be many things like trips, etc.</Typography>
+                        Saving for future expenses is always a damn good idea! In this section identify your future planned expenses. 
+                        These items may include a down payment on a house, a trip, a new car, or paying for your child’s education. This is all about your plan - your dreams.
+                    </Typography>
+                    <Typography variant="body1" gutterBottom textAlign={'center'}>
+                        Your future plans can be the kickass motivation you need to work your DAMN Plan!
+                    </Typography>
                     <Grid container justifyContent={'center'}>
                         <Grid display={'flex'} alignItems={'center'}>
                             <TextField label="Name of Plan" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />

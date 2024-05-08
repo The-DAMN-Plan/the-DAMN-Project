@@ -64,7 +64,7 @@ function OtherExpenses() {
                         Other Expenses
                     </Typography>
                     <Typography variant="body1" gutterBottom textAlign={'center'} sx={{ mb: 3 }}>
-                        Enter any additional expenses you have here. You can add as many as you need.
+                        If you have items on your budget that have not been mentioned, enter any additional items here.
                     </Typography>
                     <Grid container justifyContent={'center'}>
                         <Grid display={'flex'} alignItems={'center'}>
