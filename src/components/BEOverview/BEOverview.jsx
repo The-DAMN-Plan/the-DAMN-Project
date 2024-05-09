@@ -48,7 +48,7 @@ export default function BEOverview(props) {
   function calculateInitalVE() {
     let totalVE = 0;
     totalVE = (totalExpenseToDeliver/ totalIncome) * 100;
-    return totalVE;
+    return totalVE.toFixed(2);
   }
 
   const initalVE = calculateInitalVE();
