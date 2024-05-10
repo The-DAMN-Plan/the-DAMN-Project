@@ -13,8 +13,14 @@ const expense = [
 // Should be 
 
 // Simulated setTotalPersonalExpenses function
+const personalExpensesAnswer = 750;
 const setTotalPersonalExpenses = (total) => {
     console.log('Total personal expenses:', total);
+    if (total === personalExpensesAnswer) {
+        console.log(true, 'Personal expenses calculation successful.');
+    } else {
+        console.log(false, 'Personal expenses calculation failed. Expected:', personalExpensesAnswer, 'Actual:', total);
+    }
 };
 
 // Simulate the useEffect hook for personal expenses
@@ -58,8 +64,14 @@ const futurePlans = [
 
 
 // Simulated setTotalFutureSavings function
+const futurePlansAnswer = 13000;
 const setTotalFutureSavings = (total) => {
     console.log('Total future savings:', total);
+    if (total === futurePlansAnswer) {
+        console.log(true, 'Future savings calculation successful.');
+    } else {
+        console.log(false, 'Future savings calculation failed. Expected:', futurePlansAnswer, 'Actual:', total);
+    }
 };
 
 // Simulate the useEffect hook for future plans
@@ -94,8 +106,14 @@ const totalFutureSavings = 13000; // Answer from the future plans toal test
 const percent = 50; // Example value
 
 // Simulated setRequiredIncome function
+const requiredIncomeAnswer = 6875;
 const setRequiredIncome = (newRequiredIncome) => {
     console.log('New required income:', newRequiredIncome);
+    if (newRequiredIncome === requiredIncomeAnswer) {
+        console.log(true, 'Required income calculation successful.');
+    } else {
+        console.log(false, 'Required income calculation failed. Expected:', requiredIncomeAnswer, 'Actual:', newRequiredIncome);
+    }
 };
 
 // Simulate the useEffect hook for calculating required income
@@ -118,3 +136,40 @@ const YourComponentRequiredIncome = ({ totalPersonalExpenses, totalFutureSavings
 console.log('Rendering required income component...');
 YourComponentRequiredIncome({ totalPersonalExpenses, totalFutureSavings, percent });
 // Output should log the new required income calculated by the useEffect hook for required income
+
+
+
+const requiredIncome = 6875; // Example value
+const vpIncome = 1000; // Example value
+const dollarAmount = 3000; // Example value
+
+// Simulated setValuePay function
+const valuePayAnswer = 9875;
+const setValuePay = (newValuePay) => {
+  console.log('New value pay:', newValuePay);
+  if (newValuePay === valuePayAnswer) {
+      console.log(true, 'Value pay calculation successful.');
+  } else {
+      console.log(false, 'Value pay calculation failed. Expected:', valuePayAnswer, 'Actual:', newValuePay);
+  }
+};
+
+// Simulate the useEffect hook for updating value pay
+const useEffectUpdateValuePay = (effect, dependencies) => {
+  console.log('useEffect for updating value pay is triggered');
+  effect(); // Trigger the effect
+};
+
+// Simulated component for updating value pay
+const YourComponentUpdateValuePay = ({ requiredIncome, dollarAmount }) => {
+  useEffectUpdateValuePay(() => {
+      const findValuePay = requiredIncome + Number(dollarAmount);
+      setValuePay(findValuePay);
+  }, [requiredIncome, dollarAmount]);
+
+  return null; // Component doesn't render anything
+};
+
+console.log('Rendering update value pay component...');
+YourComponentUpdateValuePay({ requiredIncome, vpIncome, dollarAmount });
+// Output should log the new value pay calculated by the useEffect hook for updating value pay
