@@ -119,7 +119,7 @@ export default function ValuePay(props) {
           <Grid xs={6} textAlign={'center'}>
             <Paper sx={{ m: 2, p: 2 }}>
               <Typography textAlign={'center'} variant='h4'>Owner Pay</Typography>
-              <Typography textAlign={'center'} variant='subtitle1'>Beyond the amount shown as required income, what  is the additional value pay that you want to deposit every month in your bank account?</Typography>
+              <Typography textAlign={'center'} variant='subtitle1'>Beyond the amount shown as required income, what is the additional value pay that you want to deposit every month in your bank account?</Typography>
               <TextField
                 fullWidth variant="outlined"
                 type="number"
