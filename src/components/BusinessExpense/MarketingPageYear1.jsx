@@ -10,6 +10,7 @@ import Currency from '../Shared/Currency';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
+import EditDialog from './EditDialog';
 
 
 
@@ -95,8 +96,19 @@ function MarketingBudgetYear1() {
         const budgetObjId = budgetId.budgetId;
         dispatch({ type: 'DELETE_EXPENSE', payload: { expenseId, budgetObjId } })
     };
+    // const handleEdit = (expenseId) => {
+    //     const budgetObjId = budgetId.budgetId;
+    //     data = [{
+    //         budget_id: "3",
+    //         expense_amount: 1200,
+    //         expense_name: "accountingSupport",
+    //         type: "business expense"}]
+    //     dispatch({ type: 'DELETE_EXPENSE', payload: { expenseId, budgetObjId } })
+    // };
 
-    const filteredExpenses = expense.filter(item => item.type === 'business marketing' && item.year === 1);
+
+
+    const filteredExpenses = expense.filter(item => item.type === 'business marketing');
 
     return (
 
@@ -186,7 +198,7 @@ function MarketingBudgetYear1() {
                             />
                         </Grid>
                         <Grid item xs={12} textAlign={'center'}>
-                            <Button variant="contained" color="primary" onClick={handleAddExpense}>Submit</Button>
+                            <Button variant="contained" color="primary" onClick={handleAddExpense} >Submit</Button>
                         </Grid>
                     </Grid>
 
@@ -245,19 +257,90 @@ function MarketingBudgetYear1() {
                                         {/* Calculate Yearly Expense */}
                                         <Currency value={expense.frequency * expense.cost_per_use * 12} />
                                     </TableCell>
+                                    {/* <TableCell align="center">
+                                        <Button variant="outlined" onClick={()=>handleEdit(expense.id)}>Edit</Button>
+                                    </TableCell> */}
+                                    <TableCell>
+                                        <EditDialog budget_id={budgetId.budgetId} expense_id={expense.id}  action='UPDATE_EXPENSE'>
+                                            <Grid container spacing={2} alignItems="center" justifyContent={'center'}>
+                                                <Grid item xs={12} md={4}>
+                                                    <TextField
+                                                        name="expense_name"
+                                                        label="Service/ Item"
+                                                        defaultValue={expense.expense_name}
+                                                        fullWidth
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={12} md={4}>
+                                                    <TextField
+                                                        name="facilitator"
+                                                        label="Service Provider"
+                                                        defaultValue={expense.facilitator}
+                                                        fullWidth
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={12} md={4}>
+                                                    <TextField
+                                                        name="cost_per_use"
+                                                        label="Cost Per Use"
+                                                        defaultValue={expense.cost_per_use}
+                                                        fullWidth
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <TextField
+                                                        name="assets_needed"
+                                                        label="Assets Needed"
+                                                        defaultValue={expense.assets_needed}
+                                                        fullWidth
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <TextField
+                                                        name="frequency"
+                                                        label="Monthly Usage Count"
+                                                        defaultValue={expense.frequency}
+                                                        fullWidth
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <FormControl fullWidth>
+                                                        <InputLabel id="vendor-label">Vendor</InputLabel>
+                                                        <Select
+                                                            labelId="vendor-label"
+                                                            name='vendor'
+                                                            defaultValue={expense.vendor}
+                                                            label="Vendor"
+                                                        >
+                                                            <MenuItem value="Contractor">Contractor</MenuItem>
+                                                            <MenuItem value="In-House">In-House</MenuItem>
+                                                        </Select>
+                                                    </FormControl>
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <TextField
+                                                        name="timing"
+                                                        label="Payment Interval"
+                                                        defaultValue={expense.timing}
+                                                        fullWidth
+                                                    />
+                                                </Grid>
+                                            </Grid>     
+                                        </EditDialog>
+                                    </TableCell>
                                     <TableCell align="center">
-                                        <Button onClick={() => handleDeleteFromDB(expense.id)} variant="outlined" color="secondary">Delete</Button>
+                                        <Button onClick={() => handleDeleteFromDB(expense.id)} variant="contained" color="secondary">Delete</Button>
                                     </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
 
-                    <Box paddingTop={'24px'} textAlign={'center'}>
+                    {/* <Box paddingTop={'24px'} textAlign={'center'}>
                         <Button variant='contained' type='button' onClick={() => handleSubmit(event)}>
                             Save
                         </Button>
-                    </Box>
+                    </Box> */}
 
                     <ProgressBar next={'hrpagey1'} back={'businessexpensepage2'} value={72} budgetId={budgetId} />
                 </Paper>
