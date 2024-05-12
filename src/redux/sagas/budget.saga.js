@@ -18,7 +18,9 @@ function* startPlan(action) {
 
 function* fetchBudget(action) {
     try {
+        console.log('fetch budget id:', action.payload);
         const response = yield axios.get(`/api/budget/${action.payload}`)
+        console.log('response fetch budget:', response.data);
         yield put({
             type: 'SET_FINAL_BUDGET',
             payload: response.data

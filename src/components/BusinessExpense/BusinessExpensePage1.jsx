@@ -26,6 +26,10 @@ export default function BusinessExpense(params) {
         const expenseItem = expense.find(item => item.expense_name === expenseName);
         return expenseItem ? expenseItem.expense_amount : '';
     };
+    const getExpenseId = (expenseName) => {
+        const expenseItem = expense.find(item => item.expense_name === expenseName);
+        return expenseItem ? expenseItem.id : '';
+    };
 
     const handleExpense = () => {
         const newFormValues = {
@@ -43,43 +47,49 @@ export default function BusinessExpense(params) {
     //default values for each input start at 0 incase user does not input anything 
     const [userEntry, setUserEntry] = useState([
         {
+            expense_id: getExpenseId('accountingSupport'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('accountingSupport') || "0",
             expense_name: "accountingSupport",
             type: "business expense"
         },
         {
+            expense_id: getExpenseId('insuranceGeneral'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('insuranceGeneral') || "0",
             expense_name: "insuranceGeneral",
             type: "business expense"
         },
         {
+            expense_id: getExpenseId('insuranceHealthLifeDisability'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('insuranceHealthLifeDisability') || "0",
             expense_name: "insuranceHealthLifeDisability",
             type: "business expense"
         },
         {
+            expense_id: getExpenseId('legal'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('legal') || "0",
             expense_name: "legal",
             type: "business expense"
         },
         {
+            expense_id: getExpenseId('coaching'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('coaching') || "0",
             expense_name: "coaching",
             type: "business expense"
         },
         {
+            expense_id: getExpenseId('travelLodging'),
             budget_id: budgetId.budgetId,
-
             expense_amount: getExpenseAmount('travelLodging') || "0",
             expense_name: "travelLodging",
             type: "business expense"
         },
         {
+            expense_id: getExpenseId('clientTravelMeals'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('clientTravelMeals') || "0",
             expense_name: "clientTravelMeals",
@@ -139,12 +149,16 @@ export default function BusinessExpense(params) {
             step: 'businessexpensepage1'
         }
 
+        console.log(userEntry);
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
         dispatch({ type: 'UPDATE_STATUS', payload: updateObj })
     };
 
     const handleEdit = () => {
+        console.log(userEntry);
+        console.log('expense: ',expense);
         dispatch({ type: 'UPDATE_EXPENSE', payload: userEntry })
+       
     }
 
     const isStartPlanCompleted = status.find(s => s.step === 'businessexpensepage1')?.completed;
