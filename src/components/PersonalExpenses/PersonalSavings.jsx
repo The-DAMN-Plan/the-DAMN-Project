@@ -18,7 +18,6 @@ function PersonalSavings() {
     const finalBudget = useSelector((store) => store.finalBudget);
     const expense = useSelector((store) => store.expense);
     const status = useSelector((store) => store.status);
-    const [userEntry, setUserEntry] = useState([]);
     const [formValues, setFormValues] = useState({
         personalAllowance: '',
         emergencySavings: '',
@@ -35,6 +34,16 @@ function PersonalSavings() {
         handleExpense();
     }, [expense]); // Call handleExpense whenever expense changes
 
+    const getExpenseAmount = (expenseName) => {
+        const expenseItem = expense.find(item => item.expense_name === expenseName);
+        return expenseItem ? expenseItem.expense_amount : '';
+    };
+
+    const getExpenseId = (expenseName) => {
+        const expenseItem = expense.find(item => item.expense_name === expenseName);
+        return expenseItem ? expenseItem.id : '';
+    };
+
     const handleExpense = () => {
         const newFormValues = {
             personalAllowance: getExpenseAmount('personalAllowance'),
@@ -46,10 +55,45 @@ function PersonalSavings() {
         setFormValues(newFormValues);
     };
 
-    const getExpenseAmount = (expenseName) => {
-        const expenseItem = expense.find(item => item.expense_name === expenseName);
-        return expenseItem ? expenseItem.expense_amount : '';
-    };
+    const [userEntry, setUserEntry] = useState([
+        {
+            expense_id: getExpenseId('personalAllowance'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('personalAllowance') || "0",
+            expense_name: "personalAllowance",
+            type: "personal committed"
+        },
+        {
+            expense_id: getExpenseId('emergencySavings'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('emergencySavings') || "0",
+            expense_name: "emergencySavings",
+            type: "personal committed"
+        },
+        {
+            expense_id: getExpenseId('retirement'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('retirement') || "0",
+            expense_name: "retirement",
+            type: "personal committed"
+        },
+        {
+            expense_id: getExpenseId('investments'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('investments') || "0",
+            expense_name: "investments",
+            type: "personal committed"
+        },
+        {
+            expense_id: getExpenseId('othersavings'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('othersavings') || "0",
+            expense_name: "othersavings",
+            type: "personal committed"
+        }
+    ]);
+
+
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;

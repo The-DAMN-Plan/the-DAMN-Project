@@ -12,7 +12,6 @@ function VariableExpenses() {
     const expense = useSelector((store) => store.expense);
     const status = useSelector((store) => store.status);
     const open = useSelector((store) => store.sideNav);
-    const [userEntry, setUserEntry] = useState([])
     const [formValues, setFormValues] = useState({
         food: '',
         clothing: '',
@@ -32,6 +31,16 @@ function VariableExpenses() {
         handleExpense();
     }, [expense]); // Call handleExpense whenever expense changes
 
+    const getExpenseAmount = (expenseName) => {
+        const expenseItem = expense.find(item => item.expense_name === expenseName);
+        return expenseItem ? expenseItem.expense_amount : '';
+    };
+
+    const getExpenseId = (expenseName) => {
+        const expenseItem = expense.find(item => item.expense_name === expenseName);
+        return expenseItem ? expenseItem.id : '';
+    };
+
     const handleExpense = () => {
         const newFormValues = {
             food: getExpenseAmount('food'),
@@ -46,10 +55,64 @@ function VariableExpenses() {
         setFormValues(newFormValues);
     };
 
-    const getExpenseAmount = (expenseName) => {
-        const expenseItem = expense.find(item => item.expense_name === expenseName);
-        return expenseItem ? expenseItem.expense_amount : '';
-    };
+    const [userEntry, setUserEntry] = useState([
+        {
+            expense_id: getExpenseId('food'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('food') || "0",
+            expense_name: "food",
+            type: "personal decision"
+        },
+        {
+            expense_id: getExpenseId('clothing'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('clothing') || "0",
+            expense_name: "clothing",
+            type: "personal decision"
+        },
+        {
+            expense_id: getExpenseId('personalCare'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('personalCare') || "0",
+            expense_name: "personalCare",
+            type: "personal decision"
+        },
+        {
+            expense_id: getExpenseId('recreation'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('recreation') || "0",
+            expense_name: "recreation",
+            type: "personal decision"
+        },
+        {
+            expense_id: getExpenseId('gifts'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('gifts') || "0",
+            expense_name: "gifts",
+            type: "personal decision"
+        },
+        {
+            expense_id: getExpenseId('gas'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('gas') || "0",
+            expense_name: "gas",
+            type: "personal decision"
+        },
+        {
+            expense_id: getExpenseId('carRepairs'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('carRepairs') || "0",
+            expense_name: "carRepairs",
+            type: "personal decision"
+        },
+        {
+            expense_id: getExpenseId('homeMaintenance'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('homeMaintenance') || "0",
+            expense_name: "homeMaintenance",
+            type: "personal decision"
+        }
+    ]);
 
 
     const handleInputChange = (event) => {

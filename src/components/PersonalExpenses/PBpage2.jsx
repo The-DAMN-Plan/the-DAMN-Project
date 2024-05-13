@@ -31,6 +31,16 @@ function PBpage2() {
         handleExpense();
     }, [expense]); // Call handleExpense whenever expense changes
 
+    const getExpenseAmount = (expenseName) => {
+        const expenseItem = expense.find(item => item.expense_name === expenseName);
+        return expenseItem ? expenseItem.expense_amount : '';
+    };
+
+    const getExpenseId = (expenseName) => {
+        const expenseItem = expense.find(item => item.expense_name === expenseName);
+        return expenseItem ? expenseItem.id : '';
+    };
+
     const handleExpense = () => {
         const newFormValues = {
             realEstateTax: getExpenseAmount('realEstateTax'),
@@ -42,12 +52,43 @@ function PBpage2() {
         setFormValues(newFormValues);
     };
 
-    const getExpenseAmount = (expenseName) => {
-        const expenseItem = expense.find(item => item.expense_name === expenseName);
-        return expenseItem ? expenseItem.expense_amount : '';
-    };
-
-    const [userEntry, setUserEntry] = useState([])
+    const [userEntry, setUserEntry] = useState([
+        {
+            expense_id: getExpenseId('realEstateTax'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('realEstateTax') || "0",
+            expense_name: "realEstateTax",
+            type: "personal committed"
+        },
+        {
+            expense_id: getExpenseId('carInsurance'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('carInsurance') || "0",
+            expense_name: "carInsurance",
+            type: "personal committed"
+        },
+        {
+            expense_id: getExpenseId('houseInsurance'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('houseInsurance') || "0",
+            expense_name: "houseInsurance",
+            type: "personal committed"
+        },
+        {
+            expense_id: getExpenseId('creditCard'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('creditCard') || "0",
+            expense_name: "creditCard",
+            type: "personal committed"
+        },
+        {
+            expense_id: getExpenseId('loanPayments'),
+            budget_id: budgetId.budgetId,
+            expense_amount: getExpenseAmount('loanPayments') || "0",
+            expense_name: "loanPayments",
+            type: "personal committed"
+        }
+    ]);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
