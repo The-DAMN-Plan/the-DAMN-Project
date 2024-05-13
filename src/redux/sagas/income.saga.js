@@ -9,6 +9,17 @@ function* addRevenueStream(action) {
     }
 }
 
+// action payload contains the budget id and other revenue data to update
+function* updateRevenue(action) {
+    try {
+        yield axios.put(`/api/budget/revenuestream`, action.payload);
+        yield put({ type: 'BUDGET_PLAN', payload: action.payload[0].budget_id });
+    } catch (error) {
+        console.log('Error updating revenue', error);
+    }
+    
+}
+
 function* deleteRevenueStream(action) {
     try {
         const { incomeId, budgetObjId } = action.payload; // Destructure futurePlanId and budgetId from payload
@@ -22,6 +33,7 @@ function* deleteRevenueStream(action) {
 function* incomeSaga() {
     yield takeLatest('ADD_BUSINESS_INCOME', addRevenueStream);
     yield takeLatest('DELETE_INCOME', deleteRevenueStream);
+    yield takeLatest('UPDATE_REVENUE', updateRevenue);
 }
 
 export default incomeSaga;

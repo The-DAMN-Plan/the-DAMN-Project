@@ -22,7 +22,7 @@ export default function EditDialog(props){
         const formData = new FormData(event.currentTarget);
         const formJson = Object.fromEntries(formData.entries());
         console.log("form JSON", formJson);
-        console.log('expense id',props.budget_id, props.expense_id);
+        console.log('id',props.budget_id, props.expense_id);
         dispatch({
             type: props.action,
             payload: [{budget_id:props.budget_id, id:props.id,  ...formJson}]

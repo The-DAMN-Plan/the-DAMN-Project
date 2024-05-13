@@ -242,10 +242,11 @@ function Year1Income() {
                   <TableCell>{income1.purchasers}</TableCell>
                   <TableCell><Currency value={(income1.price - income1.cost_of_delivery) / income1.time_used} /></TableCell>
                   <TableCell>
-                    <EditDialog budget_id={budgetId.budgetId} id={income1.id} >
-                      <Grid container spacing={2}>
+                    <EditDialog budget_id={budgetId.budgetId} id={income1.id} action='UPDATE_REVENUE' >
+                      <Grid container spacing={2} alignItems="center">
                         <Grid item xs={12} sm={6} md={6}>
                           <TextField
+                            name='revenue_stream'
                             fullWidth
                             label="Name of Service/Product"
                             defaultValue={income1.revenue_stream}
@@ -253,6 +254,7 @@ function Year1Income() {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                           <TextField
+                            name='description'
                             fullWidth
                             label="Description"
                             defaultValue={income1.description}
@@ -260,6 +262,7 @@ function Year1Income() {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                           <TextField
+                            name='price'
                             fullWidth
                             label="Price"
                             type='number'
@@ -269,6 +272,7 @@ function Year1Income() {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                           <TextField
+                            name='unit'
                             fullWidth
                             label="Unit"
                             defaultValue={income1.unit}
@@ -276,6 +280,7 @@ function Year1Income() {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                           <TextField
+                            name='time_used'
                             fullWidth
                             label="Time Used"
                             defaultValue={income1.time_used}
@@ -283,6 +288,7 @@ function Year1Income() {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                           <TextField
+                            name='cost_of_delivery'
                             fullWidth
                             label="Cost Per Delivery"
                             defaultValue={income1.cost_of_delivery}
@@ -290,6 +296,7 @@ function Year1Income() {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                           <TextField
+                            name='ideal_client'
                             fullWidth
                             label="Ideal Client"
                             defaultValue={income1.ideal_client}
@@ -299,6 +306,7 @@ function Year1Income() {
                           <FormControl fullWidth>
                             <InputLabel id="rate-of-love-label">Rate of Love</InputLabel>
                             <Select
+                              name='rate_of_love'
                               labelId="rate-of-love-label"
                               id="rate-of-love"
                               defaultValue={income1.rate_of_love}
@@ -315,6 +323,7 @@ function Year1Income() {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                           <TextField
+                            name='purchasers'
                             fullWidth
                             label="Purchasers"
                             defaultValue={income1.purchasers}

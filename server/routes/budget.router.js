@@ -318,16 +318,27 @@ router.post('/revenuestream', async (req, res) => {
   }
 });
 
-router.put('/revenuestream', (req,res)=>{
+router.put('/revenuestream', async (req,res)=>{
   console.log('updating revenue stream ...');
-  const query = ``;
-  pool.query(query, []).then(()=>{
-    res.sendStatus(200);
-  }).catch((error)=>{
+  const query = `update "revenue_streams" set "revenue_stream"=$1,"description"=$2,"price"=$3,
+  "unit"=$4,"time_used"=$5,"ideal_client"=$6,"rate_of_love"=$7,"purchasers"=$8,"cost_of_delivery"=$9
+  where "budget_id"=$10 and "id"=$11 returning *`;
+  const data = req.body;
+  try{
+    for (const revenueStream of data) {
+      pool.query(query, [revenueStream.revenue_stream, revenueStream.description, revenueStream.price, 
+        revenueStream.unit, revenueStream.time_used,
+        revenueStream.ideal_client, revenueStream.rate_of_love, revenueStream.purchasers, 
+        revenueStream.cost_of_delivery, revenueStream.budget_id, revenueStream.id])
+
+    }
+      res.sendStatus(200);
+  } catch(error){
     console.error(error);
     res.sendStatus(500);
-  })
-})
+  }
+});
+
 // Deletes a business income by ID
 router.delete('/revenuestream/:id', async (req, res) => {
   // delete route code here
