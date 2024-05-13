@@ -2,6 +2,7 @@ import { Container, Typography, Paper, TextField, InputAdornment, Button, Box } 
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Grid from '@mui/material/Unstable_Grid2';
+import Confetti from 'js-confetti';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Main from '../Main/Main';
