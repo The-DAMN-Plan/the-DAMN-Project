@@ -137,7 +137,7 @@ export default function HumanResourcesPage1() {
                                     <TableCell align="right"><Currency value={formValues.expense_amount * formValues.frequency} /></TableCell>
                                     <TableCell align="right"><Currency value={formValues.expense_amount * formValues.frequency * 4.3333333333} /></TableCell>
                                     <TableCell align="center">
-                                        <EditDialog budget_id={budgetId.budgetId} expense_id={formValues.id} action='UPDATE_EXPENSE'>
+                                        <EditDialog budget_id={budgetId.budgetId} id={expense.id} action='UPDATE_EXPENSE'>
                                             <Grid container spacing={2} alignformValuess="center" justifyContent={'center'} sx={{ mt: 4 }}>
                                                 <Grid formValues xs={12} md={5}>
                                                     <TextField

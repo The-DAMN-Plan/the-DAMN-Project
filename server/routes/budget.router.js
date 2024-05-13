@@ -266,12 +266,12 @@ router.put('/expense', async (req, res) => {
   //   vendor: 'In-House',
   //   payment_interval: 'Annual'
   // }
-  // console.log(data);
+  console.log(data);
   try {
     for (const expense of data) {
       let response = await pool.query(sql, [expense.expense_name, expense.expense_amount, expense.expense_percent_changes, 
         expense.frequency, expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use,
-        expense.assets_needed, expense.service, expense.budget_id, expense.expense_id]);
+        expense.assets_needed, expense.service, expense.budget_id, expense.id]);
       // await pool.query(sql, [expense.expense_name, expense.expense_amount, expense.expense_percent_changes, 
       //   expense.year, expense.frequency, expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use,
       //   expense.assets_needed, expense.service, expense.budget_id]);
@@ -303,13 +303,13 @@ router.delete('/expense/:id', async (req, res) => {
 router.post('/revenuestream', async (req, res) => {
   // POST route code here
   const sql = `INSERT INTO "revenue_streams" ("budget_id", "revenue_stream", "description", "price",
-    "unit", "time_used", "ideal_client", "rate_of_love", "purchasers", "year", "cost_of_delivery") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *;`;
+    "unit", "time_used", "ideal_client", "rate_of_love", "purchasers","cost_of_delivery") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;`;
   const data = req.body;
   try {
     for (const revenueStream of data) {
       const result = await pool.query(sql, [
         revenueStream.budget_id, revenueStream.revenue_stream, revenueStream.description, revenueStream.price, revenueStream.unit, revenueStream.time_used,
-        revenueStream.ideal_client, revenueStream.rate_of_love, revenueStream.purchasers, revenueStream.year, revenueStream.cost_of_delivery]);
+        revenueStream.ideal_client, revenueStream.rate_of_love, revenueStream.purchasers, revenueStream.cost_of_delivery]);
     }
     res.sendStatus(200);
   } catch (error) {
@@ -318,6 +318,16 @@ router.post('/revenuestream', async (req, res) => {
   }
 });
 
+router.put('/revenuestream', (req,res)=>{
+  console.log('updating revenue stream ...');
+  const query = ``;
+  pool.query(query, []).then(()=>{
+    res.sendStatus(200);
+  }).catch((error)=>{
+    console.error(error);
+    res.sendStatus(500);
+  })
+})
 // Deletes a business income by ID
 router.delete('/revenuestream/:id', async (req, res) => {
   // delete route code here
@@ -326,7 +336,7 @@ router.delete('/revenuestream/:id', async (req, res) => {
 
   try {
     await pool.query(sql, [revenue_id]);
-    res.send(200);
+    res.sendStatus(200);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);

@@ -261,7 +261,7 @@ function MarketingBudgetYear1() {
                                         <Button variant="outlined" onClick={()=>handleEdit(expense.id)}>Edit</Button>
                                     </TableCell> */}
                                     <TableCell>
-                                        <EditDialog budget_id={budgetId.budgetId} expense_id={expense.id}  action='UPDATE_EXPENSE'>
+                                        <EditDialog budget_id={budgetId.budgetId} id={expense.id}  action='UPDATE_EXPENSE'>
                                             <Grid container spacing={2} alignItems="center" justifyContent={'center'}>
                                                 <Grid item xs={12} md={4}>
                                                     <TextField

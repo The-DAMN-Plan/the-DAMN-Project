@@ -9,6 +9,7 @@ import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
 import Currency from '../Shared/Currency';
 import FormControl from '@mui/material/FormControl';
+import EditDialog from '../BusinessExpense/EditDialog';
 
 
 function Year1Income() {
@@ -33,7 +34,8 @@ function Year1Income() {
     dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
   }, [dispatch, budgetId]);
 
-  const handleAddRevenueStream = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     if (!revenueStream || !description || !price || !unit || !timeUsed || !costPerDelivery || !idealClient || !rateOfLove || !purchasers) return;
 
     const newRevenueStream = {
@@ -69,17 +71,10 @@ function Year1Income() {
       ideal_client: idealClient,
       rate_of_love: rateOfLove,
       purchasers: purchasers,
-      year: 1,
       cost_of_delivery: Number(costPerDelivery)
     };
 
-    setUserEntry([...userEntry, formData]);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    dispatch({ type: 'ADD_BUSINESS_INCOME', payload: userEntry });
+    dispatch({ type: 'ADD_BUSINESS_INCOME', payload: [formData] });
 
     const updateObj = {
       completed: true,
@@ -104,7 +99,7 @@ function Year1Income() {
     dispatch({ type: 'DELETE_INCOME', payload: { incomeId, budgetObjId } });
   };
 
-  const filteredIncomes = income.filter(item => item.year === 1);
+  const filteredIncomes = income.filter(item => item);
 
   const openVideo = () => {
     window.open('https://youtu.be/80XT9e_yN2Y', '_blank');
@@ -208,7 +203,7 @@ function Year1Income() {
               />
             </Grid>
             <Grid item xs={12} sm={6} md={3} display={'flex'} alignItems={'center'}>
-              <Button variant="contained" color="primary" onClick={handleAddRevenueStream}>
+              <Button variant="contained" color="primary" onClick={handleSubmit}>
                 Submit
               </Button>
             </Grid>
@@ -229,33 +224,11 @@ function Year1Income() {
                 <TableCell>Love Rating</TableCell>
                 <TableCell>Purchasers</TableCell>
                 <TableCell>Rate for Money</TableCell>
-                <TableCell>Action</TableCell>
+                <TableCell>Edit</TableCell>
+                <TableCell>Delete</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {revenueStreams.map((stream, index) => (
-                <TableRow key={index}>
-                  <TableCell>{stream.revenueStream}</TableCell>
-                  <TableCell>{stream.description}</TableCell>
-                  <TableCell><Currency value={stream.price} /></TableCell>
-                  <TableCell>{stream.unit}</TableCell>
-                  <TableCell>{stream.timeUsed}</TableCell>
-                  <TableCell><Currency value={Number(stream.costPerDelivery)} /></TableCell>
-                  <TableCell>{stream.idealClient}</TableCell>
-                  <TableCell>{stream.rateOfLove}</TableCell>
-                  <TableCell>{stream.purchasers}</TableCell>
-                  <TableCell><Currency value={(stream.price - Number(stream.costPerDelivery)) / stream.timeUsed} /></TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outlined"
-                      color="error"
-                      onClick={() => handleDeleteProduct(index)}
-                    >
-                      Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
               {filteredIncomes?.map((income1) => (
                 <TableRow key={income1.id}>
                   <TableCell>{income1.revenue_stream}</TableCell>
@@ -269,6 +242,88 @@ function Year1Income() {
                   <TableCell>{income1.purchasers}</TableCell>
                   <TableCell><Currency value={(income1.price - income1.cost_of_delivery) / income1.time_used} /></TableCell>
                   <TableCell>
+                    <EditDialog budget_id={budgetId.budgetId} id={income1.id} >
+                      <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <TextField
+                            fullWidth
+                            label="Name of Service/Product"
+                            defaultValue={income1.revenue_stream}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <TextField
+                            fullWidth
+                            label="Description"
+                            defaultValue={income1.description}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <TextField
+                            fullWidth
+                            label="Price"
+                            type='number'
+                            InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
+                            defaultValue={income1.price}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <TextField
+                            fullWidth
+                            label="Unit"
+                            defaultValue={income1.unit}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <TextField
+                            fullWidth
+                            label="Time Used"
+                            defaultValue={income1.time_used}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <TextField
+                            fullWidth
+                            label="Cost Per Delivery"
+                            defaultValue={income1.cost_of_delivery}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <TextField
+                            fullWidth
+                            label="Ideal Client"
+                            defaultValue={income1.ideal_client}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <FormControl fullWidth>
+                            <InputLabel id="rate-of-love-label">Rate of Love</InputLabel>
+                            <Select
+                              labelId="rate-of-love-label"
+                              id="rate-of-love"
+                              defaultValue={income1.rate_of_love}
+                              label="Rate of Love"
+                              style={{ width: '100%' }}
+                            >
+                              <MenuItem value={1}>1</MenuItem>
+                              <MenuItem value={2}>2</MenuItem>
+                              <MenuItem value={3}>3</MenuItem>
+                              <MenuItem value={4}>4</MenuItem>
+                              <MenuItem value={5}>5</MenuItem>
+                            </Select>
+                          </FormControl>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <TextField
+                            fullWidth
+                            label="Purchasers"
+                            defaultValue={income1.purchasers}
+                          />
+                        </Grid>
+                      </Grid>
+                    </EditDialog>
+                  </TableCell>
+                  <TableCell>
                     <Button
                       variant="outlined"
                       color="error"
@@ -281,11 +336,11 @@ function Year1Income() {
               ))}
             </TableBody>
           </Table>
-          <Box textAlign={'center'}>
+          {/* <Box textAlign={'center'}>
             <Button variant='contained' type='button' onClick={() => handleSubmit(event)}>
               Save
             </Button>
-          </Box>
+          </Box> */}
           <ProgressBar back={'valuepay'} next={'overview'} submit={handleSubmit} value={42} budgetId={budgetId} />
           <Grid container justifyContent="center" style={{ marginTop: 16 }}>
             <Grid item>

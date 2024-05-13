@@ -103,7 +103,7 @@ function OtherExpenses() {
                                         <Currency value={Number(expense.expense_amount)} />
                                     </TableCell>
                                     <TableCell>
-                                        <EditDialog budget_id={budgetId.budgetId} expense_id={expense.id} action='UPDATE_EXPENSE'>
+                                        <EditDialog budget_id={budgetId.budgetId} id={expense.id} action='UPDATE_EXPENSE'>
                                             <Grid container spacing={2} alignItems="center" justifyContent='center' >
                                                 <Grid>
                                                     <TextField name="expense_name" label="Name of Expense"  defaultValue={expense.expense_name}/>
@@ -112,7 +112,8 @@ function OtherExpenses() {
                                                     <TextField name="expense_amount" label="Amount" defaultValue={expense.expense_amount}/>
                                                 </Grid>
                                             </Grid>
-                                        </EditDialog>                                    </TableCell>
+                                        </EditDialog>                                    
+                                    </TableCell>
                                     <TableCell>
                                         <Button onClick={() => handleDeleteFromDB(expense.id)}>Delete</Button>
                                     </TableCell>

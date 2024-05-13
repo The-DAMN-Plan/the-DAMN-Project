@@ -25,7 +25,7 @@ export default function EditDialog(props){
         console.log('expense id',props.budget_id, props.expense_id);
         dispatch({
             type: props.action,
-            payload: [{budget_id:props.budget_id, expense_id:props.expense_id,  ...formJson}]
+            payload: [{budget_id:props.budget_id, id:props.id,  ...formJson}]
         });
         // [{
         //     budget_id: "3",
