@@ -63,7 +63,29 @@ function MarketingBudgetYear1() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userEntry });
+        if (!expenseName || !costPerUse || !vendor) return; // Validate input
+        const budgetIdObj = budgetId.budgetId;
+        const expenseNumber = Number(costPerUse * monthlyUsageCount * 12).toFixed(2);
+        const newCostPerUse = Number(parseFloat(costPerUse).toFixed(2));
+
+        const formData = {
+            expense_name: expenseName,
+            facilitator: serviceProvider,
+            timing: paymentInterval,
+            assets_needed: assetsNeeded,
+            cost_per_use: newCostPerUse,
+            vendor: vendor,
+            frequency: monthlyUsageCount,
+            year: 1,
+            budget_id: budgetIdObj,
+            expense_amount: expenseNumber,
+            type: 'business marketing'
+        };
+
+        console.log(formData);
+        setuserEntry([formData]);
+        console.log([formData]);
+        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: [formData] });
         const updateObj = {
             completed: true,
             budget_id: Number(budgetId.budgetId),
@@ -198,7 +220,7 @@ function MarketingBudgetYear1() {
                             />
                         </Grid>
                         <Grid item xs={12} textAlign={'center'}>
-                            <Button variant="contained" color="primary" onClick={handleAddExpense} >Submit</Button>
+                            <Button variant="contained" color="primary" onClick={handleSubmit} >Submit</Button>
                         </Grid>
                     </Grid>
 
@@ -218,28 +240,6 @@ function MarketingBudgetYear1() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {userEntry.map((value, index) => (
-                                <TableRow key={index}>
-                                    <TableCell>{value.expense_name}</TableCell>
-                                    <TableCell align="right">{value.facilitator}</TableCell>
-                                    <TableCell align="right">{value.timing}</TableCell>
-                                    <TableCell align="right">{value.assets_needed}</TableCell>
-                                    <TableCell align="right"><Currency value={value.cost_per_use} /></TableCell>
-                                    <TableCell align="right">{value.vendor}</TableCell>
-                                    <TableCell align="right">{value.frequency}</TableCell>
-                                    <TableCell align="right">
-                                        {/* Calculate Monthly Expense */}
-                                        <Currency value={value.frequency * value.cost_per_use} />
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        {/* Calculate Yearly Expense */}
-                                        <Currency value={value.frequency * value.cost_per_use * 12} />
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        <Button onClick={() => handleDeleteExpense(value.id)} variant="outlined" color="secondary">Delete</Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
                             {filteredExpenses?.map((expense) => (
                                 <TableRow key={expense.id}>
                                     <TableCell>{expense.expense_name}</TableCell>
