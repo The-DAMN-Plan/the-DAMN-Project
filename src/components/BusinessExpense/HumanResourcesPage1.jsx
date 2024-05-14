@@ -36,6 +36,13 @@ export default function HumanResourcesPage1() {
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: userInput });
         dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
 
+        const updateObj = {
+                    completed: true,
+                    budget_id: Number(budgetId.budgetId),
+                    step: 'hrpagey1'
+                }
+                dispatch({ type: 'UPDATE_STATUS', payload: updateObj })
+
         setExpenseName('');
         setService('');
         setExpenseAmount(0);
