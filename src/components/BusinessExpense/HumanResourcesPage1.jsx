@@ -64,11 +64,11 @@ export default function HumanResourcesPage1() {
             <Container >
                 <Paper sx={{ p: 3 }}>
 
-                    <Typography variant="h3" color={'primary'} textAlign={'center'} gutterBottom>Human Resource Expense to Resource Expense Budget</Typography>
+                    <Typography variant="h3" color={'primary'} textAlign={'center'} gutterBottom>Resource Expense Budget</Typography>
                     <Typography variant="subtitle1" textAlign={'center'} gutterBottom>Okay! Time for some more determined-decisions! Start by thinking about all the tasks that must be done for your business to run smoothly. Ask yourself, am I the best person for the job? If no, determine your human resources. Ask yourself, can this be outsourced or should I hire staff? Once you’ve made your plan, add those decisions below.</Typography>
                     {/* Grid container for input fields */}
-                    <form onSubmit={(e) => handleSubmit(e)}>
-                        <Grid container spacing={2} alignformValuess="center" justifyContent={'center'} sx={{ mt: 4 }}>
+                    <form onSubmit={(e) => handleSubmit(e)} >
+                        <Grid container spacing={2} alignformValuess="center" justifyContent={'center'} sx={{ mt: 3, mb: 2}}>
                             <Grid formValues xs={12} md={3}>
                                 <TextField
                                     name="expense_name"
@@ -89,7 +89,7 @@ export default function HumanResourcesPage1() {
                                     required
                                 />
                             </Grid>
-                            <Grid formValues xs={12} md={3}>
+                            <Grid formValues xs={12} md={2}>
                                 <TextField
                                     name="frequency"
                                     label="Units/Hours"
@@ -98,7 +98,7 @@ export default function HumanResourcesPage1() {
                                     fullWidth
                                 />
                             </Grid>
-                            <Grid item xs={12} md={3}>
+                            <Grid item xs={12} md={2}>
                                 <TextField
                                     name="expense_amount"
                                     label="Fee"
@@ -107,13 +107,13 @@ export default function HumanResourcesPage1() {
                                     fullWidth
                                 />
                             </Grid>
-                            <Grid item xs={12} textAlign={'center'} >
-                                <Button variant="contained" type='submit' color="primary">Submit</Button>
+                            <Grid item xs={12} md={2} textAlign={'center'} display={'flex'} flexDirection={'column'} justifyContent={'center'} >
+                                <Button variant="contained" type='submit' color="primary" size='large'>Submit</Button>
                             </Grid>
                         </Grid>
                     </form>
 
-                    <Table>
+                    <Table sx={{ mt: 5, mb: 8 }}>
                         <TableHead>
                             {/* Table headers aligned with the input fields */}
                             <TableRow>
@@ -123,7 +123,8 @@ export default function HumanResourcesPage1() {
                                 <TableCell align="right">Fee</TableCell>
                                 <TableCell align="right">Weekly Expense</TableCell>
                                 <TableCell align="right">Monthly Expense</TableCell>
-                                <TableCell align="right"></TableCell>
+                                <TableCell align="center">Edit</TableCell>
+                                <TableCell align="center">Delete</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -136,10 +137,10 @@ export default function HumanResourcesPage1() {
                                     <TableCell align="right"><Currency value={formValues.expense_amount} /></TableCell>
                                     <TableCell align="right"><Currency value={formValues.expense_amount * formValues.frequency} /></TableCell>
                                     <TableCell align="right"><Currency value={formValues.expense_amount * formValues.frequency * 4.3333333333} /></TableCell>
-                                    <TableCell align="center">
+                                    <TableCell align="right">
                                         <EditDialog budget_id={budgetId.budgetId} id={formValues.id} action='UPDATE_EXPENSE'>
-                                            <Grid container spacing={2} alignformValuess="center" justifyContent={'center'} sx={{ mt: 4 }}>
-                                                <Grid formValues xs={12} md={5}>
+                                            <Grid container spacing={2} alignformValuess="center" justifyContent={'center'}>
+                                                <Grid formValues xs={12} md={6}>
                                                     <TextField
                                                         name="expense_name"
                                                         label="Name"
@@ -149,7 +150,7 @@ export default function HumanResourcesPage1() {
                                                     />
                                                 </Grid>
                                                 
-                                                <Grid formValues xs={12} md={5}>
+                                                <Grid formValues xs={12} md={6}>
                                                     <TextField
                                                         name="frequency"
                                                         label="Units/Hours"
@@ -157,7 +158,7 @@ export default function HumanResourcesPage1() {
                                                         fullWidth
                                                     />
                                                 </Grid>
-                                                <Grid formValues xs={12} md={5}>
+                                                <Grid formValues xs={12} md={6}>
                                                     <TextField
                                                         name="service"
                                                         label="Service"
@@ -166,7 +167,7 @@ export default function HumanResourcesPage1() {
                                                         required
                                                     />
                                                 </Grid>
-                                                <Grid item xs={12} md={5}>
+                                                <Grid item xs={12} md={6}>
                                                     <TextField
                                                         name="expense_amount"
                                                         label="Fee"
@@ -184,11 +185,6 @@ export default function HumanResourcesPage1() {
                             ))}
                         </TableBody>
                     </Table>
-                    {/* <Box paddingTop={'24px'} textAlign={'center'}>
-                        <Button variant='contained' onClick={handleSave}>
-                            Save
-                        </Button>
-                    </Box> */}
                     <ProgressBar back={'marketingy1'} next={'otherbusiness'} value={84} budgetId={budgetId} />
                 </Paper>
             </Container>

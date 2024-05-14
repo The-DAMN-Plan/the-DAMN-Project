@@ -63,29 +63,37 @@ function OtherBusinessExp() {
                     </Typography>
                     <Typography variant="body1" textAlign={'center'} gutterBottom>
                     If you have items on your budget that have not been mentioned, enter any additional items here.                    </Typography>
-                    <Grid container justifyContent={'center'}>
-                        <Grid display={'flex'} alignItems={'center'}>
-                            <TextField label="Name of Expense" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
-                            <TextField label="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
-                            <Button variant='contained' onClick={handleAddExpense}>Submit</Button>
-                        </Grid>
+                    <Grid spacing={2} container alignItems="center" justifyContent={'center'} sx={{ mt: 5}}>
+                            {/* <TextField label="Name of Expense" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
+                            <TextField label="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} /> */}
+                            <Grid>
+                                <TextField label="Name of Expense" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
+                            </Grid>
+                            <Grid>
+                                <TextField label="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
+                            </Grid>
+                            <Grid>
+                                <Button size='large' variant='contained' onClick={handleAddExpense}>Submit</Button>
+                            </Grid>
+                            
                     </Grid>
-                    <Table>
+                    <Table sx={{ mt: 5, mb: 8 }}>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Name of Expense</TableCell>
-                                <TableCell>Amount</TableCell>
-                                <TableCell>Delete</TableCell>
+                                <TableCell align='left'>Name of Expense</TableCell>
+                                <TableCell align='left'>Amount</TableCell>
+                                <TableCell align='center'>Edit</TableCell>
+                                <TableCell align='center'>Delete</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {filteredExpenses?.map((expense) => (
                                 <TableRow key={expense.id}>
-                                    <TableCell>{expense.expense_name}</TableCell>
-                                    <TableCell>
+                                    <TableCell align='left' >{expense.expense_name}</TableCell>
+                                    <TableCell align='left'>
                                         <Currency value={Number(expense.expense_amount)} />
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell align='center'>
                                         <EditDialog budget_id={budgetId.budgetId} id={expense.id} action='UPDATE_EXPENSE'>
                                             <Grid container spacing={2} alignItems="center" justifyContent='center' >
                                                 <Grid>
@@ -97,7 +105,7 @@ function OtherBusinessExp() {
                                             </Grid>
                                         </EditDialog>
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell align='center'>
                                         <Button variant='contained' color='secondary' onClick={() => handleDeleteFromDB(expense.id)}>Delete</Button>
                                     </TableCell>
                                 </TableRow>

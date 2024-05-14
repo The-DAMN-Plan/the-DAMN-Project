@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
+import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography, TableContainer } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { InputLabel, Select, MenuItem, InputAdornment } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -116,7 +116,7 @@ function Year1Income() {
           <Typography variant="h6" gutterBottom>
             Add New Revenue Stream
           </Typography>
-          <Grid container spacing={3}>
+          <Grid container spacing={2}>
             <Grid item xs={12} sm={6} md={3}>
               <TextField
                 fullWidth
@@ -211,145 +211,142 @@ function Year1Income() {
           <Typography variant="h6" sx={{ mt: 4 }} gutterBottom>
             Revenue Streams
           </Typography>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Name of Service/Product</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Price</TableCell>
-                <TableCell>Unit</TableCell>
-                <TableCell>Time Used</TableCell>
-                <TableCell>Cost Per Delivery</TableCell>
-                <TableCell>Ideal Clients</TableCell>
-                <TableCell>Love Rating</TableCell>
-                <TableCell>Purchasers</TableCell>
-                <TableCell>Rate for Money</TableCell>
-                <TableCell>Edit</TableCell>
-                <TableCell>Delete</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filteredIncomes?.map((income1) => (
-                <TableRow key={income1.id}>
-                  <TableCell>{income1.revenue_stream}</TableCell>
-                  <TableCell>{income1.description}</TableCell>
-                  <TableCell><Currency value={income1.price} /></TableCell>
-                  <TableCell>{income1.unit}</TableCell>
-                  <TableCell>{income1.time_used}</TableCell>
-                  <TableCell><Currency value={income1.cost_of_delivery} /></TableCell>
-                  <TableCell>{income1.ideal_client}</TableCell>
-                  <TableCell>{income1.rate_of_love}</TableCell>
-                  <TableCell>{income1.purchasers}</TableCell>
-                  <TableCell><Currency value={(income1.price - income1.cost_of_delivery) / income1.time_used} /></TableCell>
-                  <TableCell>
-                    <EditDialog budget_id={budgetId.budgetId} id={income1.id} action='UPDATE_REVENUE' >
-                      <Grid container spacing={2} alignItems="center">
-                        <Grid item xs={12} sm={6} md={6}>
-                          <TextField
-                            name='revenue_stream'
-                            fullWidth
-                            label="Name of Service/Product"
-                            defaultValue={income1.revenue_stream}
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
-                          <TextField
-                            name='description'
-                            fullWidth
-                            label="Description"
-                            defaultValue={income1.description}
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
-                          <TextField
-                            name='price'
-                            fullWidth
-                            label="Price"
-                            type='number'
-                            InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
-                            defaultValue={income1.price}
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
-                          <TextField
-                            name='unit'
-                            fullWidth
-                            label="Unit"
-                            defaultValue={income1.unit}
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
-                          <TextField
-                            name='time_used'
-                            fullWidth
-                            label="Time Used"
-                            defaultValue={income1.time_used}
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
-                          <TextField
-                            name='cost_of_delivery'
-                            fullWidth
-                            label="Cost Per Delivery"
-                            defaultValue={income1.cost_of_delivery}
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
-                          <TextField
-                            name='ideal_client'
-                            fullWidth
-                            label="Ideal Client"
-                            defaultValue={income1.ideal_client}
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
-                          <FormControl fullWidth>
-                            <InputLabel id="rate-of-love-label">Rate of Love</InputLabel>
-                            <Select
-                              name='rate_of_love'
-                              labelId="rate-of-love-label"
-                              id="rate-of-love"
-                              defaultValue={income1.rate_of_love}
-                              label="Rate of Love"
-                              style={{ width: '100%' }}
-                            >
-                              <MenuItem value={1}>1</MenuItem>
-                              <MenuItem value={2}>2</MenuItem>
-                              <MenuItem value={3}>3</MenuItem>
-                              <MenuItem value={4}>4</MenuItem>
-                              <MenuItem value={5}>5</MenuItem>
-                            </Select>
-                          </FormControl>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
-                          <TextField
-                            name='purchasers'
-                            fullWidth
-                            label="Purchasers"
-                            defaultValue={income1.purchasers}
-                          />
-                        </Grid>
-                      </Grid>
-                    </EditDialog>
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outlined"
-                      color="error"
-                      onClick={() => deleteProductFromDB(income1.id)}
-                    >
-                      Delete
-                    </Button>
-                  </TableCell>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Name of Service/Product</TableCell>
+                  <TableCell>Description</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell>Unit</TableCell>
+                  <TableCell>Time Used</TableCell>
+                  <TableCell>Cost Per Delivery</TableCell>
+                  <TableCell>Ideal Clients</TableCell>
+                  <TableCell>Love Rating</TableCell>
+                  <TableCell>Purchasers</TableCell>
+                  <TableCell>Rate for Money</TableCell>
+                  <TableCell>Edit</TableCell>
+                  <TableCell>Delete</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          {/* <Box textAlign={'center'}>
-            <Button variant='contained' type='button' onClick={() => handleSubmit(event)}>
-              Save
-            </Button>
-          </Box> */}
+              </TableHead>
+              <TableBody>
+                {filteredIncomes?.map((income1) => (
+                  <TableRow key={income1.id}>
+                    <TableCell>{income1.revenue_stream}</TableCell>
+                    <TableCell>{income1.description}</TableCell>
+                    <TableCell><Currency value={income1.price} /></TableCell>
+                    <TableCell>{income1.unit}</TableCell>
+                    <TableCell>{income1.time_used}</TableCell>
+                    <TableCell><Currency value={income1.cost_of_delivery} /></TableCell>
+                    <TableCell>{income1.ideal_client}</TableCell>
+                    <TableCell>{income1.rate_of_love}</TableCell>
+                    <TableCell>{income1.purchasers}</TableCell>
+                    <TableCell><Currency value={(income1.price - income1.cost_of_delivery) / income1.time_used} /></TableCell>
+                    <TableCell>
+                      <EditDialog budget_id={budgetId.budgetId} id={income1.id} action='UPDATE_REVENUE' >
+                        <Grid container spacing={2} alignItems="center">
+                          <Grid item xs={12} sm={6} md={6}>
+                            <TextField
+                              name='revenue_stream'
+                              fullWidth
+                              label="Name of Service/Product"
+                              defaultValue={income1.revenue_stream}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={6}>
+                            <TextField
+                              name='description'
+                              fullWidth
+                              label="Description"
+                              defaultValue={income1.description}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={6}>
+                            <TextField
+                              name='price'
+                              fullWidth
+                              label="Price"
+                              type='number'
+                              InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
+                              defaultValue={income1.price}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={6}>
+                            <TextField
+                              name='unit'
+                              fullWidth
+                              label="Unit"
+                              defaultValue={income1.unit}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={6}>
+                            <TextField
+                              name='time_used'
+                              fullWidth
+                              label="Time Used"
+                              defaultValue={income1.time_used}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={6}>
+                            <TextField
+                              name='cost_of_delivery'
+                              fullWidth
+                              label="Cost Per Delivery"
+                              defaultValue={income1.cost_of_delivery}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={6}>
+                            <TextField
+                              name='ideal_client'
+                              fullWidth
+                              label="Ideal Client"
+                              defaultValue={income1.ideal_client}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={6}>
+                            <FormControl fullWidth>
+                              <InputLabel id="rate-of-love-label">Rate of Love</InputLabel>
+                              <Select
+                                name='rate_of_love'
+                                labelId="rate-of-love-label"
+                                id="rate-of-love"
+                                defaultValue={income1.rate_of_love}
+                                label="Rate of Love"
+                                style={{ width: '100%' }}
+                              >
+                                <MenuItem value={1}>1</MenuItem>
+                                <MenuItem value={2}>2</MenuItem>
+                                <MenuItem value={3}>3</MenuItem>
+                                <MenuItem value={4}>4</MenuItem>
+                                <MenuItem value={5}>5</MenuItem>
+                              </Select>
+                            </FormControl>
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={6}>
+                            <TextField
+                              name='purchasers'
+                              fullWidth
+                              label="Purchasers"
+                              defaultValue={income1.purchasers}
+                            />
+                          </Grid>
+                        </Grid>
+                      </EditDialog>
+                    </TableCell>
+                    <TableCell align='left'>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => deleteProductFromDB(income1.id)}
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
           <ProgressBar back={'valuepay'} next={'overview'} submit={handleSubmit} value={42} budgetId={budgetId} />
           <Grid container justifyContent="center" style={{ marginTop: 16 }}>
             <Grid item>
