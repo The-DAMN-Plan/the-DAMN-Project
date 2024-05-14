@@ -39,6 +39,7 @@ function OtherExpenses() {
             expense_amount: sanitizedAmount
         }];
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: formData });
+        dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
     };
 
     const handleDeleteExpense = (index) => {
@@ -85,17 +86,6 @@ function OtherExpenses() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {expenses.map((expense, index) => (
-                                <TableRow key={index}>
-                                    <TableCell>{expense.name}</TableCell>
-                                    <TableCell>
-                                        <Currency value={expense.amount} />
-                                    </TableCell>
-                                    <TableCell>
-                                        <Button onClick={() => handleDeleteExpense(index)}>Delete</Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
                             {filteredExpenses?.map((expense) => (
                                 <TableRow key={expense.id}>
                                     <TableCell>{expense.expense_name}</TableCell>
