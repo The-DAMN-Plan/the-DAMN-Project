@@ -220,7 +220,7 @@ function MarketingBudgetYear1() {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <Button variant="contained" color="primary" size='large' onClick={handleAddExpense}>Submit</Button>
+                            <Button variant="contained" color="primary" size='large' onClick={handleSubmit}>Submit</Button>
                         </Grid>
                     </Grid>
                         <TableContainer>

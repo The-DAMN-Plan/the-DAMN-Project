@@ -52,7 +52,7 @@ export default function EditDialog(props){
                 onSubmit: (event)=>{handleSubmit(event)}}}>
                 <DialogTitle>
                         {/* {'Update Item'} */}
-                        <Typography variant="h3" color={'primary'} textAlign={'center'}>
+                        <Typography variant="h3" color={'primary'} textAlign={'center'} marginBottom={'24px'}>
                             Update Item
                         </Typography>
                 </DialogTitle>
