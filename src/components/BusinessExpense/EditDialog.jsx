@@ -50,17 +50,18 @@ export default function EditDialog(props){
             PaperProps={{
                 component:'form',
                 onSubmit: (event)=>{handleSubmit(event)}}}>
-                <DialogContent>
-                    <DialogTitle component={'contianer'}>
-                        <Typography variant="h4" color={'primary'} textAlign={'center'}>
+                <DialogTitle>
+                        {/* {'Update Item'} */}
+                        <Typography variant="h3" color={'primary'} textAlign={'center'}>
                             Update Item
                         </Typography>
-                    </DialogTitle>
+                </DialogTitle>
+                <DialogContent>
                     {props.children}
                 </DialogContent>
-                <DialogActions>
-                    <Button  onClick={handleClose} variant='outlined'>Cancel</Button>
-                    <Button type='submit' variant='outlined'>Submit</Button>
+                <DialogActions sx={{pr: 3, pb: 5}}>
+                    <Button  onClick={handleClose} color="secondary" variant='contained'>Cancel</Button>
+                    <Button type='submit' variant='contained'>Submit</Button>
                 </DialogActions>
             </Dialog>
         </>
