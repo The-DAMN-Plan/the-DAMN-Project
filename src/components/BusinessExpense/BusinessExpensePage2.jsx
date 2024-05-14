@@ -47,42 +47,42 @@ export default function BusinessExpense(params) {
     //default values for each input start at 0 incase user does not input anything 
     const [userEntry, setUserEntry] = useState([
         {
-            expense_id: getExpenseId('cellPhones'),
+            id: getExpenseId('cellPhones'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('cellPhones') || "0",
             expense_name: "cellPhones",
             type: "business expense"
         },
         {
-            expense_id: getExpenseId('business_internet'),
+            id: getExpenseId('business_internet'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('business_internet') || "0",
             expense_name: "business_internet",
             type: "business expense"
         },
         {
-            expense_id: getExpenseId('printPublish'),
+            id: getExpenseId('printPublish'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('printPublish') || "0",
             expense_name: "printPublish",
             type: "business expense"
         },
         {
-            expense_id: getExpenseId('softwareTech'),
+            id: getExpenseId('softwareTech'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('softwareTech') || 0,
             expense_name: "softwareTech",
             type: "business expense"
         },
         {
-            expense_id: getExpenseId('officeSupply'),
+            id: getExpenseId('officeSupply'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('officeSupply') || "0",
             expense_name: "officeSupply",
             type: "business expense"
         },
         {
-            expense_id: getExpenseId('miscellaneous'),
+            id: getExpenseId('miscellaneous'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('miscellaneous') || 0,
             expense_name: "miscellaneous",

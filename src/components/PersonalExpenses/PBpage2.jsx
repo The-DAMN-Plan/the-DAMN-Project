@@ -54,35 +54,35 @@ function PBpage2() {
 
     const [userEntry, setUserEntry] = useState([
         {
-            expense_id: getExpenseId('realEstateTax'),
+            id: getExpenseId('realEstateTax'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('realEstateTax') || "0",
             expense_name: "realEstateTax",
             type: "personal committed"
         },
         {
-            expense_id: getExpenseId('carInsurance'),
+            id: getExpenseId('carInsurance'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('carInsurance') || "0",
             expense_name: "carInsurance",
             type: "personal committed"
         },
         {
-            expense_id: getExpenseId('houseInsurance'),
+            id: getExpenseId('houseInsurance'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('houseInsurance') || "0",
             expense_name: "houseInsurance",
             type: "personal committed"
         },
         {
-            expense_id: getExpenseId('creditCard'),
+            id: getExpenseId('creditCard'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('creditCard') || "0",
             expense_name: "creditCard",
             type: "personal committed"
         },
         {
-            expense_id: getExpenseId('loanPayments'),
+            id: getExpenseId('loanPayments'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('loanPayments') || "0",
             expense_name: "loanPayments",

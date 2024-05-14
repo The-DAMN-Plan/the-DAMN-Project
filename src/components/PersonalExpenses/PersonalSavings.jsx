@@ -57,35 +57,35 @@ function PersonalSavings() {
 
     const [userEntry, setUserEntry] = useState([
         {
-            expense_id: getExpenseId('personalAllowance'),
+            id: getExpenseId('personalAllowance'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('personalAllowance') || "0",
             expense_name: "personalAllowance",
             type: "personal committed"
         },
         {
-            expense_id: getExpenseId('emergencySavings'),
+            id: getExpenseId('emergencySavings'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('emergencySavings') || "0",
             expense_name: "emergencySavings",
             type: "personal committed"
         },
         {
-            expense_id: getExpenseId('retirement'),
+            id: getExpenseId('retirement'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('retirement') || "0",
             expense_name: "retirement",
             type: "personal committed"
         },
         {
-            expense_id: getExpenseId('investments'),
+            id: getExpenseId('investments'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('investments') || "0",
             expense_name: "investments",
             type: "personal committed"
         },
         {
-            expense_id: getExpenseId('othersavings'),
+            id: getExpenseId('othersavings'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('othersavings') || "0",
             expense_name: "othersavings",

@@ -57,49 +57,49 @@ function StartPlan() {
     
     const [userEntry, setUserEntry] = useState([
         {
-            expense_id: getExpenseId('rentOrMortgage'),
+            id: getExpenseId('rentOrMortgage'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('rentOrMortgage') || "0",
             expense_name: "rentOrMortgage",
             type: "personal committed"
         },
         {
-            expense_id: getExpenseId('electric'),
+            id: getExpenseId('electric'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('electric') || "0",
             expense_name: "electric",
             type: "personal committed"
         },
         {
-            expense_id: getExpenseId('heat'),
+            id: getExpenseId('heat'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('heat') || "0",
             expense_name: "heat",
             type: "personal committed"
         },
         {
-            expense_id: getExpenseId('water'),
+            id: getExpenseId('water'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('water') || "0",
             expense_name: "water",
             type: "personal committed"
         },
         {
-            expense_id: getExpenseId('internet'),
+            id: getExpenseId('internet'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('internet') || "0",
             expense_name: "internet",
             type: "personal committed"
         },
         {
-            expense_id: getExpenseId('telephone'),
+            id: getExpenseId('telephone'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('telephone') || "0",
             expense_name: "telephone",
             type: "personal committed"
         },
         {
-            expense_id: getExpenseId('childcare'),
+            id: getExpenseId('childcare'),
             budget_id: budgetId.budgetId,
             expense_amount: getExpenseAmount('childcare') || "0",
             expense_name: "childcare",
