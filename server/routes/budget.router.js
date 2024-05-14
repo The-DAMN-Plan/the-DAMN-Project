@@ -24,12 +24,13 @@ router.get('/:id', async (req, res) => {
             (SELECT coalesce(jsonb_agg(item), '[]'::jsonb) FROM (
             SELECT "cashflow_months".* FROM "cashflow_months" WHERE "cashflow_months"."budget_id"="budgets"."id") item) as "cashflow_months" from budgets where budgets.id = $1;`
 
-  console.log('fetch budget');
-  console.log('budget id', req.params.id);
+  // console.log('fetch budget');
+  // console.log('budget id', req.params.id);
   const budget_id = parseInt(req.params.id, 10);
 
   try {
     const result = await pool.query(sql, [budget_id]);
+    // console.log(result.rows);
     res.send(result.rows);
   } catch (error) {
     console.log(error);
@@ -198,16 +199,18 @@ router.get('/expenses/:budgetId', async (req, res) => {
 // Creates all expenses given to it
 router.post('/expense', async (req, res) => {
   // POST route code here
-  const sql = `insert into "expenses" ("budget_id","type","expense_name","expense_amount","percent_change","year",
+  const sql = `insert into "expenses" ("budget_id","type","expense_name","expense_amount","percent_change",
   "frequency","timing","facilitator","vendor","cost_per_use","assets_needed","service")
-  values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) returning *;`
+  values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) returning *;`
   const data = req.body;
+  console.log(data);
   const results = []; // Array to collect all the results
   let errorOccurred = false;
   for (const expense of data) {
     try {
+      console.log('add expense: ',expense);
       const result = await pool.query(sql, [
-        expense.budget_id, expense.type, expense.expense_name, expense.expense_amount, expense.percent_change, expense.year,
+        expense.budget_id, expense.type, expense.expense_name, expense.expense_amount, expense.percent_change,
         expense.frequency, expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use, expense.assets_needed, expense.service // Fixed typo assests_needed -> assets_needed
       ]);
       results.push(result.rows[0]);
@@ -229,11 +232,50 @@ router.post('/expense', async (req, res) => {
 router.put('/expense', async (req, res) => {
   console.log('updating expense');
   // Put route code here
-  const sql = `UPDATE "expenses" SET "expense_amount" = $1 WHERE "budget_id" = $2 AND "expense_name" = $3`;
+  // {assets_needed: "Photos"
+  // budget_id: 3
+  // cost_per_use: 200
+  // expense_amount: null
+  // expense_name: "Business Card"
+  // facilitator: "Owner"
+  // frequency: 1
+  // id: 43
+  // percent_change: null
+  // service: null
+  // timing: "Annual"
+  // type: "business marketing"
+  // vendor: "In-House"
+  // year_id: null}
+  // const sql = `UPDATE "expenses" SET "expense_amount" = $1 WHERE "budget_id" = $2 AND "expense_name" = $3`;
+  // `insert into "expenses" ("expense_name","expense_amount","percent_change","year",
+  // "frequency","timing","facilitator","vendor","cost_per_use","assets_needed","service")
+  const sql = `update "expenses" set "expense_name"=$1,"expense_amount"=$2,"percent_change"=$3,
+  "frequency"=$4,"timing"=$5,"facilitator"=$6,"vendor"=$7,"cost_per_use"=$8,"assets_needed"=$9,"service"=$10 
+  where "budget_id"=$11 and "id"=$12 returning *`;
+  // const sql = `update "expenses" set "expense_name"=$1 
+  // where "budget_id"=$12 and "expense_name"=$1`;
   const data = req.body;
+
+  // {
+  //   budget_id: '3',
+  //   expense_name: 'Business Card',
+  //   service_provider: 'Owner',
+  //   cost_per_use: '200',
+  //   assets_needed: 'pictures',
+  //   monthly_usage_count: '1',
+  //   vendor: 'In-House',
+  //   payment_interval: 'Annual'
+  // }
+  console.log(data);
   try {
     for (const expense of data) {
-      await pool.query(sql, [expense.expense_amount, expense.budget_id, expense.expense_name]);
+      let response = await pool.query(sql, [expense.expense_name, expense.expense_amount, expense.expense_percent_changes, 
+        expense.frequency, expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use,
+        expense.assets_needed, expense.service, expense.budget_id, expense.id]);
+      // await pool.query(sql, [expense.expense_name, expense.expense_amount, expense.expense_percent_changes, 
+      //   expense.year, expense.frequency, expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use,
+      //   expense.assets_needed, expense.service, expense.budget_id]);
+      // console.log(response.rows);
     }
     res.sendStatus(200);
   } catch (error) {
@@ -261,17 +303,38 @@ router.delete('/expense/:id', async (req, res) => {
 router.post('/revenuestream', async (req, res) => {
   // POST route code here
   const sql = `INSERT INTO "revenue_streams" ("budget_id", "revenue_stream", "description", "price",
-    "unit", "time_used", "ideal_client", "rate_of_love", "purchasers", "year", "cost_of_delivery") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *;`;
+    "unit", "time_used", "ideal_client", "rate_of_love", "purchasers","cost_of_delivery") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;`;
   const data = req.body;
   try {
     for (const revenueStream of data) {
       const result = await pool.query(sql, [
         revenueStream.budget_id, revenueStream.revenue_stream, revenueStream.description, revenueStream.price, revenueStream.unit, revenueStream.time_used,
-        revenueStream.ideal_client, revenueStream.rate_of_love, revenueStream.purchasers, revenueStream.year, revenueStream.cost_of_delivery]);
+        revenueStream.ideal_client, revenueStream.rate_of_love, revenueStream.purchasers, revenueStream.cost_of_delivery]);
     }
     res.sendStatus(200);
   } catch (error) {
     console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+router.put('/revenuestream', async (req,res)=>{
+  console.log('updating revenue stream ...');
+  const query = `update "revenue_streams" set "revenue_stream"=$1,"description"=$2,"price"=$3,
+  "unit"=$4,"time_used"=$5,"ideal_client"=$6,"rate_of_love"=$7,"purchasers"=$8,"cost_of_delivery"=$9
+  where "budget_id"=$10 and "id"=$11 returning *`;
+  const data = req.body;
+  try{
+    for (const revenueStream of data) {
+      pool.query(query, [revenueStream.revenue_stream, revenueStream.description, revenueStream.price, 
+        revenueStream.unit, revenueStream.time_used,
+        revenueStream.ideal_client, revenueStream.rate_of_love, revenueStream.purchasers, 
+        revenueStream.cost_of_delivery, revenueStream.budget_id, revenueStream.id])
+
+    }
+      res.sendStatus(200);
+  } catch(error){
+    console.error(error);
     res.sendStatus(500);
   }
 });
@@ -284,7 +347,7 @@ router.delete('/revenuestream/:id', async (req, res) => {
 
   try {
     await pool.query(sql, [revenue_id]);
-    res.send(200);
+    res.sendStatus(200);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);

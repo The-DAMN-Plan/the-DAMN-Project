@@ -7,6 +7,7 @@ import Currency from '../Shared/Currency';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Grid from '@mui/material/Unstable_Grid2';
+import EditDialog from './EditDialog';
 
 
 function OtherBusinessExp() {
@@ -36,6 +37,8 @@ function OtherBusinessExp() {
             expense_name: expenseName,
             expense_amount: sanitizedAmount
         }];
+
+        console.log('business other expense',formData);
 
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: formData });
 
@@ -81,6 +84,18 @@ function OtherBusinessExp() {
                                     <TableCell>{expense.expense_name}</TableCell>
                                     <TableCell>
                                         <Currency value={Number(expense.expense_amount)} />
+                                    </TableCell>
+                                    <TableCell>
+                                        <EditDialog budget_id={budgetId.budgetId} id={expense.id} action='UPDATE_EXPENSE'>
+                                            <Grid container spacing={2} alignItems="center" justifyContent='center' >
+                                                <Grid>
+                                                    <TextField name="expense_name" label="Name of Expense"  defaultValue={expense.expense_name}/>
+                                                </Grid>
+                                                <Grid>
+                                                    <TextField name="expense_amount" label="Amount" defaultValue={expense.expense_amount}/>
+                                                </Grid>
+                                            </Grid>
+                                        </EditDialog>
                                     </TableCell>
                                     <TableCell>
                                         <Button variant='contained' color='secondary' onClick={() => handleDeleteFromDB(expense.id)}>Delete</Button>

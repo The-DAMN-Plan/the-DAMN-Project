@@ -7,6 +7,7 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Currency from '../Shared/Currency';
 import Grid from '@mui/material/Unstable_Grid2';
+import EditDialog from '../BusinessExpense/EditDialog';
 
 
 function OtherExpenses() {
@@ -79,6 +80,7 @@ function OtherExpenses() {
                             <TableRow>
                                 <TableCell>Name of Expense</TableCell>
                                 <TableCell>Amount</TableCell>
+                                <TableCell>Edit</TableCell>
                                 <TableCell>Delete</TableCell>
                             </TableRow>
                         </TableHead>
@@ -101,8 +103,21 @@ function OtherExpenses() {
                                         <Currency value={Number(expense.expense_amount)} />
                                     </TableCell>
                                     <TableCell>
+                                        <EditDialog budget_id={budgetId.budgetId} id={expense.id} action='UPDATE_EXPENSE'>
+                                            <Grid container spacing={2} alignItems="center" justifyContent='center' >
+                                                <Grid>
+                                                    <TextField name="expense_name" label="Name of Expense"  defaultValue={expense.expense_name}/>
+                                                </Grid>
+                                                <Grid>
+                                                    <TextField name="expense_amount" label="Amount" defaultValue={expense.expense_amount}/>
+                                                </Grid>
+                                            </Grid>
+                                        </EditDialog>                                    
+                                    </TableCell>
+                                    <TableCell>
                                         <Button onClick={() => handleDeleteFromDB(expense.id)}>Delete</Button>
                                     </TableCell>
+
                                 </TableRow>
                             ))}
                         </TableBody>
