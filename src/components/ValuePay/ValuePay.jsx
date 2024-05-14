@@ -1,37 +1,38 @@
-import { Container, Typography, Paper, TextField, InputAdornment, Button, Box } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Grid from '@mui/material/Unstable_Grid2';
-import ProgressBar from '../ProgressBar/ProgressBar';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
-import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
-import Currency from '../Shared/Currency';
+import JSConfetti from 'js-confetti';
+import { Container, Typography, Paper, TextField, InputAdornment, Button, Box } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
 import moment from 'moment';
-
+import Currency from '../Shared/Currency';
+import Main from '../Main/Main';
+import ProgressBar from '../ProgressBar/ProgressBar';
+import './ValuePay.css';
 
 export default function ValuePay(props) {
   const dispatch = useDispatch();
+  const budgetId = useParams();
   const finalBudget = useSelector((store) => store.finalBudget);
   const status = useSelector((store) => store.status);
-  const [percent, setPercent] = useState(0);
-  const [dollarAmount, setDollarAmount] = useState(0);
   const expense = useSelector((store) => store.expense);
   const futurePlans = useSelector((store) => store.futurePlans);
+  const open = useSelector(store => store.sideNav);
+
+  const [percent, setPercent] = useState(0);
+  const [dollarAmount, setDollarAmount] = useState(0);
   const [totalPersonalExpenses, setTotalPersonalExpenses] = useState(0);
   const [totalFutureSavings, setTotalFutureSavings] = useState(0);
-  const [valuePay, setValuePay] = useState(0);
   const [requiredIncome, setRequiredIncome] = useState(0);
-  const open = useSelector(store => store.sideNav);
-  const budgetId = useParams();
-  const vpPercent = finalBudget[0]?.vp_percent
-  const vpIncome = finalBudget[0]?.vp_income
+  const [valuePay, setValuePay] = useState(0);
+  const [showValuePay, setShowValuePay] = useState(false);
+
+  const vpPercent = finalBudget[0]?.vp_percent;
+  const vpIncome = finalBudget[0]?.vp_income;
 
   useEffect(() => {
     dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
-    if (finalBudget.length === 0) {
-
-    } else {
+    if (finalBudget.length !== 0) {
       setPercent(vpPercent);
       setDollarAmount(vpIncome);
     }
@@ -65,14 +66,12 @@ export default function ValuePay(props) {
     setValuePay(findValuePay)
   }, [requiredIncome, vpIncome, dollarAmount])
 
-
   function handleSubmit() {
-
     const updateObj = {
       completed: true,
       budget_id: Number(budgetId.budgetId),
       step: 'valuepay'
-    }
+    };
 
     const valuePayObj = {
       budget_id: budgetId.budgetId,
@@ -83,11 +82,29 @@ export default function ValuePay(props) {
       vp_percent: percent,
       vp_income: dollarAmount,
       valuepay: valuePay
-    }
+    };
 
     dispatch({ type: 'UPDATE_BUDGET', payload: valuePayObj })
-    dispatch({ type: 'UPDATE_STATUS', payload: updateObj }) // Will need to be set up later to post the completed step to the status table
-  }
+    dispatch({ type: 'UPDATE_STATUS', payload: updateObj })
+
+    setShowValuePay(true); // Show big and bold value pay number
+    setTimeout(() => {
+      setShowValuePay(false); // Hide after 10 seconds
+    }, 4000);
+
+    const jsConfetti = new JSConfetti();
+    const confettiOptions = {
+      confettiColors: ['#1594AB', '#D03227', '#FAF9F6'],
+      confettiRadius: 6,
+      confettiNumber: 350
+    };
+    jsConfetti.addConfetti(confettiOptions)
+      .then(() => {
+        setTimeout(() => {
+          jsConfetti.clearCanvas();
+        }, 5000);
+      });
+  };
 
   const isStartPlanCompleted = status.find(s => s.step === 'valuepay')?.completed;
 
@@ -146,6 +163,12 @@ export default function ValuePay(props) {
             </Button>
           )}
         </Box>
+        {showValuePay && (
+          <Box textAlign='center' marginTop={2} className="value-pay-overlay">
+            <Typography variant='h2'>Your Value Pay!</Typography>
+            <Typography variant='h3' color={'green'}><Currency value={valuePay} /></Typography>
+          </Box>
+        )}
         <ProgressBar back={'otherexpenses'} next={'incomeyear1'} value={40} budgetId={budgetId} />
       </Container>
     </Main >
