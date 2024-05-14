@@ -49,15 +49,6 @@ export default function HumanResourcesPage1() {
         setFrequency(0);
     };
 
-    // function handleSave() {
-    //     const updateObj = {
-    //         completed: true,
-    //         budget_id: Number(budgetId.budgetId),
-    //         step: 'hrpagey1'
-    //     }
-    //     dispatch({ type: 'UPDATE_STATUS', payload: updateObj })
-    // }
-
     function handleDelete(expenseId) {
         const budgetObjId = budgetId.budgetId;
         dispatch({ type: 'DELETE_EXPENSE', payload: { expenseId, budgetObjId } })
