@@ -50,6 +50,43 @@ function PBpage2() {
             loanPayments: getExpenseAmount('loanPayments')
         };
         setFormValues(newFormValues);
+        setUserEntry([
+            {
+                id: getExpenseId('realEstateTax'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('realEstateTax') || "0",
+                expense_name: "realEstateTax",
+                type: "personal committed"
+            },
+            {
+                id: getExpenseId('carInsurance'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('carInsurance') || "0",
+                expense_name: "carInsurance",
+                type: "personal committed"
+            },
+            {
+                id: getExpenseId('houseInsurance'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('houseInsurance') || "0",
+                expense_name: "houseInsurance",
+                type: "personal committed"
+            },
+            {
+                id: getExpenseId('creditCard'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('creditCard') || "0",
+                expense_name: "creditCard",
+                type: "personal committed"
+            },
+            {
+                id: getExpenseId('loanPayments'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('loanPayments') || "0",
+                expense_name: "loanPayments",
+                type: "personal committed"
+            }
+        ])
     };
 
     const [userEntry, setUserEntry] = useState([

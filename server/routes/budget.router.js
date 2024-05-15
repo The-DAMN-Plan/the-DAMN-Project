@@ -266,7 +266,7 @@ router.put('/expense', async (req, res) => {
   //   vendor: 'In-House',
   //   payment_interval: 'Annual'
   // }
-  console.log(data);
+  // console.log(data);
   try {
     for (const expense of data) {
       let response = await pool.query(sql, [expense.expense_name, expense.expense_amount, expense.expense_percent_changes, 
@@ -275,7 +275,7 @@ router.put('/expense', async (req, res) => {
       // await pool.query(sql, [expense.expense_name, expense.expense_amount, expense.expense_percent_changes, 
       //   expense.year, expense.frequency, expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use,
       //   expense.assets_needed, expense.service, expense.budget_id]);
-      // console.log(response.rows);
+      console.log("updated date ...",response.rows);
     }
     res.sendStatus(200);
   } catch (error) {

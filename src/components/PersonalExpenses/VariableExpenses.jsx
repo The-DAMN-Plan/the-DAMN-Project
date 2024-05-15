@@ -53,6 +53,65 @@ function VariableExpenses() {
             homeMaintenance: getExpenseAmount('homeMaintenance')
         };
         setFormValues(newFormValues);
+        setUserEntry([
+            {
+                id: getExpenseId('food'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('food') || "0",
+                expense_name: "food",
+                type: "personal decision"
+            },
+            {
+                id: getExpenseId('clothing'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('clothing') || "0",
+                expense_name: "clothing",
+                type: "personal decision"
+            },
+            {
+                id: getExpenseId('personalCare'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('personalCare') || "0",
+                expense_name: "personalCare",
+                type: "personal decision"
+            },
+            {
+                id: getExpenseId('recreation'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('recreation') || "0",
+                expense_name: "recreation",
+                type: "personal decision"
+            },
+            {
+                id: getExpenseId('gifts'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('gifts') || "0",
+                expense_name: "gifts",
+                type: "personal decision"
+            },
+            {
+                id: getExpenseId('gas'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('gas') || "0",
+                expense_name: "gas",
+                type: "personal decision"
+            },
+            {
+                id: getExpenseId('carRepairs'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('carRepairs') || "0",
+                expense_name: "carRepairs",
+                type: "personal decision"
+            },
+            {
+                id: getExpenseId('homeMaintenance'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('homeMaintenance') || "0",
+                expense_name: "homeMaintenance",
+                type: "personal decision"
+            }
+            
+        ])
     };
 
     const [userEntry, setUserEntry] = useState([
