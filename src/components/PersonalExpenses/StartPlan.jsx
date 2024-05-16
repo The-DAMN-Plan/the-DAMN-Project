@@ -53,6 +53,57 @@ function StartPlan() {
             childcare: getExpenseAmount('childcare'),
         };
         setFormValues(newFormValues);
+        setUserEntry([
+            {
+                id: getExpenseId('rentOrMortgage'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('rentOrMortgage') || "0",
+                expense_name: "rentOrMortgage",
+                type: "personal committed"
+            },
+            {
+                id: getExpenseId('electric'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('electric') || "0",
+                expense_name: "electric",
+                type: "personal committed"
+            },
+            {
+                id: getExpenseId('heat'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('heat') || "0",
+                expense_name: "heat",
+                type: "personal committed"
+            },
+            {
+                id: getExpenseId('water'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('water') || "0",
+                expense_name: "water",
+                type: "personal committed"
+            },
+            {
+                id: getExpenseId('internet'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('internet') || "0",
+                expense_name: "internet",
+                type: "personal committed"
+            },
+            {
+                id: getExpenseId('telephone'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('telephone') || "0",
+                expense_name: "telephone",
+                type: "personal committed"
+            },
+            {
+                id: getExpenseId('childcare'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('childcare') || "0",
+                expense_name: "childcare",
+                type: "personal committed"
+            }
+        ])
     };
     
     const [userEntry, setUserEntry] = useState([

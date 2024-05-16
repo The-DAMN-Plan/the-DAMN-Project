@@ -42,53 +42,54 @@ export default function BusinessExpense(params) {
             miscellaneous: getExpenseAmount('miscellaneous')
         };
         setFormValues(newFormValues);
+        setUserEntry([
+            {
+                id: getExpenseId('cellPhones'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('cellPhones') || "0",
+                expense_name: "cellPhones",
+                type: "business expense"
+            },
+            {
+                id: getExpenseId('business_internet'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('business_internet') || "0",
+                expense_name: "business_internet",
+                type: "business expense"
+            },
+            {
+                id: getExpenseId('printPublish'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('printPublish') || "0",
+                expense_name: "printPublish",
+                type: "business expense"
+            },
+            {
+                id: getExpenseId('softwareTech'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('softwareTech') || 0,
+                expense_name: "softwareTech",
+                type: "business expense"
+            },
+            {
+                id: getExpenseId('officeSupply'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('officeSupply') || "0",
+                expense_name: "officeSupply",
+                type: "business expense"
+            },
+            {
+                id: getExpenseId('miscellaneous'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('miscellaneous') || 0,
+                expense_name: "miscellaneous",
+                type: "business expense"
+            },
+        ])
     };
 
     //default values for each input start at 0 incase user does not input anything 
-    const [userEntry, setUserEntry] = useState([
-        {
-            id: getExpenseId('cellPhones'),
-            budget_id: budgetId.budgetId,
-            expense_amount: getExpenseAmount('cellPhones') || "0",
-            expense_name: "cellPhones",
-            type: "business expense"
-        },
-        {
-            id: getExpenseId('business_internet'),
-            budget_id: budgetId.budgetId,
-            expense_amount: getExpenseAmount('business_internet') || "0",
-            expense_name: "business_internet",
-            type: "business expense"
-        },
-        {
-            id: getExpenseId('printPublish'),
-            budget_id: budgetId.budgetId,
-            expense_amount: getExpenseAmount('printPublish') || "0",
-            expense_name: "printPublish",
-            type: "business expense"
-        },
-        {
-            id: getExpenseId('softwareTech'),
-            budget_id: budgetId.budgetId,
-            expense_amount: getExpenseAmount('softwareTech') || 0,
-            expense_name: "softwareTech",
-            type: "business expense"
-        },
-        {
-            id: getExpenseId('officeSupply'),
-            budget_id: budgetId.budgetId,
-            expense_amount: getExpenseAmount('officeSupply') || "0",
-            expense_name: "officeSupply",
-            type: "business expense"
-        },
-        {
-            id: getExpenseId('miscellaneous'),
-            budget_id: budgetId.budgetId,
-            expense_amount: getExpenseAmount('miscellaneous') || 0,
-            expense_name: "miscellaneous",
-            type: "business expense"
-        },
-    ])
+    const [userEntry, setUserEntry] = useState([])
 
     const [formValues, setFormValues] = useState({
         cellPhones: '',

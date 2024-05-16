@@ -42,6 +42,58 @@ export default function BusinessExpense(params) {
             clientTravelMeals: getExpenseAmount('clientTravelMeals')
         };
         setFormValues(newFormValues);
+
+        setUserEntry([
+            {
+                id: getExpenseId('accountingSupport'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('accountingSupport') || "0",
+                expense_name: "accountingSupport",
+                type: "business expense"
+            },
+            {
+                id: getExpenseId('insuranceGeneral'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('insuranceGeneral') || "0",
+                expense_name: "insuranceGeneral",
+                type: "business expense"
+            },
+            {
+                id: getExpenseId('insuranceHealthLifeDisability'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('insuranceHealthLifeDisability') || "0",
+                expense_name: "insuranceHealthLifeDisability",
+                type: "business expense"
+            },
+            {
+                id: getExpenseId('legal'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('legal') || "0",
+                expense_name: "legal",
+                type: "business expense"
+            },
+            {
+                id: getExpenseId('coaching'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('coaching') || "0",
+                expense_name: "coaching",
+                type: "business expense"
+            },
+            {
+                id: getExpenseId('travelLodging'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('travelLodging') || "0",
+                expense_name: "travelLodging",
+                type: "business expense"
+            },
+            {
+                id: getExpenseId('clientTravelMeals'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('clientTravelMeals') || "0",
+                expense_name: "clientTravelMeals",
+                type: "business expense"
+            },
+        ])
     };
 
     //default values for each input start at 0 incase user does not input anything 

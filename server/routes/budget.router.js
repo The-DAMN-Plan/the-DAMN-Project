@@ -204,12 +204,12 @@ router.post('/expense', async (req, res) => {
   "frequency","timing","facilitator","vendor","cost_per_use","assets_needed","service")
   values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) returning *;`
   const data = req.body;
-  console.log(data);
+  // console.log(data);
   const results = []; // Array to collect all the results
   let errorOccurred = false;
   for (const expense of data) {
     try {
-      console.log('add expense: ',expense);
+      // console.log('add expense: ',expense);
       const result = await pool.query(sql, [
         expense.budget_id, expense.type, expense.expense_name, expense.expense_amount, expense.percent_change,
         expense.frequency, expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use, expense.assets_needed, expense.service // Fixed typo assests_needed -> assets_needed
@@ -267,7 +267,7 @@ router.put('/expense', async (req, res) => {
   //   vendor: 'In-House',
   //   payment_interval: 'Annual'
   // }
-  console.log(data);
+  // console.log(data);
   try {
     for (const expense of data) {
       let response = await pool.query(sql, [expense.expense_name, expense.expense_amount, expense.expense_percent_changes, 
@@ -276,7 +276,7 @@ router.put('/expense', async (req, res) => {
       // await pool.query(sql, [expense.expense_name, expense.expense_amount, expense.expense_percent_changes, 
       //   expense.year, expense.frequency, expense.timing, expense.facilitator, expense.vendor, expense.cost_per_use,
       //   expense.assets_needed, expense.service, expense.budget_id]);
-      // console.log(response.rows);
+      // console.log("updated date ...",response.rows);
     }
     res.sendStatus(200);
   } catch (error) {

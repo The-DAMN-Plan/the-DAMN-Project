@@ -53,6 +53,43 @@ function PersonalSavings() {
             othersavings: getExpenseAmount('othersavings')
         };
         setFormValues(newFormValues);
+        setUserEntry([
+            {
+                id: getExpenseId('personalAllowance'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('personalAllowance') || "0",
+                expense_name: "personalAllowance",
+                type: "personal committed"
+            },
+            {
+                id: getExpenseId('emergencySavings'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('emergencySavings') || "0",
+                expense_name: "emergencySavings",
+                type: "personal committed"
+            },
+            {
+                id: getExpenseId('retirement'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('retirement') || "0",
+                expense_name: "retirement",
+                type: "personal committed"
+            },
+            {
+                id: getExpenseId('investments'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('investments') || "0",
+                expense_name: "investments",
+                type: "personal committed"
+            },
+            {
+                id: getExpenseId('othersavings'),
+                budget_id: budgetId.budgetId,
+                expense_amount: getExpenseAmount('othersavings') || "0",
+                expense_name: "othersavings",
+                type: "personal committed"
+            }
+        ])
     };
 
     const [userEntry, setUserEntry] = useState([
