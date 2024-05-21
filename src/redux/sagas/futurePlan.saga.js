@@ -9,6 +9,14 @@ function* addFuturePlan(action) {
     }
 }
 
+function* updateFuturePlan(action){
+    try {
+        yield axios.put(`/api/future_plans`, action.payload);
+    } catch (error) {
+        console.error('Error updating future plan',error);
+    }
+}
+
 function* deleteFuturePlan(action) {
     try {
         const { futurePlanId, budgetObjId } = action.payload; // Destructure futurePlanId and budgetId from payload
@@ -22,6 +30,7 @@ function* deleteFuturePlan(action) {
 function* futurePlanSaga() {
     yield takeLatest('ADD_FUTURE_PLAN', addFuturePlan);
     yield takeLatest('DELETE_FUTURE_PLAN', deleteFuturePlan);
+    yield takeLatest('UODATE_FUTURE_PLAN', updateFuturePlan);
 }
 
 export default futurePlanSaga;

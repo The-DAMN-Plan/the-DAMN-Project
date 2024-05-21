@@ -22,6 +22,22 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       }
 });
 
+router.put('/', rejectUnauthenticated, async (req,res)=>{
+    console.log('future plan edit');
+    const sql = ``;
+    const data = req.body;
+    // try {
+    //     for (future_plan in data){
+    //         const result = await pool.query(sql, []);
+
+    //     }
+        
+    // } catch (error) {
+    //     console.log(error);
+    //     res.sendStatus(500);
+        
+    // }
+})
 /**
  * DELETE route to delete future plans
  */
