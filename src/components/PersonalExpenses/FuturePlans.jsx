@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography } from '@mui/material';
+import { TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Paper, Box, Typography, TableContainer } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
@@ -103,135 +103,137 @@ function FuturePlans() {
                                 <Button variant='contained' onClick={handleAddExpense}>Add Plan</Button>
                             </Grid>
                     </Grid>
-                    <Table sx={{ mt: 5, mb: 8 }}>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Name of Plan</TableCell>
-                                <TableCell>Start Date</TableCell>
-                                <TableCell>End Date</TableCell>
-                                <TableCell>Months to Save</TableCell>
-                                <TableCell>Total Amount</TableCell>
-                                <TableCell>Edit</TableCell>
-                                <TableCell>Delete</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {/* {expenses.map((expense, index) => (
-                                <TableRow key={index}>
-                                    <TableCell>{expense.name}</TableCell>
-                                    <TableCell>{`${expense.startDate}`}</TableCell>
-                                    <TableCell>{`${expense.endDate}`}</TableCell>
-                                    <TableCell>{`${expense.monthsToSave}`}</TableCell>
-                                    <TableCell>{`$${expense.amount}`}</TableCell>
-                                    <TableCell>
-                                        <EditDialog budget_id={budgetId.budgetId} id={plan.id}  action='UPDATE_FUTURE_PLAN'>
-                                        <Grid container spacing={3} alignItems={'center'} justifyContent={'center'}>
-                                            <Grid item spacing={1} md={6}>
-                                                <TextField fullWidth name='name' label="Name of Plan" defaultValue={plan.name}/>
-                                            </Grid>
-                                            <Grid item spacing={1} md={6}> 
-                                                <TextField fullWidth name='savings_needed' label="Amount to Save" defaultValue={plan.savings_needed}/>
-                                            </Grid>
-
-                                            <Grid item spacing={1} md={6}>
-                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                    <DemoContainer sx={{mt:'5px'}} components={['DatePicker']}>
-                                                        <DatePicker 
-                                                            name='start_date'
-                                                            label='Save from'
-                                                            defaultValue={dayjs(plan.start_date)}
-                                                            slotProps={{
-                                                                textField: {
-                                                                required: true,
-                                                            },
-                                                            }}
-                                                        />
-                                                    </DemoContainer>
-                                                </LocalizationProvider>
-                                            </Grid>
-                                            <Grid item spacing={1} md={6}>
-                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                    <DemoContainer sx={{mt:'5px'}} components={['DatePicker']}>
-                                                        <DatePicker 
-                                                            name='end_date'
-                                                            label='To'
-                                                            defaultValue={dayjs(plan.end_date)}
-                                                            slotProps={{
-                                                                textField: {
-                                                                required: true,
-                                                            },
-                                                            }}
-                                                        />
-                                                    </DemoContainer>
-                                                </LocalizationProvider>
-                                            </Grid>
-                                        </Grid>
-                                        </EditDialog>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Button onClick={() => handleDeleteExpense(index)} variant="contained" color="secondary">Delete</Button>
-                                    </TableCell>
+                    <TableContainer>
+                        <Table sx={{ mt: 5, mb: 8 }}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Name of Plan</TableCell>
+                                    <TableCell>Start Date</TableCell>
+                                    <TableCell>End Date</TableCell>
+                                    <TableCell>Months to Save</TableCell>
+                                    <TableCell>Total Amount</TableCell>
+                                    <TableCell>Edit</TableCell>
+                                    <TableCell>Delete</TableCell>
                                 </TableRow>
-                            ))} */}
-                            {futurePlans?.map((plan, index) => (
-                                <TableRow key={plan.id}>
-                                    <TableCell>{plan.name}</TableCell>
-                                    <TableCell>{`${plan.start_date}`}</TableCell>
-                                    <TableCell>{`${plan.end_date}`}</TableCell>
-                                    <TableCell>{`${moment(plan.end_date).diff(moment(plan.start_date), 'months')}`}</TableCell>
-                                    <TableCell>{`$${plan.savings_needed}`}</TableCell>
-                                    <TableCell>
-                                        <EditDialog budget_id={budgetId.budgetId} id={plan.id}  action='UPDATE_FUTURE_PLAN'>
-                                        <Grid container spacing={3} alignItems={'center'} justifyContent={'center'}>
-                                            <Grid item spacing={1} md={6}>
-                                                <TextField fullWidth name='name' label="Name of Plan" defaultValue={plan.name}/>
-                                            </Grid>
-                                            <Grid item spacing={1} md={6}> 
-                                                <TextField fullWidth name='savings_needed' label="Amount to Save" defaultValue={plan.savings_needed}/>
-                                            </Grid>
+                            </TableHead>
+                            <TableBody>
+                                {/* {expenses.map((expense, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell>{expense.name}</TableCell>
+                                        <TableCell>{`${expense.startDate}`}</TableCell>
+                                        <TableCell>{`${expense.endDate}`}</TableCell>
+                                        <TableCell>{`${expense.monthsToSave}`}</TableCell>
+                                        <TableCell>{`$${expense.amount}`}</TableCell>
+                                        <TableCell>
+                                            <EditDialog budget_id={budgetId.budgetId} id={plan.id}  action='UPDATE_FUTURE_PLAN'>
+                                            <Grid container spacing={3} alignItems={'center'} justifyContent={'center'}>
+                                                <Grid item spacing={1} md={6}>
+                                                    <TextField fullWidth name='name' label="Name of Plan" defaultValue={plan.name}/>
+                                                </Grid>
+                                                <Grid item spacing={1} md={6}> 
+                                                    <TextField fullWidth name='savings_needed' label="Amount to Save" defaultValue={plan.savings_needed}/>
+                                                </Grid>
 
-                                            <Grid item spacing={1} md={6}>
-                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                    <DemoContainer sx={{mt:'5px'}} components={['DatePicker']}>
-                                                        <DatePicker 
-                                                            name='start_date'
-                                                            label='Save from'
-                                                            defaultValue={dayjs(plan.start_date)}
-                                                            slotProps={{
-                                                                textField: {
-                                                                required: true,
-                                                            },
-                                                            }}
-                                                        />
-                                                    </DemoContainer>
-                                                </LocalizationProvider>
+                                                <Grid item spacing={1} md={6}>
+                                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                        <DemoContainer sx={{mt:'5px'}} components={['DatePicker']}>
+                                                            <DatePicker 
+                                                                name='start_date'
+                                                                label='Save from'
+                                                                defaultValue={dayjs(plan.start_date)}
+                                                                slotProps={{
+                                                                    textField: {
+                                                                    required: true,
+                                                                },
+                                                                }}
+                                                            />
+                                                        </DemoContainer>
+                                                    </LocalizationProvider>
+                                                </Grid>
+                                                <Grid item spacing={1} md={6}>
+                                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                        <DemoContainer sx={{mt:'5px'}} components={['DatePicker']}>
+                                                            <DatePicker 
+                                                                name='end_date'
+                                                                label='To'
+                                                                defaultValue={dayjs(plan.end_date)}
+                                                                slotProps={{
+                                                                    textField: {
+                                                                    required: true,
+                                                                },
+                                                                }}
+                                                            />
+                                                        </DemoContainer>
+                                                    </LocalizationProvider>
+                                                </Grid>
                                             </Grid>
-                                            <Grid item spacing={1} md={6}>
-                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                    <DemoContainer sx={{mt:'5px'}} components={['DatePicker']}>
-                                                        <DatePicker 
-                                                            name='end_date'
-                                                            label='To'
-                                                            defaultValue={dayjs(plan.end_date)}
-                                                            slotProps={{
-                                                                textField: {
-                                                                required: true,
-                                                            },
-                                                            }}
-                                                        />
-                                                    </DemoContainer>
-                                                </LocalizationProvider>
+                                            </EditDialog>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Button onClick={() => handleDeleteExpense(index)} variant="contained" color="secondary">Delete</Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))} */}
+                                {futurePlans?.map((plan, index) => (
+                                    <TableRow key={plan.id}>
+                                        <TableCell>{plan.name}</TableCell>
+                                        <TableCell>{`${moment(plan.start_date).format('MM-DD-YYYY')}`}</TableCell>
+                                        <TableCell>{`${moment(plan.end_date).format('MM-DD-YYYY')}`}</TableCell>
+                                        <TableCell>{`${moment(plan.end_date).diff(moment(plan.start_date), 'months')}`}</TableCell>
+                                        <TableCell>{`$${plan.savings_needed}`}</TableCell>
+                                        <TableCell>
+                                            <EditDialog budget_id={budgetId.budgetId} id={plan.id}  action='UPDATE_FUTURE_PLAN'>
+                                            <Grid container spacing={3} alignItems={'center'} justifyContent={'center'}>
+                                                <Grid item spacing={1} md={6}>
+                                                    <TextField fullWidth name='name' label="Name of Plan" defaultValue={plan.name}/>
+                                                </Grid>
+                                                <Grid item spacing={1} md={6}> 
+                                                    <TextField fullWidth name='savings_needed' label="Amount to Save" defaultValue={plan.savings_needed}/>
+                                                </Grid>
+
+                                                <Grid item spacing={1} md={6}>
+                                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                        <DemoContainer sx={{mt:'5px'}} components={['DatePicker']}>
+                                                            <DatePicker 
+                                                                name='start_date'
+                                                                label='Save from'
+                                                                defaultValue={dayjs(plan.start_date)}
+                                                                slotProps={{
+                                                                    textField: {
+                                                                    required: true,
+                                                                },
+                                                                }}
+                                                            />
+                                                        </DemoContainer>
+                                                    </LocalizationProvider>
+                                                </Grid>
+                                                <Grid item spacing={1} md={6}>
+                                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                        <DemoContainer sx={{mt:'5px'}} components={['DatePicker']}>
+                                                            <DatePicker 
+                                                                name='end_date'
+                                                                label='To'
+                                                                defaultValue={dayjs(plan.end_date)}
+                                                                slotProps={{
+                                                                    textField: {
+                                                                    required: true,
+                                                                },
+                                                                }}
+                                                            />
+                                                        </DemoContainer>
+                                                    </LocalizationProvider>
+                                                </Grid>
                                             </Grid>
-                                        </Grid>
-                                        </EditDialog>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Button onClick={() => handleDeleteFromDB(plan.id)} variant="contained" color="secondary">Delete</Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                                            </EditDialog>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Button onClick={() => handleDeleteFromDB(plan.id)} variant="contained" color="secondary">Delete</Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                     <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={30} budgetId={budgetId} />
                 </Paper>
             </Container>

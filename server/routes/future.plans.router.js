@@ -8,6 +8,18 @@ const router = express.Router();
  * Get route to all future plans data from "future_plans" table
  */
 
+router.get('/:budget_id',rejectUnauthenticated,(req,res)=>{
+    console.log(req.body);
+    const sql = `select * from "future_plans" where "budget_id" = ${req.params.budget_id}`;
+    pool.query(sql).then((result)=>{
+        res.send(result.rows)
+    }).catch((error)=>{
+        console.error(error);
+        res.sendStatus(500);
+    })
+
+})
+
 
 /**
  * POST route to insert data into the "future_plans" table

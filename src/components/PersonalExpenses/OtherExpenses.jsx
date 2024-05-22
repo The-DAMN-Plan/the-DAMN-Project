@@ -42,13 +42,13 @@ function OtherExpenses() {
         dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
     };
 
-    const handleDeleteExpense = (index) => {
-        const newExpenses = expenses.filter((_, i) => i !== index);
-        setExpenses(newExpenses);
+    // const handleDeleteExpense = (index) => {
+    //     const newExpenses = expenses.filter((_, i) => i !== index);
+    //     setExpenses(newExpenses);
 
-        const newUserEntry = userEntry.filter((_, i) => i !== index);
-        setUserEntry(newUserEntry);
-    };
+    //     const newUserEntry = userEntry.filter((_, i) => i !== index);
+    //     setUserEntry(newUserEntry);
+    // };
 
     const handleDeleteFromDB = (expenseId) => {
         const budgetObjId = budgetId.budgetId;
