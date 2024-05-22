@@ -3,6 +3,12 @@ const pool = require('../modules/pool');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const router = express.Router();
 
+
+/**
+ * Get route to all future plans data from "future_plans" table
+ */
+
+
 /**
  * POST route to insert data into the "future_plans" table
  */

@@ -57,13 +57,13 @@ function FuturePlans() {
     };
 
     // Deletes an future plan from the ta ble before it's added to the DB
-    const handleDeleteExpense = (index) => {
-        const newExpenses = expenses.filter((_, i) => i !== index);
-        setExpenses(newExpenses);
+    // const handleDeleteExpense = (index) => {
+    //     const newExpenses = expenses.filter((_, i) => i !== index);
+    //     setExpenses(newExpenses);
 
-        const newUserEntry = userEntry.filter((_, i) => i !== index);
-        setUserEntry(newUserEntry);
-    };
+    //     const newUserEntry = userEntry.filter((_, i) => i !== index);
+    //     setUserEntry(newUserEntry);
+    // };
 
     // Deletes a future plan that's already been added to the DB
     const handleDeleteFromDB = (futurePlanId) => {
@@ -86,16 +86,24 @@ function FuturePlans() {
                     <Typography variant="body1" gutterBottom textAlign={'center'}>
                         Your future plans can be the kickass motivation you need to work your DAMN Plan!
                     </Typography>
-                    <Grid container justifyContent={'center'}>
-                        <Grid display={'flex'} alignItems={'center'}>
-                            <TextField label="Name of Plan" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
-                            <DatePicker value={startDate} onChange={(newValue) => setStartDate(newValue)} />
-                            <DatePicker value={endDate} onChange={(newValue) => setEndDate(newValue)} />
-                            <TextField label="Amount to Save" value={amount} onChange={(e) => setAmount(e.target.value)} />
-                            <Button variant='contained' onClick={handleAddExpense}>Add Plan</Button>
-                        </Grid>
+                    <Grid container spacing={1} alignItems={'center'} justifyContent={'center'} sx={{ mt: 3}}>
+                            <Grid item md={3} lg={2}> 
+                                <TextField label="Name of Plan" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
+                            </Grid>
+                            <Grid item  md={3} lg={2}> 
+                                <TextField label="Amount to Save" value={amount} onChange={(e) => setAmount(e.target.value)} />
+                            </Grid>
+                            <Grid item  md={3} lg={2}> 
+                                <DatePicker label='Save from' value={startDate} onChange={(newValue) => setStartDate(newValue)} />
+                            </Grid>
+                            <Grid item md={3} lg={2}> 
+                                <DatePicker label='To' value={endDate} onChange={(newValue) => setEndDate(newValue)} /> 
+                            </Grid>
+                            <Grid item spacing={1} md={12} lg={2}> 
+                                <Button variant='contained' onClick={handleAddExpense}>Add Plan</Button>
+                            </Grid>
                     </Grid>
-                    <Table>
+                    <Table sx={{ mt: 5, mb: 8 }}>
                         <TableHead>
                             <TableRow>
                                 <TableCell>Name of Plan</TableCell>
@@ -108,7 +116,7 @@ function FuturePlans() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {expenses.map((expense, index) => (
+                            {/* {expenses.map((expense, index) => (
                                 <TableRow key={index}>
                                     <TableCell>{expense.name}</TableCell>
                                     <TableCell>{`${expense.startDate}`}</TableCell>
@@ -116,10 +124,55 @@ function FuturePlans() {
                                     <TableCell>{`${expense.monthsToSave}`}</TableCell>
                                     <TableCell>{`$${expense.amount}`}</TableCell>
                                     <TableCell>
-                                        <Button onClick={() => handleDeleteExpense(index)}>Delete</Button>
+                                        <EditDialog budget_id={budgetId.budgetId} id={plan.id}  action='UPDATE_FUTURE_PLAN'>
+                                        <Grid container spacing={3} alignItems={'center'} justifyContent={'center'}>
+                                            <Grid item spacing={1} md={6}>
+                                                <TextField fullWidth name='name' label="Name of Plan" defaultValue={plan.name}/>
+                                            </Grid>
+                                            <Grid item spacing={1} md={6}> 
+                                                <TextField fullWidth name='savings_needed' label="Amount to Save" defaultValue={plan.savings_needed}/>
+                                            </Grid>
+
+                                            <Grid item spacing={1} md={6}>
+                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                    <DemoContainer sx={{mt:'5px'}} components={['DatePicker']}>
+                                                        <DatePicker 
+                                                            name='start_date'
+                                                            label='Save from'
+                                                            defaultValue={dayjs(plan.start_date)}
+                                                            slotProps={{
+                                                                textField: {
+                                                                required: true,
+                                                            },
+                                                            }}
+                                                        />
+                                                    </DemoContainer>
+                                                </LocalizationProvider>
+                                            </Grid>
+                                            <Grid item spacing={1} md={6}>
+                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                    <DemoContainer sx={{mt:'5px'}} components={['DatePicker']}>
+                                                        <DatePicker 
+                                                            name='end_date'
+                                                            label='To'
+                                                            defaultValue={dayjs(plan.end_date)}
+                                                            slotProps={{
+                                                                textField: {
+                                                                required: true,
+                                                            },
+                                                            }}
+                                                        />
+                                                    </DemoContainer>
+                                                </LocalizationProvider>
+                                            </Grid>
+                                        </Grid>
+                                        </EditDialog>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Button onClick={() => handleDeleteExpense(index)} variant="contained" color="secondary">Delete</Button>
                                     </TableCell>
                                 </TableRow>
-                            ))}
+                            ))} */}
                             {futurePlans?.map((plan, index) => (
                                 <TableRow key={plan.id}>
                                     <TableCell>{plan.name}</TableCell>
@@ -173,7 +226,7 @@ function FuturePlans() {
                                         </EditDialog>
                                     </TableCell>
                                     <TableCell>
-                                        <Button onClick={() => handleDeleteFromDB(plan.id)}>Delete</Button>
+                                        <Button onClick={() => handleDeleteFromDB(plan.id)} variant="contained" color="secondary">Delete</Button>
                                     </TableCell>
                                 </TableRow>
                             ))}
