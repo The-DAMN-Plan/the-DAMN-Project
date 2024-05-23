@@ -38,12 +38,14 @@ export default function BreakEven() {
     }
 
     let grossProfit = projectedSales - totalCostOfDelivery;
-    console.log('escrow savings', budget[0].escrow_savings);
-    console.log('gross profit',grossProfit *  parseInt(budget[0].escrow_savings)/100);
-    totalOperatingCost += budget[0].valuepay * 12 + grossProfit * parseInt(budget[0].escrow_savings)/100;
+    const valuePay = budget[0].valuepay === null ? 0: budget[0].valuepay;
+    const escrowSavings = budget[0].escrow_savings === null? 0.0 : budget[0].escrow_savings;
+    console.log('escrow savings', escrowSavings);
+    console.log('gross profit',grossProfit *  parseInt(escrowSavings)/100);
+    totalOperatingCost += valuePay * 12 + grossProfit * parseInt(escrowSavings)/100;
     let netBeforeTax = grossProfit - totalOperatingCost;
-    console.log(budget[0].valuepay * 12);
-    console.log('total operating cost:', totalOperatingCost, budget[0].valuepay, budget[0].valuepay * 12.00);
+    console.log('value pay',budget[0].valuepay);
+    console.log('total operating cost:', totalOperatingCost, budget[0].valuepay === null ? 0: budget[0].valuepay, budget[0].valuepay * 12.00);
     console.log('net before tax:', netBeforeTax);
     console.log(budget);
     breakEven = totalOperatingCost / (1-budget[0].y1_cogs/100);
