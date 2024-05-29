@@ -8,6 +8,7 @@ import Footer from '../Footer/Footer';
 import Currency from '../Shared/Currency';
 import Grid from '@mui/material/Unstable_Grid2';
 import EditDialog from '../BusinessExpense/EditDialog';
+import NoData from '../Shared/NoData';
 
 
 function OtherExpenses() {
@@ -56,6 +57,7 @@ function OtherExpenses() {
     };
 
     const filteredExpenses = expense.filter(item => item.type === 'personal other');
+        
 
     return (
         <Main open={open}>
@@ -85,7 +87,7 @@ function OtherExpenses() {
                                 <TableCell>Delete</TableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        {filteredExpenses.length === 0 ? <NoData colSpan={4} /> :<TableBody>
                             {filteredExpenses?.map((expense) => (
                                 <TableRow key={expense.id}>
                                     <TableCell>{expense.expense_name}</TableCell>
@@ -110,7 +112,7 @@ function OtherExpenses() {
 
                                 </TableRow>
                             ))}
-                        </TableBody>
+                        </TableBody>}
                     </Table>
                     <ProgressBar back={'futureplans'} next={'valuepay'} value={36} budgetId={budgetId} />
                 </Paper>
