@@ -39,7 +39,7 @@ function OtherExpenses() {
             expense_amount: sanitizedAmount
         }];
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: formData });
-        dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
+        // dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
     };
 
     // const handleDeleteExpense = (index) => {
