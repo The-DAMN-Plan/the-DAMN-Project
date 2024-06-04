@@ -199,7 +199,7 @@ router.get('/expenses/:budgetId', async (req, res) => {
 // Creates all expenses given to it
 router.post('/expense', async (req, res) => {
   // POST route code here
-  console.log('running');
+  console.log('running', req.body);
   const sql = `insert into "expenses" ("budget_id","type","expense_name","expense_amount","percent_change",
   "frequency","timing","facilitator","vendor","cost_per_use","assets_needed","service")
   values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) returning *;`

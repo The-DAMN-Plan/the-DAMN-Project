@@ -40,16 +40,16 @@ function OtherExpenses() {
             expense_amount: sanitizedAmount
         }];
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: formData });
-        dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
+        // dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
     };
 
-    const handleDeleteExpense = (index) => {
-        const newExpenses = expenses.filter((_, i) => i !== index);
-        setExpenses(newExpenses);
+    // const handleDeleteExpense = (index) => {
+    //     const newExpenses = expenses.filter((_, i) => i !== index);
+    //     setExpenses(newExpenses);
 
-        const newUserEntry = userEntry.filter((_, i) => i !== index);
-        setUserEntry(newUserEntry);
-    };
+    //     const newUserEntry = userEntry.filter((_, i) => i !== index);
+    //     setUserEntry(newUserEntry);
+    // };
 
     const handleDeleteFromDB = (expenseId) => {
         const budgetObjId = budgetId.budgetId;
@@ -70,13 +70,17 @@ function OtherExpenses() {
                     <Typography variant="body1" gutterBottom textAlign={'center'} sx={{ mb: 3 }}>
                         If you have items on your budget that have not been mentioned, enter any additional items here.
                     </Typography>
-                    <Grid container justifyContent={'center'}>
-                        <Grid display={'flex'} alignItems={'center'}>
-                            <TextField label="Name of Expense" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
+                        <Grid spacing={2} container alignItems="center" justifyContent={'center'} sx={{ mt: 5}}>
+                            <Grid>
+                            <TextField label="Name of Expense" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />                            </Grid>
+                            <Grid>
                             <TextField label="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
+                            </Grid>
+                            <Grid>
                             <Button variant='contained' onClick={handleAddExpense}>Submit</Button>
+                            </Grid>
+                                
                         </Grid>
-                    </Grid>
 
                     <Table>
                         <TableHead>
@@ -107,7 +111,7 @@ function OtherExpenses() {
                                         </EditDialog>                                    
                                     </TableCell>
                                     <TableCell>
-                                        <Button onClick={() => handleDeleteFromDB(expense.id)}>Delete</Button>
+                                        <Button onClick={() => handleDeleteFromDB(expense.id)} variant="contained" color="secondary">Delete</Button>
                                     </TableCell>
 
                                 </TableRow>
