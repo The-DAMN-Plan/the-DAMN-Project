@@ -8,6 +8,7 @@ import Footer from '../Footer/Footer';
 import Currency from '../Shared/Currency';
 import Grid from '@mui/material/Unstable_Grid2';
 import EditDialog from '../BusinessExpense/EditDialog';
+import NoData from '../Shared/NoData';
 
 
 function OtherExpenses() {
@@ -39,16 +40,16 @@ function OtherExpenses() {
             expense_amount: sanitizedAmount
         }];
         dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: formData });
-        dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
+        // dispatch({ type: 'BUDGET_PLAN', payload: budgetId.budgetId });
     };
 
-    const handleDeleteExpense = (index) => {
-        const newExpenses = expenses.filter((_, i) => i !== index);
-        setExpenses(newExpenses);
+    // const handleDeleteExpense = (index) => {
+    //     const newExpenses = expenses.filter((_, i) => i !== index);
+    //     setExpenses(newExpenses);
 
-        const newUserEntry = userEntry.filter((_, i) => i !== index);
-        setUserEntry(newUserEntry);
-    };
+    //     const newUserEntry = userEntry.filter((_, i) => i !== index);
+    //     setUserEntry(newUserEntry);
+    // };
 
     const handleDeleteFromDB = (expenseId) => {
         const budgetObjId = budgetId.budgetId;
@@ -56,6 +57,7 @@ function OtherExpenses() {
     };
 
     const filteredExpenses = expense.filter(item => item.type === 'personal other');
+        
 
     return (
         <Main open={open}>
@@ -68,13 +70,17 @@ function OtherExpenses() {
                     <Typography variant="body1" gutterBottom textAlign={'center'} sx={{ mb: 3 }}>
                         If you have items on your budget that have not been mentioned, enter any additional items here.
                     </Typography>
-                    <Grid container justifyContent={'center'}>
-                        <Grid display={'flex'} alignItems={'center'}>
-                            <TextField label="Name of Expense" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />
+                        <Grid spacing={2} container alignItems="center" justifyContent={'center'} sx={{ mt: 5}}>
+                            <Grid>
+                            <TextField label="Name of Expense" value={expenseName} onChange={(e) => setExpenseName(e.target.value)} />                            </Grid>
+                            <Grid>
                             <TextField label="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
+                            </Grid>
+                            <Grid>
                             <Button variant='contained' onClick={handleAddExpense}>Submit</Button>
+                            </Grid>
+                                
                         </Grid>
-                    </Grid>
 
                     <Table>
                         <TableHead>
@@ -85,7 +91,7 @@ function OtherExpenses() {
                                 <TableCell>Delete</TableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        {filteredExpenses.length === 0 ? <NoData colSpan={4} /> :<TableBody>
                             {filteredExpenses?.map((expense) => (
                                 <TableRow key={expense.id}>
                                     <TableCell>{expense.expense_name}</TableCell>
@@ -105,12 +111,12 @@ function OtherExpenses() {
                                         </EditDialog>                                    
                                     </TableCell>
                                     <TableCell>
-                                        <Button onClick={() => handleDeleteFromDB(expense.id)}>Delete</Button>
+                                        <Button onClick={() => handleDeleteFromDB(expense.id)} variant="contained" color="secondary">Delete</Button>
                                     </TableCell>
 
                                 </TableRow>
                             ))}
-                        </TableBody>
+                        </TableBody>}
                     </Table>
                     <ProgressBar back={'futureplans'} next={'valuepay'} value={36} budgetId={budgetId} />
                 </Paper>

@@ -10,6 +10,7 @@ import Main from '../Main/Main';
 import Currency from '../Shared/Currency';
 import FormControl from '@mui/material/FormControl';
 import EditDialog from '../BusinessExpense/EditDialog';
+import NoData from '../Shared/NoData';
 
 
 function Year1Income() {
@@ -229,7 +230,7 @@ function Year1Income() {
                   <TableCell>Delete</TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
+              {filteredIncomes.length === 0 ? <NoData colSpan={12} /> :<TableBody>
                 {filteredIncomes?.map((income1) => (
                   <TableRow key={income1.id}>
                     <TableCell>{income1.revenue_stream}</TableCell>
@@ -344,7 +345,7 @@ function Year1Income() {
                     </TableCell>
                   </TableRow>
                 ))}
-              </TableBody>
+              </TableBody>}
             </Table>
           </TableContainer>
           <ProgressBar back={'valuepay'} next={'overview'} submit={handleSubmit} value={42} budgetId={budgetId} />

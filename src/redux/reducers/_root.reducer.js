@@ -5,7 +5,7 @@ import business from './business.reducer';
 import budget from './budget.reducer';
 import sideNav from './sideNav.reducer';
 import status from './status.reducer';
-import expense from './expense.ruducer';
+import expense from './expense.reducer';
 import income from './income.reducer';
 import futurePlans from './futurePlan.reducer';
 import finalBudget from './finalBudget.reducer';

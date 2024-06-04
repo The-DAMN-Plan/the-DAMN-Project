@@ -12,6 +12,7 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import EditDialog from './EditDialog';
+import NoData from '../Shared/NoData';
 
 export default function HumanResourcesPage1() {
     const dispatch = useDispatch();
@@ -125,7 +126,7 @@ export default function HumanResourcesPage1() {
                                 <TableCell align="center">Delete</TableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        {filteredExpenses.length === 0 ? <NoData colSpan={11} /> :<TableBody>
                             {filteredExpenses?.map((formValues, index) => (
                                 <TableRow key={index}>
                                     
@@ -181,7 +182,7 @@ export default function HumanResourcesPage1() {
                                     </TableCell>
                                 </TableRow>
                             ))}
-                        </TableBody>
+                        </TableBody>}
                     </Table>
                     <ProgressBar back={'marketingy1'} next={'otherbusiness'} value={84} budgetId={budgetId} />
                 </Paper>

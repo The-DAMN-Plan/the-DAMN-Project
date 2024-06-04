@@ -11,7 +11,7 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
 import EditDialog from './EditDialog';
-
+import NoData from '../Shared/NoData';
 
 
 
@@ -240,7 +240,7 @@ function MarketingBudgetYear1() {
                                     <TableCell align="right">Delete</TableCell>
                                 </TableRow>
                             </TableHead>
-                            <TableBody>
+                            {filteredExpenses.length === 0 ? <NoData colSpan={11} /> :<TableBody>
                                 {filteredExpenses?.map((expense) => (
                                     <TableRow key={expense.id}>
                                         <TableCell>{expense.expense_name}</TableCell>
@@ -331,7 +331,7 @@ function MarketingBudgetYear1() {
                                         </TableCell>
                                     </TableRow>
                                 ))}
-                            </TableBody>
+                            </TableBody>}
                         </Table>
                     </TableContainer>
 
