@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import moment from 'moment';
 import EditDialog from '../BusinessExpense/EditDialog';
 import dayjs from "dayjs";
-
+import NoData from '../Shared/NoData';
 
 
 function FuturePlans() {
@@ -116,64 +116,9 @@ function FuturePlans() {
                                     <TableCell>Delete</TableCell>
                                 </TableRow>
                             </TableHead>
-                            <TableBody>
-                                {/* {expenses.map((expense, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell>{expense.name}</TableCell>
-                                        <TableCell>{`${expense.startDate}`}</TableCell>
-                                        <TableCell>{`${expense.endDate}`}</TableCell>
-                                        <TableCell>{`${expense.monthsToSave}`}</TableCell>
-                                        <TableCell>{`$${expense.amount}`}</TableCell>
-                                        <TableCell>
-                                            <EditDialog budget_id={budgetId.budgetId} id={plan.id}  action='UPDATE_FUTURE_PLAN'>
-                                            <Grid container spacing={3} alignItems={'center'} justifyContent={'center'}>
-                                                <Grid item spacing={1} md={6}>
-                                                    <TextField fullWidth name='name' label="Name of Plan" defaultValue={plan.name}/>
-                                                </Grid>
-                                                <Grid item spacing={1} md={6}> 
-                                                    <TextField fullWidth name='savings_needed' label="Amount to Save" defaultValue={plan.savings_needed}/>
-                                                </Grid>
-
-                                                <Grid item spacing={1} md={6}>
-                                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                        <DemoContainer sx={{mt:'5px'}} components={['DatePicker']}>
-                                                            <DatePicker 
-                                                                name='start_date'
-                                                                label='Save from'
-                                                                defaultValue={dayjs(plan.start_date)}
-                                                                slotProps={{
-                                                                    textField: {
-                                                                    required: true,
-                                                                },
-                                                                }}
-                                                            />
-                                                        </DemoContainer>
-                                                    </LocalizationProvider>
-                                                </Grid>
-                                                <Grid item spacing={1} md={6}>
-                                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                        <DemoContainer sx={{mt:'5px'}} components={['DatePicker']}>
-                                                            <DatePicker 
-                                                                name='end_date'
-                                                                label='To'
-                                                                defaultValue={dayjs(plan.end_date)}
-                                                                slotProps={{
-                                                                    textField: {
-                                                                    required: true,
-                                                                },
-                                                                }}
-                                                            />
-                                                        </DemoContainer>
-                                                    </LocalizationProvider>
-                                                </Grid>
-                                            </Grid>
-                                            </EditDialog>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Button onClick={() => handleDeleteExpense(index)} variant="contained" color="secondary">Delete</Button>
-                                        </TableCell>
-                                    </TableRow>
-                                ))} */}
+                            
+                            {futurePlans.length === 0 ? <NoData colSpan={7} /> :<TableBody>
+                                
                                 {futurePlans?.map((plan, index) => (
                                     <TableRow key={plan.id}>
                                         <TableCell>{plan.name}</TableCell>
@@ -231,7 +176,7 @@ function FuturePlans() {
                                         </TableCell>
                                     </TableRow>
                                 ))}
-                            </TableBody>
+                            </TableBody>}
                         </Table>
                     </TableContainer>
                     <ProgressBar next={'otherexpenses'} back={'variableexpenses'} value={30} budgetId={budgetId} />

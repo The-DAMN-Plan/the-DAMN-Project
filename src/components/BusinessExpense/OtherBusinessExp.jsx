@@ -8,6 +8,7 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Grid from '@mui/material/Unstable_Grid2';
 import EditDialog from './EditDialog';
+import NoData from '../Shared/NoData';
 
 
 function OtherBusinessExp() {
@@ -86,7 +87,7 @@ function OtherBusinessExp() {
                                 <TableCell align='center'>Delete</TableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        {filteredExpenses.length === 0 ? <NoData colSpan={4} /> :<TableBody>
                             {filteredExpenses?.map((expense) => (
                                 <TableRow key={expense.id}>
                                     <TableCell align='left' >{expense.expense_name}</TableCell>
@@ -110,7 +111,7 @@ function OtherBusinessExp() {
                                     </TableCell>
                                 </TableRow>
                             ))}
-                        </TableBody>
+                        </TableBody>}
                     </Table>
                     <ProgressBar back={'hrpagey1'} next={'breakeven'} value={95} budgetId={budgetId} />
                 </Paper>
