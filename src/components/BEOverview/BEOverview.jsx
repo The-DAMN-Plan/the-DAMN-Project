@@ -249,7 +249,7 @@ export default function BEOverview(props) {
         <Box textAlign={'center'}>
           <Button variant='contained' onClick={handleSubmit}>Save</Button>
         </Box>
-        <ProgressBar back={'incomeyear2'} next={'businessexpensepage1'} value={54} budgetId={budgetId} />
+        <ProgressBar back={'incomeyear1'} next={'businessexpensepage1'} value={54} budgetId={budgetId} />
       </Container >
       <Footer />
     </Main>
