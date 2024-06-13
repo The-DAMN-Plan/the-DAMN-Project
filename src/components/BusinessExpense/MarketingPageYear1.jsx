@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
     TextField, Button, Container, Table, TableBody, TableCell, TableHead, TableRow,
-    Typography, Box, FormControl, InputLabel, Select, MenuItem, Grid, Paper, TableContainer
+    Typography, Box, FormControl, InputLabel, Select, MenuItem, Grid, Paper, TableContainer, Stack, Chip, FormHelperText
 } from '@mui/material';
 // import Grid from '@mui/material/Unstable_Grid2';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,9 +11,13 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
 import EditDialog from './EditDialog';
-
-
-
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormLabel from '@mui/material/FormLabel';
+import Divider from '@mui/material/Divider';
 
 function MarketingBudgetYear1() {
     const dispatch = useDispatch();
@@ -60,41 +64,41 @@ function MarketingBudgetYear1() {
 
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
 
-        if (!expenseName || !costPerUse || !vendor) return; // Validate input
-        const budgetIdObj = budgetId.budgetId;
-        const expenseNumber = Number(costPerUse * monthlyUsageCount * 12).toFixed(2);
-        const newCostPerUse = Number(parseFloat(costPerUse).toFixed(2));
+    //     if (!expenseName || !costPerUse || !vendor) return; // Validate input
+    //     const budgetIdObj = budgetId.budgetId;
+    //     const expenseNumber = Number(costPerUse * monthlyUsageCount * 12).toFixed(2);
+    //     const newCostPerUse = Number(parseFloat(costPerUse).toFixed(2));
 
-        const formData = {
-            expense_name: expenseName,
-            facilitator: serviceProvider,
-            timing: paymentInterval,
-            assets_needed: assetsNeeded,
-            cost_per_use: newCostPerUse,
-            vendor: vendor,
-            frequency: monthlyUsageCount,
-            year: 1,
-            budget_id: budgetIdObj,
-            expense_amount: expenseNumber,
-            type: 'business marketing'
-        };
+    //     const formData = {
+    //         expense_name: expenseName,
+    //         facilitator: serviceProvider,
+    //         timing: paymentInterval,
+    //         assets_needed: assetsNeeded,
+    //         cost_per_use: newCostPerUse,
+    //         vendor: vendor,
+    //         frequency: monthlyUsageCount,
+    //         year: 1,
+    //         budget_id: budgetIdObj,
+    //         expense_amount: expenseNumber,
+    //         type: 'business marketing'
+    //     };
 
-        console.log(formData);
-        setuserEntry([formData]);
-        console.log([formData]);
-        dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: [formData] });
-        const updateObj = {
-            completed: true,
-            budget_id: Number(budgetId.budgetId),
-            step: 'marketingy1'
-        }
+    //     console.log(formData);
+    //     setuserEntry([formData]);
+    //     console.log([formData]);
+    //     dispatch({ type: 'ADD_PERSONAL_EXPENSE', payload: [formData] });
+    //     const updateObj = {
+    //         completed: true,
+    //         budget_id: Number(budgetId.budgetId),
+    //         step: 'marketingy1'
+    //     }
 
-        dispatch({ type: 'UPDATE_STATUS', payload: updateObj })
-        setuserEntry([]);
-    };
+    //     dispatch({ type: 'UPDATE_STATUS', payload: updateObj })
+    //     setuserEntry([]);
+    // };
 
     const handleDeleteExpense = (id) => {
 
@@ -102,6 +106,52 @@ function MarketingBudgetYear1() {
         setuserEntry(newUserEntry);
 
     };
+    // ===== new stuff =======
+    const [serviceChoice,setServiceChoice] = useState('');
+
+    function handleServiceChoice(event){
+        event.preventDefault();
+        setServiceChoice(event.target.textContent)
+        setSelectServiceError('');
+        console.log(serviceChoice);
+        // console.log(event.target.textContent);
+    }
+
+    // list of services to prompt the user
+    const [services, setServices] = useState(['Website',
+    "Business Card",
+    "Flyers",
+    "Other"])
+    //new service
+    const [newService, setNewService] = useState('');
+
+    // adds a service in the list of services
+    // they will be displayed on screen in MUI Chip component
+    function handleAddService(event) {
+        event.preventDefault();
+        const newServiceList = services.slice(0,services.length-1);
+        newServiceList.push(newService);
+        newServiceList.push(services[services.length-1]);
+        setServices(newServiceList);
+        setServiceChoice(newService);
+        setNewService('');
+
+    }
+
+    const [frequency, setFrequency] = useState('Monthly');
+    const [selectServiceError, setSelectServiceError] = useState('');
+    function handleSubmit(event) {
+        event.preventDefault();
+        if (serviceChoice === ''){
+            setSelectServiceError('Choose Service please, or select Others to add a new one');
+        }
+        
+    }
+
+    const [selectedMonths, setSelectedMonths] = useState([]); 
+    const error = selectedMonths.filter((month) => month).length < 1;
+
+    // ===== end of new stuff =======
 
     const resetForm = () => {
         // Reset form fields after adding a new expense
@@ -130,6 +180,7 @@ function MarketingBudgetYear1() {
 
 
 
+
     const filteredExpenses = expense.filter(item => item.type === 'business marketing');
 
     return (
@@ -149,81 +200,144 @@ function MarketingBudgetYear1() {
                     <Typography variant="body1" marginTop={'24px'} textAlign={'center'} marginBottom={'24px'} >
                     Note, do not enter employee costs or contractor fees on this page.
                     </Typography>
+                    {/* <FormControl
+                        required
+                        error={error}
+                        component="fieldset"
+                        sx={{ m: 3 }}
+                        variant="standard"
+                    > */}
 
-                    <Grid container spacing={2} alignItems="center" justifyContent={'center'} sx={{ mt: 3, mb: 3}}>
-                        <Grid item xs={12} md={4}>
+                    <FormControl onSubmit={(event)=>handleSubmit(event)}>  
+                        {/* <Typography variant="h5" marginTop={'24px'} textAlign={'left'} marginBottom={'24px'} >
+                        Choose a Service
+                        </Typography> */}
+
+                        <FormLabel>Choose a Service</FormLabel>
+                        
+                        {/* <Stack direction="row" spacing={1}>
+                            <Chip sx={{backgroundColor: `${serviceChoice === 'Website'? 'red' : 'default'}`}}label="Website" onClick={handleServiceChoice}/>
+                            <Chip label="Business Card" clickable onClick={handleServiceChoice}/>
+                            <Chip label="Flyers" clickable onClick={handleServiceChoice}/>
+                            <Chip label="Other" clickable onClick={handleServiceChoice}/>
+                        </Stack> */}
+                        
+                        <Stack direction="row" spacing={1}>
+                            {services.map((service,i)=>
+                                <Chip key={i} label={service} sx={{backgroundColor: `${serviceChoice === service? 'red' : 'default'}`}} onClick={handleServiceChoice} />
+                            )}
+                        </Stack>
+                        
+                        {/* <Typography variant="body1" marginTop={'24px'} textAlign={'center'} marginBottom={'24px'} >
+                           {selectServiceError}
+                        </Typography> */}
+                        
+                        {/* <FormHelperText>{selectServiceError}</FormHelperText> */}
+                        
+                        {serviceChoice !== 'Other' && 
+                            <Box>
+                                <TextField
+                                sx={{ m: 1, width: 300}}
+                                name="name_of_service"
+                                label="Name of a Service"
+                                disabled
+                                required
+                                />
+                                <Button disabled>Add Service</Button>
+                            </Box>
+                        }
+
+                        {serviceChoice === 'Other' && 
+                            <form onSubmit={(event)=>handleAddService(event)}>
+                                <TextField
+                                sx={{ m: 1, width: 300}}
+                                name="name_of_service"
+                                label="Name of a Service"
+                                value={newService}
+                                onChange={(event)=>{setNewService(event.target.value)}}
+                                required
+                                />
+                                <Button type='submit'>Add Service</Button>
+                            </form>
+                            
+        
+                        }
+                        <Divider />
+                        <Box>
                             <TextField
-                                name="expenseName"
-                                label="Service/ Item"
-                                value={expenseName}
-                                onChange={(e) => setExpenseName(e.target.value)}
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={12} md={4}>
-                            <TextField
-                                name="serviceProvider"
-                                label="Service Provider"
-                                value={serviceProvider}
-                                onChange={(e) => setServiceProvider(e.target.value)}
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={12} md={4}>
-                            <TextField
-                                name="costPerUse"
-                                label="Cost Per Use"
-                                value={costPerUse}
-                                onChange={(e) => setCostPerUse(e.target.value)}
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={12} md={4}>
-                            <TextField
-                                name="assetsNeeded"
-                                label="Assets Needed"
-                                value={assetsNeeded}
-                                onChange={(e) => setAssetsNeeded(e.target.value)}
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={12} md={4}>
-                            <TextField
-                                name="monthlyUsageCount"
-                                label="Monthly Usage Count"
-                                value={monthlyUsageCount}
-                                onChange={(e) => setMonthlyUsageCount(e.target.value)}
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={12} md={4}>
-                            <TextField
-                                name="paymentInterval"
-                                label="Payment Interval"
-                                value={paymentInterval}
-                                onChange={(e) => setPaymentInterval(e.target.value)}
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <FormControl fullWidth>
-                                <InputLabel id="vendor-label">Vendor</InputLabel>
-                                <Select
-                                    labelId="vendor-label"
-                                    value={vendor}
-                                    label="Vendor"
-                                    onChange={(e) => setVendor(e.target.value)}
-                                >
-                                    <MenuItem value="Contractor">Contractor</MenuItem>
-                                    <MenuItem value="In-House">In-House</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Button variant="contained" color="primary" size='large' onClick={handleSubmit}>Submit</Button>
-                        </Grid>
-                    </Grid>
-                        <TableContainer>
+                                sx={{ m: 1, width: 300}}
+                                name="amount"
+                                label="amount"
+                                required
+                                /> 
+                        </Box>
+                        
+
+                        <FormControl sx={{ m: 1, width: 300}}>
+                            <InputLabel>Frequency</InputLabel>
+                            <Select
+                            labelId="demo-multiple-name-label"
+                            id="demo-multiple-name"
+                            value={frequency}
+                            label='Frequency'
+                            onChange={(event)=>{setFrequency(event.target.value)}}
+                            >
+                                <MenuItem value='Monthly'> Monthly</MenuItem>
+                                <MenuItem value='Yearly'>Yearly</MenuItem>
+                            </Select>
+                        </FormControl>
+
+                        {frequency === 'Monthly' &&
+                        <FormGroup>
+                            <FormLabel>Select Months</FormLabel>
+                            <Stack direction="row" spacing={1}>
+                                <FormControlLabel control={<Checkbox  />} label="Jan" />
+                                <FormControlLabel control={<Checkbox />} label="Feb" />
+                                <FormControlLabel control={<Checkbox  />} label="Mar" />
+                                <FormControlLabel control={<Checkbox />} label="April" />
+                                <FormControlLabel control={<Checkbox  />} label="May" />
+                                <FormControlLabel control={<Checkbox />} label="Jun" />
+                            </Stack>
+                            <Stack direction="row" spacing={1}>
+                                <FormControlLabel control={<Checkbox defaultChecked />} label="Jul" />
+                                <FormControlLabel control={<Checkbox />} label="Aug" />
+                                <FormControlLabel control={<Checkbox  />} label="Sep" />
+                                <FormControlLabel control={<Checkbox />} label="Oct" />
+                                <FormControlLabel control={<Checkbox  />} label="Nov" />
+                                <FormControlLabel control={<Checkbox />} label="Dec" />
+                            </Stack>
+                        </FormGroup>}
+
+                        {frequency === 'Yearly' &&
+                        <FormControl sx={{display:'block'}}>
+                            <FormLabel>Select Month</FormLabel>
+                            <RadioGroup
+                                aria-labelledby="demo-row-radio-buttons-group-label"
+                                name="row-radio-buttons-group"
+                            >
+                                <Stack direction="row" spacing={1}>
+                                    <FormControlLabel value="1" control={<Radio />} label="Jan" />
+                                    <FormControlLabel value="2" control={<Radio />} label="Feb" />
+                                    <FormControlLabel value="3" control={<Radio />} label="Mar" />
+                                    <FormControlLabel value="4" control={<Radio />} label="April" />
+                                    <FormControlLabel value="5" control={<Radio />} label="May" />
+                                    <FormControlLabel value="6" control={<Radio />} label="Jun" />
+                                </Stack>
+                                    
+                                <Stack direction="row" spacing={1}>
+                                    <FormControlLabel value="7" control={<Radio />} label="Jul" />
+                                    <FormControlLabel value="8" control={<Radio />} label="Aug" />
+                                    <FormControlLabel value="9" control={<Radio />} label="Sep" />
+                                    <FormControlLabel value="10" control={<Radio />} label="Oct" />
+                                    <FormControlLabel value="11" control={<Radio />} label="Nov" />
+                                    <FormControlLabel value="12" control={<Radio />} label="Dec" />
+                                </Stack>
+                                
+                            </RadioGroup>
+                        </FormControl>}
+                        <Button type='submit'>Submit</Button>
+                    </FormControl>
+                    <TableContainer>
                         <Table sx={{ mt: 5, mb: 8 }}>
                             <TableHead>
                                 <TableRow>
@@ -334,8 +448,6 @@ function MarketingBudgetYear1() {
                             </TableBody>
                         </Table>
                     </TableContainer>
-
-                    
                     <ProgressBar next={'hrpagey1'} back={'businessexpensepage2'} value={72} budgetId={budgetId} />
                 </Paper>
             </Container>
