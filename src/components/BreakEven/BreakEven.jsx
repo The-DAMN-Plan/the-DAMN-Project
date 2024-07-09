@@ -10,7 +10,6 @@ import ProgressBar from '../ProgressBar/ProgressBar'
 import Main from '../Main/Main';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import Currency from '../Shared/Currency';
-import expenseReducer from '../../redux/reducers/expense.ruducer';
 
 
 export default function BreakEven() {
